@@ -1,0 +1,23 @@
+# Secrets & local-only — MUST never enter an image layer (docs/security.md)
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.*
+.npmrc
+human-risk-framework.xlsx
+
+# Build artifacts / VCS / noise (not needed in the image)
+node_modules
+.next
+.git
+.github
+.do
+docs
+tests
+coverage
+*.md
+Dockerfile
+.dockerignore

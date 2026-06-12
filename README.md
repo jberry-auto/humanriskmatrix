@@ -36,13 +36,16 @@ Next.js (TypeScript, App Router) · content-as-code (schema-validated YAML + MDX
 
 ## Quickstart
 
-> Phase 1 application code is not yet implemented. This repo currently holds the specification set that drives implementation. To build, a contributor (or a Claude Code session) follows the docs below.
-
 ```bash
 git clone https://github.com/jberry-auto/humanriskmatrix.git
 cd humanriskmatrix
-# Phase 1 build instructions: docs/dev-plan/phase-1-matrix-theory.md
+npm install
+npm run dev          # → http://localhost:3000
 ```
+
+Scripts: `npm run build` · `npm run start` · `npm run lint` · `npm run typecheck` · `npm run test`.
+
+> Phase 1 is in progress — the M0 scaffold (app shell, CI, container/deploy pipeline) has landed; the Matrix and Theory pages come next. Build details: [docs/dev-plan/phase-1-matrix-theory.md](docs/dev-plan/phase-1-matrix-theory.md).
 
 ## Documentation
 
