@@ -1,0 +1,36 @@
+# Content License — CC BY-NC 4.0
+
+The taxonomy **content** in this directory (matrix columns and techniques, framework
+and theory essays, and the derived data imported from `human-risk-framework.xlsx`) is
+licensed under the **Creative Commons Attribution-NonCommercial 4.0 International
+License (CC BY-NC 4.0)**.
+
+You are free to:
+
+- **Share** — copy and redistribute the material in any medium or format.
+- **Adapt** — remix, transform, and build upon the material.
+
+Under the following terms:
+
+- **Attribution** — You must give appropriate credit to "the Human Risk Matrix project
+  (humanriskmatrix.org)", provide a link to the license, and indicate if changes were
+  made. You may do so in any reasonable manner, but not in any way that suggests the
+  licensor endorses you or your use.
+- **NonCommercial** — You may not use the material for **commercial purposes** without
+  prior written authorization.
+
+No additional restrictions — you may not apply legal terms or technological measures
+that legally restrict others from doing anything the license permits.
+
+Full license text: https://creativecommons.org/licenses/by-nc/4.0/legalcode
+
+**Commercial use** of this content requires a separate license. Contact
+**licensing@humanriskmatrix.org** for authorization.
+
+> The application **source code** in this repository is licensed separately under the
+> PolyForm Noncommercial License 1.0.0 — see the root `LICENSE` file.
+
+Attributed third-party models referenced in the content (e.g., Reason's Swiss Cheese
+model, Hollnagel's ETTO, Rasmussen's drift, Dekker's just culture, Cialdini's principles,
+the MICE and RASCLS frameworks) remain the intellectual contributions of their original
+authors; this project describes and maps them, and credits them in `content/theory/`.

@@ -1,0 +1,116 @@
+# Repository Structure
+
+This is a public, community-maintained monorepo: taxonomy **content**, application **code**, and **docs** live together so a change to the model and a change to the site can travel in one reviewable PR. This document is the map — read it before adding a file so things land in the right place.
+
+## Top-level layout
+
+```
+humanriskmatrix/
+├── README.md                     # Project overview + entry point to docs
+├── CLAUDE.md                     # Rules for Claude Code sessions
+├── CONTRIBUTING.md               # How to contribute (content + code)
+├── CODE_OF_CONDUCT.md
+├── CODEOWNERS                    # Required reviewers per path
+├── LICENSE                       # PolyForm Noncommercial 1.0.0 (code)
+├── .gitignore  .editorconfig
+├── .env.example                  # Documented env vars (no real values) — added with Phase 1 code
+│
+# (human-risk-framework.xlsx)     # LOCAL working seed only — git-ignored, NOT committed
+│
+├── content/                      # Taxonomy content (CC BY-NC 4.0) — see content/LICENSE
+│   ├── LICENSE
+│   ├── matrix/
+│   │   ├── phases.yaml           # The 5 phases (id, name, order, adversary role, awareness)
+│   │   └── columns/
+│   │       ├── 01-accidental-disclosure.yaml
+│   │       ├── 02-hygiene-config-drift.yaml
+│   │       ├── …                 # one file per column, 01..11
+│   │       └── 11-coercion-recruitment.yaml
+│   ├── frameworks/               # Cross-disciplinary model essays (MDX + frontmatter)
+│   │   ├── mice.mdx  rascls.mdx  swiss-cheese.mdx   etto.mdx  …
+│   ├── theory/                   # Long-form foundations (MDX)
+│   │   ├── why-this-taxonomy.mdx
+│   │   ├── framework-structure.mdx
+│   │   ├── substrate.mdx
+│   │   └── insider-categories.mdx
+│   └── insider-categories.yaml   # Insider-threat categories (tabular data)
+│
+├── docs/                         # Specs & guides (this dev-plan set)
+│   ├── repo-structure.md  roadmap.md  style-guide.md
+│   ├── architecture.md  content-model.md
+│   ├── security.md  reliability-sre.md  secrets-management.md
+│   ├── cicd-github-actions.md  deployment-do.md  testing-qa.md
+│   ├── engineering-standards/    # Vendored authoritative code/style rules
+│   │   ├── README.md  coding-standards.md  engineering-principles.md
+│   │   ├── style-guide-typescript.md  style-guide-javascript.md
+│   │   └── style-guide-react-nextjs.md
+│   └── dev-plan/
+│       ├── phase-1-matrix-theory.md     # build-ready
+│       ├── phase-2-threat-modeler.md    # outline
+│       └── phase-3-threat-feed.md       # outline
+│
+├── scripts/
+│   └── import-xlsx.ts            # One-time/repeatable xlsx → content/ importer
+│
+├── src/                          # Application code (added in Phase 1)
+│   ├── config.ts                 # zod-validated env loading
+│   └── lib/                      # PURE business logic — dependencies injected, no infra imports
+│       ├── content/              # schema.ts (zod), load.ts (read+validate)
+│       ├── matrix/               # matrix/phase helpers (pure)
+│       ├── ai/                   # Phase 2: Anthropic client factory + threat-model logic
+│       └── feed/                 # Phase 3: RSS fetch/parse/pipeline (pure core)
+│
+├── app/                          # Next.js App Router (pages, layouts, API routes)
+│   ├── layout.tsx  page.tsx
+│   ├── matrix/page.tsx
+│   ├── theory/page.tsx
+│   ├── threat-modeler/page.tsx   # Phase 2
+│   ├── threat-feed/page.tsx      # Phase 3
+│   └── api/                      # route handlers (Phase 2+)
+│
+├── components/                   # Presentational React components
+│   ├── MatrixGrid.tsx  PhaseLegend.tsx  ColumnCard.tsx  FrameworkCard.tsx  …
+│
+├── tests/  (or *.test.ts alongside source)   # Vitest tests + fixtures
+│
+├── .github/
+│   ├── workflows/                # ci.yml, deploy.yml, feed-refresh.yml
+│   ├── ISSUE_TEMPLATE/
+│   ├── pull_request_template.md
+│   └── dependabot.yml
+│
+├── .do/
+│   └── app.yaml                  # DigitalOcean App Platform spec
+│
+├── Dockerfile  .dockerignore
+├── next.config.ts  tsconfig.json
+├── package.json  package-lock.json
+└── eslint/prettier config
+```
+
+> Files marked "Phase 2/3" or "added in Phase 1" do not exist yet — this repo currently holds only the docs and content scaffolding. The tree above is the target so contributors know where new files go.
+
+## Where does my change go?
+
+| I want to… | Put it in… | Reviewed by |
+|---|---|---|
+| Add/fix a matrix technique or its MITRE ID | `content/matrix/columns/NN-*.yaml` | content-owners |
+| Add/fix a phase definition | `content/matrix/phases.yaml` | content-owners |
+| Write a framework/model essay | `content/frameworks/<slug>.mdx` | content-owners |
+| Write/edit foundational theory prose | `content/theory/<slug>.mdx` | content-owners |
+| Re-import from the spreadsheet | `scripts/import-xlsx.ts` (+ regenerate `content/`) | infra-owners |
+| Add pure business logic | `src/lib/<domain>/` | maintainers |
+| Add a page or route | `app/` | maintainers |
+| Add a UI component | `components/` | maintainers |
+| Change CI/CD, deploy, or container | `.github/`, `.do/`, `Dockerfile` | infra-owners |
+| Update a spec/guide | `docs/` | maintainers |
+
+## Naming conventions
+
+- **Files:** `kebab-case` for source files (`column-card.tsx` or `ColumnCard.tsx` for components — pick one per the style guide and stay consistent), `kebab-case.mdx` for content, `NN-slug.yaml` for ordered matrix columns.
+- **Matrix column files** are zero-padded and ordered: `01-…` through `11-…`, slug derived from the column name.
+- **No default exports** in `src/` or `components/` — named exports only (see `docs/style-guide.md`).
+
+## The layering boundary (enforced by review)
+
+`src/lib/**` is the pure core. It must not import from `app/`, `components/`, the Next.js runtime, the database driver, or any network/file client. Infrastructure (pages, route handlers, DB, Anthropic SDK) depends **inward** on `src/lib`. This keeps the business logic trivially testable and is checked in code review. See `docs/architecture.md`.

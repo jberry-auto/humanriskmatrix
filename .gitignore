@@ -1,0 +1,109 @@
+# ==========================================================================
+#  humanriskmatrix.org — .gitignore
+#  Public repo. Goal: stay open, but never commit secrets, credentials,
+#  local state, or build artifacts that widen the attack surface.
+# ==========================================================================
+
+# ----- Secrets & environment -------------------------------------------------
+# Never commit real env files. Only the documented template is allowed.
+.env
+.env.*
+!.env.example
+*.local
+
+# ----- Credentials, keys & certificates --------------------------------------
+*.pem
+*.key
+*.crt
+*.cer
+*.der
+*.p12
+*.pfx
+*.keystore
+*.jks
+id_rsa*
+id_ed25519*
+*.ppk
+secrets.*
+*.secrets
+.netrc
+.npmrc            # can contain registry auth tokens
+.pypirc
+
+# ----- Cloud / infra credentials & state -------------------------------------
+.aws/
+.azure/
+gha-creds-*.json
+gcp-*.json
+service-account*.json
+kubeconfig
+*.kubeconfig
+.doctl/
+doctl-*.yaml
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+# .do/app.yaml IS committed (no secret VALUES — type: SECRET only). Block local overrides:
+.do/*.local.yaml
+.do/secrets*.yaml
+
+# ----- Node / Next.js build artifacts ----------------------------------------
+node_modules/
+.pnp
+.pnp.*
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+.turbo/
+.vercel/
+.swc/
+
+# ----- Databases & dumps (Phase 3) -------------------------------------------
+# NOTE: SQL migrations under db/ ARE committed; only local data/dumps are ignored.
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+pgdata/
+*.bak
+
+# ----- Tests & coverage ------------------------------------------------------
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+
+# ----- Logs ------------------------------------------------------------------
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ----- Caches ----------------------------------------------------------------
+.cache/
+.eslintcache
+.prettiercache
+tmp/
+temp/
+
+# ----- Editor / OS -----------------------------------------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+*~
+
+# ----- Source workbook (see security audit) ----------------------------------
+# The raw working master `human-risk-framework.xlsx` carries cell comments and
+# author metadata (PII + draft notes). Keep the messy master out of the public
+# repo; the canonical committed source is the derived, reviewed content/ tree.
+# (Remove this line if you commit a SANITIZED workbook instead — see docs.)
+/human-risk-framework.xlsx

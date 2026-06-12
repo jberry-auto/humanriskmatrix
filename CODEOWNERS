@@ -1,0 +1,25 @@
+# CODEOWNERS — required reviewers per path.
+# `main` is protected: PRs need a passing CI run and approval from the owners below.
+# Replace the placeholder teams/handles with real ones before going public.
+
+# Default — everything requires a maintainer review unless a more specific rule matches.
+*                       @humanriskmatrix/maintainers
+
+# Taxonomy content — reviewed by the content/subject-matter owners.
+# (The source workbook is git-ignored and never committed — see .gitignore / security audit.)
+/content/               @humanriskmatrix/content-owners
+
+# Documentation / specs.
+/docs/                  @humanriskmatrix/maintainers
+
+# Infrastructure, CI/CD, and security-sensitive config — reviewed by infra owners.
+/.github/               @humanriskmatrix/infra-owners
+/.do/                   @humanriskmatrix/infra-owners
+/Dockerfile             @humanriskmatrix/infra-owners
+/scripts/               @humanriskmatrix/infra-owners
+
+# Governance files — maintainers only.
+/CLAUDE.md              @humanriskmatrix/maintainers
+/CODEOWNERS             @humanriskmatrix/maintainers
+/CONTRIBUTING.md        @humanriskmatrix/maintainers
+/LICENSE                @humanriskmatrix/maintainers

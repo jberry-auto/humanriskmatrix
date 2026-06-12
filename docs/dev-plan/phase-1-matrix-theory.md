@@ -1,0 +1,95 @@
+# Phase 1 — Static Matrix + Theory (build-ready spec)
+
+**Goal:** ship the reference site fast — two static, content-driven pages (Matrix, Theory), no AI, no database. This spec is detailed enough to implement end-to-end without re-deriving architecture. Read alongside `docs/architecture.md`, `docs/content-model.md`, `docs/repo-structure.md`, and `docs/style-guide.md`.
+
+**Out of scope:** Anthropic, Postgres, Turnstile, rate limiting, the Threat Modeler and Feed pages. Do not add those dependencies in Phase 1.
+
+---
+
+## Milestones
+
+### M0 — Scaffold + CI + empty deploy
+- `create-next-app` (TypeScript, App Router, ESLint, Tailwind, `src/` dir, import alias `@/*`).
+- Apply the strict `tsconfig.json` baseline from the TS style guide (`noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, `verbatimModuleSyntax`, etc.).
+- `next.config.ts`: `output: 'standalone'`; security headers (see `docs/security.md`).
+- Add Prettier, ESLint (with `no-restricted-imports` encoding the layering rule for `src/lib`), Vitest, and `@next/mdx` (or `next-mdx-remote`).
+- `package.json` scripts: `dev`, `build`, `start`, `lint`, `typecheck`, `test`, `validate:content`, `import:xlsx`.
+- `Dockerfile` (multi-stage, `node:22-alpine`, standalone, non-root, `HEALTHCHECK`), `.dockerignore`.
+- `.do/app.yaml` (single web service, health check) and `.github/workflows/ci.yml` + `deploy.yml` per `docs/cicd-github-actions.md`.
+- `app/api/health/route.ts` returning `{ status: 'ok' }`.
+- **Exit:** CI green; container builds; deploys to DO showing a placeholder home page.
+
+### M1 — Content pipeline + seed
+- Implement `src/lib/content/schema.ts` and `src/lib/content/load.ts` exactly per `docs/content-model.md` (schemas, `z.infer` types, cross-reference invariants, fail-loud).
+- Implement `scripts/import-xlsx.ts`; run it locally to seed `content/` from the git-ignored working `human-risk-framework.xlsx`; **commit only the generated `content/` + the import report** (never the workbook); **spot-check** technique counts per column.
+- `npm run validate:content` passes; wire it into `next build` and CI.
+- Tests: valid fixtures parse; malformed fixtures fail with a precise error; cross-reference invariants caught.
+- **Exit:** `content/` fully seeded and validated; build fails on injected bad content.
+
+### M2 — Matrix + Theory pages (Phase 1 exit)
+- Build the two pages + components below; nav + landing; responsive + accessible.
+- **Exit:** see Acceptance criteria.
+
+---
+
+## Page 1 — Human Risk Matrix (`app/matrix/page.tsx`)
+
+A **server component** that loads validated content and renders the matrix. No client-side data fetching.
+
+**Layout**
+- Header: title, one-line definition, a `PhaseLegend` showing the 5 phases left→right (Internal → Approach → Deception → Imposition → Alignment) with their adversary role / awareness.
+- `MatrixGrid`: 11 columns grouped under their 5 phase bands, ordered 1→11. Each column shows its number, name, and its techniques. On wide screens, a horizontal 5-phase band over 11 columns; on mobile, phases stack vertically with columns inside.
+- Selecting a column (or each column's "detail") reveals/links a `ColumnCard` with: the full ordered technique list, each technique's MITRE ID linked to `https://attack.mitre.org/techniques/<ID>/` (sub-techniques use `Txxxx/00y`), and the column's mapped models + insider categories (cross-linked to `/theory`).
+
+**Components**
+- `components/PhaseLegend.tsx` — props: `phases: Phase[]`. Pure presentational.
+- `components/MatrixGrid.tsx` — props: `columnsByPhase: { phase: Phase; columns: MatrixColumn[] }[]`. Renders the banded grid; column → `ColumnCard` trigger.
+- `components/ColumnCard.tsx` — props: `column: MatrixColumn`, plus resolved framework/insider names for cross-links. Renders technique list with MITRE links.
+- `components/MitreLink.tsx` — props: `mitreId: string`. Builds the canonical attack.mitre.org URL; renders nothing special when `null`.
+
+**Data**
+- `src/lib/matrix/group.ts`: `groupColumnsByPhase(columns, phases)` → ordered bands. Pure, unit-tested.
+- `src/lib/matrix/mitre.ts`: `mitreUrl(id: string): string`. Pure, unit-tested (handles `T1566` and `T1566.004`).
+
+**Interactivity:** prefer a progressive-enhancement approach — column detail as an accessible `<details>`/disclosure or a route segment (`/matrix/[column]`) so it works without JS. If a modal is used, it must be keyboard-accessible and focus-trapped. Keep client JS minimal.
+
+## Page 2 — Theory & Frameworks (`app/theory/page.tsx`)
+
+A server component rendering the foundations and the cross-disciplinary frameworks.
+
+**Sections**
+1. **Foundations** — MDX from `content/theory/*.mdx` (why a unified taxonomy; the framework structure; the substrate concept).
+2. **Substrate models** — `FrameworkCard`s grouped by discipline (CounterIntel, SafetyScience, Influence, Cyber), each from a `content/frameworks/*.mdx` frontmatter: title, origin, summary, and chips linking its `mappedColumns` back to `/matrix`.
+3. **Insider-threat categories** — a table from `content/insider-categories.yaml`: category, primary columns (linked), response mechanism, note.
+
+**Components**
+- `components/FrameworkCard.tsx` — props: `framework: Framework`. Renders metadata + column cross-links; the MDX body is rendered on a detail view or inline.
+- `components/ColumnChips.tsx` — props: `columnIds: number[]`. Renders linked column chips, reused on both pages.
+
+**MDX:** configure `@next/mdx` (or `next-mdx-remote`) to render `content/**/*.mdx` with frontmatter parsed and validated against `FrameworkSchema` at build time (a bad frontmatter fails the build).
+
+## Shared shell
+
+- `app/layout.tsx` — top nav (Home · Matrix · Theory; Threat Modeler/Feed appear in later phases), footer (links to GitHub, license, responsible-use note), skip-to-content link, base typography.
+- `app/page.tsx` — landing: the one-paragraph pitch, the at-a-glance phase strip, and cards linking to Matrix and Theory.
+
+## Styling & accessibility
+
+- Tailwind; a small color scale mapping the 5 phases (used by the legend, grid bands, and chips) defined once and reused.
+- Semantic HTML (`<table>`/`<section>`/`<nav>`), labelled controls, visible focus, keyboard navigation through columns and disclosures, contrast ≥ WCAG AA.
+- Mobile-first; the dense matrix must remain legible and navigable on a phone.
+
+## Tests (Vitest) — see `docs/testing-qa.md`
+- `src/lib/content/load.ts`: valid fixture parses; each cross-reference invariant has a failing-case test; malformed YAML/frontmatter fails with a precise message.
+- `src/lib/matrix/group.ts` and `mitre.ts`: pure unit tests incl. sub-technique URL.
+- Component tests for `MatrixGrid`/`ColumnCard` rendering from fixture data (incl. a `null` MITRE id rendering no broken link).
+- A test that the seeded real `content/` validates (guards against a bad future content PR breaking the build).
+
+## Acceptance criteria (Phase 1 exit)
+- Matrix and Theory render entirely from validated `content/`; nothing hardcoded that belongs in content.
+- Injecting a malformed content file fails `npm run validate:content` and `next build`.
+- Every coded technique links to the correct attack.mitre.org URL; uncoded techniques render cleanly with no dead link.
+- Cross-links work both ways (column → mapped models/insider categories on Theory; framework/insider → columns on Matrix).
+- Keyboard-only navigation works; Lighthouse accessibility ≥ 95; mobile layout verified.
+- No Anthropic/Postgres/Turnstile code or env vars present.
+- CI green on `main`; container builds; deployed to a public DO URL.
