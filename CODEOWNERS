@@ -1,25 +1,28 @@
 # CODEOWNERS — required reviewers per path.
 # `main` is protected: PRs need a passing CI run and approval from the owners below.
-# Replace the placeholder teams/handles with real ones before going public.
+#
+# Single owner for now (@jberry-auto). As the project grows, split these into
+# GitHub teams (e.g. content vs. infra owners). CODEOWNERS resolves @handles and
+# team slugs; a bare email only works if it is a verified email on a GitHub
+# account with repo access — the contact address for the project is jacob@autopwn.sh.
 
-# Default — everything requires a maintainer review unless a more specific rule matches.
-*                       @humanriskmatrix/maintainers
+# Default — everything requires the owner's review unless a more specific rule matches.
+*                       @jberry-auto
 
-# Taxonomy content — reviewed by the content/subject-matter owners.
-# (The source workbook is git-ignored and never committed — see .gitignore / security audit.)
-/content/               @humanriskmatrix/content-owners
+# Taxonomy content (the source workbook is git-ignored and never committed).
+/content/               @jberry-auto
 
 # Documentation / specs.
-/docs/                  @humanriskmatrix/maintainers
+/docs/                  @jberry-auto
 
-# Infrastructure, CI/CD, and security-sensitive config — reviewed by infra owners.
-/.github/               @humanriskmatrix/infra-owners
-/.do/                   @humanriskmatrix/infra-owners
-/Dockerfile             @humanriskmatrix/infra-owners
-/scripts/               @humanriskmatrix/infra-owners
+# Infrastructure, CI/CD, and security-sensitive config.
+/.github/               @jberry-auto
+/.do/                   @jberry-auto
+/Dockerfile             @jberry-auto
+/scripts/               @jberry-auto
 
-# Governance files — maintainers only.
-/CLAUDE.md              @humanriskmatrix/maintainers
-/CODEOWNERS             @humanriskmatrix/maintainers
-/CONTRIBUTING.md        @humanriskmatrix/maintainers
-/LICENSE                @humanriskmatrix/maintainers
+# Governance files.
+/CLAUDE.md              @jberry-auto
+/CODEOWNERS             @jberry-auto
+/CONTRIBUTING.md        @jberry-auto
+/LICENSE                @jberry-auto

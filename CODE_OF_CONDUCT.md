@@ -30,7 +30,7 @@ This Code of Conduct applies within all community spaces — the repository, iss
 
 ## Enforcement
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the project maintainers responsible for enforcement at **conduct@humanriskmatrix.org**. All complaints will be reviewed and investigated promptly and fairly. Maintainers are obligated to respect the privacy and security of the reporter of any incident.
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the project maintainers responsible for enforcement at **jacob@autopwn.sh**. All complaints will be reviewed and investigated promptly and fairly. Maintainers are obligated to respect the privacy and security of the reporter of any incident.
 
 ## Attribution
 

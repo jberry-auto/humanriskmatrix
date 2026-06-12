@@ -39,7 +39,7 @@ Next.js (TypeScript, App Router) · content-as-code (schema-validated YAML + MDX
 > Phase 1 application code is not yet implemented. This repo currently holds the specification set that drives implementation. To build, a contributor (or a Claude Code session) follows the docs below.
 
 ```bash
-git clone https://github.com/<org>/humanriskmatrix.git
+git clone https://github.com/jberry-auto/humanriskmatrix.git
 cd humanriskmatrix
 # Phase 1 build instructions: docs/dev-plan/phase-1-matrix-theory.md
 ```
@@ -67,7 +67,7 @@ This project is **source-available and noncommercial**:
 - **Code** — [PolyForm Noncommercial License 1.0.0](LICENSE).
 - **Taxonomy content** (`content/`) — [CC BY-NC 4.0](content/LICENSE).
 
-Noncommercial use (personal, research, education, nonprofit, government) is free. **Commercial use requires written authorization** — contact **licensing@humanriskmatrix.org**.
+Noncommercial use (personal, research, education, nonprofit, government) is free. **Commercial use requires written authorization** — contact **jacob@autopwn.sh**.
 
 ## Acknowledgements
 

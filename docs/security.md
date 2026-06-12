@@ -4,7 +4,7 @@ Security is a build-time and run-time requirement, not a phase. This doc states 
 
 ## Reporting a vulnerability
 
-**Do not open a public issue.** Email **security@humanriskmatrix.org** with details and a reproduction. We aim to acknowledge within 3 business days and will coordinate a fix and disclosure timeline. A `SECURITY.md` with this policy should be added at the repo root when the project goes public.
+**Do not open a public issue.** Email **jacob@autopwn.sh** with details and a reproduction. We aim to acknowledge within 3 business days and will coordinate a fix and disclosure timeline. A `SECURITY.md` with this policy should be added at the repo root when the project goes public.
 
 ---
 
