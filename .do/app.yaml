@@ -1,26 +1,24 @@
-# DigitalOcean App Platform spec (docs/deployment-do.md).
-# Deployed by .github/workflows/deploy.yml once DO is provisioned.
-name: humanriskmatrix
+# DigitalOcean App Platform spec — mirrors the live app `human-risk-matrix-proj`.
+#
+# CI/CD: GitHub Actions (.github/workflows/deploy.yml) builds and pushes
+# registry.digitalocean.com/human-risk-matrix-proj/hrm:latest. The service below has
+# image deploy-on-push enabled, so DigitalOcean redeploys automatically on each push.
+# To change infrastructure, edit this file and apply it once:
+#   doctl apps update <APP_ID> --spec .do/app.yaml
+name: human-risk-matrix-proj
 region: nyc
+domains:
+  - domain: humanriskmatrix.org
+    type: PRIMARY
 services:
-  - name: web
+  - name: hrm
+    http_port: 8080
+    instance_count: 1
+    instance_size_slug: apps-s-1vcpu-1gb
     image:
       registry_type: DOCR
+      registry: human-risk-matrix-proj
       repository: hrm
       tag: latest
-    http_port: 3000
-    instance_size_slug: basic-xxs
-    instance_count: 1
-    health_check:
-      http_path: /api/health
-      initial_delay_seconds: 15
-      period_seconds: 30
-    envs:
-      - key: NODE_ENV
-        value: production
-      - key: LOG_LEVEL
-        value: info
-# Enable once DNS for humanriskmatrix.org points at the app (DO provisions TLS):
-# domains:
-#   - domain: humanriskmatrix.org
-#     type: PRIMARY
+      deploy_on_push:
+        enabled: true
