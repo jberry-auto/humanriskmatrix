@@ -47,7 +47,9 @@ export function ThemeToggle({ className }: { className?: string }) {
   const { resolvedTheme, setTheme } = useTheme();
   const hydrated = useHydrated();
 
-  const isDark = resolvedTheme === "dark";
+  // Until hydrated, mirror the server (light default) so the aria-label and icon
+  // match the SSR output — otherwise a stored dark theme causes a hydration mismatch.
+  const isDark = hydrated && resolvedTheme === "dark";
   const label = isDark ? "Switch to light theme" : "Switch to dark theme";
 
   return (
