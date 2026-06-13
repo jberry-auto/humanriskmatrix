@@ -45,7 +45,7 @@ npm run dev          # → http://localhost:3000
 
 Scripts: `npm run build` · `npm run start` · `npm run lint` · `npm run typecheck` · `npm run test`.
 
-> Phase 1 is in progress — the M0 scaffold (app shell, CI, container/deploy pipeline) has landed; the Matrix and Theory pages come next. Build details: [docs/dev-plan/phase-1-matrix-theory.md](docs/dev-plan/phase-1-matrix-theory.md).
+> Phase 1 is in progress: the application scaffold, CI, and deploy pipeline are in place; the Matrix and Theory pages are next. Build details: [docs/dev-plan/phase-1-matrix-theory.md](docs/dev-plan/phase-1-matrix-theory.md).
 
 ## Documentation
 
@@ -61,7 +61,7 @@ Start here, in order:
 
 ## Contributing
 
-This is a public body of work. Content contributions (new techniques, framework essays, corrections) are as welcome as code. Read **[CONTRIBUTING.md](CONTRIBUTING.md)** and **[docs/style-guide.md](docs/style-guide.md)** first.
+Content contributions — new techniques, framework essays, corrections — are reviewed on the same footing as code. Read [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/style-guide.md](docs/style-guide.md) first.
 
 ## License
 

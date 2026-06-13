@@ -1,6 +1,6 @@
 # Phase 1 — Static Matrix + Theory (build-ready spec)
 
-**Goal:** ship the reference site fast — two static, content-driven pages (Matrix, Theory), no AI, no database. This spec is detailed enough to implement end-to-end without re-deriving architecture. Read alongside `docs/architecture.md`, `docs/content-model.md`, `docs/repo-structure.md`, and `docs/style-guide.md`.
+**Goal:** the static reference site — two content-driven pages (Matrix, Theory), no AI, no database. This spec is detailed enough to implement end-to-end without re-deriving architecture. Read alongside `docs/architecture.md`, `docs/content-model.md`, `docs/repo-structure.md`, and `docs/style-guide.md`.
 
 **Out of scope:** Anthropic, Postgres, Turnstile, rate limiting, the Threat Modeler and Feed pages. Do not add those dependencies in Phase 1.
 

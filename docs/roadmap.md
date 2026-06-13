@@ -13,7 +13,7 @@ A phase ships when its **exit criteria** are met. Content can keep deepening wit
 
 ### Phase 1 — Static Matrix + Theory  ·  *current*
 
-Ship the reference site fast: pure static content, no AI, no database.
+The static reference site: content only, no AI, no database.
 
 **Scope**
 - Next.js (App Router, TS) scaffold; standalone container; CI/CD; deploy to DigitalOcean.
@@ -50,7 +50,7 @@ Curated security news, summarized and mapped to the matrix with suggested action
 
 **Exit criteria:** feed renders durable, deduped, mapped summaries; each article summarized once; refresh endpoint protected; Postgres backed up; degrades gracefully when a source or the API is down.
 
-### Fast-follows (post-launch, unordered)
+### Post-launch (unordered)
 
 Search across the matrix · stable permalinks/anchors per column & technique · JSON/CSV export of the taxonomy · public read-only API · taxonomy versioning & changelog UI · saved/shareable threat models · per-source feed filtering · i18n.
 

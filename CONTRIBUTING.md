@@ -1,6 +1,6 @@
 # Contributing to Human Risk Matrix
 
-Thank you for helping build this body of work. This is a **public, community-maintained** project, and **content contributions are as valuable as code**. A corrected MITRE mapping, a new technique, or a sharper framework essay all move the project forward.
+This is a public, community-maintained project. Content contributions are reviewed on the same footing as code — a corrected MITRE mapping, a new technique, or a clearer framework essay are all welcome.
 
 By participating you agree to our [Code of Conduct](CODE_OF_CONDUCT.md).
 

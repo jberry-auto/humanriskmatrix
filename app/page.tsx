@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-16">
       <Section className="gap-5">
-        <Eyebrow>In active development · Phase 1</Eyebrow>
+        <Eyebrow>In development · Phase 1</Eyebrow>
         <Heading level={1} size="display">
           Human Risk Matrix
         </Heading>
@@ -31,7 +31,7 @@ export default function Home() {
           <span className="text-ink">5 phases</span>.
         </p>
         <div className="pt-1">
-          <Link href={GITHUB_URL}>Follow along on GitHub →</Link>
+          <Link href={GITHUB_URL}>View the source on GitHub</Link>
         </div>
       </Section>
 
@@ -53,14 +53,15 @@ export default function Home() {
 
       <Section className="gap-3">
         <Heading level={2} size="h3">
-          What is coming
+          Status
         </Heading>
         <Card className="flex max-w-2xl flex-col gap-3">
           <p className="text-muted">
-            The interactive Matrix and the Theory &amp; Frameworks pages land next, driven by
-            version-controlled, schema-validated content. The site is built in the open.
+            The Matrix and Theory &amp; Frameworks pages are in progress; both render from
+            version-controlled, schema-validated content. The Threat Modeler and Threat Feed follow
+            in later phases.
           </p>
-          <Link href={GITHUB_URL}>Read the roadmap →</Link>
+          <Link href={GITHUB_URL}>Roadmap</Link>
         </Card>
       </Section>
     </div>

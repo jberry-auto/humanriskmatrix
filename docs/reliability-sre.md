@@ -9,7 +9,7 @@ How the service stays up, degrades gracefully, and is observable. Baseline appli
 - **Graceful shutdown:** on `SIGTERM`, stop accepting new work, finish in-flight requests within a bounded deadline, then exit. Next.js standalone handles most of this; ensure the container forwards signals (run as PID-aware, no shell wrapper swallowing signals).
 
 ### Build-time correctness
-- A malformed content file **fails the build** (content validation gate). Bad content can never reach production. This is the single most important reliability control in Phase 1.
+- A malformed content file **fails the build** (content validation gate). Bad content can never reach production — the primary reliability control in Phase 1.
 
 ### Observability
 - **Structured logging** (JSON) via a single logger (e.g., `pino`); no `console.log`/`print` for real logs.
