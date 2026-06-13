@@ -25,8 +25,9 @@ export default function Home() {
         </Heading>
         <p className="max-w-2xl text-lg text-muted">
           An open taxonomy of human behavior that produces business impact — from honest mistakes to
-          witting cooperation with an adversary. It unifies counterintelligence tradecraft and
-          safety science across <span className="text-ink">11 columns</span> grouped into{" "}
+          witting cooperation with an adversary. It unifies counterintelligence, cybersecurity,
+          social-engineering defense, and safety science across{" "}
+          <span className="text-ink">11 columns</span> grouped into{" "}
           <span className="text-ink">5 phases</span>.
         </p>
         <div className="pt-1">

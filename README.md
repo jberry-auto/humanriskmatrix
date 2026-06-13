@@ -2,7 +2,7 @@
 
 **[humanriskmatrix.org](https://humanriskmatrix.org)** — a community-maintained, source-available reference and toolset for **human risk**: the full surface of human behavior that produces business impact, from honest mistakes to witting cooperation with an adversary. Free for noncommercial use; commercial use requires authorization (see [License](#license)).
 
-It unifies two vocabularies that are usually kept apart — **counterintelligence tradecraft** (cultivation, elicitation, MICE, RASCLS) and **safety science** (Swiss Cheese, ETTO, drift to danger, just culture) — into a single, ordered taxonomy that security, insider-risk, and counter-intel teams can share.
+It unifies the vocabularies of four disciplines usually kept apart — **counterintelligence** (cultivation, MICE, RASCLS), **cybersecurity** (phishing, AitM, credential abuse), **social-engineering defense** (pretexting, influence, deepfakes), and **safety science** (Swiss Cheese, ETTO, drift to danger, just culture) — into a single, ordered taxonomy that security, insider-risk, and counter-intel teams can share.
 
 ## The four pages
 
