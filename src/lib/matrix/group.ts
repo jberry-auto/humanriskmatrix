@@ -1,19 +1,19 @@
-import type { MatrixColumn, Phase } from "@/lib/content/schema";
+import type { IntentDegree, MatrixCategory } from "@/lib/content/schema";
 
-export interface PhaseGroup {
-  readonly phase: Phase;
-  readonly columns: readonly MatrixColumn[];
+export interface DegreeGroup {
+  readonly degree: IntentDegree;
+  readonly categories: readonly MatrixCategory[];
 }
 
-/** Group columns under their phase, ordered by phase order then column id. */
-export function groupColumnsByPhase(
-  columns: readonly MatrixColumn[],
-  phases: readonly Phase[],
-): PhaseGroup[] {
-  return [...phases]
+/** Group categories under their intent degree, ordered by degree order then category id. */
+export function groupCategoriesByDegree(
+  categories: readonly MatrixCategory[],
+  degrees: readonly IntentDegree[],
+): DegreeGroup[] {
+  return [...degrees]
     .sort((a, b) => a.order - b.order)
-    .map((phase) => ({
-      phase,
-      columns: columns.filter((c) => c.phaseId === phase.id).sort((a, b) => a.id - b.id),
+    .map((degree) => ({
+      degree,
+      categories: categories.filter((c) => c.degreeId === degree.id).sort((a, b) => a.id - b.id),
     }));
 }

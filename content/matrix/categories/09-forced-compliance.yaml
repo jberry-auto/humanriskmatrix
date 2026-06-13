@@ -1,6 +1,6 @@
 id: 9
 name: Forced Compliance
-phaseId: imposition
+degreeId: coerced
 mappedModels:
   - cognitive-biases
 insiderCategories:

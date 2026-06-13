@@ -8,13 +8,13 @@ import { parse as parseYaml } from "yaml";
 import {
   FrameworkSchema,
   InsiderCategorySchema,
-  MatrixColumnSchema,
-  PhaseSchema,
+  IntentDegreeSchema,
+  MatrixCategorySchema,
   type ContentBundle,
   type Framework,
   type InsiderCategory,
-  type MatrixColumn,
-  type Phase,
+  type IntentDegree,
+  type MatrixCategory,
 } from "./schema";
 
 const DEFAULT_CONTENT_DIR = join(process.cwd(), "content");
@@ -67,28 +67,28 @@ function readYamlArray<T>(
   return validateEach(raw, schema, source, errors);
 }
 
-function readColumns(dir: string, errors: string[]): MatrixColumn[] {
+function readCategories(dir: string, errors: string[]): MatrixCategory[] {
   let files: string[];
   try {
     files = readdirSync(dir)
       .filter((f) => f.endsWith(".yaml"))
       .sort();
   } catch (cause) {
-    errors.push(`matrix/columns: could not read directory (${(cause as Error).message})`);
+    errors.push(`matrix/categories: could not read directory (${(cause as Error).message})`);
     return [];
   }
-  const out: MatrixColumn[] = [];
+  const out: MatrixCategory[] = [];
   for (const file of files) {
     let raw: unknown;
     try {
       raw = parseYaml(readFileSync(join(dir, file), "utf8"));
     } catch (cause) {
-      errors.push(`columns/${file}: parse error (${(cause as Error).message})`);
+      errors.push(`categories/${file}: parse error (${(cause as Error).message})`);
       continue;
     }
-    const result = MatrixColumnSchema.safeParse(raw);
+    const result = MatrixCategorySchema.safeParse(raw);
     if (result.success) out.push(result.data);
-    else errors.push(`columns/${file}: ${formatZodError(result.error)}`);
+    else errors.push(`categories/${file}: ${formatZodError(result.error)}`);
   }
   return out;
 }
@@ -114,48 +114,51 @@ function readFrameworks(dir: string, errors: string[]): Framework[] {
 }
 
 function checkCrossReferences(bundle: ContentBundle, errors: string[]): void {
-  const phaseIds = new Set(bundle.phases.map((p) => p.id));
+  const degreeIds = new Set(bundle.degrees.map((d) => d.id));
   const frameworkSlugs = new Set(bundle.frameworks.map((f) => f.slug));
   const insiderSlugs = new Set(bundle.insiderCategories.map((c) => c.slug));
 
-  // All 11 column ids present exactly once.
-  const seenColumnIds = new Map<number, number>();
-  for (const col of bundle.columns) {
-    seenColumnIds.set(col.id, (seenColumnIds.get(col.id) ?? 0) + 1);
+  // All 11 category ids present exactly once.
+  const seenCategoryIds = new Map<number, number>();
+  for (const cat of bundle.categories) {
+    seenCategoryIds.set(cat.id, (seenCategoryIds.get(cat.id) ?? 0) + 1);
   }
   for (let id = 1; id <= 11; id += 1) {
-    const count = seenColumnIds.get(id) ?? 0;
-    if (count !== 1) errors.push(`columns: column id ${id} appears ${count} time(s) (expected 1)`);
+    const count = seenCategoryIds.get(id) ?? 0;
+    if (count !== 1)
+      errors.push(`categories: category id ${id} appears ${count} time(s) (expected 1)`);
   }
 
   const seenTechniqueIds = new Set<string>();
-  for (const col of bundle.columns) {
-    if (!phaseIds.has(col.phaseId)) {
-      errors.push(`column ${col.id}: phaseId "${col.phaseId}" not found in phases.yaml`);
+  for (const cat of bundle.categories) {
+    if (!degreeIds.has(cat.degreeId)) {
+      errors.push(
+        `category ${cat.id}: degreeId "${cat.degreeId}" not found in intent-degrees.yaml`,
+      );
     }
-    for (const slug of col.mappedModels) {
+    for (const slug of cat.mappedModels) {
       if (!frameworkSlugs.has(slug)) {
-        errors.push(`column ${col.id}: mappedModels "${slug}" has no matching framework`);
+        errors.push(`category ${cat.id}: mappedModels "${slug}" has no matching framework`);
       }
     }
-    for (const slug of col.insiderCategories) {
+    for (const slug of cat.insiderCategories) {
       if (!insiderSlugs.has(slug)) {
         errors.push(
-          `column ${col.id}: insiderCategories "${slug}" has no matching insider category`,
+          `category ${cat.id}: insiderCategories "${slug}" has no matching insider category`,
         );
       }
     }
     const labels = new Set<string>();
-    for (const tech of col.techniques) {
-      if (!tech.id.startsWith(`${col.id}-`)) {
-        errors.push(`column ${col.id}: technique id "${tech.id}" must start with "${col.id}-"`);
+    for (const tech of cat.techniques) {
+      if (!tech.id.startsWith(`${cat.id}-`)) {
+        errors.push(`category ${cat.id}: technique id "${tech.id}" must start with "${cat.id}-"`);
       }
       if (seenTechniqueIds.has(tech.id)) {
         errors.push(`technique id "${tech.id}" is not unique`);
       }
       seenTechniqueIds.add(tech.id);
       if (labels.has(tech.label)) {
-        errors.push(`column ${col.id}: duplicate technique label "${tech.label}"`);
+        errors.push(`category ${cat.id}: duplicate technique label "${tech.label}"`);
       }
       labels.add(tech.label);
     }
@@ -166,13 +169,13 @@ function checkCrossReferences(bundle: ContentBundle, errors: string[]): void {
 export function loadContent(contentDir: string = DEFAULT_CONTENT_DIR): ContentBundle {
   const errors: string[] = [];
 
-  const phases: Phase[] = readYamlArray(
-    join(contentDir, "matrix", "phases.yaml"),
-    PhaseSchema,
-    "phases.yaml",
+  const degrees: IntentDegree[] = readYamlArray(
+    join(contentDir, "matrix", "intent-degrees.yaml"),
+    IntentDegreeSchema,
+    "intent-degrees.yaml",
     errors,
   );
-  const columns = readColumns(join(contentDir, "matrix", "columns"), errors);
+  const categories = readCategories(join(contentDir, "matrix", "categories"), errors);
   const frameworks = readFrameworks(join(contentDir, "frameworks"), errors);
   const insiderCategories: InsiderCategory[] = readYamlArray(
     join(contentDir, "insider-categories.yaml"),
@@ -181,7 +184,7 @@ export function loadContent(contentDir: string = DEFAULT_CONTENT_DIR): ContentBu
     errors,
   );
 
-  const bundle: ContentBundle = { phases, columns, frameworks, insiderCategories };
+  const bundle: ContentBundle = { degrees, categories, frameworks, insiderCategories };
   checkCrossReferences(bundle, errors);
 
   if (errors.length > 0) throw new ContentValidationError(errors);

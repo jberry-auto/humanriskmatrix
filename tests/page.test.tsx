@@ -11,10 +11,10 @@ describe("Home", () => {
     ).toBeInTheDocument();
   });
 
-  it("lists all five phases", () => {
+  it("lists all five intent degrees", () => {
     render(<Home />);
-    for (const phase of ["Internal", "Approach", "Deception", "Imposition", "Alignment"]) {
-      expect(screen.getByText(phase)).toBeInTheDocument();
+    for (const degree of ["Unintentional", "Unaware", "Deceived", "Coerced", "Complicit"]) {
+      expect(screen.getByText(degree)).toBeInTheDocument();
     }
   });
 });

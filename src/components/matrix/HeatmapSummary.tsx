@@ -3,12 +3,12 @@
 import { Button } from "@/components/ui/Button";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { cn } from "@/lib/cn";
-import type { PhaseGroup } from "@/lib/matrix/group";
+import type { DegreeGroup } from "@/lib/matrix/group";
 
-import { PHASE_STYLE } from "./phase-style";
+import { DEGREE_STYLE } from "./degree-style";
 
 interface HeatmapSummaryProps {
-  groups: readonly PhaseGroup[];
+  groups: readonly DegreeGroup[];
   selected: ReadonlySet<string>;
   focus: boolean;
   onFocusChange: (focus: boolean) => void;
@@ -17,10 +17,10 @@ interface HeatmapSummaryProps {
   onCollapseAll: () => void;
 }
 
-function phaseCount(group: PhaseGroup, selected: ReadonlySet<string>): number {
+function degreeCount(group: DegreeGroup, selected: ReadonlySet<string>): number {
   let n = 0;
-  for (const col of group.columns) {
-    for (const t of col.techniques) if (selected.has(t.id)) n += 1;
+  for (const cat of group.categories) {
+    for (const t of cat.techniques) if (selected.has(t.id)) n += 1;
   }
   return n;
 }
@@ -42,10 +42,10 @@ export function HeatmapSummary({
       </span>
       <div className="flex flex-wrap gap-1.5">
         {groups.map((g) => {
-          const n = phaseCount(g, selected);
+          const n = degreeCount(g, selected);
           return (
             <span
-              key={g.phase.id}
+              key={g.degree.id}
               className={cn(
                 "inline-flex items-center gap-1.5 rounded-sm border border-border px-2 py-0.5 text-xs",
                 n === 0 && "text-muted",
@@ -53,9 +53,9 @@ export function HeatmapSummary({
             >
               <span
                 aria-hidden="true"
-                className={cn("size-2 rounded-full", PHASE_STYLE[g.phase.id].dot)}
+                className={cn("size-2 rounded-full", DEGREE_STYLE[g.degree.id].dot)}
               />
-              {g.phase.name} {n}
+              {g.degree.name} {n}
             </span>
           );
         })}

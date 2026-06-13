@@ -2,23 +2,23 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import type { PhaseGroup } from "@/lib/matrix/group";
+import type { DegreeGroup } from "@/lib/matrix/group";
 
-const groups: PhaseGroup[] = [
+const groups: DegreeGroup[] = [
   {
-    phase: {
-      id: "internal",
-      name: "Internal",
+    degree: {
+      id: "unintentional",
+      name: "Unintentional",
       order: 1,
-      columnRange: [1, 3],
+      categoryRange: [1, 3],
       adversaryRole: "None",
       awareness: "Low to none",
     },
-    columns: [
+    categories: [
       {
         id: 1,
         name: "Accidental Disclosure",
-        phaseId: "internal",
+        degreeId: "unintentional",
         mappedModels: ["swiss-cheese"],
         insiderCategories: ["negligent-insider"],
         techniques: [
@@ -68,9 +68,9 @@ describe("MatrixView", () => {
     expect(localStorage.getItem("hrm.heatmap.v1")).toContain("1-a");
   });
 
-  it("collapses a phase", async () => {
+  it("collapses an intent degree", async () => {
     await renderMatrix();
-    const header = screen.getByRole("button", { name: /Internal/i });
+    const header = screen.getByRole("button", { name: /Unintentional/i });
     expect(screen.getByRole("button", { name: "Misdirected email" })).toBeInTheDocument();
     await userEvent.click(header);
     expect(screen.queryByRole("button", { name: "Misdirected email" })).not.toBeInTheDocument();

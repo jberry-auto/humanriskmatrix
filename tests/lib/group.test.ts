@@ -1,32 +1,32 @@
 import { describe, expect, it } from "vitest";
 
-import type { MatrixColumn, Phase } from "@/lib/content/schema";
-import { groupColumnsByPhase } from "@/lib/matrix/group";
+import type { IntentDegree, MatrixCategory } from "@/lib/content/schema";
+import { groupCategoriesByDegree } from "@/lib/matrix/group";
 
-const phases: Phase[] = [
+const degrees: IntentDegree[] = [
   {
-    id: "approach",
-    name: "Approach",
+    id: "unaware",
+    name: "Unaware",
     order: 2,
-    columnRange: [4, 6],
+    categoryRange: [4, 6],
     adversaryRole: "x",
     awareness: "y",
   },
   {
-    id: "internal",
-    name: "Internal",
+    id: "unintentional",
+    name: "Unintentional",
     order: 1,
-    columnRange: [1, 3],
+    categoryRange: [1, 3],
     adversaryRole: "x",
     awareness: "y",
   },
 ];
 
-const columns: MatrixColumn[] = [
+const categories: MatrixCategory[] = [
   {
     id: 4,
     name: "Reconnaissance",
-    phaseId: "approach",
+    degreeId: "unaware",
     mappedModels: [],
     insiderCategories: [],
     techniques: [{ id: "4-a", label: "a", mitreId: null, description: "d" }],
@@ -34,18 +34,18 @@ const columns: MatrixColumn[] = [
   {
     id: 1,
     name: "Accidental Disclosure",
-    phaseId: "internal",
+    degreeId: "unintentional",
     mappedModels: [],
     insiderCategories: [],
     techniques: [{ id: "1-a", label: "a", mitreId: null, description: "d" }],
   },
 ];
 
-describe("groupColumnsByPhase", () => {
-  it("orders phases by order and places columns under their phase", () => {
-    const groups = groupColumnsByPhase(columns, phases);
-    expect(groups.map((g) => g.phase.id)).toEqual(["internal", "approach"]);
-    expect(groups[0]?.columns[0]?.id).toBe(1);
-    expect(groups[1]?.columns[0]?.id).toBe(4);
+describe("groupCategoriesByDegree", () => {
+  it("orders degrees by order and places categories under their degree", () => {
+    const groups = groupCategoriesByDegree(categories, degrees);
+    expect(groups.map((g) => g.degree.id)).toEqual(["unintentional", "unaware"]);
+    expect(groups[0]?.categories[0]?.id).toBe(1);
+    expect(groups[1]?.categories[0]?.id).toBe(4);
   });
 });

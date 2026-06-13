@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: "%s · Human Risk Matrix",
   },
   description:
-    "An open taxonomy providing a comprehensive view of human risk impacting organizational systems and data confidentiality, availability, integrity, fitness for purpose, and processes — unifying counterintelligence, cybersecurity, social-engineering defense, and safety science across 11 columns and 5 phases.",
+    "An open taxonomy providing a comprehensive view of human risk impacting organizational systems and data confidentiality, availability, integrity, fitness for purpose, and processes — unifying counterintelligence, cybersecurity, social-engineering defense, and safety science across 11 categories of behavior arranged on a spectrum of malicious intent.",
 };
 
 const GITHUB_URL = "https://github.com/jberry-auto/humanriskmatrix";
@@ -51,12 +51,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <Container>
               <nav className="flex items-center justify-between py-4">
                 <div className="flex items-center gap-6">
-                  <Link
-                    href="/"
-                    variant="nav"
-                    className="font-serif text-lg font-semibold tracking-tight"
-                  >
-                    Human Risk Matrix
+                  <Link href="/" variant="nav" className="text-sm font-medium">
+                    Home
                   </Link>
                   <Link href="/matrix" variant="nav" className="text-sm">
                     Matrix

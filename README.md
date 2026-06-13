@@ -8,18 +8,20 @@ It unifies the vocabularies of four disciplines usually kept apart — **counter
 
 | # | Page | What it does | Phase |
 |---|------|--------------|-------|
-| 1 | **Human Risk Matrix** | The 11-column / 5-phase taxonomy, with concrete techniques tagged to MITRE ATT&CK. | 1 |
+| 1 | **Human Risk Matrix** | The 11-category taxonomy across a spectrum of malicious intent, with concrete techniques tagged to MITRE ATT&CK. | 1 |
 | 2 | **Theory & Frameworks** | The foundations — why a unified taxonomy, the substrate models, insider-threat categories, cross-disciplinary essays. | 1 |
 | 3 | **Threat Modeler** | Enter a vertical or company → a generated heatmap of which matrix risks to prioritize. | 2 |
 | 4 | **Threat Feed** | Curated security news, summarized and mapped to the matrix with suggested team actions. | 3 |
 
 ## The matrix at a glance
 
-Eleven columns of human behavior, ordered by **where harmful intent lives** and **how aligned the human is with it** — grouped into five phases:
+Eleven categories of human behavior, ordered along a **spectrum of malicious intent** — by **how much harmful intent drives the behavior** (not by any sequence of events) — grouped into five degrees of intent:
 
 ```
-INTERNAL ORIGIN            EXTERNAL APPROACH         DECEPTION        IMPOSITION              ALIGNMENT
-(no adversary)             (observe / build)         (deceive)        (pressure / act)        (witting)
+least malicious intent  ────────────────────────────────────────────────────▶  most malicious intent
+
+UNINTENTIONAL              UNAWARE                   DECEIVED         COERCED                 COMPLICIT
+(no adversary)             (observed / cultivated)   (deceived)       (pressured / forced)    (witting)
 1 Accidental Disclosure    4 Reconnaissance          7 Deceptive      9 Forced Compliance     11 Coercion &
 2 Hygiene & Config Drift   5 Access Development         Delivery       10 Physical Intrusion      Recruitment
 3 Workarounds &            6 Elicitation             8 Impersonation

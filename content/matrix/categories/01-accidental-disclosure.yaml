@@ -1,6 +1,6 @@
 id: 1
 name: Accidental Disclosure
-phaseId: internal
+degreeId: unintentional
 mappedModels:
   - swiss-cheese
   - just-culture

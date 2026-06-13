@@ -3,9 +3,9 @@ import { ContentValidationError, loadContent } from "../src/lib/content/load";
 
 try {
   const bundle = loadContent();
-  const techniques = bundle.columns.reduce((n, c) => n + c.techniques.length, 0);
+  const techniques = bundle.categories.reduce((n, c) => n + c.techniques.length, 0);
   console.log(
-    `content OK — ${bundle.phases.length} phases, ${bundle.columns.length} columns, ` +
+    `content OK — ${bundle.degrees.length} intent degrees, ${bundle.categories.length} categories, ` +
       `${techniques} techniques, ${bundle.frameworks.length} frameworks, ` +
       `${bundle.insiderCategories.length} insider categories`,
   );

@@ -1,6 +1,6 @@
 id: 4
 name: Reconnaissance
-phaseId: approach
+degreeId: unaware
 mappedModels:
   - cognitive-biases
 insiderCategories:
