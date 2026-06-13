@@ -51,12 +51,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <Container>
               <nav className="flex items-center justify-between py-4">
                 <div className="flex items-center gap-6">
-                  <Link
-                    href="/"
-                    variant="nav"
-                    className="font-serif text-lg font-semibold tracking-tight"
-                  >
-                    Human Risk Matrix
+                  <Link href="/" variant="nav" className="text-sm font-medium">
+                    Home
                   </Link>
                   <Link href="/matrix" variant="nav" className="text-sm">
                     Matrix

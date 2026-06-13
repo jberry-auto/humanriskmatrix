@@ -97,12 +97,12 @@ export default function Home() {
       {/* About — two columns */}
       <Section aria-labelledby="about-heading" className="mx-auto w-full max-w-5xl gap-8">
         <Heading level={2} id="about-heading" size="h2" className="text-center">
-          About the Human Risk Project
+          About the Human Risk Matrix Project
         </Heading>
         <div className="grid gap-6 md:grid-cols-2">
           <Card className="flex flex-col gap-3">
             <Heading level={3} size="h4">
-              What it is
+              About the project
             </Heading>
             <p className="text-muted">
               The Human Risk Matrix is an open, community-maintained reference for understanding
@@ -140,18 +140,25 @@ export default function Home() {
         <Heading level={2} id="degrees-heading" size="h3" className="text-center">
           The five degrees of intent
         </Heading>
-        <p className="max-w-2xl text-center text-muted">
+        <p className="text-center text-muted">
           The 11 categories of behavior are grouped into five degrees of intent, read left to right
           from least to most malicious.
         </p>
         <ol className="grid w-full gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {degrees.map((degree) => (
             <li key={degree.id}>
-              <Card className="flex h-full flex-col gap-2 p-4">
-                <Tag degree={degree.id}>{degree.name}</Tag>
-                <span className="text-xs text-faint">Categories {degree.categories}</span>
-                <p className="text-sm text-muted">{degree.description}</p>
-              </Card>
+              <Link
+                href="/matrix"
+                variant="nav"
+                aria-label={`Open the Matrix — ${degree.name}`}
+                className="group block h-full"
+              >
+                <Card className="flex h-full flex-col gap-2 p-4 transition-colors group-hover:border-border-strong">
+                  <Tag degree={degree.id}>{degree.name}</Tag>
+                  <span className="text-xs text-faint">Categories {degree.categories}</span>
+                  <p className="text-sm text-muted">{degree.description}</p>
+                </Card>
+              </Link>
             </li>
           ))}
         </ol>
