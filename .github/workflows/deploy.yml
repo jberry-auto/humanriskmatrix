@@ -13,8 +13,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Stays green until DigitalOcean is configured: with no DO_API_TOKEN the build job
-  # is skipped (neutral), not failed.
+  # Stays green until DigitalOcean is configured: with no DOCR_REGISTRY variable the
+  # build job is skipped (neutral), not failed. We gate on this *variable* (readable
+  # in every job) rather than DO_API_TOKEN, because that secret is scoped to the
+  # `production` environment and is therefore only visible to the deploy job below.
   preflight:
     runs-on: ubuntu-latest
     outputs:
@@ -22,13 +24,13 @@ jobs:
     steps:
       - id: check
         env:
-          DO_API_TOKEN: ${{ secrets.DO_API_TOKEN }}
+          DOCR_REGISTRY: ${{ vars.DOCR_REGISTRY }}
         run: |
-          if [ -n "$DO_API_TOKEN" ]; then
+          if [ -n "$DOCR_REGISTRY" ]; then
             echo "configured=true" >> "$GITHUB_OUTPUT"
           else
             echo "configured=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::DO_API_TOKEN not set — skipping deploy (configure DO to enable)."
+            echo "::notice::DOCR_REGISTRY variable not set — skipping deploy (configure DO to enable)."
           fi
 
   # Build the linux/amd64 image and push :latest to DOCR. The App Platform app has
