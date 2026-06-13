@@ -36,6 +36,12 @@ export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
     () => new Set(groups.map((g) => g.phase.id)),
   );
 
+  // All 11 columns left-to-right, each tagged with its phase.
+  const orderedColumns = useMemo(
+    () => groups.flatMap((g) => g.columns.map((col) => ({ col, phase: g.phase }))),
+    [groups],
+  );
+
   const index = useMemo(() => {
     const map = new Map<string, TechniqueContext>();
     for (const g of groups) {
@@ -66,6 +72,8 @@ export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
     if (!isOpen) setActiveId(null);
   }, []);
 
+  const gridStyle = { gridTemplateColumns: `repeat(${orderedColumns.length}, minmax(11rem, 1fr))` };
+
   return (
     <div className="flex flex-col gap-6">
       <HeatmapSummary
@@ -78,111 +86,117 @@ export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
         onCollapseAll={collapseAll}
       />
 
-      {groups.map((g) => {
-        const style = PHASE_STYLE[g.phase.id];
-        const phaseSel = g.columns.reduce((n, c) => n + selectedInColumn(c, selected), 0);
-        if (focus && phaseSel === 0) return null;
-        const isExpanded = expanded.has(g.phase.id);
-        const regionId = `phase-${g.phase.id}`;
-        return (
-          <section key={g.phase.id} className="rounded-md border border-border">
-            <button
-              type="button"
-              onClick={() => togglePhase(g.phase.id)}
-              aria-expanded={isExpanded}
-              aria-controls={regionId}
-              className="flex w-full items-center gap-3 rounded-md px-4 py-3 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-            >
-              <span aria-hidden="true" className={cn("h-5 w-1.5 rounded-full", style.dot)} />
-              <span className="font-serif text-lg font-semibold">{g.phase.name}</span>
-              <span className="text-sm text-muted">
-                Columns {g.phase.columnRange[0]}–{g.phase.columnRange[1]}
-              </span>
-              {phaseSel > 0 ? (
-                <span className="rounded-sm border border-border px-1.5 py-0.5 text-xs text-muted">
-                  {phaseSel} selected
-                </span>
-              ) : null}
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                className={cn(
-                  "ml-auto size-4 text-muted transition-transform",
-                  isExpanded && "rotate-90",
-                )}
+      <div className="overflow-x-auto pb-2">
+        <div className="grid gap-px rounded-md border border-border bg-border" style={gridStyle}>
+          {/* Phase headers (span their columns) */}
+          {groups.map((g) => {
+            const style = PHASE_STYLE[g.phase.id];
+            const isExpanded = expanded.has(g.phase.id);
+            const phaseSel = g.columns.reduce((n, c) => n + selectedInColumn(c, selected), 0);
+            return (
+              <button
+                key={`p-${g.phase.id}`}
+                type="button"
+                onClick={() => togglePhase(g.phase.id)}
+                aria-expanded={isExpanded}
+                style={{ gridColumn: `span ${g.columns.length}` }}
+                className="flex items-center gap-2 bg-surface px-3 py-2 text-left focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
               >
-                <path d="M6 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
+                <span
+                  aria-hidden="true"
+                  className={cn("h-3.5 w-1.5 shrink-0 rounded-full", style.dot)}
+                />
+                <span className="font-serif text-sm font-semibold">{g.phase.name}</span>
+                {phaseSel > 0 ? (
+                  <span className="rounded-sm border border-border px-1 text-[10px] text-muted">
+                    {phaseSel}
+                  </span>
+                ) : null}
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  className={cn(
+                    "ml-auto size-3.5 shrink-0 text-muted transition-transform",
+                    isExpanded && "rotate-90",
+                  )}
+                >
+                  <path d="M6 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+            );
+          })}
 
-            {isExpanded ? (
-              <div
-                id={regionId}
-                className="grid gap-4 border-t border-border p-4 sm:grid-cols-2 lg:grid-cols-3"
-              >
-                {g.columns.map((col) => {
-                  const techniques = focus
-                    ? col.techniques.filter((t) => selected.has(t.id))
-                    : col.techniques;
-                  if (focus && techniques.length === 0) return null;
-                  const colSel = selectedInColumn(col, selected);
-                  return (
-                    <div key={col.id} className="flex flex-col gap-2">
-                      <div className="flex items-baseline gap-2 border-b border-border pb-1">
-                        <span className="font-mono text-xs text-faint">{col.id}</span>
-                        <h2 className="text-sm font-semibold">{col.name}</h2>
-                        {colSel > 0 ? (
-                          <span className="ml-auto text-xs text-muted">{colSel}</span>
-                        ) : null}
-                      </div>
-                      <ul className="flex flex-col">
-                        {techniques.map((t) => {
-                          const isSel = selected.has(t.id);
-                          return (
-                            <li
-                              key={t.id}
-                              className={cn(
-                                "flex items-start gap-2 rounded-sm border-l-2 py-1 pl-2 pr-1",
-                                isSel ? `${style.selBorder} ${style.selBg}` : "border-transparent",
-                              )}
-                            >
-                              <Checkbox
-                                isSelected={isSel}
-                                onChange={() => toggle(t.id)}
-                                aria-label={
-                                  isSel
-                                    ? `Remove ${t.label} from heatmap`
-                                    : `Add ${t.label} to heatmap`
-                                }
-                                className="mt-1"
-                              />
-                              <button
-                                type="button"
-                                onClick={() => setActiveId(t.id)}
-                                className="flex-1 rounded-sm text-left text-sm hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-                              >
-                                {t.label}
-                              </button>
-                              {t.mitreId ? (
-                                <span className="mt-0.5 shrink-0 font-mono text-[10px] text-faint">
-                                  {t.mitreId}
-                                </span>
-                              ) : null}
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-                  );
-                })}
+          {/* Column headers */}
+          {orderedColumns.map(({ col }) => {
+            const colSel = selectedInColumn(col, selected);
+            return (
+              <div key={`h-${col.id}`} className="bg-surface px-2 py-2">
+                <div className="flex items-baseline gap-1">
+                  <span className="font-mono text-[10px] text-faint">{col.id}</span>
+                  <h2 className="text-xs font-semibold leading-tight">{col.name}</h2>
+                </div>
+                {colSel > 0 ? (
+                  <span className="mt-0.5 block text-[10px] text-muted">{colSel} selected</span>
+                ) : null}
               </div>
-            ) : null}
-          </section>
-        );
-      })}
+            );
+          })}
+
+          {/* Column bodies (technique cells stacked) */}
+          {orderedColumns.map(({ col, phase }) => {
+            const style = PHASE_STYLE[phase.id];
+            const isExpanded = expanded.has(phase.id);
+            const techniques = isExpanded
+              ? focus
+                ? col.techniques.filter((t) => selected.has(t.id))
+                : col.techniques
+              : [];
+            return (
+              <div key={`b-${col.id}`} className="bg-surface p-1">
+                {!isExpanded ? (
+                  <p className="px-1 py-1 text-[10px] text-faint">{col.techniques.length} hidden</p>
+                ) : (
+                  <ul className="flex flex-col gap-0.5">
+                    {techniques.map((t) => {
+                      const isSel = selected.has(t.id);
+                      return (
+                        <li
+                          key={t.id}
+                          className={cn(
+                            "flex items-start gap-1.5 rounded-sm border-l-2 px-1.5 py-1",
+                            isSel
+                              ? `${style.selBorder} ${style.selBg}`
+                              : "border-transparent hover:bg-bg",
+                          )}
+                        >
+                          <Checkbox
+                            isSelected={isSel}
+                            onChange={() => toggle(t.id)}
+                            aria-label={
+                              isSel ? `Remove ${t.label} from heatmap` : `Add ${t.label} to heatmap`
+                            }
+                            className="mt-0.5"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setActiveId(t.id)}
+                            className="flex-1 rounded-sm text-left text-xs leading-snug hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                          >
+                            {t.label}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
 
       <TechniqueDetailDrawer
         technique={active?.technique ?? null}
