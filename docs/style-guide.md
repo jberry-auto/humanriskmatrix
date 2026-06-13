@@ -18,7 +18,7 @@ The authority for TypeScript is [`docs/engineering-standards/style-guide-typescr
 
 ### Repo conventions
 - **Layering.** `src/lib/**` is pure: no imports from `app/`, `components/`, Next.js, the DB driver, or any I/O client. Dependencies (Anthropic client, fetcher, clock, DB handle) are passed in as arguments. This is enforced in review.
-- **File naming.** Source modules `kebab-case.ts`. React components `PascalCase.tsx` with a matching named export (`export function ColumnCard(...)`). Test files `*.test.ts(x)` next to the code they cover.
+- **File naming.** Source modules `kebab-case.ts`. React components `PascalCase.tsx` with a matching named export (`export function CategoryCard(...)`). Test files `*.test.ts(x)` next to the code they cover.
 - **Imports** grouped: node builtins → external → internal → `import type`. Use `import type` for type-only imports.
 - **Constants** `SCREAMING_SNAKE_CASE`; const-objects-over-enums (`as const` + derived union).
 - **Booleans read as questions** (`isValid`, `hasMitreId`); **functions are verbs** (`loadCategories`, `validateContent`).

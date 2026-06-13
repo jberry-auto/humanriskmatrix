@@ -11,24 +11,24 @@ A phase ships when its **exit criteria** are met. Content can keep deepening wit
 
 ## Feature track
 
-### Phase 1 — Static Matrix + Theory  ·  *current*
+### Phase 1 — Static Matrix + Theory  ·  *current (Matrix live; Theory page remaining)*
 
 The static reference site: content only, no AI, no database.
 
 **Scope**
-- Next.js (App Router, TS) scaffold; standalone container; CI/CD; deploy to DigitalOcean.
-- Content pipeline: `content/` schemas + loader + `scripts/import-xlsx.ts`; validation as a build gate.
-- **Page 1 — Human Risk Matrix:** interactive grid of 11 categories across the spectrum of malicious intent (5 degrees); category/technique detail with MITRE-tagged techniques.
-- **Page 2 — Theory & Frameworks:** foundations prose, substrate-model and insider-category tables, framework cards.
-- Home/landing + nav; responsive + accessible.
+- ✅ Next.js (App Router, TS) scaffold; standalone container; CI/CD; deployed to DigitalOcean at humanriskmatrix.org.
+- ✅ Content pipeline: `content/` schemas + loader + `scripts/import-xlsx.ts`; validation as a build gate.
+- ✅ **Page 1 — Human Risk Matrix:** interactive ATT&CK-style grid of 11 categories across the 5 degrees of intent; click a technique → detail side-sheet (description, MITRE link, category/intent context); multi-select **environmental heatmap** persisted to localStorage.
+- ⏳ **Page 2 — Theory & Frameworks:** foundations prose, substrate-model and insider-category tables, framework cards. *(Next milestone; framework/theory content is already seeded.)*
+- ✅ Home/landing + nav; responsive + accessible; light/dark theme.
 
 **Drivers:** `docs/dev-plan/phase-1-matrix-theory.md`, `docs/content-model.md`, `docs/architecture.md`.
 
 **Exit criteria**
-- Both pages render entirely from validated `content/`; a malformed content file fails CI/build.
-- Site deployed at a public URL (custom domain wiring may follow) with green CI on `main`.
+- Both pages render entirely from validated `content/`; a malformed content file fails CI/build. *(Matrix ✅; Theory page pending.)*
+- ✅ Site deployed at the public domain humanriskmatrix.org with green CI on `main`.
 - Lighthouse: accessibility ≥ 95, no critical a11y violations; mobile layout verified.
-- No AI/DB code present; no secrets required beyond `DO_API_TOKEN` in GitHub.
+- ✅ No AI/DB code present; no secrets required beyond `DO_API_TOKEN` (in the `prod` GitHub Environment) + the `DOCR_REGISTRY` variable.
 
 ### Phase 2 — SLM Threat Modeler
 
@@ -60,8 +60,8 @@ Search across the matrix · stable permalinks/anchors per category & technique �
 
 The taxonomy is the product; the site is its surface. This track can progress in any phase.
 
-### C0 — Seed (with Phase 1)
-Import all of the local working workbook (`human-risk-framework.xlsx`, git-ignored, maintainer-held) into the committed `content/` tree: 5 degrees of intent, 11 categories with their techniques, MITRE IDs where coded, the foundations prose, substrate-model tables, and insider-threat categories. **Spot-check** the importer so no technique is dropped or mis-assigned (the Framework tab is dense and a few cells span degrees). Only the generated `content/` is committed — not the workbook.
+### C0 — Seed (with Phase 1)  ·  ✅ done
+Imported the local working workbook (`human-risk-framework.xlsx`, git-ignored, maintainer-held) into the committed `content/` tree: 5 degrees of intent, 11 categories with **160 techniques** (each with an authored description), MITRE IDs where coded, 9 framework records, and 7 insider-threat categories. Each technique was spot-checked so none was dropped or mis-assigned. Only the generated `content/` is committed — not the workbook. *(Long-form framework/theory essays remain — see C2.)*
 
 ### C1 — Complete coverage
 Fill gaps in technique lists; add MITRE IDs where currently `null` and a real technique exists; ensure every category's `mappedModels` and `insiderCategories` are accurate.
@@ -81,13 +81,13 @@ Introduce a taxonomy version + changelog so downstream users can pin to a releas
 
 Implementation proceeds one milestone per PR via `/plan → /dev → /qa → /review → /checks → /pr`:
 
-| Milestone | Track | Output |
-|---|---|---|
-| M0 | Feature | Scaffold + CI + empty deploy |
-| M1 | Content/Feature | Content schemas, loader, importer, seeded `content/` |
-| M2 | Feature | Matrix + Theory pages (Phase 1 exit) |
-| M3 | Feature | Threat Modeler (Phase 2 exit) |
-| M4 | Feature | Threat Feed + Postgres (Phase 3 exit) |
-| M5 | Feature | Hardening: security, SRE, observability pass |
+| Milestone | Track | Output | Status |
+|---|---|---|---|
+| M0 | Feature | Scaffold + CI + deploy pipeline | ✅ done |
+| M1 | Content/Feature | Content schemas, loader, importer, seeded `content/` | ✅ done |
+| M2 | Feature | Matrix + Theory pages (Phase 1 exit) | Matrix ✅; Theory ⏳ |
+| M3 | Feature | Threat Modeler (Phase 2 exit) | planned |
+| M4 | Feature | Threat Feed + Postgres (Phase 3 exit) | planned |
+| M5 | Feature | Hardening: security, SRE, observability pass | planned |
 
 Content milestones C1–C4 run continuously alongside, gated only by content validation and content-owner review.

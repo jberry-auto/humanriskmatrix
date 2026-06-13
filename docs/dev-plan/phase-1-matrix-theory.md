@@ -6,6 +6,14 @@
 
 ---
 
+## Status
+
+- **M0 — Scaffold + CI + deploy:** ✅ done (live at humanriskmatrix.org).
+- **M1 — Content pipeline + seed:** ✅ done (160 techniques across 11 categories, each with an authored description; 9 frameworks; 7 insider categories; `validate:content` is a build gate).
+- **M2 — Pages:** **Matrix ✅ built** (as an ATT&CK-style interactive grid — see below); **Theory page ⏳ remaining** (its framework/theory content is already seeded).
+
+The component design below reflects the **original plan**; the Matrix shipped with an evolved, MITRE ATT&CK–style layout (one wide grid, detail side-sheet, multi-select heatmap). The "as built" subsection records the actual components.
+
 ## Milestones
 
 ### M0 — Scaffold + CI + empty deploy
@@ -53,6 +61,20 @@ A **server component** that loads validated content and renders the matrix. No c
 
 **Interactivity:** prefer a progressive-enhancement approach — category detail as an accessible `<details>`/disclosure or a route segment (`/matrix/[category]`) so it works without JS. If a modal is used, it must be keyboard-accessible and focus-trapped. Keep client JS minimal.
 
+### As built
+
+The shipped Matrix follows the **MITRE ATT&CK viewer** model rather than per-category cards: one wide grid with all 11 categories side-by-side under their 5 degree-of-intent bands (horizontal scroll, with edge fades + chevron affordance), collapsible degrees, and an environmental heatmap built by multi-selecting techniques.
+
+- `app/matrix/page.tsx` — static Server Component; `loadContent()` → passes serializable data to `MatrixView`.
+- `src/components/matrix/MatrixView.tsx` (client) — the wide grid (`repeat(11, minmax(11rem,1fr))`), collapsible degree bands, per-technique checkbox + label button; owns the active-technique and selection state. Wrapped in the `HorizontalScroll` UI primitive.
+- `src/components/matrix/TechniqueDetailDrawer.tsx` (client) — the `SideSheet` detail pull-out: description, MITRE link, category/intent context, mapped models/insider categories.
+- `src/components/matrix/HeatmapSummary.tsx` (client) — selected totals, per-degree counts, Focus toggle, Clear.
+- `src/components/matrix/use-heatmap.ts` (client) — `useSyncExternalStore` module store persisted to `localStorage` (`hrm.heatmap.v1`).
+- `src/components/matrix/degree-style.ts` — static per-degree Tailwind classes.
+- Pure helpers `src/lib/matrix/group.ts` + `mitre.ts` are unit-tested, as planned.
+
+The `DegreeLegend` / `MatrixGrid` / `CategoryCard` / `MitreLink` components above were **not** built as separate files; their roles are absorbed into `MatrixView` + `TechniqueDetailDrawer` + `mitre.ts`.
+
 ## Page 2 — Theory & Frameworks (`app/theory/page.tsx`)
 
 A server component rendering the foundations and the cross-disciplinary frameworks.
@@ -71,7 +93,7 @@ A server component rendering the foundations and the cross-disciplinary framewor
 ## Shared shell
 
 - `app/layout.tsx` — top nav (Home · Matrix · Theory; Threat Modeler/Feed appear in later phases), footer (links to GitHub, license, responsible-use note), skip-to-content link, base typography.
-- `app/page.tsx` — landing: the one-paragraph pitch, the at-a-glance intent-spectrum strip, and cards linking to Matrix and Theory.
+- `app/page.tsx` — landing (as built): a centered hero, an "About the Human Risk Matrix Project" block (description + project goals), the five degrees of intent as cards that link into the Matrix, and a left-to-right roadmap timeline (v0.1 → v1.0).
 
 ## Styling & accessibility
 

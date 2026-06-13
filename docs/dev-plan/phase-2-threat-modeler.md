@@ -55,7 +55,7 @@ const ThreatModelResultSchema = z.object({
 - The Anthropic client and `ANTHROPIC_API_KEY` exist **only** in the route handler / server modules. Never import `src/config.ts` (or anything holding a secret) into a `'use client'` component, and never pass server config/secrets as props from a Server Component to a Client Component — both serialize into the browser bundle. Guard `src/config.ts` with the `server-only` package so an accidental client import fails the build. Only `NEXT_PUBLIC_TURNSTILE_SITE_KEY` reaches the browser.
 
 ## UI
-- `RiskHeatmap` recolors the Phase 1 `MatrixGrid` by score; shows rationale on column focus; prominent "AI-generated suggestion, not authoritative" disclaimer; empty/error/rate-limited states.
+- `RiskHeatmap` recolors the Phase 1 `MatrixView` grid by score; shows rationale on column focus; prominent "AI-generated suggestion, not authoritative" disclaimer; empty/error/rate-limited states.
 
 ## Acceptance criteria (Phase 2 exit)
 - Typed input → zod-validated 11-category heatmap + rationale + focus areas.

@@ -50,31 +50,40 @@ humanriskmatrix/
 │       └── phase-3-threat-feed.md       # outline
 │
 ├── scripts/
-│   └── import-xlsx.ts            # One-time/repeatable xlsx → content/ importer
+│   ├── import-xlsx.ts            # Maintainer-only xlsx → content/ importer (run locally via tsx)
+│   └── validate-content.ts      # tsx runner for the content loader (npm run validate:content)
 │
 ├── src/                          # Application code (alias @/* → ./src/*)
 │   ├── config.ts                 # zod-validated env loading (server-only)
 │   ├── lib/                      # PURE business logic — dependencies injected, no infra imports
 │   │   ├── cn.ts                 # className join helper (pure)
+│   │   ├── health.ts             # health-check payload (pure)
 │   │   ├── content/              # schema.ts (zod), load.ts (read+validate)
-│   │   ├── matrix/               # category/degree helpers (pure)
+│   │   ├── matrix/               # group.ts, mitre.ts — category/degree helpers (pure)
 │   │   ├── ai/                   # Phase 2: threat-model logic (client injected)
 │   │   └── feed/                 # Phase 3: RSS fetch/parse/pipeline (pure core)
 │   └── components/
-│       ├── ui/                   # Design system primitives (docs/design-system.md)
-│       └── …                     # feature components (MatrixGrid, ColumnCard, …)
+│       ├── ui/                   # Design-system primitives (docs/design-system.md):
+│       │                         #   Button, Card, Checkbox, Container, Dialog, Disclosure,
+│       │                         #   Eyebrow, Heading, HorizontalScroll, Link, Prose, Section,
+│       │                         #   SideSheet, Tabs, Tag, TextField, ThemeToggle
+│       └── matrix/               # Matrix feature: MatrixView, TechniqueDetailDrawer,
+│                                 #   HeatmapSummary, use-heatmap, degree-style
 │
 ├── app/                          # Next.js App Router (pages, layouts, API routes)
 │   ├── providers.tsx             # 'use client' — React Aria RouterProvider
 │   ├── layout.tsx  page.tsx  not-found.tsx  globals.css
 │   ├── styleguide/page.tsx       # design-system reference (noindex)
-│   ├── matrix/page.tsx
-│   ├── theory/page.tsx
+│   ├── matrix/page.tsx           # the Matrix (static Server Component) — BUILT
+│   ├── theory/page.tsx           # Theory & Frameworks — next milestone (not yet)
 │   ├── threat-modeler/page.tsx   # Phase 2
 │   ├── threat-feed/page.tsx      # Phase 3
-│   └── api/                      # route handlers (health now; Phase 2+ later)
+│   └── api/health/route.ts       # health check (Phase 2+ adds more routes)
 │
-├── tests/  (or *.test.ts alongside source)   # Vitest tests + fixtures
+├── tests/                       # Vitest tests + setup (mirrors src/ layout)
+│   ├── setup.ts                  # matchMedia + in-memory localStorage stubs
+│   ├── lib/  matrix/  ui/        # unit + component tests
+│   └── page.test.tsx  health.test.ts
 │
 ├── .github/
 │   ├── workflows/                # ci.yml, deploy.yml, feed-refresh.yml
@@ -91,7 +100,7 @@ humanriskmatrix/
 └── eslint/prettier config
 ```
 
-> Files marked "Phase 2/3" or "added in Phase 1" do not exist yet — this repo currently holds only the docs and content scaffolding. The tree above is the target so contributors know where new files go.
+> **Status:** Phase 1 is built — the full `content/` tree, the content pipeline (`src/lib/content`), the design system (`src/components/ui`), and the interactive Matrix page (`src/components/matrix`, `app/matrix`) are live. Files marked "Phase 2/3" (threat modeler, threat feed, `src/lib/ai`, `src/lib/feed`) and the Theory page do not exist yet — the tree shows them so contributors know where new files go.
 
 ## Where does my change go?
 
@@ -110,7 +119,7 @@ humanriskmatrix/
 
 ## Naming conventions
 
-- **Files:** `kebab-case` for source files (`column-card.tsx` or `ColumnCard.tsx` for components — pick one per the style guide and stay consistent), `kebab-case.mdx` for content, `NN-slug.yaml` for ordered matrix columns.
+- **Files:** `kebab-case` for source files (`category-card.tsx` or `CategoryCard.tsx` for components — pick one per the style guide and stay consistent), `kebab-case.mdx` for content, `NN-slug.yaml` for ordered matrix categories.
 - **Matrix category files** are zero-padded and ordered: `01-…` through `11-…`, slug derived from the category name.
 - **No default exports** in `src/` or `components/` — named exports only (see `docs/style-guide.md`).
 
