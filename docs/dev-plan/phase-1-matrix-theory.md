@@ -37,7 +37,7 @@
 A **server component** that loads validated content and renders the matrix. No client-side data fetching.
 
 **Layout**
-- Header: title, one-line definition, a `DegreeLegend` showing the 5 degrees of intent left→right (Internal → Approach → Deception → Imposition → Alignment) with their adversary role / awareness.
+- Header: title, one-line definition, a `DegreeLegend` showing the 5 degrees of intent left→right (Unintentional → Unaware → Deceived → Coerced → Complicit) with their adversary role / awareness.
 - `MatrixGrid`: 11 categories grouped under their 5 degree bands, ordered 1→11. Each category shows its number, name, and its techniques. On wide screens, a horizontal 5-degree band over 11 categories; on mobile, degrees stack vertically with categories inside.
 - Selecting a category (or each category's "detail") reveals/links a `CategoryCard` with: the full ordered technique list, each technique's MITRE ID linked to `https://attack.mitre.org/techniques/<ID>/` (sub-techniques use `Txxxx/00y`), and the category's mapped models + insider categories (cross-linked to `/theory`).
 

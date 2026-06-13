@@ -1,6 +1,6 @@
 id: 8
 name: Impersonation
-degreeId: deception
+degreeId: deceived
 mappedModels:
   - cialdini-unity
   - cognitive-biases

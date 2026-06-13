@@ -26,27 +26,27 @@ Ordered left → right by increasing malicious intent (not by time).
 
 | order | id | name | categories | adversaryRole | awareness |
 |---|---|---|---|---|---|
-| 1 | `internal` | Internal | 1–3 | None | Low to none; no harmful intent — slip, habit, convenience |
-| 2 | `approach` | Approach | 4–6 | Passive observation / relationship-building | None to low; unaware of being targeted |
-| 3 | `deception` | Deception | 7–8 | Active deception | Detected on reflection or never; believes the action is correct |
-| 4 | `imposition` | Imposition | 9–10 | Active pressure or physical action | Immediate/imminent; acts under force or confusion |
-| 5 | `alignment` | Alignment | 11 | Active sponsor | Full awareness; aligned with adversary |
+| 1 | `unintentional` | Unintentional | 1–3 | None | Low to none; no harmful intent — slip, habit, convenience |
+| 2 | `unaware` | Unaware | 4–6 | Passive observation / relationship-building | None to low; unaware of being targeted |
+| 3 | `deceived` | Deceived | 7–8 | Active deception | Detected on reflection or never; believes the action is correct |
+| 4 | `coerced` | Coerced | 9–10 | Active pressure or physical action | Immediate/imminent; acts under force or confusion |
+| 5 | `complicit` | Complicit | 11 | Active sponsor | Full awareness; aligned with adversary |
 
 ### Categories (11)
 
 | id | name | degree |
 |---|---|---|
-| 1 | Accidental Disclosure | internal |
-| 2 | Hygiene & Config Drift | internal |
-| 3 | Workarounds & Self-Exposure | internal |
-| 4 | Reconnaissance | approach |
-| 5 | Access Development | approach |
-| 6 | Elicitation | approach |
-| 7 | Deceptive Delivery | deception |
-| 8 | Impersonation | deception |
-| 9 | Forced Compliance | imposition |
-| 10 | Physical Intrusion | imposition |
-| 11 | Coercion & Recruitment | alignment |
+| 1 | Accidental Disclosure | unintentional |
+| 2 | Hygiene & Config Drift | unintentional |
+| 3 | Workarounds & Self-Exposure | unintentional |
+| 4 | Reconnaissance | unaware |
+| 5 | Access Development | unaware |
+| 6 | Elicitation | unaware |
+| 7 | Deceptive Delivery | deceived |
+| 8 | Impersonation | deceived |
+| 9 | Forced Compliance | coerced |
+| 10 | Physical Intrusion | coerced |
+| 11 | Coercion & Recruitment | complicit |
 
 Each category holds an **ordered list of techniques** (id + label + optional MITRE ID + authored description). The Framework tab is the source; e.g. category 1 ranges from "Misdirected email (autocomplete)" to "Confidential data pasted into public LLM"; category 7 (Deceptive Delivery) is the densest, running from "Spearphishing Attachment (T1566.001)" through BEC variants and "ClickFix / FakeCaptcha (T1204.004)"; category 11 runs "Witting recruitment (MICE)" → "Sextortion" → … → "Ransomware extortion (post-SE)".
 
@@ -72,7 +72,7 @@ import { z } from 'zod';
 
 // --- Intent degree ---
 export const IntentDegreeIdSchema = z.enum([
-  'internal', 'approach', 'deception', 'imposition', 'alignment',
+  'unintentional', 'unaware', 'deceived', 'coerced', 'complicit',
 ]);
 export type IntentDegreeId = z.infer<typeof IntentDegreeIdSchema>;
 
@@ -169,7 +169,7 @@ content/
 # content/matrix/categories/07-deceptive-delivery.yaml
 id: 7
 name: Deceptive Delivery
-degreeId: deception
+degreeId: deceived
 mappedModels: [cialdini-unity, cognitive-biases]
 insiderCategories: [unwitting-exploited, compromised-credentials]
 techniques:

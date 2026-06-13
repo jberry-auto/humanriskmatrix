@@ -17,44 +17,44 @@ const ROOT = process.cwd();
 const XLSX = join(ROOT, "human-risk-framework.xlsx");
 const CONTENT = join(ROOT, "content");
 
-type IntentDegreeId = "internal" | "approach" | "deception" | "imposition" | "alignment";
+type IntentDegreeId = "unintentional" | "unaware" | "deceived" | "coerced" | "complicit";
 
 const DEGREES = [
   {
-    id: "internal",
-    name: "Internal",
+    id: "unintentional",
+    name: "Unintentional",
     order: 1,
     categoryRange: [1, 3],
     adversaryRole: "None",
     awareness: "Low to none; no harmful intent — slip, habit, convenience",
   },
   {
-    id: "approach",
-    name: "Approach",
+    id: "unaware",
+    name: "Unaware",
     order: 2,
     categoryRange: [4, 6],
     adversaryRole: "Passive observation or relationship-building",
     awareness: "None to low; unaware of being targeted",
   },
   {
-    id: "deception",
-    name: "Deception",
+    id: "deceived",
+    name: "Deceived",
     order: 3,
     categoryRange: [7, 8],
     adversaryRole: "Active deception",
     awareness: "Detected on reflection or never; believes the action is correct",
   },
   {
-    id: "imposition",
-    name: "Imposition",
+    id: "coerced",
+    name: "Coerced",
     order: 4,
     categoryRange: [9, 10],
     adversaryRole: "Active pressure or physical action",
     awareness: "Immediate or imminent; acts under force or confusion",
   },
   {
-    id: "alignment",
-    name: "Alignment",
+    id: "complicit",
+    name: "Complicit",
     order: 5,
     categoryRange: [11, 11],
     adversaryRole: "Active sponsor",
@@ -63,22 +63,32 @@ const DEGREES = [
 ] as const;
 
 const CATEGORIES: { id: number; name: string; degreeId: IntentDegreeId; slug: string }[] = [
-  { id: 1, name: "Accidental Disclosure", degreeId: "internal", slug: "accidental-disclosure" },
-  { id: 2, name: "Hygiene & Config Drift", degreeId: "internal", slug: "hygiene-config-drift" },
+  {
+    id: 1,
+    name: "Accidental Disclosure",
+    degreeId: "unintentional",
+    slug: "accidental-disclosure",
+  },
+  {
+    id: 2,
+    name: "Hygiene & Config Drift",
+    degreeId: "unintentional",
+    slug: "hygiene-config-drift",
+  },
   {
     id: 3,
     name: "Workarounds & Self-Exposure",
-    degreeId: "internal",
+    degreeId: "unintentional",
     slug: "workarounds-self-exposure",
   },
-  { id: 4, name: "Reconnaissance", degreeId: "approach", slug: "reconnaissance" },
-  { id: 5, name: "Access Development", degreeId: "approach", slug: "access-development" },
-  { id: 6, name: "Elicitation", degreeId: "approach", slug: "elicitation" },
-  { id: 7, name: "Deceptive Delivery", degreeId: "deception", slug: "deceptive-delivery" },
-  { id: 8, name: "Impersonation", degreeId: "deception", slug: "impersonation" },
-  { id: 9, name: "Forced Compliance", degreeId: "imposition", slug: "forced-compliance" },
-  { id: 10, name: "Physical Intrusion", degreeId: "imposition", slug: "physical-intrusion" },
-  { id: 11, name: "Coercion & Recruitment", degreeId: "alignment", slug: "coercion-recruitment" },
+  { id: 4, name: "Reconnaissance", degreeId: "unaware", slug: "reconnaissance" },
+  { id: 5, name: "Access Development", degreeId: "unaware", slug: "access-development" },
+  { id: 6, name: "Elicitation", degreeId: "unaware", slug: "elicitation" },
+  { id: 7, name: "Deceptive Delivery", degreeId: "deceived", slug: "deceptive-delivery" },
+  { id: 8, name: "Impersonation", degreeId: "deceived", slug: "impersonation" },
+  { id: 9, name: "Forced Compliance", degreeId: "coerced", slug: "forced-compliance" },
+  { id: 10, name: "Physical Intrusion", degreeId: "coerced", slug: "physical-intrusion" },
+  { id: 11, name: "Coercion & Recruitment", degreeId: "complicit", slug: "coercion-recruitment" },
 ];
 
 const FRAMEWORKS = [

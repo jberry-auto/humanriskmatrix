@@ -48,7 +48,7 @@ describe("loadContent — invalid content", () => {
     // A category whose technique is missing the required description.
     writeFileSync(
       join(dir, "matrix", "categories", "01-x.yaml"),
-      "id: 1\nname: X\ndegreeId: internal\ntechniques:\n  - id: 1-a\n    label: A\n    mitreId: null\n",
+      "id: 1\nname: X\ndegreeId: unintentional\ntechniques:\n  - id: 1-a\n    label: A\n    mitreId: null\n",
     );
     expect(() => loadContent(dir)).toThrow(ContentValidationError);
   });

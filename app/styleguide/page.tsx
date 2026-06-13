@@ -18,18 +18,18 @@ export const metadata: Metadata = {
 };
 
 const degrees: ReadonlyArray<Degree> = [
-  "internal",
-  "approach",
-  "deception",
-  "imposition",
-  "alignment",
+  "unintentional",
+  "unaware",
+  "deceived",
+  "coerced",
+  "complicit",
 ];
 
 export default function StyleGuide() {
   return (
     <div className="flex flex-col gap-16">
       <Section className="gap-2">
-        <Eyebrow>Internal</Eyebrow>
+        <Eyebrow>Reference</Eyebrow>
         <Heading level={1} size="h1">
           Design system
         </Heading>

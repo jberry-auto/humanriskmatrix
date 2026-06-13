@@ -2,14 +2,14 @@ import type { ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
 
-export type Degree = "internal" | "approach" | "deception" | "imposition" | "alignment";
+export type Degree = "unintentional" | "unaware" | "deceived" | "coerced" | "complicit";
 
 const dotColor: Record<Degree, string> = {
-  internal: "bg-degree-internal",
-  approach: "bg-degree-approach",
-  deception: "bg-degree-deception",
-  imposition: "bg-degree-imposition",
-  alignment: "bg-degree-alignment",
+  unintentional: "bg-degree-unintentional",
+  unaware: "bg-degree-unaware",
+  deceived: "bg-degree-deceived",
+  coerced: "bg-degree-coerced",
+  complicit: "bg-degree-complicit",
 };
 
 interface TagProps {

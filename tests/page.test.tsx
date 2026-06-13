@@ -13,7 +13,7 @@ describe("Home", () => {
 
   it("lists all five intent degrees", () => {
     render(<Home />);
-    for (const degree of ["Internal", "Approach", "Deception", "Imposition", "Alignment"]) {
+    for (const degree of ["Unintentional", "Unaware", "Deceived", "Coerced", "Complicit"]) {
       expect(screen.getByText(degree)).toBeInTheDocument();
     }
   });

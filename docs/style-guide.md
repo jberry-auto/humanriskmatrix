@@ -53,7 +53,7 @@ Each category file lists techniques in priority order. A technique is:
 - Order reflects prominence/representativeness within the category, mirroring the source workbook.
 
 ### Degrees of intent (`content/matrix/intent-degrees.yaml`)
-The five degrees of intent are fixed (Internal, Approach, Deception, Imposition, Alignment) and read left→right as a spectrum of malicious intent, not a timeline. Edits here are rare and require strong justification — degree boundaries are a structural decision of the taxonomy.
+The five degrees of intent are fixed (Unintentional, Unaware, Deceived, Coerced, Complicit) and read left→right as a spectrum of malicious intent, not a timeline. Edits here are rare and require strong justification — degree boundaries are a structural decision of the taxonomy.
 
 ### Framework & theory essays (`content/frameworks/*.mdx`, `content/theory/*.mdx`)
 Required frontmatter (see `docs/content-model.md` for the exact schema):

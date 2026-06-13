@@ -17,7 +17,7 @@ The visual + interaction language for humanriskmatrix.org: a **formal "serif rev
 ## Foundations
 
 ### Color tokens
-Defined in `app/globals.css` `@theme`; consumed as Tailwind utilities (`bg-bg`, `text-ink`, `border-border`, `bg-accent`, `text-degree-internal`, …). The table shows **light** (default) values; the **dark** theme overrides the same tokens under `.dark` (see Theming).
+Defined in `app/globals.css` `@theme`; consumed as Tailwind utilities (`bg-bg`, `text-ink`, `border-border`, `bg-accent`, `text-degree-unintentional`, …). The table shows **light** (default) values; the **dark** theme overrides the same tokens under `.dark` (see Theming).
 
 | Token | Hex | Use |
 |---|---|---|
@@ -33,7 +33,7 @@ Defined in `app/globals.css` `@theme`; consumed as Tailwind utilities (`bg-bg`, 
 | `accent-contrast` | `#FFFFFF` | text on accent |
 | `accent-subtle` | `#E8F0EA` | tinted accent background |
 
-**Intent degrees** (muted/editorial, cool→warm, low→high intent): `degree-internal #3F6E8C` · `degree-approach #4E5C8A` · `degree-deception #6B5080` · `degree-imposition #9A5B57` · `degree-alignment #8C3B36`. All meet WCAG AA against paper; always paired with a label.
+**Intent degrees** (muted/editorial, cool→warm, low→high intent): `degree-unintentional #3F6E8C` · `degree-unaware #4E5C8A` · `degree-deceived #6B5080` · `degree-coerced #9A5B57` · `degree-complicit #8C3B36`. All meet WCAG AA against paper; always paired with a label.
 
 ### Typography
 Families: `font-serif` (Source Serif 4), `font-sans` (Source Sans 3, default body), `font-mono` (Source Code Pro). Loaded self-hosted via `next/font` in `app/layout.tsx` (no external font origin → CSP `font-src 'self'`). Base layer sets body = sans 17px/1.6, and `h1–h4` = serif. Use the `Heading` component for headings (semantic level decoupled from visual `size`).

@@ -23,12 +23,12 @@
   --color-accent-contrast: #ffffff;
   --color-accent-subtle: #e8f0ea;
 
-  /* The five intent degrees — muted/editorial, cool → warm. Never used as the only signal. */
-  --color-degree-internal: #3f6e8c;
-  --color-degree-approach: #4e5c8a;
-  --color-degree-deception: #6b5080;
-  --color-degree-imposition: #9a5b57;
-  --color-degree-alignment: #8c3b36;
+  /* The five intent degrees — muted/editorial, cool → warm (low → high intent). Never used as the only signal. */
+  --color-degree-unintentional: #3f6e8c;
+  --color-degree-unaware: #4e5c8a;
+  --color-degree-deceived: #6b5080;
+  --color-degree-coerced: #9a5b57;
+  --color-degree-complicit: #8c3b36;
 
   /* Radii — small and formal */
   --radius-sm: 0.125rem;
@@ -64,11 +64,11 @@
   --color-accent-contrast: #14130f;
   --color-accent-subtle: #1d2a22;
 
-  --color-degree-internal: #6fa0be;
-  --color-degree-approach: #8089b8;
-  --color-degree-deception: #9e84b0;
-  --color-degree-imposition: #c58e89;
-  --color-degree-alignment: #c9706a;
+  --color-degree-unintentional: #6fa0be;
+  --color-degree-unaware: #8089b8;
+  --color-degree-deceived: #9e84b0;
+  --color-degree-coerced: #c58e89;
+  --color-degree-complicit: #c9706a;
 }
 
 @layer base {

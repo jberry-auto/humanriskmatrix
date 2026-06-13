@@ -8,29 +8,29 @@ export interface DegreeStyle {
 }
 
 export const DEGREE_STYLE: Record<IntentDegreeId, DegreeStyle> = {
-  internal: {
-    dot: "bg-degree-internal",
-    selBorder: "border-degree-internal",
-    selBg: "bg-degree-internal/10",
+  unintentional: {
+    dot: "bg-degree-unintentional",
+    selBorder: "border-degree-unintentional",
+    selBg: "bg-degree-unintentional/10",
   },
-  approach: {
-    dot: "bg-degree-approach",
-    selBorder: "border-degree-approach",
-    selBg: "bg-degree-approach/10",
+  unaware: {
+    dot: "bg-degree-unaware",
+    selBorder: "border-degree-unaware",
+    selBg: "bg-degree-unaware/10",
   },
-  deception: {
-    dot: "bg-degree-deception",
-    selBorder: "border-degree-deception",
-    selBg: "bg-degree-deception/10",
+  deceived: {
+    dot: "bg-degree-deceived",
+    selBorder: "border-degree-deceived",
+    selBg: "bg-degree-deceived/10",
   },
-  imposition: {
-    dot: "bg-degree-imposition",
-    selBorder: "border-degree-imposition",
-    selBg: "bg-degree-imposition/10",
+  coerced: {
+    dot: "bg-degree-coerced",
+    selBorder: "border-degree-coerced",
+    selBg: "bg-degree-coerced/10",
   },
-  alignment: {
-    dot: "bg-degree-alignment",
-    selBorder: "border-degree-alignment",
-    selBg: "bg-degree-alignment/10",
+  complicit: {
+    dot: "bg-degree-complicit",
+    selBorder: "border-degree-complicit",
+    selBg: "bg-degree-complicit/10",
   },
 };

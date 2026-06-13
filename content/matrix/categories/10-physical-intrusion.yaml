@@ -1,6 +1,6 @@
 id: 10
 name: Physical Intrusion
-degreeId: imposition
+degreeId: coerced
 mappedModels:
   - cognitive-biases
 insiderCategories: []

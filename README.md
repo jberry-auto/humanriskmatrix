@@ -18,8 +18,10 @@ It unifies the vocabularies of four disciplines usually kept apart — **counter
 Eleven categories of human behavior, ordered along a **spectrum of malicious intent** — by **how much harmful intent drives the behavior** (not by any sequence of events) — grouped into five degrees of intent:
 
 ```
-INTERNAL ORIGIN            EXTERNAL APPROACH         DECEPTION        IMPOSITION              ALIGNMENT
-(no adversary)             (observe / build)         (deceive)        (pressure / act)        (witting)
+least malicious intent  ────────────────────────────────────────────────────▶  most malicious intent
+
+UNINTENTIONAL              UNAWARE                   DECEIVED         COERCED                 COMPLICIT
+(no adversary)             (observed / cultivated)   (deceived)       (pressured / forced)    (witting)
 1 Accidental Disclosure    4 Reconnaissance          7 Deceptive      9 Forced Compliance     11 Coercion &
 2 Hygiene & Config Drift   5 Access Development         Delivery       10 Physical Intrusion      Recruitment
 3 Workarounds &            6 Elicitation             8 Impersonation

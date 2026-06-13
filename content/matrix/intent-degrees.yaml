@@ -1,37 +1,37 @@
-- id: internal
-  name: Internal
+- id: unintentional
+  name: Unintentional
   order: 1
   categoryRange:
     - 1
     - 3
   adversaryRole: None
   awareness: Low to none; no harmful intent — slip, habit, convenience
-- id: approach
-  name: Approach
+- id: unaware
+  name: Unaware
   order: 2
   categoryRange:
     - 4
     - 6
   adversaryRole: Passive observation or relationship-building
   awareness: None to low; unaware of being targeted
-- id: deception
-  name: Deception
+- id: deceived
+  name: Deceived
   order: 3
   categoryRange:
     - 7
     - 8
   adversaryRole: Active deception
   awareness: Detected on reflection or never; believes the action is correct
-- id: imposition
-  name: Imposition
+- id: coerced
+  name: Coerced
   order: 4
   categoryRange:
     - 9
     - 10
   adversaryRole: Active pressure or physical action
   awareness: Immediate or imminent; acts under force or confusion
-- id: alignment
-  name: Alignment
+- id: complicit
+  name: Complicit
   order: 5
   categoryRange:
     - 11

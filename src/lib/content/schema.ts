@@ -5,11 +5,11 @@ import { z } from "zod";
 // on the left → witting/malicious on the right). These are positions on a spectrum,
 // not a temporal progression. The id values are stable; the labels carry the meaning.
 export const IntentDegreeIdSchema = z.enum([
-  "internal",
-  "approach",
-  "deception",
-  "imposition",
-  "alignment",
+  "unintentional",
+  "unaware",
+  "deceived",
+  "coerced",
+  "complicit",
 ]);
 export type IntentDegreeId = z.infer<typeof IntentDegreeIdSchema>;
 
