@@ -3,6 +3,7 @@
 import { useCallback, useMemo, useState } from "react";
 
 import { Checkbox } from "@/components/ui/Checkbox";
+import { HorizontalScroll } from "@/components/ui/HorizontalScroll";
 import { cn } from "@/lib/cn";
 import type { MatrixColumn, Phase, PhaseId, Technique } from "@/lib/content/schema";
 import type { PhaseGroup } from "@/lib/matrix/group";
@@ -86,7 +87,10 @@ export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
         onCollapseAll={collapseAll}
       />
 
-      <div className="overflow-x-auto pb-2">
+      <p className="-mb-2 text-sm text-muted">
+        Wide matrix — scroll horizontally (or use the arrows) to see all five phases.
+      </p>
+      <HorizontalScroll label="the matrix">
         <div className="grid gap-px rounded-md border border-border bg-border" style={gridStyle}>
           {/* Phase headers (span their columns) */}
           {groups.map((g) => {
@@ -196,7 +200,7 @@ export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
             );
           })}
         </div>
-      </div>
+      </HorizontalScroll>
 
       <TechniqueDetailDrawer
         technique={active?.technique ?? null}
