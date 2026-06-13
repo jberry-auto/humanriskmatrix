@@ -13,8 +13,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Keep `main` green until DigitalOcean is provisioned: if DO_API_TOKEN is unset,
-  # the deploy job is skipped (neutral), not failed.
+  # Stays green until DigitalOcean is configured: with no DO_API_TOKEN the build job
+  # is skipped (neutral), not failed.
   preflight:
     runs-on: ubuntu-latest
     outputs:
@@ -31,13 +31,17 @@ jobs:
             echo "::notice::DO_API_TOKEN not set — skipping deploy (configure DO to enable)."
           fi
 
+  # Build the linux/amd64 image and push :latest to DOCR. The App Platform app has
+  # image deploy-on-push enabled, so DigitalOcean redeploys automatically on push —
+  # CI does not (and must not) run `doctl apps update`, which would overwrite the
+  # live spec. Infra changes are made via `.do/app.yaml` + a manual `doctl apps update`.
   deploy:
     needs: preflight
     if: needs.preflight.outputs.configured == 'true'
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           persist-credentials: false
       - uses: digitalocean/action-doctl@v2
@@ -52,5 +56,3 @@ jobs:
           docker build -t "$REGISTRY:${{ github.sha }}" -t "$REGISTRY:latest" .
           docker push "$REGISTRY:${{ github.sha }}"
           docker push "$REGISTRY:latest"
-      - name: Deploy to App Platform
-        run: doctl apps update "${{ vars.DO_APP_ID }}" --spec .do/app.yaml --wait
