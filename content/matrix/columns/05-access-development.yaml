@@ -1,0 +1,76 @@
+id: 5
+name: Access Development
+phaseId: approach
+mappedModels:
+  - mice
+  - rascls
+  - cialdini-unity
+  - cognitive-biases
+insiderCategories:
+  - unwitting-exploited
+  - third-party-vendor
+techniques:
+  - id: 5-cultivation-long-cycle
+    label: Cultivation (long-cycle)
+    mitreId: null
+    description: An adversary builds a trusted relationship with a target slowly,
+      over months, to develop access.
+  - id: 5-pig-butchering-romance
+    label: Pig butchering / romance
+    mitreId: null
+    description: A long con built on a fabricated romantic or investment
+      relationship to extract money or access.
+  - id: 5-operation-dream-job
+    label: Operation Dream Job
+    mitreId: T1566.003
+    description: Targets are lured with fake, attractive job offers that deliver
+      malware or elicit access during 'recruitment'.
+  - id: 5-contagious-interview
+    label: Contagious Interview
+    mitreId: null
+    description: Fake interview processes get developers to run attacker-supplied
+      code or tasks that compromise them.
+  - id: 5-talent-program-exploitation
+    label: Talent program exploitation
+    mitreId: null
+    description: Recruiting, fellowship, or talent programs are used as a pretext to
+      cultivate insiders.
+  - id: 5-academic-collaboration-cultivation
+    label: Academic collaboration cultivation
+    mitreId: null
+    description: A research collaboration is used as cover to build trust and draw
+      out sensitive work.
+  - id: 5-fake-vendor-onboarding
+    label: Fake vendor onboarding
+    mitreId: null
+    description: A bogus vendor relationship is established to gain
+      legitimate-looking access and contact.
+  - id: 5-conference-panel-invite-lures
+    label: Conference / panel invite lures
+    mitreId: null
+    description: Speaking or panel invitations create rapport and a pretext for
+      ongoing contact.
+  - id: 5-honey-trap-cultivation-phase
+    label: Honey trap (cultivation phase)
+    mitreId: null
+    description: A romantic or personal relationship is engineered to build access
+      and future leverage.
+  - id: 5-sockpuppet-network-grooming
+    label: Sockpuppet network grooming
+    mitreId: T1585
+    description: Coordinated fake personas befriend and groom a target across platforms.
+  - id: 5-cooptation-ideological-drift
+    label: Cooptation (ideological drift)
+    mitreId: null
+    description: A target is gradually drawn toward an adversary's cause until they
+      cooperate by conviction.
+  - id: 5-mutual-contact-referral-seed
+    label: Mutual-contact / referral seed
+    mitreId: null
+    description: A shared acquaintance or warm referral is used to manufacture
+      instant credibility.
+  - id: 5-narrative-laundering
+    label: Narrative laundering
+    mitreId: null
+    description: A false narrative is seeded through seemingly independent channels
+      to shape a target's beliefs and actions.

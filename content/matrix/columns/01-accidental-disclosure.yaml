@@ -1,0 +1,95 @@
+id: 1
+name: Accidental Disclosure
+phaseId: internal
+mappedModels:
+  - swiss-cheese
+  - just-culture
+  - heinrich-pyramid
+insiderCategories:
+  - negligent-insider
+techniques:
+  - id: 1-misdirected-email-autocomplete
+    label: Misdirected email (autocomplete)
+    mitreId: null
+    description: An email goes to the wrong recipient because address autocomplete
+      picked a similar name, exposing its contents to an unintended party.
+  - id: 1-reply-all-on-sensitive-thread
+    label: Reply-all on sensitive thread
+    mitreId: null
+    description: Hitting reply-all broadcasts a confidential discussion to a far
+      wider distribution than intended.
+  - id: 1-wrong-attachment-sent
+    label: Wrong attachment sent
+    mitreId: null
+    description: The wrong file is attached to a message, disclosing data meant for
+      no one or someone else.
+  - id: 1-wrong-channel-dm-disclosure
+    label: Wrong-channel DM disclosure
+    mitreId: null
+    description: Sensitive information is posted in the wrong chat channel or direct
+      message, exposing it beyond its intended audience.
+  - id: 1-inadvertent-file-share-link-to-wrong-place
+    label: Inadvertent file share (link to wrong place)
+    mitreId: null
+    description: A document is shared to the wrong folder, team, or 'anyone with the
+      link', granting unintended access.
+  - id: 1-verbal-slip-overheard-in-public
+    label: Verbal slip overheard in public
+    mitreId: null
+    description: Confidential details are spoken aloud in a public place and
+      overheard by bystanders.
+  - id: 1-screen-share-showing-wrong-window
+    label: Screen-share showing wrong window
+    mitreId: null
+    description: During a call a presenter shares the wrong window or desktop,
+      briefly exposing sensitive content.
+  - id: 1-sensitive-metadata-in-calendar-titles
+    label: Sensitive metadata in calendar titles
+    mitreId: null
+    description: Meeting titles or invites leak deal names, projects, or attendees
+      to anyone who can see the calendar.
+  - id: 1-lost-device-laptop-phone-usb
+    label: Lost device (laptop, phone, USB)
+    mitreId: null
+    description: A device holding work data is lost or stolen, exposing whatever was
+      stored or cached on it.
+  - id: 1-improper-disposal-of-papers-drives
+    label: Improper disposal of papers / drives
+    mitreId: null
+    description: Documents or storage media are discarded without shredding or
+      wiping, leaving recoverable data.
+  - id: 1-mis-classification-of-data-sensitivity
+    label: Mis-classification of data sensitivity
+    mitreId: null
+    description: Data is labeled less sensitive than it is, so it receives weaker
+      handling and broader access than warranted.
+  - id: 1-accidental-publication-draft-public
+    label: Accidental publication (draft → public)
+    mitreId: null
+    description: Draft content is published before review, exposing unfinished or
+      confidential material.
+  - id: 1-confidential-data-pasted-into-public-llm
+    label: Confidential data pasted into public LLM
+    mitreId: null
+    description: An employee pastes confidential business data into a public AI
+      tool, sending it outside the organization's control.
+  - id: 1-source-code-pasted-into-public-llm
+    label: Source code pasted into public LLM
+    mitreId: null
+    description: Proprietary source code is pasted into a public AI assistant,
+      leaking intellectual property to a third party.
+  - id: 1-customer-data-pasted-into-saas-without-dpa
+    label: Customer data pasted into SaaS without DPA
+    mitreId: null
+    description: Customer data is entered into a SaaS tool with no data-processing
+      agreement, creating uncontrolled processing and compliance exposure.
+  - id: 1-discussing-details-on-podcasts-press
+    label: Discussing details on podcasts / press
+    mitreId: null
+    description: Staff reveal sensitive operational or client details in interviews,
+      podcasts, or press.
+  - id: 1-geotagged-photos-from-sensitive-sites
+    label: Geotagged photos from sensitive sites
+    mitreId: null
+    description: Photos taken at sensitive locations carry embedded geolocation,
+      disclosing where work happens.

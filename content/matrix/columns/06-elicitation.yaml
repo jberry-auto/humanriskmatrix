@@ -1,0 +1,72 @@
+id: 6
+name: Elicitation
+phaseId: approach
+mappedModels:
+  - rascls
+  - cialdini-unity
+  - cognitive-biases
+insiderCategories:
+  - unwitting-exploited
+techniques:
+  - id: 6-conversational-elicitation
+    label: Conversational elicitation
+    mitreId: null
+    description: Skilled, casual conversation draws out sensitive information
+      without the target realizing they disclosed it.
+  - id: 6-pretextual-journalism
+    label: Pretextual journalism
+    mitreId: null
+    description: Posing as a journalist provides a plausible reason to ask probing
+      questions.
+  - id: 6-eavesdropping-active
+    label: Eavesdropping (active)
+    mitreId: null
+    description: An adversary actively positions to overhear conversations in person
+      or over channels.
+  - id: 6-chatbot-credential-harvesting
+    label: Chatbot credential harvesting
+    mitreId: null
+    description: A malicious chatbot or assistant is used to coax users into
+      revealing credentials.
+  - id: 6-reciprocity-exploitation
+    label: Reciprocity exploitation
+    mitreId: null
+    description: A small favor or gift creates a sense of obligation the target
+      repays with information or access.
+  - id: 6-liking-rapport-leverage
+    label: Liking / rapport leverage
+    mitreId: null
+    description: Manufactured likeability and rapport make a target more willing to comply.
+  - id: 6-unity-shared-identity-exploit
+    label: Unity (shared-identity) exploit
+    mitreId: null
+    description: Claiming a shared identity ('we're both veterans') builds trust
+      that lowers the target's guard.
+  - id: 6-social-proof-manipulation
+    label: Social-proof manipulation
+    mitreId: null
+    description: Suggesting 'everyone else does this' pressures the target to comply
+      with a request.
+  - id: 6-foot-in-the-door-commitment
+    label: Foot-in-the-door / commitment
+    mitreId: null
+    description: A small initial agreement is leveraged into progressively larger ones.
+  - id: 6-door-in-the-face-concessions
+    label: Door-in-the-face / concessions
+    mitreId: null
+    description: An extreme first request makes a smaller, real ask seem reasonable
+      by comparison.
+  - id: 6-anchoring
+    label: Anchoring
+    mitreId: null
+    description: An initial reference point is planted to skew the target's later
+      judgments and disclosures.
+  - id: 6-trust-transference-via-referral
+    label: Trust transference (via referral)
+    mitreId: null
+    description: Trust in a known third party is transferred to the adversary
+      through a referral.
+  - id: 6-plausibility-engineering
+    label: Plausibility engineering
+    mitreId: null
+    description: A request is wrapped in just enough believable detail to pass scrutiny.

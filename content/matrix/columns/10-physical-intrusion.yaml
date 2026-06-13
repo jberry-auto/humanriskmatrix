@@ -1,0 +1,65 @@
+id: 10
+name: Physical Intrusion
+phaseId: imposition
+mappedModels:
+  - cognitive-biases
+insiderCategories: []
+techniques:
+  - id: 10-tailgating-piggybacking
+    label: Tailgating / piggybacking
+    mitreId: null
+    description: An unauthorized person follows authorized staff through a secure entrance.
+  - id: 10-in-person-pretext-vendor-it-fire-marshal
+    label: In-person pretext (vendor, IT, fire marshal)
+    mitreId: null
+    description: An attacker poses as a vendor, technician, or official to gain
+      physical entry.
+  - id: 10-baiting-usb-drops-conference-swag
+    label: Baiting — USB drops, conference swag
+    mitreId: null
+    description: Malicious USB devices or giveaways are left for curious victims to plug in.
+  - id: 10-shoulder-surfing
+    label: Shoulder surfing
+    mitreId: null
+    description: Credentials or data are observed over a target's shoulder in person.
+  - id: 10-dumpster-diving
+    label: Dumpster diving
+    mitreId: null
+    description: Discarded documents and media are recovered from trash for useful
+      information.
+  - id: 10-badge-cloning-rfid-skim
+    label: Badge cloning / RFID skim
+    mitreId: null
+    description: An access badge is read and copied to gain physical entry.
+  - id: 10-lock-picking-mechanical-bypass
+    label: Lock picking / mechanical bypass
+    mitreId: null
+    description: Physical locks are picked or bypassed to reach restricted areas.
+  - id: 10-evil-maid-attacks
+    label: Evil maid attacks
+    mitreId: null
+    description: Brief unsupervised physical access to a device is used to tamper
+      with or compromise it.
+  - id: 10-mail-interception
+    label: Mail interception
+    mitreId: null
+    description: Physical mail is intercepted to obtain cards, codes, or documents.
+  - id: 10-hardware-additions-implants
+    label: Hardware additions / implants
+    mitreId: T1200
+    description: A malicious device is added to systems or networks to gain
+      persistent access.
+  - id: 10-active-physical-surveillance
+    label: Active physical surveillance
+    mitreId: null
+    description: A target is followed and watched in person to enable an intrusion
+      or approach.
+  - id: 10-conference-trade-show-targeting
+    label: Conference / trade-show targeting
+    mitreId: null
+    description: Events are used as venues to approach targets and reach people and devices.
+  - id: 10-sim-swap-in-person-carrier-se
+    label: SIM swap (in-person carrier SE)
+    mitreId: null
+    description: An attacker socially engineers a carrier store in person to swap
+      the victim's SIM.

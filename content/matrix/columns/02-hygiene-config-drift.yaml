@@ -1,0 +1,83 @@
+id: 2
+name: Hygiene & Config Drift
+phaseId: internal
+mappedModels:
+  - swiss-cheese
+  - etto
+  - drift-to-danger
+  - just-culture
+  - heinrich-pyramid
+insiderCategories:
+  - negligent-insider
+  - compromised-credentials
+techniques:
+  - id: 2-public-cloud-bucket-misconfiguration
+    label: Public cloud-bucket misconfiguration
+    mitreId: null
+    description: A storage bucket is left publicly readable, exposing its contents
+      to anyone on the internet.
+  - id: 2-iam-over-permissioning
+    label: IAM over-permissioning
+    mitreId: null
+    description: Identities are granted broader permissions than they need, widening
+      what an attacker gains from any single compromise.
+  - id: 2-default-unrotated-credentials
+    label: Default / unrotated credentials
+    mitreId: null
+    description: Default or never-rotated passwords and keys stay in use, offering
+      an easy, well-known way in.
+  - id: 2-hardcoded-secrets-in-code
+    label: Hardcoded secrets in code
+    mitreId: null
+    description: API keys or passwords are embedded directly in source code,
+      exposing them to anyone who reads the repository.
+  - id: 2-secrets-pushed-to-public-repository
+    label: Secrets pushed to public repository
+    mitreId: null
+    description: Credentials are committed and pushed to a public repo, where they
+      are quickly discovered and abused.
+  - id: 2-api-keys-in-client-side-code
+    label: API keys in client-side code
+    mitreId: null
+    description: Secrets shipped in browser or client code are visible to any user
+      and can be extracted and reused.
+  - id: 2-exposed-database-snapshot-no-auth
+    label: Exposed database / snapshot (no auth)
+    mitreId: null
+    description: A database or its snapshot is reachable without authentication,
+      exposing all its records.
+  - id: 2-backup-left-exposed
+    label: Backup left exposed
+    mitreId: null
+    description: A backup is stored without access controls, exposing a full copy of
+      the protected data.
+  - id: 2-sensitive-data-in-logs
+    label: Sensitive data in logs
+    mitreId: null
+    description: Secrets or personal data are written to logs, where they persist
+      and reach more readers than intended.
+  - id: 2-stack-traces-leaking-internal-info
+    label: Stack traces leaking internal info
+    mitreId: null
+    description: Error pages or stack traces reveal internal paths, versions, or
+      data that help an attacker.
+  - id: 2-tls-certificate-misconfiguration
+    label: TLS / certificate misconfiguration
+    mitreId: null
+    description: Weak, expired, or misconfigured TLS undermines transport security
+      and can enable interception.
+  - id: 2-shadow-infrastructure-forgotten-environments
+    label: Shadow infrastructure / forgotten environments
+    mitreId: null
+    description: Unmanaged or forgotten servers run without patching or monitoring,
+      becoming soft targets.
+  - id: 2-unmaintained-dependencies-no-sbom
+    label: Unmaintained dependencies / no SBOM
+    mitreId: null
+    description: Outdated dependencies with no software bill of materials carry
+      known vulnerabilities no one is tracking.
+  - id: 2-insecure-credential-sharing
+    label: Insecure Credential Sharing
+    mitreId: null
+    description: Credentials are shared over chat, email, or spreadsheets,
+      multiplying exposure and removing accountability.

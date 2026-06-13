@@ -46,7 +46,7 @@ Families: `font-serif` (Source Serif 4), `font-sans` (Source Sans 3, default bod
 
 ## Components (`src/components/ui/`)
 
-Import via the `@/components/ui/*` alias. **Server** (presentational): `Container`, `Section`, `Card`, `Heading`, `Eyebrow`, `Prose`, `Tag`. **Client** (React Aria, `'use client'`): `Button`, `Link`, `Disclosure`, `Tabs`, `Dialog`, `TextField`, `ThemeToggle`.
+Import via the `@/components/ui/*` alias. **Server** (presentational): `Container`, `Section`, `Card`, `Heading`, `Eyebrow`, `Prose`, `Tag`. **Client** (React Aria, `'use client'`): `Button`, `Link`, `Disclosure`, `Tabs`, `Dialog`, `SideSheet`, `TextField`, `Checkbox`, `ThemeToggle`.
 
 | Component | Notes |
 |---|---|
@@ -58,6 +58,8 @@ Import via the `@/components/ui/*` alias. **Server** (presentational): `Containe
 | `Prose` | Long-form/MDX wrapper: measured width, rhythm, styled links/lists. |
 | `Tag` | Label; optional `phase` adds a color dot — **label text always present**. |
 | `Button` | RAC Button. `variant` = primary/secondary/ghost, `size` = sm/md. Use for actions; use `Link` for navigation. |
+| `Checkbox` | RAC Checkbox styled to tokens; render-prop box with check + focus ring. Controlled via `isSelected`/`onChange`. |
+| `SideSheet` | Right-anchored, full-height modal drawer (focus-trap, Esc/click-away). Controlled via `isOpen`/`onOpenChange`. Used for the matrix technique detail. |
 | `Link` | RAC Link, client-routed via the provider. `variant` = default/nav. External links fall back to normal navigation. |
 | `Disclosure` | RAC Disclosure: accessible expand/collapse (used for matrix column detail). |
 | `Tabs` | RAC Tabs from a `{ id, label, content }[]` + accessible `label`. |

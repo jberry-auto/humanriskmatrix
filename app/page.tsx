@@ -31,7 +31,10 @@ export default function Home() {
           <span className="text-ink">11 columns</span> grouped into{" "}
           <span className="text-ink">5 phases</span>.
         </p>
-        <div className="pt-1">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-1">
+          <Link href="/matrix" variant="nav" className="font-medium text-accent">
+            Open the Matrix
+          </Link>
           <Link href={GITHUB_URL}>View the source on GitHub</Link>
         </div>
       </Section>

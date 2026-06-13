@@ -1,0 +1,55 @@
+- slug: negligent-insider
+  name: Negligent insider
+  primaryColumns:
+    - 1
+    - 2
+    - 3
+  responseMechanism: Tooling and culture, not investigation
+  note: Reason / Hollnagel / Dekker substrate is the relevant doctrine.
+- slug: compromised-credentials
+  name: Compromised-credentials insider
+  primaryColumns:
+    - 2
+    - 7
+    - 8
+  responseMechanism: Identity tooling and incident response
+  note: The 'insider' framing is misleading — the human is the surface, not the
+    actor.
+- slug: unwitting-exploited
+  name: Unwitting exploited insider
+  primaryColumns:
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+  responseMechanism: Awareness and out-of-band verification
+  note: The human is the medium of the attack, not the source of intent.
+- slug: departing-employee
+  name: Departing-employee exfiltration
+  primaryColumns:
+    - 3
+    - 11
+  responseMechanism: Cross-column investigation by default
+  note: Usually starts as a workaround; can cross into alignment with a hostile
+    destination.
+- slug: third-party-vendor
+  name: Third-party / vendor insider
+  primaryColumns:
+    - 5
+    - 8
+  responseMechanism: Vendor-risk program at the human layer
+  note: Vendor staff with access who are exploited or recruited.
+- slug: witting-recruited
+  name: Witting recruited insider
+  primaryColumns:
+    - 11
+  responseMechanism: Counterintelligence response
+  note: MICE doctrine.
+- slug: collusive
+  name: Collusive insider
+  primaryColumns:
+    - 11
+  responseMechanism: Counterintelligence plus investigation
+  note: Two or more witting insiders coordinating; rare but consequential.

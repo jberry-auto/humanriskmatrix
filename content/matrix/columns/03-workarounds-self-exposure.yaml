@@ -1,0 +1,103 @@
+id: 3
+name: Workarounds & Self-Exposure
+phaseId: internal
+mappedModels:
+  - swiss-cheese
+  - etto
+  - drift-to-danger
+  - just-culture
+  - heinrich-pyramid
+insiderCategories:
+  - negligent-insider
+  - departing-employee
+techniques:
+  - id: 3-shadow-it-unsanctioned-saas
+    label: Shadow IT / unsanctioned SaaS
+    mitreId: null
+    description: Staff adopt unapproved tools, moving data into services the
+      organization can't see or secure.
+  - id: 3-personal-device-for-work-data
+    label: Personal device for work data
+    mitreId: null
+    description: Work data is handled on unmanaged personal devices outside the
+      organization's controls.
+  - id: 3-skipping-vpn-on-untrusted-networks
+    label: Skipping VPN on untrusted networks
+    mitreId: null
+    description: Connecting to work over untrusted networks without a VPN exposes
+      traffic to interception.
+  - id: 3-holding-doors-accommodating-tailgating
+    label: Holding doors / accommodating tailgating
+    mitreId: null
+    description: Politely holding a secure door lets an unauthorized person follow
+      staff inside.
+  - id: 3-bypassing-change-management
+    label: Bypassing change management
+    mitreId: null
+    description: Changes are pushed without review, removing the checks that catch
+      risky or breaking changes.
+  - id: 3-direct-production-access-without-ticket
+    label: Direct production access without ticket
+    mitreId: null
+    description: Engineers act directly in production outside the ticketed, audited
+      workflow, bypassing oversight.
+  - id: 3-skipping-code-review
+    label: Skipping code review
+    mitreId: null
+    description: Merging code without review removes a key layer that catches
+      defects and malicious changes.
+  - id: 3-production-data-in-dev-test
+    label: Production data in dev / test
+    mitreId: null
+    description: Real production data is copied into lower environments that have
+      weaker controls.
+  - id: 3-customer-data-downloaded-locally
+    label: Customer data downloaded locally
+    mitreId: null
+    description: Customer records are pulled onto a local machine, taking them
+      outside monitored systems.
+  - id: 3-endpoint-protection-disabled-during-dev
+    label: Endpoint protection disabled during dev
+    mitreId: null
+    description: Security tooling is turned off for convenience, leaving the
+      endpoint unprotected.
+  - id: 3-procurement-bypass-saas-signed-up-direct
+    label: Procurement bypass (SaaS signed up direct)
+    mitreId: null
+    description: A team signs up for a SaaS directly, skipping security and
+      contractual review.
+  - id: 3-side-channel-work-comms-personal-whatsapp-imessage
+    label: Side-channel work comms (personal WhatsApp / iMessage)
+    mitreId: null
+    description: Work is discussed on personal messaging apps outside retention,
+      governance, and security controls.
+  - id: 3-rubber-stamp-approvals-prs-access-reviews
+    label: Rubber-stamp approvals (PRs, access reviews)
+    mitreId: null
+    description: Approvals are granted without real scrutiny, so the control exists
+      on paper but not in practice.
+  - id: 3-skipped-required-training
+    label: Skipped required training
+    mitreId: null
+    description: Required security training is skipped, leaving staff unaware of
+      expected practices and current threats.
+  - id: 3-linkedin-social-oversharing-of-work
+    label: LinkedIn / social oversharing of work
+    mitreId: null
+    description: Detailed work posts reveal tools, projects, and org structure
+      useful to an adversary's reconnaissance.
+  - id: 3-conference-q-a-oversharing
+    label: Conference Q&A oversharing
+    mitreId: null
+    description: Answering questions in public talks reveals internal details beyond
+      what was intended.
+  - id: 3-public-photos-of-badges-desks-screens
+    label: Public photos of badges / desks / screens
+    mitreId: null
+    description: Photos expose badge designs, on-screen data, or desk contents that
+      aid impersonation or intrusion.
+  - id: 3-bragging-about-clients-deals-publicly
+    label: Bragging about clients / deals publicly
+    mitreId: null
+    description: Publicly naming clients or deals leaks confidential relationships
+      and timing.

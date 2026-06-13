@@ -1,0 +1,40 @@
+- id: internal
+  name: Internal
+  order: 1
+  columnRange:
+    - 1
+    - 3
+  adversaryRole: None
+  awareness: Low to none; no harmful intent — slip, habit, convenience
+- id: approach
+  name: Approach
+  order: 2
+  columnRange:
+    - 4
+    - 6
+  adversaryRole: Passive observation or relationship-building
+  awareness: None to low; unaware of being targeted
+- id: deception
+  name: Deception
+  order: 3
+  columnRange:
+    - 7
+    - 8
+  adversaryRole: Active deception
+  awareness: Detected on reflection or never; believes the action is correct
+- id: imposition
+  name: Imposition
+  order: 4
+  columnRange:
+    - 9
+    - 10
+  adversaryRole: Active pressure or physical action
+  awareness: Immediate or imminent; acts under force or confusion
+- id: alignment
+  name: Alignment
+  order: 5
+  columnRange:
+    - 11
+    - 11
+  adversaryRole: Active sponsor
+  awareness: Full awareness; aligned with adversary

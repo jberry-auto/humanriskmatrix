@@ -1,0 +1,66 @@
+id: 11
+name: Coercion & Recruitment
+phaseId: alignment
+mappedModels:
+  - mice
+  - cognitive-biases
+insiderCategories:
+  - departing-employee
+  - witting-recruited
+  - collusive
+techniques:
+  - id: 11-witting-recruitment-mice
+    label: Witting recruitment (MICE)
+    mitreId: null
+    description: A target is knowingly recruited to act against their employer,
+      motivated by money, ideology, coercion, or ego.
+  - id: 11-sextortion
+    label: Sextortion
+    mitreId: null
+    description: Compromising sexual material is used to coerce the victim into cooperation.
+  - id: 11-honey-trap-leverage-phase
+    label: Honey trap (leverage phase)
+    mitreId: null
+    description: A cultivated intimate relationship is turned into leverage to
+      compel cooperation.
+  - id: 11-family-coercion
+    label: Family coercion
+    mitreId: null
+    description: Threats against the target's family are used to force cooperation.
+  - id: 11-immigration-visa-leverage
+    label: Immigration / visa leverage
+    mitreId: null
+    description: A target's immigration or visa status is exploited as leverage for
+      cooperation.
+  - id: 11-direct-bribery
+    label: Direct bribery
+    mitreId: null
+    description: The target is paid directly to act on the adversary's behalf.
+  - id: 11-whistleblower-channel-abuse
+    label: Whistleblower-channel abuse
+    mitreId: null
+    description: Whistleblower or disclosure channels are abused to launder leaks or
+      pressure the organization.
+  - id: 11-hack-and-leak-operations
+    label: Hack-and-leak operations
+    mitreId: null
+    description: Stolen data is selectively released to damage, pressure, or influence.
+  - id: 11-strategic-leaking
+    label: Strategic leaking
+    mitreId: null
+    description: An insider leaks information deliberately to advance an adversary's aims.
+  - id: 11-ransomware-extortion-post-se
+    label: Ransomware extortion (post-SE)
+    mitreId: null
+    description: After social-engineered access, data is encrypted or stolen and the
+      victim is extorted.
+  - id: 11-blackmail-w-fabricated-material
+    label: Blackmail w/ fabricated material
+    mitreId: null
+    description: Fabricated compromising material is used to blackmail the target
+      into cooperation.
+  - id: 11-hostage-of-data-leak-threat
+    label: Hostage-of-data (leak threat)
+    mitreId: null
+    description: Stolen data is held over the victim with the threat of release to
+      coerce payment or action.

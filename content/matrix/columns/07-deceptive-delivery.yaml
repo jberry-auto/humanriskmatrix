@@ -1,0 +1,126 @@
+id: 7
+name: Deceptive Delivery
+phaseId: deception
+mappedModels:
+  - mice
+  - rascls
+  - cognitive-biases
+insiderCategories:
+  - compromised-credentials
+  - unwitting-exploited
+techniques:
+  - id: 7-spearphishing-attachment
+    label: Spearphishing Attachment
+    mitreId: T1566.001
+    description: A targeted email delivers a malicious attachment crafted to
+      compromise the recipient when opened.
+  - id: 7-spearphishing-link
+    label: Spearphishing Link
+    mitreId: T1566.002
+    description: A targeted email lures the recipient to a malicious link that
+      harvests credentials or delivers malware.
+  - id: 7-spearphishing-via-service
+    label: Spearphishing via Service
+    mitreId: T1566.003
+    description: A tailored lure is delivered over a third-party service (social or
+      messaging) rather than email.
+  - id: 7-spearphishing-voice-vishing
+    label: Spearphishing Voice / Vishing
+    mitreId: T1566.004
+    description: A targeted phone call manipulates the recipient into disclosing
+      data or taking a harmful action.
+  - id: 7-whaling
+    label: Whaling
+    mitreId: T1566
+    description: A spearphish aimed at senior executives, exploiting their authority
+      and access.
+  - id: 7-smishing
+    label: Smishing
+    mitreId: T1566
+    description: A phishing lure delivered by SMS or text message.
+  - id: 7-quishing-qr-phishing
+    label: Quishing (QR phishing)
+    mitreId: null
+    description: A QR code routes the victim to a malicious site, bypassing link inspection.
+  - id: 7-calendar-invite-phishing
+    label: Calendar-invite phishing
+    mitreId: null
+    description: A malicious calendar invite delivers a lure or link directly into
+      the target's schedule.
+  - id: 7-browser-in-the-browser-bitb
+    label: Browser-in-the-Browser (BitB)
+    mitreId: null
+    description: A fake browser window mimics a legitimate login pop-up to steal
+      credentials.
+  - id: 7-adversary-in-the-middle-aitm
+    label: Adversary-in-the-Middle (AitM)
+    mitreId: T1557
+    description: A reverse proxy relays a real login to steal credentials and
+      session tokens, defeating many MFA methods.
+  - id: 7-clickfix-fakecaptcha
+    label: ClickFix / FakeCaptcha
+    mitreId: T1204.004
+    description: A fake error or CAPTCHA tricks the user into running attacker
+      commands themselves.
+  - id: 7-reverse-vishing-toad
+    label: Reverse vishing / TOAD
+    mitreId: null
+    description: A lure prompts the victim to call an attacker-run 'support' line
+      (telephone-oriented attack delivery).
+  - id: 7-pharming
+    label: Pharming
+    mitreId: T1584.002
+    description: DNS or host manipulation silently redirects victims to a malicious
+      site even when they type the right address.
+  - id: 7-watering-hole
+    label: Watering hole
+    mitreId: T1189
+    description: A site the target group frequents is compromised to deliver malware
+      to its visitors.
+  - id: 7-seo-poisoning
+    label: SEO poisoning
+    mitreId: T1608.006
+    description: Malicious pages are ranked highly in search results so victims find
+      and trust them.
+  - id: 7-malvertising
+    label: Malvertising
+    mitreId: T1583.008
+    description: Malicious ads on legitimate sites deliver lures or malware.
+  - id: 7-fake-breach-notification
+    label: Fake breach notification
+    mitreId: null
+    description: A bogus 'you've been breached' alert panics the victim into a
+      harmful action.
+  - id: 7-living-document-attack
+    label: Living-document attack
+    mitreId: null
+    description: A shared document is updated with a malicious link or payload after
+      it is already trusted.
+  - id: 7-llm-generated-spearphishing
+    label: LLM-generated spearphishing
+    mitreId: null
+    description: AI generates fluent, personalized phishing at scale, removing the
+      usual language tells.
+  - id: 7-internal-spearphishing
+    label: Internal Spearphishing
+    mitreId: T1534
+    description: Phishing sent from an already-compromised internal account, which
+      coworkers inherently trust.
+  - id: 7-bec-vendor-email-compromise
+    label: BEC — Vendor email compromise
+    mitreId: null
+    description: A compromised or spoofed vendor account is used to redirect invoice
+      payments.
+  - id: 7-bec-payroll-diversion
+    label: BEC — Payroll diversion
+    mitreId: null
+    description: An impersonation request reroutes an employee's payroll to an
+      attacker account.
+  - id: 7-bec-w-2-tax-doc-theft
+    label: BEC — W-2 / tax doc theft
+    mitreId: null
+    description: A finance or HR impersonation extracts employee tax documents for fraud.
+  - id: 7-bec-beneficiary-change
+    label: BEC — Beneficiary change
+    mitreId: null
+    description: A fraudulent request changes payment beneficiary details to divert funds.
