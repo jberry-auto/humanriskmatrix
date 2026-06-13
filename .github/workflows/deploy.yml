@@ -16,7 +16,7 @@ jobs:
   # Stays green until DigitalOcean is configured: with no DOCR_REGISTRY variable the
   # build job is skipped (neutral), not failed. We gate on this *variable* (readable
   # in every job) rather than DO_API_TOKEN, because that secret is scoped to the
-  # `production` environment and is therefore only visible to the deploy job below.
+  # `prod` environment and is therefore only visible to the deploy job below.
   preflight:
     runs-on: ubuntu-latest
     outputs:
@@ -41,7 +41,7 @@ jobs:
     needs: preflight
     if: needs.preflight.outputs.configured == 'true'
     runs-on: ubuntu-latest
-    environment: production
+    environment: prod
     steps:
       - uses: actions/checkout@v6
         with:
