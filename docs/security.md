@@ -21,11 +21,12 @@ Security is a build-time and run-time requirement, not a phase. This doc states 
 
 ### Supply chain & repo hygiene (public repo)
 - **Pinned dependencies** + committed lockfile; **Dependabot** for dependency + GitHub-Action updates (`.github/dependabot.yml`).
-- **GitHub Actions pinned to commit SHAs**, not floating tags.
+- **GitHub Actions** kept current via Dependabot; pin to commit SHAs before enabling required status checks.
 - **Least-privilege `GITHUB_TOKEN`** (`permissions:` block per workflow) — see `docs/cicd-github-actions.md`.
 - **Secret scanning** in CI (`gitleaks`) + GitHub push protection enabled; **CodeQL** static analysis; **`dependency-review`** on PRs.
 - Branch protection on `main`: required status checks, required review (CODEOWNERS), no force-push, signed commits encouraged (DCO required).
 - No secrets in the repo. `.env` is git-ignored; only `.env.example` (no values) is committed.
+- **Known accepted advisory — `esbuild` (dev-only):** flagged transitively through the Vite/Vitest **test** toolchain. It is not in the production image (the standalone build excludes test tooling), and the advisories (Windows dev-server file read; a Deno/`NPM_CONFIG_REGISTRY` install vector) don't apply to our Linux CI. It can't currently be remediated without an incompatible major upgrade (`@vitejs/plugin-react@6` needs Vite 8, which conflicts with `vitest@4`'s Vite 7); it will clear once the toolchain ships a compatible fixed-esbuild combination. The Dependabot alert may be dismissed as tolerable risk until then.
 
 ---
 
