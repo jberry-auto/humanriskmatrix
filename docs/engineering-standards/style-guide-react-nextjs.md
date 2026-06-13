@@ -1,6 +1,6 @@
 # React & Next.js Style Guide (App Router)
 
-The framework guide for this repository. All [TypeScript](style-guide-typescript.md) and [JavaScript](style-guide-javascript.md) standards apply; this document adds the React + Next.js App Router specifics that those guides don't cover. The reasoning lives in [engineering-principles.md](engineering-principles.md) (React & Next.js, Accessibility).
+The framework guide for this repository. All [TypeScript](style-guide-typescript.md) and [JavaScript](style-guide-javascript.md) standards apply; this document adds the React + Next.js App Router specifics that those guides don't cover. The reasoning lives in [engineering-principles.md](engineering-principles.md) (React & Next.js, Accessibility). The project's concrete tokens and component library are the **[design system](../design-system.md)** (`@/components/ui/*`, built on React Aria Components) — build pages from those primitives, not ad-hoc markup.
 
 ---
 

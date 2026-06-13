@@ -37,7 +37,7 @@ humanriskmatrix/
 │
 ├── docs/                         # Specs & guides (this dev-plan set)
 │   ├── repo-structure.md  roadmap.md  style-guide.md
-│   ├── architecture.md  content-model.md
+│   ├── architecture.md  content-model.md  design-system.md
 │   ├── security.md  reliability-sre.md  secrets-management.md
 │   ├── cicd-github-actions.md  deployment-do.md  testing-qa.md
 │   ├── engineering-standards/    # Vendored authoritative code/style rules
@@ -52,24 +52,27 @@ humanriskmatrix/
 ├── scripts/
 │   └── import-xlsx.ts            # One-time/repeatable xlsx → content/ importer
 │
-├── src/                          # Application code (added in Phase 1)
-│   ├── config.ts                 # zod-validated env loading
-│   └── lib/                      # PURE business logic — dependencies injected, no infra imports
-│       ├── content/              # schema.ts (zod), load.ts (read+validate)
-│       ├── matrix/               # matrix/phase helpers (pure)
-│       ├── ai/                   # Phase 2: Anthropic client factory + threat-model logic
-│       └── feed/                 # Phase 3: RSS fetch/parse/pipeline (pure core)
+├── src/                          # Application code (alias @/* → ./src/*)
+│   ├── config.ts                 # zod-validated env loading (server-only)
+│   ├── lib/                      # PURE business logic — dependencies injected, no infra imports
+│   │   ├── cn.ts                 # className join helper (pure)
+│   │   ├── content/              # schema.ts (zod), load.ts (read+validate)
+│   │   ├── matrix/               # matrix/phase helpers (pure)
+│   │   ├── ai/                   # Phase 2: threat-model logic (client injected)
+│   │   └── feed/                 # Phase 3: RSS fetch/parse/pipeline (pure core)
+│   └── components/
+│       ├── ui/                   # Design system primitives (docs/design-system.md)
+│       └── …                     # feature components (MatrixGrid, ColumnCard, …)
 │
 ├── app/                          # Next.js App Router (pages, layouts, API routes)
-│   ├── layout.tsx  page.tsx
+│   ├── providers.tsx             # 'use client' — React Aria RouterProvider
+│   ├── layout.tsx  page.tsx  not-found.tsx  globals.css
+│   ├── styleguide/page.tsx       # design-system reference (noindex)
 │   ├── matrix/page.tsx
 │   ├── theory/page.tsx
 │   ├── threat-modeler/page.tsx   # Phase 2
 │   ├── threat-feed/page.tsx      # Phase 3
-│   └── api/                      # route handlers (Phase 2+)
-│
-├── components/                   # Presentational React components
-│   ├── MatrixGrid.tsx  PhaseLegend.tsx  ColumnCard.tsx  FrameworkCard.tsx  …
+│   └── api/                      # route handlers (health now; Phase 2+ later)
 │
 ├── tests/  (or *.test.ts alongside source)   # Vitest tests + fixtures
 │
@@ -101,7 +104,7 @@ humanriskmatrix/
 | Re-import from the spreadsheet | `scripts/import-xlsx.ts` (+ regenerate `content/`) | infra-owners |
 | Add pure business logic | `src/lib/<domain>/` | maintainers |
 | Add a page or route | `app/` | maintainers |
-| Add a UI component | `components/` | maintainers |
+| Add a UI component | `src/components/` (`ui/` for design-system primitives) | maintainers |
 | Change CI/CD, deploy, or container | `.github/`, `.do/`, `Dockerfile` | infra-owners |
 | Update a spec/guide | `docs/` | maintainers |
 

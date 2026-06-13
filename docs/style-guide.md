@@ -26,9 +26,9 @@ The authority for TypeScript is [`docs/engineering-standards/style-guide-typescr
 - **Every external call** has an explicit timeout and bounded retry with backoff + jitter (Phases 2–3).
 
 ### Styling/UI
-Full rules in the [React & Next.js guide](engineering-standards/style-guide-react-nextjs.md); the essentials:
+The **[design system](design-system.md)** is the source of truth for tokens, typography, color, and the `@/components/ui/*` primitives; the [React & Next.js guide](engineering-standards/style-guide-react-nextjs.md) covers framework rules. The essentials:
 - Server Components by default; `'use client'` only on the interactive leaf; secrets never cross the server→client boundary.
-- Tailwind CSS utility classes; extract a component when a class list repeats or a unit of UI has a name; define the 5-phase color scale once and reuse it.
+- Tailwind CSS utility classes built on the design tokens (incl. the 5 phase colors) defined in the design system; extract a component when a class list repeats or a unit of UI has a name.
 - Accessibility is a requirement, not a nice-to-have: semantic HTML, keyboard navigability, labelled controls, sufficient contrast, visible focus, no meaning by color alone. The matrix grid must be navigable and readable on mobile.
 
 ---

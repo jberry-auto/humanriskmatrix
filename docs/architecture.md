@@ -52,7 +52,9 @@ src/
     ai/                # Phase 2 — pure: buildThreatModel(input, deps), prompt builders, output schema
     feed/              # Phase 3 — pure: pipeline(articles, deps), mapping, dedup key
 app/
-  layout.tsx page.tsx
+  providers.tsx        # 'use client' — React Aria RouterProvider wired to Next routing
+  layout.tsx page.tsx not-found.tsx globals.css
+  styleguide/page.tsx  # design-system reference (noindex)
   matrix/page.tsx      # server component; reads loaded content
   theory/page.tsx
   threat-modeler/page.tsx   # Phase 2
@@ -61,7 +63,9 @@ app/
     threat-model/route.ts   # Phase 2
     feed/refresh/route.ts   # Phase 3 (token-protected)
     health/route.ts         # liveness/readiness
-components/             # MatrixGrid, PhaseLegend, ColumnCard, FrameworkCard, RiskHeatmap, FeedCard
+src/components/
+  ui/                  # Design system primitives (docs/design-system.md): Button, Link, Card, Tag, Dialog, Tabs, Disclosure, TextField …
+  # feature components: MatrixGrid, PhaseLegend, ColumnCard, FrameworkCard, RiskHeatmap, FeedCard
 ```
 
 ## Data flow per page

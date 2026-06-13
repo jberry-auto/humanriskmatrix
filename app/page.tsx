@@ -1,59 +1,67 @@
-const phases = [
-  { id: "internal", name: "Internal", columns: "1–3", color: "bg-phase-internal" },
-  { id: "approach", name: "Approach", columns: "4–6", color: "bg-phase-approach" },
-  { id: "deception", name: "Deception", columns: "7–8", color: "bg-phase-deception" },
-  { id: "imposition", name: "Imposition", columns: "9–10", color: "bg-phase-imposition" },
-  { id: "alignment", name: "Alignment", columns: "11", color: "bg-phase-alignment" },
-] as const;
+import { Card } from "@/components/ui/Card";
+import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Heading } from "@/components/ui/Heading";
+import { Link } from "@/components/ui/Link";
+import { Section } from "@/components/ui/Section";
+import { Tag, type Phase } from "@/components/ui/Tag";
+
+const phases: ReadonlyArray<{ id: Phase; name: string; columns: string }> = [
+  { id: "internal", name: "Internal", columns: "1–3" },
+  { id: "approach", name: "Approach", columns: "4–6" },
+  { id: "deception", name: "Deception", columns: "7–8" },
+  { id: "imposition", name: "Imposition", columns: "9–10" },
+  { id: "alignment", name: "Alignment", columns: "11" },
+];
+
+const GITHUB_URL = "https://github.com/jberry-auto/humanriskmatrix";
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-10">
-      <section className="flex flex-col gap-4">
-        <p className="inline-flex w-fit items-center rounded-full border border-black/15 px-3 py-1 text-xs font-medium uppercase tracking-wide text-black/60 dark:border-white/20 dark:text-white/60">
-          In active development · Phase 1
-        </p>
-        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">Human Risk Matrix</h1>
-        <p className="max-w-2xl text-lg text-black/70 dark:text-white/70">
+    <div className="flex flex-col gap-16">
+      <Section className="gap-5">
+        <Eyebrow>In active development · Phase 1</Eyebrow>
+        <Heading level={1} size="display">
+          Human Risk Matrix
+        </Heading>
+        <p className="max-w-2xl text-lg text-muted">
           An open taxonomy of human behavior that produces business impact — from honest mistakes to
           witting cooperation with an adversary. It unifies counterintelligence tradecraft and
-          safety science across <strong>11 columns</strong> grouped into <strong>5 phases</strong>.
+          safety science across <span className="text-ink">11 columns</span> grouped into{" "}
+          <span className="text-ink">5 phases</span>.
         </p>
-      </section>
+        <div className="pt-1">
+          <Link href={GITHUB_URL}>Follow along on GitHub →</Link>
+        </div>
+      </Section>
 
-      <section aria-labelledby="phases-heading" className="flex flex-col gap-4">
-        <h2 id="phases-heading" className="text-sm font-semibold uppercase tracking-wide">
+      <Section aria-labelledby="phases-heading" className="gap-6">
+        <Heading level={2} id="phases-heading" size="h3">
           The five phases
-        </h2>
+        </Heading>
         <ol className="grid gap-3 sm:grid-cols-5">
           {phases.map((phase) => (
-            <li
-              key={phase.id}
-              className="flex flex-col gap-2 rounded-lg border border-black/10 p-4 dark:border-white/15"
-            >
-              <span aria-hidden="true" className={`h-1.5 w-10 rounded-full ${phase.color}`} />
-              <span className="font-medium">{phase.name}</span>
-              <span className="text-sm text-black/60 dark:text-white/60">
-                Columns {phase.columns}
-              </span>
+            <li key={phase.id}>
+              <Card className="flex h-full flex-col gap-3 p-4">
+                <Tag phase={phase.id}>{phase.name}</Tag>
+                <span className="text-sm text-muted">Columns {phase.columns}</span>
+              </Card>
             </li>
           ))}
         </ol>
-      </section>
+      </Section>
 
-      <section className="flex flex-col gap-3 rounded-lg border border-black/10 p-6 dark:border-white/15">
-        <h2 className="text-sm font-semibold uppercase tracking-wide">What&apos;s coming</h2>
-        <p className="max-w-2xl text-black/70 dark:text-white/70">
-          The interactive Matrix and the Theory &amp; Frameworks pages land next, driven by
-          version-controlled, schema-validated content. The site is built in the open.
-        </p>
-        <a
-          href="https://github.com/jberry-auto/humanriskmatrix"
-          className="w-fit text-sm font-medium underline underline-offset-4"
-        >
-          Follow along on GitHub →
-        </a>
-      </section>
+      <Section className="gap-3">
+        <Heading level={2} size="h3">
+          What is coming
+        </Heading>
+        <Card className="flex max-w-2xl flex-col gap-3">
+          <p className="text-muted">
+            The interactive Matrix and the Theory &amp; Frameworks pages land next, driven by
+            version-controlled, schema-validated content. The site is built in the open.
+          </p>
+          <Link href={GITHUB_URL}>Read the roadmap →</Link>
+        </Card>
+      </Section>
     </div>
   );
 }

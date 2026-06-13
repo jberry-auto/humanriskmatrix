@@ -1,13 +1,21 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV !== "production";
+
 /**
  * HTTP security headers (see docs/security.md).
  *
- * NOTE (M0 baseline): the CSP below allows 'unsafe-inline' for script/style because
- * Next.js + Tailwind inject inline script/style without a nonce by default. Before
- * public launch this MUST be replaced with a strict, nonce-based CSP (no 'unsafe-inline'
+ * Development needs 'unsafe-eval' (React Fast Refresh / debugging) and a websocket
+ * for HMR, so the CSP is relaxed in dev ONLY. The production CSP omits 'unsafe-eval'.
+ *
+ * NOTE (M0 baseline): the production CSP still allows 'unsafe-inline' for script/style
+ * because Next.js + Tailwind inject inline script/style without a nonce by default.
+ * Before public launch this MUST become a strict, nonce-based CSP (no 'unsafe-inline'
  * / 'unsafe-eval'), per docs/security.md. Tracked as a pre-launch hardening item.
  */
+const scriptSrc = isDev ? "'self' 'unsafe-inline' 'unsafe-eval'" : "'self' 'unsafe-inline'";
+const connectSrc = isDev ? "'self' ws:" : "'self'";
+
 const contentSecurityPolicy = [
   "default-src 'self'",
   "base-uri 'self'",
@@ -16,9 +24,9 @@ const contentSecurityPolicy = [
   "object-src 'none'",
   "img-src 'self' data:",
   "font-src 'self'",
-  "connect-src 'self'",
+  `connect-src ${connectSrc}`,
   "style-src 'self' 'unsafe-inline'",
-  "script-src 'self' 'unsafe-inline'",
+  `script-src ${scriptSrc}`,
 ].join("; ");
 
 const securityHeaders = [
