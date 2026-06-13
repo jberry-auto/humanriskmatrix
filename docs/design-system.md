@@ -11,13 +11,13 @@ The visual + interaction language for humanriskmatrix.org: a **formal "serif rev
 1. **Editorial & formal** — serif display, generous whitespace, hairline borders, minimal shadows, small radii.
 2. **Accessibility is non-negotiable** — interactive components come from React Aria (keyboard, focus management, ARIA built in). Verify a keyboard-only pass before shipping any page.
 3. **Never color alone** — phase color always accompanies a text label (and/or shape). See `Tag`.
-4. **Light only for now** — tokens are structured so a dark theme is a later additive change, not a rewrite.
+4. **Light is the default**, with a dark theme available via the header toggle. Tokens are CSS variables, so dark is a token override — components need no `dark:` variants.
 5. **Server by default** — presentational components are Server Components; only interactive primitives are `'use client'`.
 
 ## Foundations
 
-### Color tokens (light)
-Defined in `app/globals.css` `@theme`; consumed as Tailwind utilities (`bg-bg`, `text-ink`, `border-border`, `bg-accent`, `text-phase-internal`, …).
+### Color tokens
+Defined in `app/globals.css` `@theme`; consumed as Tailwind utilities (`bg-bg`, `text-ink`, `border-border`, `bg-accent`, `text-phase-internal`, …). The table shows **light** (default) values; the **dark** theme overrides the same tokens under `.dark` (see Theming).
 
 | Token | Hex | Use |
 |---|---|---|
@@ -46,7 +46,7 @@ Families: `font-serif` (Source Serif 4), `font-sans` (Source Sans 3, default bod
 
 ## Components (`src/components/ui/`)
 
-Import via the `@/components/ui/*` alias. **Server** (presentational): `Container`, `Section`, `Card`, `Heading`, `Eyebrow`, `Prose`, `Tag`. **Client** (React Aria, `'use client'`): `Button`, `Link`, `Disclosure`, `Tabs`, `Dialog`, `TextField`.
+Import via the `@/components/ui/*` alias. **Server** (presentational): `Container`, `Section`, `Card`, `Heading`, `Eyebrow`, `Prose`, `Tag`. **Client** (React Aria, `'use client'`): `Button`, `Link`, `Disclosure`, `Tabs`, `Dialog`, `TextField`, `ThemeToggle`.
 
 | Component | Notes |
 |---|---|
@@ -72,7 +72,13 @@ A live reference renders every component at **`/styleguide`** (noindexed) — us
 - **Routing:** `app/providers.tsx` wraps the app in React Aria's `RouterProvider` wired to `next/navigation`, so RAC `Link`/components do client routing. It is the single root client boundary; pages stay Server Components.
 - **Secret boundary:** components are infrastructure — never import `src/config` or secrets, and never receive secrets as props (`docs/security.md`).
 
-## Light-only & future dark mode
-`:root { color-scheme: light }`; the dark `prefers-color-scheme` block was removed. To add dark mode later: introduce a `.dark` (or `[data-theme=dark]`) variant that overrides the neutral/accent tokens — components reference tokens only, so no component changes are needed.
+## Theming (light + dark)
+**Light is the default.** A `ThemeToggle` (sun/moon, top-right of the header) switches to dark via [`next-themes`](https://github.com/pacocoursey/next-themes), configured in `app/providers.tsx` with `attribute="class"`, `defaultTheme="light"`, `enableSystem={false}` (we don't follow the OS — light is the intended default). It toggles `.dark` on `<html>`; `app/globals.css` overrides the neutral/accent/phase tokens under `.dark` (and sets `color-scheme: dark`). Because every component styles from tokens, **dark needs no component changes**.
+
+- `<html>` carries `suppressHydrationWarning` (next-themes sets the class before paint).
+- `ThemeToggle` renders a placeholder until mounted to avoid a hydration mismatch.
+- The no-flash inline script relies on the current CSP allowing inline scripts (M0 baseline). When the strict nonce-based CSP lands, pass that nonce to `ThemeProvider`.
+
+Dark palette: warm near-black `bg #14130F` / `surface #1C1B17`, ink `#ECE9E0`, a lightened evergreen `accent #6FBF8E`, and lightened phase colors — all chosen for AA contrast on the dark background.
 
 See also: [`style-guide.md`](style-guide.md) (repo conventions), [`engineering-standards/style-guide-react-nextjs.md`](engineering-standards/style-guide-react-nextjs.md) (framework rules), [`architecture.md`](architecture.md) (layering + client boundary).

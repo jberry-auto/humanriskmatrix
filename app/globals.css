@@ -2,8 +2,10 @@
 @plugin "tailwindcss-react-aria-components";
 
 /*
- * Design system tokens — light mode only (docs/design-system.md).
+ * Design system tokens (docs/design-system.md).
  * Formal "serif revival": warm ink on paper, evergreen accent, muted phase colors.
+ * Light is the DEFAULT; the .dark class (toggled by next-themes on <html>) overrides
+ * the token values below — components are token-driven, so they need no dark variants.
  */
 @theme {
   /* Neutrals — warm ink on paper */
@@ -43,6 +45,30 @@
 
 :root {
   color-scheme: light;
+}
+
+/* Dark theme — token overrides only (applied when next-themes adds .dark to <html>). */
+.dark {
+  color-scheme: dark;
+
+  --color-bg: #14130f;
+  --color-surface: #1c1b17;
+  --color-ink: #ece9e0;
+  --color-muted: #a8a399;
+  --color-faint: #7a766c;
+  --color-border: #2e2c26;
+  --color-border-strong: #423f37;
+
+  --color-accent: #6fbf8e;
+  --color-accent-hover: #8ad0a6;
+  --color-accent-contrast: #14130f;
+  --color-accent-subtle: #1d2a22;
+
+  --color-phase-internal: #6fa0be;
+  --color-phase-approach: #8089b8;
+  --color-phase-deception: #9e84b0;
+  --color-phase-imposition: #c58e89;
+  --color-phase-alignment: #c9706a;
 }
 
 @layer base {

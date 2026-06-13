@@ -3,6 +3,7 @@ import { Source_Code_Pro, Source_Sans_3, Source_Serif_4 } from "next/font/google
 
 import { Container } from "@/components/ui/Container";
 import { Link } from "@/components/ui/Link";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 import "./globals.css";
 import { Providers } from "./providers";
@@ -33,7 +34,11 @@ const GITHUB_URL = "https://github.com/jberry-auto/humanriskmatrix";
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${serif.variable} ${sans.variable} ${mono.variable} h-full`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${serif.variable} ${sans.variable} ${mono.variable} h-full`}
+    >
       <body className="flex min-h-full flex-col">
         <a
           href="#main"
@@ -52,9 +57,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 >
                   Human Risk Matrix
                 </Link>
-                <Link href={GITHUB_URL} variant="nav" className="text-sm">
-                  GitHub
-                </Link>
+                <div className="flex items-center gap-1">
+                  <Link href={GITHUB_URL} variant="nav" className="text-sm">
+                    GitHub
+                  </Link>
+                  <ThemeToggle />
+                </div>
               </nav>
             </Container>
           </header>
