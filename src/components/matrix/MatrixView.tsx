@@ -89,9 +89,6 @@ export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
         onCollapseAll={collapseAll}
       />
 
-      <p className="-mb-2 text-sm text-muted">
-        Wide matrix — scroll horizontally (or use the arrows) to move along the spectrum of intent.
-      </p>
       <HorizontalScroll label="the matrix">
         <div className="grid gap-px rounded-md border border-border bg-border" style={gridStyle}>
           {/* Degree headers (span their categories) */}
