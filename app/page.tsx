@@ -23,7 +23,7 @@ export default function Home() {
         <Heading level={1} size="display">
           Human Risk Matrix
         </Heading>
-        <p className="max-w-2xl text-lg text-muted">
+        <p className="max-w-4xl text-lg text-muted">
           An open taxonomy providing a comprehensive view of human risk impacting organizational
           systems and data confidentiality, availability, integrity, fitness for purpose, and
           processes — from honest mistakes to witting cooperation with an adversary. It unifies
