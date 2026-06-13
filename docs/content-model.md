@@ -84,8 +84,10 @@ export type Phase = z.infer<typeof PhaseSchema>;
 // MITRE ATT&CK technique id, e.g. T1566 or T1566.004, or null when uncoded.
 const MitreIdSchema = z.string().regex(/^T\d{4}(\.\d{3})?$/);
 export const TechniqueSchema = z.object({
+  id: z.string().regex(/^\d{1,2}-[a-z0-9-]+$/), // stable, globally unique: "<columnId>-<slug(label)>"
   label: z.string().min(1),
   mitreId: MitreIdSchema.nullable(),
+  description: z.string().min(1),                // authored one-line write-up (required)
 });
 export type Technique = z.infer<typeof TechniqueSchema>;
 
@@ -131,7 +133,7 @@ Beyond per-record validation, `load.ts` checks the **whole set**:
 - Every `column.phaseId` exists in `phases.yaml`, and column ids 1–11 are all present exactly once.
 - Every slug in `column.mappedModels` resolves to a `content/frameworks/*` file; every slug in `insiderCategories` resolves to a defined insider category.
 - Every `framework.mappedColumns` / `insiderCategory.primaryColumns` id is in 1–11.
-- No duplicate technique `label` within a column.
+- No duplicate technique `label` within a column; every technique `id` is globally unique and prefixed with its `<columnId>-`.
 A failure throws with the offending file + field, and the **build fails**.
 
 ---
@@ -165,18 +167,20 @@ phaseId: deception
 mappedModels: [cialdini-unity, cognitive-biases]
 insiderCategories: [unwitting-exploited, compromised-credentials]
 techniques:
-  - { label: "Spearphishing Attachment", mitreId: "T1566.001" }
-  - { label: "Spearphishing Link",       mitreId: "T1566.002" }
-  - { label: "Spearphishing via Service", mitreId: "T1566.003" }
-  - { label: "Spearphishing Voice / Vishing", mitreId: "T1566.004" }
-  - { label: "Quishing (QR phishing)",   mitreId: null }
-  - { label: "ClickFix / FakeCaptcha",   mitreId: "T1204.004" }
-  - { label: "Adversary-in-the-Middle (AitM)", mitreId: "T1557" }
-  - { label: "Watering hole",            mitreId: "T1189" }
-  # … remaining techniques from the Framework tab, in order
+  - id: 7-spearphishing-attachment
+    label: "Spearphishing Attachment"
+    mitreId: "T1566.001"
+    description: "A targeted email delivers a malicious attachment crafted to compromise the recipient when opened."
+  - id: 7-quishing-qr-phishing
+    label: "Quishing (QR phishing)"
+    mitreId: null
+    description: "A QR code routes the victim to a malicious site, bypassing link inspection."
+  # … remaining techniques from the Framework tab, in order, each with id + description
 ```
 
-### Example framework essay
+### Example framework file
+
+Framework MDX currently carries the frontmatter below plus a **short summary body** — the full essays land with the Theory & Frameworks page (a later milestone). The matrix detail drawer reads only the `title`/`summary`.
 
 ```mdx
 ---
@@ -188,8 +192,7 @@ mappedColumns: [1, 2, 3]
 summary: "Defenses as layered slices with shifting holes; incidents occur when holes align."
 ---
 
-The Swiss Cheese model reframes investigation away from blaming the person at the end
-of the chain and toward understanding which layers had holes and why…
+Defenses as layered slices with shifting holes; incidents occur when holes align…
 ```
 
 ---

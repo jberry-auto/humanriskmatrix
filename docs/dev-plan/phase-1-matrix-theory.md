@@ -6,6 +6,14 @@
 
 ---
 
+## Status
+
+- **M0 — Scaffold + CI + deploy:** ✅ done (live at humanriskmatrix.org).
+- **M1 — Content pipeline + seed:** ✅ done (160 techniques across 11 columns, each with an authored description; 9 frameworks; 7 insider categories; `validate:content` is a build gate).
+- **M2 — Pages:** **Matrix ✅ built** (as an ATT&CK-style interactive grid — see below); **Theory page ⏳ remaining** (its framework/theory content is already seeded).
+
+The component design below reflects the **original plan**; the Matrix shipped with an evolved, MITRE ATT&CK–style layout (one wide grid, detail side-sheet, multi-select heatmap). The "as built" subsection records the actual components.
+
 ## Milestones
 
 ### M0 — Scaffold + CI + empty deploy
@@ -52,6 +60,20 @@ A **server component** that loads validated content and renders the matrix. No c
 - `src/lib/matrix/mitre.ts`: `mitreUrl(id: string): string`. Pure, unit-tested (handles `T1566` and `T1566.004`).
 
 **Interactivity:** prefer a progressive-enhancement approach — column detail as an accessible `<details>`/disclosure or a route segment (`/matrix/[column]`) so it works without JS. If a modal is used, it must be keyboard-accessible and focus-trapped. Keep client JS minimal.
+
+### As built
+
+The shipped Matrix follows the **MITRE ATT&CK viewer** model rather than per-column cards: one wide grid with all 11 columns side-by-side under their 5 phase bands (horizontal scroll, with edge fades + chevron affordance), collapsible phases, and an environmental heatmap built by multi-selecting techniques.
+
+- `app/matrix/page.tsx` — static Server Component; `loadContent()` → passes serializable data to `MatrixView`.
+- `src/components/matrix/MatrixView.tsx` (client) — the wide grid (`repeat(11, minmax(11rem,1fr))`), collapsible phase bands, per-technique checkbox + label button; owns the active-technique and selection state. Wrapped in the `HorizontalScroll` UI primitive.
+- `src/components/matrix/TechniqueDetailDrawer.tsx` (client) — the `SideSheet` detail pull-out: description, MITRE link, phase/column context, mapped models/insider categories.
+- `src/components/matrix/HeatmapSummary.tsx` (client) — selected totals, per-phase counts, Focus toggle, Clear.
+- `src/components/matrix/use-heatmap.ts` (client) — `useSyncExternalStore` module store persisted to `localStorage` (`hrm.heatmap.v1`).
+- `src/components/matrix/phase-style.ts` — static per-phase Tailwind classes.
+- Pure helpers `src/lib/matrix/group.ts` + `mitre.ts` are unit-tested, as planned.
+
+The `PhaseLegend` / `MatrixGrid` / `ColumnCard` / `MitreLink` components below were **not** built as separate files; their roles are absorbed into `MatrixView` + `TechniqueDetailDrawer` + `mitre.ts`.
 
 ## Page 2 — Theory & Frameworks (`app/theory/page.tsx`)
 

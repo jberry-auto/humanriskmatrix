@@ -7,7 +7,8 @@
 | Location | Holds | Notes |
 |---|---|---|
 | **DO App Platform → app-level env vars (encrypted)** | all runtime secrets (`ANTHROPIC_API_KEY`, `DATABASE_URL`, `FEED_REFRESH_TOKEN`, `TURNSTILE_SECRET`) | source of truth for the running container; set as `type: SECRET` in `.do/app.yaml` (value injected in the DO dashboard/API, never committed) |
-| **GitHub Actions secrets** | `DO_API_TOKEN`, and `FEED_REFRESH_TOKEN` (so the scheduled action can call the protected endpoint) | least-privilege; used only by workflows |
+| **GitHub Environment `prod` → secrets** | `DO_API_TOKEN` (and Phase 3 `FEED_REFRESH_TOKEN` for the scheduled action) | scoped to the `prod` Environment, so only the `deploy` job — which declares `environment: prod` — can read it; least-privilege |
+| **GitHub repo → variables** (non-secret) | `DOCR_REGISTRY` = `human-risk-matrix-proj` | readable by every job; gates the deploy preflight (see `docs/cicd-github-actions.md`) |
 | **Local dev** | a git-ignored `.env` created from `.env.example` | developer's own keys; never committed |
 | **The repo** | **nothing** — only `.env.example` with empty/placeholder values | enforced by gitleaks + push protection |
 
@@ -16,11 +17,11 @@
 ### Phase 1
 | Var | Where | Purpose |
 |---|---|---|
-| `DO_API_TOKEN` | GitHub Actions secret | deploy to DO (build/push/deploy) |
-| `LOG_LEVEL` | DO env (non-secret) | logging verbosity |
-| `NODE_ENV` | DO env (non-secret) | standard |
+| `DO_API_TOKEN` | GitHub `prod` Environment secret | authenticate `doctl` to build/push to DOCR |
+| `DOCR_REGISTRY` | GitHub repo variable (non-secret) | DOCR registry name; gates the deploy preflight |
+| `NODE_ENV` | set in the image (`production`) | standard |
 
-No application secrets are required to run Phase 1 — the static site has none.
+No application secrets are required to run Phase 1 — the static site has none. (`LOG_LEVEL` is reserved for when app-side logging config is added; it is not set on the live service yet.)
 
 ### Phase 2 (adds)
 | Var | Type | Purpose |
@@ -82,7 +83,7 @@ FEED_REVALIDATE_SECONDS=3600
 
 ## Rotation
 - Rotate `ANTHROPIC_API_KEY` and `FEED_REFRESH_TOKEN` on a schedule and immediately on any suspected exposure: update the DO encrypted env var (and the GitHub Actions copy of `FEED_REFRESH_TOKEN`), redeploy.
-- `DO_API_TOKEN`: scope to the minimum needed; rotate periodically.
+- `DO_API_TOKEN`: scope to the minimum needed; rotate periodically by updating the secret in the `prod` GitHub Environment.
 - `DATABASE_URL`: rotate the DB password via DO; update the env var; redeploy.
 
 ## Rules (enforced in review + CI)
