@@ -24,9 +24,10 @@ export default function Home() {
           Human Risk Matrix
         </Heading>
         <p className="max-w-2xl text-lg text-muted">
-          An open taxonomy of human behavior that produces business impact — from honest mistakes to
-          witting cooperation with an adversary. It unifies counterintelligence, cybersecurity,
-          social-engineering defense, and safety science across{" "}
+          An open taxonomy providing a comprehensive view of human risk impacting organizational
+          systems and data confidentiality, availability, integrity, fitness for purpose, and
+          processes — from honest mistakes to witting cooperation with an adversary. It unifies
+          counterintelligence, cybersecurity, social-engineering defense, and safety science across{" "}
           <span className="text-ink">11 columns</span> grouped into{" "}
           <span className="text-ink">5 phases</span>.
         </p>

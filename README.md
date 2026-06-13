@@ -1,6 +1,6 @@
 # Human Risk Matrix
 
-**[humanriskmatrix.org](https://humanriskmatrix.org)** — a community-maintained, source-available reference and toolset for **human risk**: the full surface of human behavior that produces business impact, from honest mistakes to witting cooperation with an adversary. Free for noncommercial use; commercial use requires authorization (see [License](#license)).
+**[humanriskmatrix.org](https://humanriskmatrix.org)** — a community-maintained, source-available reference and toolset providing a comprehensive view of human risk impacting organizational systems and data confidentiality, availability, integrity, fitness for purpose, and processes — from honest mistakes to witting cooperation with an adversary. Free for noncommercial use; commercial use requires authorization (see [License](#license)).
 
 It unifies the vocabularies of four disciplines usually kept apart — **counterintelligence** (cultivation, MICE, RASCLS), **cybersecurity** (phishing, AitM, credential abuse), **social-engineering defense** (pretexting, influence, deepfakes), and **safety science** (Swiss Cheese, ETTO, drift to danger, just culture) — into a single, ordered taxonomy that security, insider-risk, and counter-intel teams can share.
 
