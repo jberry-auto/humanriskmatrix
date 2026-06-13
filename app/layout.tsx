@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: "%s · Human Risk Matrix",
   },
   description:
-    "An open taxonomy of human behavior that produces business impact — unifying counterintelligence, cybersecurity, social-engineering defense, and safety science across 11 columns and 5 phases.",
+    "An open taxonomy providing a comprehensive view of human risk impacting organizational systems and data confidentiality, availability, integrity, fitness for purpose, and processes — unifying counterintelligence, cybersecurity, social-engineering defense, and safety science across 11 columns and 5 phases.",
 };
 
 const GITHUB_URL = "https://github.com/jberry-auto/humanriskmatrix";
