@@ -27,7 +27,7 @@ The guiding principle is a **clean dependency boundary**: pure business logic in
 
 - `src/lib/**` contains pure functions and types. It **never** imports Next.js, React, the Postgres client, the Anthropic client class, `node:fs` for runtime data, or `rss-parser`. Anything with I/O is passed in (an interface), so tests inject fakes.
 - Pages and route handlers are thin: they read validated input, call `src/lib`, and render/return. They own the I/O (constructing the Anthropic client, opening DB connections, reading env via `src/config.ts`) and inject it into the pure core.
-- Reviewers reject PRs that violate this boundary. An ESLint `no-restricted-imports` rule should encode it once Phase 1 code lands.
+- Reviewers reject PRs that violate this boundary. An ESLint `no-restricted-imports` rule encodes it (`eslint.config.mjs`): files under `src/lib/**` may not import `react`, `react-dom`, `server-only`, `next`/`next/*`, `@/app/*`, `@/components/*`, or `pg`.
 
 ### Server/client secret boundary (Next.js)
 Distinct from the layering rule above, and just as important for preventing key leakage:
@@ -48,7 +48,8 @@ src/
       schema.ts        # zod schemas + z.infer types (Phase, Technique, MatrixColumn, Framework, InsiderCategory)
       load.ts          # read + safeParse content/**; pure given a file map (fs injected)
     matrix/
-      group.ts         # pure helpers: group columns by phase, resolve MITRE links
+      group.ts         # pure helper: group columns by phase
+      mitre.ts         # pure helper: build attack.mitre.org technique URLs
     ai/                # Phase 2 — pure: buildThreatModel(input, deps), prompt builders, output schema
     feed/              # Phase 3 — pure: pipeline(articles, deps), mapping, dedup key
 app/
@@ -64,14 +65,15 @@ app/
     feed/refresh/route.ts   # Phase 3 (token-protected)
     health/route.ts         # liveness/readiness
 src/components/
-  ui/                  # Design system primitives (docs/design-system.md): Button, Link, Card, Tag, Dialog, Tabs, Disclosure, TextField …
-  # feature components: MatrixGrid, PhaseLegend, ColumnCard, FrameworkCard, RiskHeatmap, FeedCard
+  ui/                  # Design system primitives (docs/design-system.md): Button, Link, Card, Tag, Dialog, Tabs, Disclosure, TextField, SideSheet, Checkbox, HorizontalScroll …
+  matrix/              # Matrix feature (client): MatrixView, TechniqueDetailDrawer, HeatmapSummary, use-heatmap, phase-style
+  # later: FrameworkCard (Theory), RiskHeatmap (P2), FeedCard (P3)
 ```
 
 ## Data flow per page
 
-### Matrix (Phase 1, static)
-Build time: `scripts/import-xlsx.ts` has already produced `content/`. `src/lib/content/load.ts` reads + validates all content; `src/lib/matrix/group.ts` groups columns by phase. The `app/matrix/page.tsx` server component renders `MatrixGrid` from this data. **Fully static** — no request-time work. Invalid content fails the build.
+### Matrix (Phase 1, static + client interactivity)
+Build time: `scripts/import-xlsx.ts` has already produced `content/`. `src/lib/content/load.ts` reads + validates all content; `src/lib/matrix/group.ts` groups columns by phase. The static `app/matrix/page.tsx` server component passes plain serializable data to the client `MatrixView`, which renders the ATT&CK-style grid, opens the `TechniqueDetailDrawer` (a `SideSheet`) on click, and manages the multi-select **environmental heatmap** via `use-heatmap` (a `useSyncExternalStore` module store persisted to `localStorage`, key `hrm.heatmap.v1`). **Page is static** — no request-time work, no secrets, selection state lives only in the browser. Invalid content fails the build.
 
 ### Theory (Phase 1, static)
 Same loader. MDX in `content/theory/` and `content/frameworks/` is rendered (via `@next/mdx` or `next-mdx-remote`); framework metadata drives `FrameworkCard`s and cross-links to `/matrix`. Static.

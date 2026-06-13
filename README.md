@@ -28,7 +28,7 @@ INTERNAL ORIGIN            EXTERNAL APPROACH         DECEPTION        IMPOSITION
 
 ## Project status & roadmap
 
-This repository is in **Phase 1** (static Matrix + Theory). The build is phased — see **[docs/roadmap.md](docs/roadmap.md)** for the dual-track (content + feature) roadmap and exit criteria per phase.
+This repository is in **Phase 1** (static Matrix + Theory). The **interactive Matrix page is live** at [humanriskmatrix.org/matrix](https://humanriskmatrix.org/matrix) — the full 160-technique taxonomy with a technique detail side-sheet and a personal environmental heatmap; the **Theory & Frameworks page is next**. The build is phased — see **[docs/roadmap.md](docs/roadmap.md)** for the dual-track (content + feature) roadmap and exit criteria per phase.
 
 ## Tech stack
 
@@ -43,9 +43,9 @@ npm install
 npm run dev          # → http://localhost:3000
 ```
 
-Scripts: `npm run build` · `npm run start` · `npm run lint` · `npm run typecheck` · `npm run test`.
+Scripts: `npm run build` · `npm run start` · `npm run lint` · `npm run typecheck` · `npm run test` · `npm run validate:content`.
 
-> Phase 1 is in progress: the application scaffold, CI, and deploy pipeline are in place; the Matrix and Theory pages are next. Build details: [docs/dev-plan/phase-1-matrix-theory.md](docs/dev-plan/phase-1-matrix-theory.md).
+> Phase 1 is in progress: the scaffold, CI/CD, content pipeline, design system, and the interactive Matrix page are live; the Theory & Frameworks page is next. Build details: [docs/dev-plan/phase-1-matrix-theory.md](docs/dev-plan/phase-1-matrix-theory.md).
 
 ## Documentation
 
@@ -55,6 +55,7 @@ Start here, in order:
 - **[docs/roadmap.md](docs/roadmap.md)** — phased content + feature roadmap.
 - **[docs/architecture.md](docs/architecture.md)** — how the app is structured.
 - **[docs/content-model.md](docs/content-model.md)** — the content schemas and how to edit content.
+- **[docs/design-system.md](docs/design-system.md)** — design tokens, theming, and UI primitives.
 - **[docs/dev-plan/](docs/dev-plan/)** — per-phase build specs.
 - **[docs/style-guide.md](docs/style-guide.md)** + **[docs/engineering-standards/](docs/engineering-standards/)** — code, content, and language rules (the standards of record).
 - Cross-cutting: [security](docs/security.md) · [reliability](docs/reliability-sre.md) · [secrets](docs/secrets-management.md) · [CI/CD](docs/cicd-github-actions.md) · [deployment](docs/deployment-do.md) · [testing](docs/testing-qa.md).

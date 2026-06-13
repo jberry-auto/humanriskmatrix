@@ -19,9 +19,10 @@ Tooling: **Vitest** (unit/component), `@testing-library/react` for components, `
 - `src/lib/matrix/mitre.ts`: `mitreUrl` for a base technique (`T1566`) and a sub-technique (`T1566.004`); `null` yields no link.
 
 ### Components (Phase 1)
-- `MatrixGrid` / `ColumnCard` render from fixture data; a `null` MITRE id renders text with no broken link; cross-link chips point at the right hrefs.
-- `FrameworkCard` renders frontmatter + column chips.
-- Accessibility smoke: roles/labels present; keyboard focusability of disclosures.
+- `MatrixView` renders the grid from fixture content; toggling a technique checkbox updates the heatmap selection and per-phase counts, persists to `localStorage`, and rehydrates on reload; Clear empties it. (`tests/matrix/matrix-view.test.tsx`.)
+- `TechniqueDetailDrawer`: clicking a technique opens the side-sheet with its description, MITRE link, and phase/column context; Esc closes; a `null` MITRE id renders text with no broken link.
+- `FrameworkCard` renders frontmatter + column chips. *(With the Theory page.)*
+- Accessibility smoke: rows reachable by accessible name; checkbox `aria-checked` exposed; keyboard focusability of disclosures + drawer.
 
 ### Config
 - `src/config.ts`: missing a required (phase-enabled) var fails fast; defaults apply; `NEXT_PUBLIC_*` never carries a secret (lint/test guard).
