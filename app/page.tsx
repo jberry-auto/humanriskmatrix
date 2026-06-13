@@ -86,7 +86,8 @@ export default function Home() {
           processes — from honest mistakes to witting cooperation with an adversary, arranged along
           a <span className="text-ink">spectrum of malicious intent</span>.
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-1">
+        <div aria-hidden="true" className="hero-art h-56 w-full max-w-5xl sm:h-72 lg:h-80" />
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
           <Link href="/matrix" variant="nav" className="font-medium text-accent">
             Open the Matrix
           </Link>

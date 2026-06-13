@@ -93,3 +93,23 @@
     text-wrap: balance;
   }
 }
+
+/*
+ * Hero illustration — a noir ink sketch that dissolves into the page background
+ * via a soft radial edge mask (the image's own backdrop matches the bg tokens,
+ * so the masked edges melt into the paper/near-black). The light/dark variants
+ * swap with the `.dark` theme class; only the active image is fetched.
+ */
+.hero-art {
+  background-image: url("/light-hero.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  --hero-mask: radial-gradient(120% 92% at 50% 46%, #000 50%, transparent 86%);
+  -webkit-mask-image: var(--hero-mask);
+  mask-image: var(--hero-mask);
+}
+
+.dark .hero-art {
+  background-image: url("/dark-hero.jpg");
+}
