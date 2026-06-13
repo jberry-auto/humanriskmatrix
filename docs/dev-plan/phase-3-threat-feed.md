@@ -2,7 +2,7 @@
 
 **Status: outline.** Locked decisions captured; expand to build-ready at the start of Phase 3. Read with `docs/reliability-sre.md`, `docs/deployment-do.md`, `docs/security.md`, and `docs/secrets-management.md`.
 
-**Goal:** a continuously updated feed of security/insider-risk news, each item **summarized** by Claude Haiku, **mapped to the matrix columns** it implicates, with **suggested team actions**.
+**Goal:** a continuously updated feed of security/insider-risk news, each item **summarized** by Claude Haiku, **mapped to the matrix categories** it implicates, with **suggested team actions**.
 
 ## Locked decisions
 - Source: **curated RSS feeds** (config-driven, PR-extendable).
@@ -34,7 +34,7 @@ const FeedItemSummarySchema = z.object({
   source: z.string().min(1),
   publishedAt: z.string(),               // ISO
   summary: z.string().max(800),
-  mappedColumns: z.array(z.number().int().min(1).max(11)).max(11),
+  mappedCategories: z.array(z.number().int().min(1).max(11)).max(11),
   suggestedActions: z.array(z.string()).max(5),
 });
 ```
@@ -42,7 +42,7 @@ const FeedItemSummarySchema = z.object({
 ## Postgres (draft)
 - `articles(canonical_url PK, source, title, published_at, fetched_at)`
 - `summaries(article_url FK, summary, model, created_at)`
-- `article_columns(article_url FK, column_id)` — the matrix mapping (many-to-many)
+- `article_categories(article_url FK, category_id)` — the matrix mapping (many-to-many)
 - Migrations run on deploy; connection pooling; backups enabled (see `docs/reliability-sre.md`).
 
 ## Pipeline
@@ -58,7 +58,7 @@ Article titles/bodies are **untrusted**, and so is the **model-generated summary
 Explicit timeouts + bounded retries on fetch and on the model call; the refresh endpoint is idempotent (dedup makes re-runs safe); graceful degradation — if the model or a source is down, the feed still serves the last persisted items. SLOs and alerting in `docs/reliability-sre.md`.
 
 ## UI
-`app/threat-feed/page.tsx` uses ISR (`revalidate`) to render persisted items; `FeedCard` shows summary, mapped-column chips (linking `/matrix`), suggested actions, source, date, and a "model-generated summary" label.
+`app/threat-feed/page.tsx` uses ISR (`revalidate`) to render persisted items; `FeedCard` shows summary, mapped-category chips (linking `/matrix`), suggested actions, source, date, and a "model-generated summary" label.
 
 ## Acceptance criteria (Phase 3 exit)
 - Feed renders durable, deduped, matrix-mapped summaries with suggested actions.

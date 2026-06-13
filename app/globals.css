@@ -3,7 +3,7 @@
 
 /*
  * Design system tokens (docs/design-system.md).
- * Formal "serif revival": warm ink on paper, evergreen accent, muted phase colors.
+ * Formal "serif revival": warm ink on paper, evergreen accent, muted intent-degree colors.
  * Light is the DEFAULT; the .dark class (toggled by next-themes on <html>) overrides
  * the token values below — components are token-driven, so they need no dark variants.
  */
@@ -23,12 +23,12 @@
   --color-accent-contrast: #ffffff;
   --color-accent-subtle: #e8f0ea;
 
-  /* The five phases — muted/editorial, cool → warm. Never used as the only signal. */
-  --color-phase-internal: #3f6e8c;
-  --color-phase-approach: #4e5c8a;
-  --color-phase-deception: #6b5080;
-  --color-phase-imposition: #9a5b57;
-  --color-phase-alignment: #8c3b36;
+  /* The five intent degrees — muted/editorial, cool → warm. Never used as the only signal. */
+  --color-degree-internal: #3f6e8c;
+  --color-degree-approach: #4e5c8a;
+  --color-degree-deception: #6b5080;
+  --color-degree-imposition: #9a5b57;
+  --color-degree-alignment: #8c3b36;
 
   /* Radii — small and formal */
   --radius-sm: 0.125rem;
@@ -64,11 +64,11 @@
   --color-accent-contrast: #14130f;
   --color-accent-subtle: #1d2a22;
 
-  --color-phase-internal: #6fa0be;
-  --color-phase-approach: #8089b8;
-  --color-phase-deception: #9e84b0;
-  --color-phase-imposition: #c58e89;
-  --color-phase-alignment: #c9706a;
+  --color-degree-internal: #6fa0be;
+  --color-degree-approach: #8089b8;
+  --color-degree-deception: #9e84b0;
+  --color-degree-imposition: #c58e89;
+  --color-degree-alignment: #c9706a;
 }
 
 @layer base {

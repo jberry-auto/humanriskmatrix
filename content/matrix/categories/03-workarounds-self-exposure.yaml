@@ -1,6 +1,6 @@
 id: 3
 name: Workarounds & Self-Exposure
-phaseId: internal
+degreeId: internal
 mappedModels:
   - swiss-cheese
   - etto

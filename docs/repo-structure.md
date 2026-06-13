@@ -20,11 +20,11 @@ humanriskmatrix/
 ├── content/                      # Taxonomy content (CC BY-NC 4.0) — see content/LICENSE
 │   ├── LICENSE
 │   ├── matrix/
-│   │   ├── phases.yaml           # The 5 phases (id, name, order, adversary role, awareness)
-│   │   └── columns/
+│   │   ├── intent-degrees.yaml   # The 5 degrees of intent (id, name, order, adversary role, awareness)
+│   │   └── categories/
 │   │       ├── 01-accidental-disclosure.yaml
 │   │       ├── 02-hygiene-config-drift.yaml
-│   │       ├── …                 # one file per column, 01..11
+│   │       ├── …                 # one file per category, 01..11
 │   │       └── 11-coercion-recruitment.yaml
 │   ├── frameworks/               # Cross-disciplinary model essays (MDX + frontmatter)
 │   │   ├── mice.mdx  rascls.mdx  swiss-cheese.mdx   etto.mdx  …
@@ -57,7 +57,7 @@ humanriskmatrix/
 │   ├── lib/                      # PURE business logic — dependencies injected, no infra imports
 │   │   ├── cn.ts                 # className join helper (pure)
 │   │   ├── content/              # schema.ts (zod), load.ts (read+validate)
-│   │   ├── matrix/               # matrix/phase helpers (pure)
+│   │   ├── matrix/               # category/degree helpers (pure)
 │   │   ├── ai/                   # Phase 2: threat-model logic (client injected)
 │   │   └── feed/                 # Phase 3: RSS fetch/parse/pipeline (pure core)
 │   └── components/
@@ -97,8 +97,8 @@ humanriskmatrix/
 
 | I want to… | Put it in… | Reviewed by |
 |---|---|---|
-| Add/fix a matrix technique or its MITRE ID | `content/matrix/columns/NN-*.yaml` | content-owners |
-| Add/fix a phase definition | `content/matrix/phases.yaml` | content-owners |
+| Add/fix a matrix technique or its MITRE ID | `content/matrix/categories/NN-*.yaml` | content-owners |
+| Add/fix an intent-degree definition | `content/matrix/intent-degrees.yaml` | content-owners |
 | Write a framework/model essay | `content/frameworks/<slug>.mdx` | content-owners |
 | Write/edit foundational theory prose | `content/theory/<slug>.mdx` | content-owners |
 | Re-import from the spreadsheet | `scripts/import-xlsx.ts` (+ regenerate `content/`) | infra-owners |
@@ -111,7 +111,7 @@ humanriskmatrix/
 ## Naming conventions
 
 - **Files:** `kebab-case` for source files (`column-card.tsx` or `ColumnCard.tsx` for components — pick one per the style guide and stay consistent), `kebab-case.mdx` for content, `NN-slug.yaml` for ordered matrix columns.
-- **Matrix column files** are zero-padded and ordered: `01-…` through `11-…`, slug derived from the column name.
+- **Matrix category files** are zero-padded and ordered: `01-…` through `11-…`, slug derived from the category name.
 - **No default exports** in `src/` or `components/` — named exports only (see `docs/style-guide.md`).
 
 ## The layering boundary (enforced by review)

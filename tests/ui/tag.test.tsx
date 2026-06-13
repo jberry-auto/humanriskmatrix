@@ -5,7 +5,7 @@ import { Tag } from "@/components/ui/Tag";
 
 describe("Tag", () => {
   it("always renders its label (meaning never relies on color alone)", () => {
-    render(<Tag phase="internal">Accidental Disclosure</Tag>);
+    render(<Tag degree="internal">Accidental Disclosure</Tag>);
     expect(screen.getByText("Accidental Disclosure")).toBeInTheDocument();
   });
 });

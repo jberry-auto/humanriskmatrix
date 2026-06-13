@@ -4,6 +4,10 @@ This is the contract between the **taxonomy** and the **site**. The **canonical,
 
 > The `content/` tree was originally seeded from a **local working workbook** (`human-risk-framework.xlsx`) that is **git-ignored and not committed** (it carries author metadata and draft cell-comments — see the security audit). The workbook is a one-time bootstrap aid held by maintainers, not the source of truth.
 
+## Terminology
+
+The matrix is **11 categories of behavior** arranged along a **spectrum of malicious intent**. The 11 categories are grouped into **5 degrees of intent**. Read **left to right**, the spectrum runs from accidental, non-malicious behavior (that can still cause a breach or data loss) to witting cooperation with an adversary. Position reflects **how much malicious intent drives the behavior — it is not a timeline or a sequence of events.** (The terms "phases" and "columns" are deprecated: "phase" wrongly implied temporal progression.)
+
 ---
 
 ## The source workbook (local-only seed)
@@ -11,14 +15,16 @@ This is the contract between the **taxonomy** and the **site**. The **canonical,
 The original `human-risk-framework.xlsx` (git-ignored; held locally by maintainers) has three tabs:
 
 - **Concepts** → foundations prose + substrate-model tables + insider-threat categories → `content/theory/` and `content/frameworks/`.
-- **Framework** → the matrix: 11 columns across 5 phases, each a ranked list of techniques with MITRE ATT&CK IDs where coded → `content/matrix/`.
+- **Framework** → the matrix: 11 categories across 5 degrees of intent, each a ranked list of techniques with MITRE ATT&CK IDs where coded → `content/matrix/`.
 - **Heat-Map** → intentionally empty. It is the artifact the Phase 2 Threat Modeler generates per industry; it is **not** imported.
 
 ## The taxonomy, fixed facts
 
-### Phases (5)
+### Degrees of intent (5)
 
-| order | id | name | columns | adversaryRole | awareness |
+Ordered left → right by increasing malicious intent (not by time).
+
+| order | id | name | categories | adversaryRole | awareness |
 |---|---|---|---|---|---|
 | 1 | `internal` | Internal | 1–3 | None | Low to none; no harmful intent — slip, habit, convenience |
 | 2 | `approach` | Approach | 4–6 | Passive observation / relationship-building | None to low; unaware of being targeted |
@@ -26,9 +32,9 @@ The original `human-risk-framework.xlsx` (git-ignored; held locally by maintaine
 | 4 | `imposition` | Imposition | 9–10 | Active pressure or physical action | Immediate/imminent; acts under force or confusion |
 | 5 | `alignment` | Alignment | 11 | Active sponsor | Full awareness; aligned with adversary |
 
-### Columns (11)
+### Categories (11)
 
-| id | name | phase |
+| id | name | degree |
 |---|---|---|
 | 1 | Accidental Disclosure | internal |
 | 2 | Hygiene & Config Drift | internal |
@@ -42,18 +48,18 @@ The original `human-risk-framework.xlsx` (git-ignored; held locally by maintaine
 | 10 | Physical Intrusion | imposition |
 | 11 | Coercion & Recruitment | alignment |
 
-Each column holds an **ordered list of techniques** (label + optional MITRE ID). The Framework tab is the source; e.g. column 1 ranges from "Misdirected email (autocomplete)" to "Confidential data pasted into public LLM"; column 7 (Deceptive Delivery) is the densest, running from "Spearphishing Attachment (T1566.001)" through BEC variants and "ClickFix / FakeCaptcha (T1204.004)"; column 11 runs "Witting recruitment (MICE)" → "Sextortion" → … → "Ransomware extortion (post-SE)".
+Each category holds an **ordered list of techniques** (id + label + optional MITRE ID + authored description). The Framework tab is the source; e.g. category 1 ranges from "Misdirected email (autocomplete)" to "Confidential data pasted into public LLM"; category 7 (Deceptive Delivery) is the densest, running from "Spearphishing Attachment (T1566.001)" through BEC variants and "ClickFix / FakeCaptcha (T1204.004)"; category 11 runs "Witting recruitment (MICE)" → "Sextortion" → … → "Ransomware extortion (post-SE)".
 
 ### Substrate models (Concepts tab)
 
-Two families, mapped to columns. These become `content/frameworks/*.mdx`:
+Two families, mapped to categories. These become `content/frameworks/*.mdx`:
 
-- **Adversarial intent (cols 4–11):** MICE (cols 11; 5,7) · RASCLS (col 6; 5,7) · Cialdini+Unity (5,6,8) · Cognitive biases (4–11).
-- **Error & drift (cols 1–3):** Reason/Swiss-Cheese · Hollnagel/ETTO (2,3) · Rasmussen/Drift-to-Danger (2,3) · Dekker/Just-Culture (1,2,3) · Heinrich Pyramid (1,2,3).
+- **Adversarial intent (categories 4–11):** MICE (11; 5,7) · RASCLS (6; 5,7) · Cialdini+Unity (5,6,8) · Cognitive biases (4–11).
+- **Error & drift (categories 1–3):** Reason/Swiss-Cheese · Hollnagel/ETTO (2,3) · Rasmussen/Drift-to-Danger (2,3) · Dekker/Just-Culture (1,2,3) · Heinrich Pyramid (1,2,3).
 
 ### Insider-threat categories (Concepts tab)
 
-Negligent (1,2,3) · Compromised-credentials (2→7,8) · Unwitting-exploited (4–9) · Departing-employee (3↔11) · Third-party/vendor (5,8) · Witting-recruited (11) · Collusive (11). Each has a response mechanism and a note.
+A separate classification from the 11 behavior categories. Negligent (1,2,3) · Compromised-credentials (2→7,8) · Unwitting-exploited (4–9) · Departing-employee (3↔11) · Third-party/vendor (5,8) · Witting-recruited (11) · Collusive (11). Each has a response mechanism and a note.
 
 ---
 
@@ -64,41 +70,43 @@ zod is the source of truth; export `z.infer` types alongside each schema.
 ```ts
 import { z } from 'zod';
 
-// --- Phase ---
-export const PhaseIdSchema = z.enum([
+// --- Intent degree ---
+export const IntentDegreeIdSchema = z.enum([
   'internal', 'approach', 'deception', 'imposition', 'alignment',
 ]);
-export type PhaseId = z.infer<typeof PhaseIdSchema>;
+export type IntentDegreeId = z.infer<typeof IntentDegreeIdSchema>;
 
-export const PhaseSchema = z.object({
-  id: PhaseIdSchema,
+export const IntentDegreeSchema = z.object({
+  id: IntentDegreeIdSchema,
   name: z.string().min(1),
   order: z.number().int().min(1).max(5),
-  columnRange: z.tuple([z.number().int(), z.number().int()]),
+  categoryRange: z.tuple([z.number().int(), z.number().int()]),
   adversaryRole: z.string().min(1),
   awareness: z.string().min(1),
 });
-export type Phase = z.infer<typeof PhaseSchema>;
+export type IntentDegree = z.infer<typeof IntentDegreeSchema>;
 
 // --- Technique ---
 // MITRE ATT&CK technique id, e.g. T1566 or T1566.004, or null when uncoded.
 const MitreIdSchema = z.string().regex(/^T\d{4}(\.\d{3})?$/);
 export const TechniqueSchema = z.object({
+  id: z.string().regex(/^\d{1,2}-[a-z0-9-]+$/), // stable, globally unique: "<categoryId>-<slug(label)>"
   label: z.string().min(1),
   mitreId: MitreIdSchema.nullable(),
+  description: z.string().min(1),                // authored one-line write-up (required)
 });
 export type Technique = z.infer<typeof TechniqueSchema>;
 
-// --- MatrixColumn ---
-export const MatrixColumnSchema = z.object({
+// --- MatrixCategory ---
+export const MatrixCategorySchema = z.object({
   id: z.number().int().min(1).max(11),
   name: z.string().min(1),
-  phaseId: PhaseIdSchema,
+  degreeId: IntentDegreeIdSchema,
   techniques: z.array(TechniqueSchema).min(1),
   mappedModels: z.array(z.string()).default([]),      // framework slugs
   insiderCategories: z.array(z.string()).default([]), // insider-category slugs
 });
-export type MatrixColumn = z.infer<typeof MatrixColumnSchema>;
+export type MatrixCategory = z.infer<typeof MatrixCategorySchema>;
 
 // --- Framework (MDX frontmatter) ---
 export const DisciplineSchema = z.enum([
@@ -109,7 +117,7 @@ export const FrameworkSchema = z.object({
   title: z.string().min(1),
   discipline: DisciplineSchema,
   origin: z.string().optional(),         // attributed author/source
-  mappedColumns: z.array(z.number().int().min(1).max(11)).min(1),
+  mappedCategories: z.array(z.number().int().min(1).max(11)).min(1),
   summary: z.string().min(1),
   // body is the MDX content, compiled separately
 });
@@ -119,7 +127,7 @@ export type Framework = z.infer<typeof FrameworkSchema>;
 export const InsiderCategorySchema = z.object({
   slug: z.string().regex(/^[a-z0-9-]+$/),
   name: z.string().min(1),
-  primaryColumns: z.array(z.number().int().min(1).max(11)).min(1),
+  primaryCategories: z.array(z.number().int().min(1).max(11)).min(1),
   responseMechanism: z.string().min(1),
   note: z.string().optional(),
 });
@@ -128,10 +136,10 @@ export type InsiderCategory = z.infer<typeof InsiderCategorySchema>;
 
 ### Cross-reference invariants (enforced by the loader)
 Beyond per-record validation, `load.ts` checks the **whole set**:
-- Every `column.phaseId` exists in `phases.yaml`, and column ids 1–11 are all present exactly once.
-- Every slug in `column.mappedModels` resolves to a `content/frameworks/*` file; every slug in `insiderCategories` resolves to a defined insider category.
-- Every `framework.mappedColumns` / `insiderCategory.primaryColumns` id is in 1–11.
-- No duplicate technique `label` within a column.
+- Every `category.degreeId` exists in `intent-degrees.yaml`, and category ids 1–11 are all present exactly once.
+- Every slug in `category.mappedModels` resolves to a `content/frameworks/*` file; every slug in `insiderCategories` resolves to a defined insider category.
+- Every `framework.mappedCategories` / `insiderCategory.primaryCategories` id is in 1–11.
+- No duplicate technique `label` within a category; every technique `id` is globally unique and prefixed with its `<categoryId>-`.
 A failure throws with the offending file + field, and the **build fails**.
 
 ---
@@ -141,9 +149,9 @@ A failure throws with the offending file + field, and the **build fails**.
 ```
 content/
   matrix/
-    phases.yaml                       # array of Phase
-    columns/
-      01-accidental-disclosure.yaml   # one MatrixColumn per file
+    intent-degrees.yaml               # array of IntentDegree
+    categories/
+      01-accidental-disclosure.yaml   # one MatrixCategory per file
       02-hygiene-config-drift.yaml
       …
       11-coercion-recruitment.yaml
@@ -155,28 +163,30 @@ content/
   insider-categories.yaml             # array of InsiderCategory (tabular data)
 ```
 
-### Example column file
+### Example category file
 
 ```yaml
-# content/matrix/columns/07-deceptive-delivery.yaml
+# content/matrix/categories/07-deceptive-delivery.yaml
 id: 7
 name: Deceptive Delivery
-phaseId: deception
+degreeId: deception
 mappedModels: [cialdini-unity, cognitive-biases]
 insiderCategories: [unwitting-exploited, compromised-credentials]
 techniques:
-  - { label: "Spearphishing Attachment", mitreId: "T1566.001" }
-  - { label: "Spearphishing Link",       mitreId: "T1566.002" }
-  - { label: "Spearphishing via Service", mitreId: "T1566.003" }
-  - { label: "Spearphishing Voice / Vishing", mitreId: "T1566.004" }
-  - { label: "Quishing (QR phishing)",   mitreId: null }
-  - { label: "ClickFix / FakeCaptcha",   mitreId: "T1204.004" }
-  - { label: "Adversary-in-the-Middle (AitM)", mitreId: "T1557" }
-  - { label: "Watering hole",            mitreId: "T1189" }
-  # … remaining techniques from the Framework tab, in order
+  - id: 7-spearphishing-attachment
+    label: "Spearphishing Attachment"
+    mitreId: "T1566.001"
+    description: "A targeted email delivers a malicious attachment crafted to compromise the recipient when opened."
+  - id: 7-quishing-qr-phishing
+    label: "Quishing (QR phishing)"
+    mitreId: null
+    description: "A QR code routes the victim to a malicious site, bypassing link inspection."
+  # … remaining techniques from the Framework tab, in order, each with id + description
 ```
 
-### Example framework essay
+### Example framework file
+
+Framework MDX currently carries the frontmatter below plus a **short summary body** — the full essays land with the Theory & Frameworks page (a later milestone). The matrix detail drawer reads only the `title`/`summary`.
 
 ```mdx
 ---
@@ -184,12 +194,11 @@ slug: swiss-cheese
 title: "Reason — Swiss Cheese Model"
 discipline: SafetyScience
 origin: "James Reason"
-mappedColumns: [1, 2, 3]
+mappedCategories: [1, 2, 3]
 summary: "Defenses as layered slices with shifting holes; incidents occur when holes align."
 ---
 
-The Swiss Cheese model reframes investigation away from blaming the person at the end
-of the chain and toward understanding which layers had holes and why…
+Defenses as layered slices with shifting holes; incidents occur when holes align…
 ```
 
 ---
@@ -200,15 +209,15 @@ A committed, repeatable Node script (run via `tsx`) that converts the **local, g
 
 **Behavior**
 1. Parse `human-risk-framework.xlsx` (use `xlsx` or `exceljs`).
-2. **Framework tab → columns:** read the phase header row and the 11 column headers; walk each column top-to-bottom collecting non-empty cells; split each cell on the `… / (MITRE)` convention into `{ label, mitreId }` (map `—`/empty → `null`); emit `content/matrix/columns/NN-*.yaml` preserving order.
+2. **Framework tab → categories:** read the header row and the 11 category headers; walk each category top-to-bottom collecting non-empty cells; split each cell on the `… / (MITRE)` convention into `{ label, mitreId }` (map `—`/empty → `null`); generate a stable `id`; emit `content/matrix/categories/NN-*.yaml` preserving order.
 3. **Concepts tab → theory + tables:** extract the prose blocks into `content/theory/*.mdx`; extract the substrate-model and insider-category tables into structured records (`frameworks/*.mdx` frontmatter + `insider-categories.yaml`).
-4. Emit `phases.yaml` from the phase table.
-5. Validate everything against the schemas before writing; **refuse to write** if validation fails, printing the offending rows.
+4. Emit `intent-degrees.yaml` from the degree table.
+5. The emitted `description` is empty — author each one afterward (the strict schema requires a non-empty description, so content only validates once authored).
 
-**Fidelity guard (required):** the Framework tab is dense and a few cells span phases. The importer must:
-- preserve every non-empty technique cell (count techniques in and out; log the totals per column),
+**Fidelity guard (required):** the Framework tab is dense and a few cells span degrees. The importer must:
+- preserve every non-empty technique cell (count techniques in and out; log the totals per category),
 - never silently merge or drop cells,
-- emit a `scripts/import-report.md` (or stdout summary) listing per-column technique counts and any cells it couldn't parse, so a human can **spot-check** before committing.
+- print a per-category technique-count summary so a human can **spot-check** before committing.
 
 ---
 

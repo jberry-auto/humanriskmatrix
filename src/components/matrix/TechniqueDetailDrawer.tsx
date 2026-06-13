@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/Button";
 import { SideSheet } from "@/components/ui/SideSheet";
 import { Tag } from "@/components/ui/Tag";
-import type { MatrixColumn, Phase, Technique } from "@/lib/content/schema";
+import type { IntentDegree, MatrixCategory, Technique } from "@/lib/content/schema";
 import { mitreUrl } from "@/lib/matrix/mitre";
 
 export interface FrameworkRef {
@@ -16,8 +16,8 @@ export interface InsiderRef {
 
 interface TechniqueDetailDrawerProps {
   technique: Technique | null;
-  column: MatrixColumn | null;
-  phase: Phase | null;
+  category: MatrixCategory | null;
+  degree: IntentDegree | null;
   frameworks: Record<string, FrameworkRef>;
   insiders: Record<string, InsiderRef>;
   isSelected: boolean;
@@ -27,24 +27,24 @@ interface TechniqueDetailDrawerProps {
 
 export function TechniqueDetailDrawer({
   technique,
-  column,
-  phase,
+  category,
+  degree,
   frameworks,
   insiders,
   isSelected,
   onToggleSelect,
   onOpenChange,
 }: TechniqueDetailDrawerProps) {
-  const isOpen = technique !== null && column !== null && phase !== null;
+  const isOpen = technique !== null && category !== null && degree !== null;
 
   return (
     <SideSheet isOpen={isOpen} onOpenChange={onOpenChange} title={technique?.label ?? ""}>
-      {technique && column && phase ? (
+      {technique && category && degree ? (
         <div className="flex flex-col gap-6">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-            <Tag phase={phase.id}>{phase.name}</Tag>
+            <Tag degree={degree.id}>{degree.name}</Tag>
             <span className="text-sm text-muted">
-              Column {column.id} · {column.name}
+              Category {category.id} · {category.name}
             </span>
           </div>
 
@@ -66,25 +66,25 @@ export function TechniqueDetailDrawer({
 
           <section className="flex flex-col gap-1">
             <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">
-              Phase context
+              Intent context
             </h3>
             <p className="text-sm">
               <span className="text-muted">Adversary role: </span>
-              {phase.adversaryRole}
+              {degree.adversaryRole}
             </p>
             <p className="text-sm">
               <span className="text-muted">Human awareness: </span>
-              {phase.awareness}
+              {degree.awareness}
             </p>
           </section>
 
-          {column.mappedModels.length > 0 ? (
+          {category.mappedModels.length > 0 ? (
             <section className="flex flex-col gap-2">
               <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">
                 Why people do this
               </h3>
               <ul className="flex flex-col gap-2">
-                {column.mappedModels.map((slug) => {
+                {category.mappedModels.map((slug) => {
                   const fw = frameworks[slug];
                   return fw ? (
                     <li key={slug} className="text-sm">
@@ -97,13 +97,13 @@ export function TechniqueDetailDrawer({
             </section>
           ) : null}
 
-          {column.insiderCategories.length > 0 ? (
+          {category.insiderCategories.length > 0 ? (
             <section className="flex flex-col gap-1">
               <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">
                 Relevant insider categories
               </h3>
               <p className="text-sm text-muted">
-                {column.insiderCategories
+                {category.insiderCategories
                   .map((slug) => insiders[slug]?.name)
                   .filter((n): n is string => Boolean(n))
                   .join(" · ")}

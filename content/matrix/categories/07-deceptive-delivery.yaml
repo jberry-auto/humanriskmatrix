@@ -1,6 +1,6 @@
 id: 7
 name: Deceptive Delivery
-phaseId: deception
+degreeId: deception
 mappedModels:
   - mice
   - rascls

@@ -3,17 +3,17 @@ import type { Metadata } from "next";
 import { MatrixView } from "@/components/matrix/MatrixView";
 import { Heading } from "@/components/ui/Heading";
 import { loadContent } from "@/lib/content/load";
-import { groupColumnsByPhase } from "@/lib/matrix/group";
+import { groupCategoriesByDegree } from "@/lib/matrix/group";
 
 export const metadata: Metadata = {
   title: "Matrix",
   description:
-    "The Human Risk Matrix — 11 columns of human behavior across 5 phases. Open any technique for details, and select the ones that apply to your environment to build a heatmap.",
+    "The Human Risk Matrix — 11 categories of human behavior across a spectrum of malicious intent. Open any technique for details, and select the ones that apply to your environment to build a heatmap.",
 };
 
 export default function MatrixPage() {
-  const { phases, columns, frameworks, insiderCategories } = loadContent();
-  const groups = groupColumnsByPhase(columns, phases);
+  const { degrees, categories, frameworks, insiderCategories } = loadContent();
+  const groups = groupCategoriesByDegree(categories, degrees);
   const frameworksMap = Object.fromEntries(
     frameworks.map((f) => [f.slug, { title: f.title, summary: f.summary }]),
   );
@@ -26,9 +26,10 @@ export default function MatrixPage() {
           Human Risk Matrix
         </Heading>
         <p className="max-w-2xl text-muted">
-          Eleven columns of human behavior across five phases. Collapse a phase to focus, open any
-          technique for details, and select the ones that apply to your environment to build a
-          heatmap.
+          Eleven categories of human behavior, read left to right along a spectrum of malicious
+          intent — from accidental, non-malicious actions to witting cooperation with an adversary.
+          Open any technique for details, and select the ones that apply to your environment to
+          build a heatmap.
         </p>
       </header>
       <MatrixView groups={groups} frameworks={frameworksMap} insiders={insidersMap} />

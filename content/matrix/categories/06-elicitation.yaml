@@ -1,6 +1,6 @@
 id: 6
 name: Elicitation
-phaseId: approach
+degreeId: approach
 mappedModels:
   - rascls
   - cialdini-unity

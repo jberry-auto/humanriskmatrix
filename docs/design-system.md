@@ -10,14 +10,14 @@ The visual + interaction language for humanriskmatrix.org: a **formal "serif rev
 
 1. **Editorial & formal** — serif display, generous whitespace, hairline borders, minimal shadows, small radii.
 2. **Accessibility is non-negotiable** — interactive components come from React Aria (keyboard, focus management, ARIA built in). Verify a keyboard-only pass before shipping any page.
-3. **Never color alone** — phase color always accompanies a text label (and/or shape). See `Tag`.
+3. **Never color alone** — an intent-degree color always accompanies a text label (and/or shape). See `Tag`.
 4. **Light is the default**, with a dark theme available via the header toggle. Tokens are CSS variables, so dark is a token override — components need no `dark:` variants.
 5. **Server by default** — presentational components are Server Components; only interactive primitives are `'use client'`.
 
 ## Foundations
 
 ### Color tokens
-Defined in `app/globals.css` `@theme`; consumed as Tailwind utilities (`bg-bg`, `text-ink`, `border-border`, `bg-accent`, `text-phase-internal`, …). The table shows **light** (default) values; the **dark** theme overrides the same tokens under `.dark` (see Theming).
+Defined in `app/globals.css` `@theme`; consumed as Tailwind utilities (`bg-bg`, `text-ink`, `border-border`, `bg-accent`, `text-degree-internal`, …). The table shows **light** (default) values; the **dark** theme overrides the same tokens under `.dark` (see Theming).
 
 | Token | Hex | Use |
 |---|---|---|
@@ -33,7 +33,7 @@ Defined in `app/globals.css` `@theme`; consumed as Tailwind utilities (`bg-bg`, 
 | `accent-contrast` | `#FFFFFF` | text on accent |
 | `accent-subtle` | `#E8F0EA` | tinted accent background |
 
-**Phases** (muted/editorial, cool→warm): `phase-internal #3F6E8C` · `phase-approach #4E5C8A` · `phase-deception #6B5080` · `phase-imposition #9A5B57` · `phase-alignment #8C3B36`. All meet WCAG AA against paper; always paired with a label.
+**Intent degrees** (muted/editorial, cool→warm, low→high intent): `degree-internal #3F6E8C` · `degree-approach #4E5C8A` · `degree-deception #6B5080` · `degree-imposition #9A5B57` · `degree-alignment #8C3B36`. All meet WCAG AA against paper; always paired with a label.
 
 ### Typography
 Families: `font-serif` (Source Serif 4), `font-sans` (Source Sans 3, default body), `font-mono` (Source Code Pro). Loaded self-hosted via `next/font` in `app/layout.tsx` (no external font origin → CSP `font-src 'self'`). Base layer sets body = sans 17px/1.6, and `h1–h4` = serif. Use the `Heading` component for headings (semantic level decoupled from visual `size`).
@@ -56,13 +56,13 @@ Import via the `@/components/ui/*` alias. **Server** (presentational): `Containe
 | `Eyebrow` | Small-caps label above a heading. |
 | `Card` | Surface with hairline border. |
 | `Prose` | Long-form/MDX wrapper: measured width, rhythm, styled links/lists. |
-| `Tag` | Label; optional `phase` adds a color dot — **label text always present**. |
+| `Tag` | Label; optional `degree` adds a color dot — **label text always present**. |
 | `Button` | RAC Button. `variant` = primary/secondary/ghost, `size` = sm/md. Use for actions; use `Link` for navigation. |
 | `Checkbox` | RAC Checkbox styled to tokens; render-prop box with check + focus ring. Controlled via `isSelected`/`onChange`. |
 | `SideSheet` | Right-anchored, full-height modal drawer (focus-trap, Esc/click-away). Controlled via `isOpen`/`onOpenChange`. Used for the matrix technique detail. |
 | `HorizontalScroll` | Wraps wide content in a horizontal scroller with edge fades and chevron buttons that appear only when there's more to reveal. Used by the wide matrix. |
 | `Link` | RAC Link, client-routed via the provider. `variant` = default/nav. External links fall back to normal navigation. |
-| `Disclosure` | RAC Disclosure: accessible expand/collapse (used for matrix column detail). |
+| `Disclosure` | RAC Disclosure: accessible expand/collapse (used to collapse intent degrees in the matrix). |
 | `Tabs` | RAC Tabs from a `{ id, label, content }[]` + accessible `label`. |
 | `Dialog` | RAC modal dialog: focus trap, escape, scroll lock. Pass a `trigger` (a `Button`) + `title`. |
 | `TextField` | RAC field: `Label`/`Input`/description/error wired for accessibility. |
@@ -76,12 +76,12 @@ A live reference renders every component at **`/styleguide`** (noindexed) — us
 - **Secret boundary:** components are infrastructure — never import `src/config` or secrets, and never receive secrets as props (`docs/security.md`).
 
 ## Theming (light + dark)
-**Light is the default.** A `ThemeToggle` (sun/moon, top-right of the header) switches to dark via [`next-themes`](https://github.com/pacocoursey/next-themes), configured in `app/providers.tsx` with `attribute="class"`, `defaultTheme="light"`, `enableSystem={false}` (we don't follow the OS — light is the intended default). It toggles `.dark` on `<html>`; `app/globals.css` overrides the neutral/accent/phase tokens under `.dark` (and sets `color-scheme: dark`). Because every component styles from tokens, **dark needs no component changes**.
+**Light is the default.** A `ThemeToggle` (sun/moon, top-right of the header) switches to dark via [`next-themes`](https://github.com/pacocoursey/next-themes), configured in `app/providers.tsx` with `attribute="class"`, `defaultTheme="light"`, `enableSystem={false}` (we don't follow the OS — light is the intended default). It toggles `.dark` on `<html>`; `app/globals.css` overrides the neutral/accent/intent-degree tokens under `.dark` (and sets `color-scheme: dark`). Because every component styles from tokens, **dark needs no component changes**.
 
 - `<html>` carries `suppressHydrationWarning` (next-themes sets the class before paint).
 - `ThemeToggle` renders a placeholder until mounted to avoid a hydration mismatch.
 - The no-flash inline script relies on the current CSP allowing inline scripts (M0 baseline). When the strict nonce-based CSP lands, pass that nonce to `ThemeProvider`.
 
-Dark palette: warm near-black `bg #14130F` / `surface #1C1B17`, ink `#ECE9E0`, a lightened evergreen `accent #6FBF8E`, and lightened phase colors — all chosen for AA contrast on the dark background.
+Dark palette: warm near-black `bg #14130F` / `surface #1C1B17`, ink `#ECE9E0`, a lightened evergreen `accent #6FBF8E`, and lightened intent-degree colors — all chosen for AA contrast on the dark background.
 
 See also: [`style-guide.md`](style-guide.md) (repo conventions), [`engineering-standards/style-guide-react-nextjs.md`](engineering-standards/style-guide-react-nextjs.md) (framework rules), [`architecture.md`](architecture.md) (layering + client boundary).

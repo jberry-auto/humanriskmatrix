@@ -1,6 +1,6 @@
 id: 2
 name: Hygiene & Config Drift
-phaseId: internal
+degreeId: internal
 mappedModels:
   - swiss-cheese
   - etto

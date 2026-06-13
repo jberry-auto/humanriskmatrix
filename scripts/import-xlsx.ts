@@ -1,8 +1,8 @@
 /**
  * Maintainer-only seed tool. Parses the local, git-ignored `human-risk-framework.xlsx`
- * (Framework tab) into the committed `content/` tree, plus the fixed phase/framework/
- * insider data. Run on a branch via `npm run import:xlsx`; then author each technique's
- * `description` (the schema requires it). Never commits the workbook.
+ * (Framework tab) into the committed `content/` tree, plus the fixed intent-degree /
+ * framework / insider data. Run on a branch via `npm run import:xlsx`; then author each
+ * technique's `description` (the schema requires it). Never commits the workbook.
  *
  * Not part of CI or the production build — the app only reads the committed content/.
  */
@@ -17,14 +17,14 @@ const ROOT = process.cwd();
 const XLSX = join(ROOT, "human-risk-framework.xlsx");
 const CONTENT = join(ROOT, "content");
 
-type PhaseId = "internal" | "approach" | "deception" | "imposition" | "alignment";
+type IntentDegreeId = "internal" | "approach" | "deception" | "imposition" | "alignment";
 
-const PHASES = [
+const DEGREES = [
   {
     id: "internal",
     name: "Internal",
     order: 1,
-    columnRange: [1, 3],
+    categoryRange: [1, 3],
     adversaryRole: "None",
     awareness: "Low to none; no harmful intent — slip, habit, convenience",
   },
@@ -32,7 +32,7 @@ const PHASES = [
     id: "approach",
     name: "Approach",
     order: 2,
-    columnRange: [4, 6],
+    categoryRange: [4, 6],
     adversaryRole: "Passive observation or relationship-building",
     awareness: "None to low; unaware of being targeted",
   },
@@ -40,7 +40,7 @@ const PHASES = [
     id: "deception",
     name: "Deception",
     order: 3,
-    columnRange: [7, 8],
+    categoryRange: [7, 8],
     adversaryRole: "Active deception",
     awareness: "Detected on reflection or never; believes the action is correct",
   },
@@ -48,7 +48,7 @@ const PHASES = [
     id: "imposition",
     name: "Imposition",
     order: 4,
-    columnRange: [9, 10],
+    categoryRange: [9, 10],
     adversaryRole: "Active pressure or physical action",
     awareness: "Immediate or imminent; acts under force or confusion",
   },
@@ -56,29 +56,29 @@ const PHASES = [
     id: "alignment",
     name: "Alignment",
     order: 5,
-    columnRange: [11, 11],
+    categoryRange: [11, 11],
     adversaryRole: "Active sponsor",
     awareness: "Full awareness; aligned with adversary",
   },
 ] as const;
 
-const COLUMNS: { id: number; name: string; phaseId: PhaseId; slug: string }[] = [
-  { id: 1, name: "Accidental Disclosure", phaseId: "internal", slug: "accidental-disclosure" },
-  { id: 2, name: "Hygiene & Config Drift", phaseId: "internal", slug: "hygiene-config-drift" },
+const CATEGORIES: { id: number; name: string; degreeId: IntentDegreeId; slug: string }[] = [
+  { id: 1, name: "Accidental Disclosure", degreeId: "internal", slug: "accidental-disclosure" },
+  { id: 2, name: "Hygiene & Config Drift", degreeId: "internal", slug: "hygiene-config-drift" },
   {
     id: 3,
     name: "Workarounds & Self-Exposure",
-    phaseId: "internal",
+    degreeId: "internal",
     slug: "workarounds-self-exposure",
   },
-  { id: 4, name: "Reconnaissance", phaseId: "approach", slug: "reconnaissance" },
-  { id: 5, name: "Access Development", phaseId: "approach", slug: "access-development" },
-  { id: 6, name: "Elicitation", phaseId: "approach", slug: "elicitation" },
-  { id: 7, name: "Deceptive Delivery", phaseId: "deception", slug: "deceptive-delivery" },
-  { id: 8, name: "Impersonation", phaseId: "deception", slug: "impersonation" },
-  { id: 9, name: "Forced Compliance", phaseId: "imposition", slug: "forced-compliance" },
-  { id: 10, name: "Physical Intrusion", phaseId: "imposition", slug: "physical-intrusion" },
-  { id: 11, name: "Coercion & Recruitment", phaseId: "alignment", slug: "coercion-recruitment" },
+  { id: 4, name: "Reconnaissance", degreeId: "approach", slug: "reconnaissance" },
+  { id: 5, name: "Access Development", degreeId: "approach", slug: "access-development" },
+  { id: 6, name: "Elicitation", degreeId: "approach", slug: "elicitation" },
+  { id: 7, name: "Deceptive Delivery", degreeId: "deception", slug: "deceptive-delivery" },
+  { id: 8, name: "Impersonation", degreeId: "deception", slug: "impersonation" },
+  { id: 9, name: "Forced Compliance", degreeId: "imposition", slug: "forced-compliance" },
+  { id: 10, name: "Physical Intrusion", degreeId: "imposition", slug: "physical-intrusion" },
+  { id: 11, name: "Coercion & Recruitment", degreeId: "alignment", slug: "coercion-recruitment" },
 ];
 
 const FRAMEWORKS = [
@@ -87,7 +87,7 @@ const FRAMEWORKS = [
     title: "MICE",
     discipline: "CounterIntel",
     origin: "Classical CI model",
-    mappedColumns: [5, 7, 11],
+    mappedCategories: [5, 7, 11],
     summary:
       "Money, Ideology, Coercion, Ego — the motivators an intelligence service develops into witting cooperation.",
   },
@@ -96,7 +96,7 @@ const FRAMEWORKS = [
     title: "RASCLS",
     discipline: "CounterIntel",
     origin: "Cialdini / Randy Burkett (CIA)",
-    mappedColumns: [5, 6, 7],
+    mappedCategories: [5, 6, 7],
     summary:
       "Reciprocation, Authority, Scarcity, Commitment, Liking, Social proof — the operational core of elicitation tradecraft.",
   },
@@ -105,7 +105,7 @@ const FRAMEWORKS = [
     title: "Cialdini — Unity (extended)",
     discipline: "Influence",
     origin: "Robert Cialdini",
-    mappedColumns: [5, 6, 8],
+    mappedCategories: [5, 6, 8],
     summary:
       "RASCLS plus Unity: appeal to shared identity ('we're both engineers'), materially more powerful than mere liking.",
   },
@@ -114,7 +114,7 @@ const FRAMEWORKS = [
     title: "Cognitive Biases",
     discipline: "Influence",
     origin: "Behavioral science",
-    mappedColumns: [4, 5, 6, 7, 8, 9, 10, 11],
+    mappedCategories: [4, 5, 6, 7, 8, 9, 10, 11],
     summary:
       "Authority bias, halo effect, confirmation, optimism, bandwagon, sunk-cost, default, loss aversion — shortcuts adversarial models exploit.",
   },
@@ -123,7 +123,7 @@ const FRAMEWORKS = [
     title: "Reason — Swiss Cheese Model",
     discipline: "SafetyScience",
     origin: "James Reason",
-    mappedColumns: [1, 2, 3],
+    mappedCategories: [1, 2, 3],
     summary:
       "Defenses as layered slices with shifting holes; incidents occur when holes align — shifts blame from the person to the system.",
   },
@@ -132,7 +132,7 @@ const FRAMEWORKS = [
     title: "Hollnagel — ETTO",
     discipline: "SafetyScience",
     origin: "Erik Hollnagel",
-    mappedColumns: [2, 3],
+    mappedCategories: [2, 3],
     summary:
       "The Efficiency–Thoroughness Trade-Off: people rationally trade thoroughness for efficiency; only the conditions can be changed.",
   },
@@ -141,7 +141,7 @@ const FRAMEWORKS = [
     title: "Rasmussen — Drift to Danger",
     discipline: "SafetyScience",
     origin: "Jens Rasmussen",
-    mappedColumns: [2, 3],
+    mappedCategories: [2, 3],
     summary:
       "Systems drift toward the safety boundary under economic and effort pressure — invisible until an incident, obvious in retrospect.",
   },
@@ -150,7 +150,7 @@ const FRAMEWORKS = [
     title: "Dekker — Just Culture",
     discipline: "SafetyScience",
     origin: "Sidney Dekker",
-    mappedColumns: [1, 2, 3],
+    mappedCategories: [1, 2, 3],
     summary:
       "Distinguishes human error, at-risk behavior, and reckless behavior — each needing a different response to preserve reporting.",
   },
@@ -159,7 +159,7 @@ const FRAMEWORKS = [
     title: "Heinrich Pyramid",
     discipline: "SafetyScience",
     origin: "Industrial safety",
-    mappedColumns: [1, 2, 3],
+    mappedCategories: [1, 2, 3],
     summary:
       "For each major incident, many minor ones and far more near-misses beneath — the base most programs never measure.",
   },
@@ -169,49 +169,49 @@ const INSIDERS = [
   {
     slug: "negligent-insider",
     name: "Negligent insider",
-    primaryColumns: [1, 2, 3],
+    primaryCategories: [1, 2, 3],
     responseMechanism: "Tooling and culture, not investigation",
     note: "Reason / Hollnagel / Dekker substrate is the relevant doctrine.",
   },
   {
     slug: "compromised-credentials",
     name: "Compromised-credentials insider",
-    primaryColumns: [2, 7, 8],
+    primaryCategories: [2, 7, 8],
     responseMechanism: "Identity tooling and incident response",
     note: "The 'insider' framing is misleading — the human is the surface, not the actor.",
   },
   {
     slug: "unwitting-exploited",
     name: "Unwitting exploited insider",
-    primaryColumns: [4, 5, 6, 7, 8, 9],
+    primaryCategories: [4, 5, 6, 7, 8, 9],
     responseMechanism: "Awareness and out-of-band verification",
     note: "The human is the medium of the attack, not the source of intent.",
   },
   {
     slug: "departing-employee",
     name: "Departing-employee exfiltration",
-    primaryColumns: [3, 11],
-    responseMechanism: "Cross-column investigation by default",
+    primaryCategories: [3, 11],
+    responseMechanism: "Cross-category investigation by default",
     note: "Usually starts as a workaround; can cross into alignment with a hostile destination.",
   },
   {
     slug: "third-party-vendor",
     name: "Third-party / vendor insider",
-    primaryColumns: [5, 8],
+    primaryCategories: [5, 8],
     responseMechanism: "Vendor-risk program at the human layer",
     note: "Vendor staff with access who are exploited or recruited.",
   },
   {
     slug: "witting-recruited",
     name: "Witting recruited insider",
-    primaryColumns: [11],
+    primaryCategories: [11],
     responseMechanism: "Counterintelligence response",
     note: "MICE doctrine.",
   },
   {
     slug: "collusive",
     name: "Collusive insider",
-    primaryColumns: [11],
+    primaryCategories: [11],
     responseMechanism: "Counterintelligence plus investigation",
     note: "Two or more witting insiders coordinating; rare but consequential.",
   },
@@ -266,7 +266,7 @@ async function main(): Promise<void> {
   const ws = wb.getWorksheet("Framework");
   if (!ws) throw new Error("Framework worksheet not found");
 
-  // Find the column-header row (the one whose first cell names column 1).
+  // Find the header row (the one whose first cell names category 1).
   let headerRow = -1;
   for (let r = 1; r <= ws.rowCount; r += 1) {
     if (/Accidental Disclosure/i.test(cellText(ws.getRow(r).getCell(1)))) {
@@ -274,51 +274,51 @@ async function main(): Promise<void> {
       break;
     }
   }
-  if (headerRow === -1) throw new Error("Could not find the column-header row in Framework tab");
+  if (headerRow === -1) throw new Error("Could not find the header row in Framework tab");
 
-  mkdirSync(join(CONTENT, "matrix", "columns"), { recursive: true });
+  mkdirSync(join(CONTENT, "matrix", "categories"), { recursive: true });
   mkdirSync(join(CONTENT, "frameworks"), { recursive: true });
 
   const report: string[] = [];
 
-  for (const col of COLUMNS) {
+  for (const cat of CATEGORIES) {
     const seen = new Set<string>();
     const techniques: { id: string; label: string; mitreId: string | null; description: string }[] =
       [];
     for (let r = headerRow + 1; r <= ws.rowCount; r += 1) {
-      const raw = cellText(ws.getRow(r).getCell(col.id));
+      const raw = cellText(ws.getRow(r).getCell(cat.id));
       if (!raw) continue;
       const { label, mitreId } = parseTechnique(raw);
       if (!label) continue;
-      let id = `${col.id}-${slugify(label)}`;
+      let id = `${cat.id}-${slugify(label)}`;
       let n = 2;
-      while (seen.has(id)) id = `${col.id}-${slugify(label)}-${n++}`;
+      while (seen.has(id)) id = `${cat.id}-${slugify(label)}-${n++}`;
       seen.add(id);
       techniques.push({ id, label, mitreId, description: "" });
     }
 
     const mappedModels = FRAMEWORKS.filter((f) =>
-      (f.mappedColumns as readonly number[]).includes(col.id),
+      (f.mappedCategories as readonly number[]).includes(cat.id),
     ).map((f) => f.slug);
     const insiderCategories = INSIDERS.filter((c) =>
-      (c.primaryColumns as readonly number[]).includes(col.id),
+      (c.primaryCategories as readonly number[]).includes(cat.id),
     ).map((c) => c.slug);
 
     const out = {
-      id: col.id,
-      name: col.name,
-      phaseId: col.phaseId,
+      id: cat.id,
+      name: cat.name,
+      degreeId: cat.degreeId,
       mappedModels,
       insiderCategories,
       techniques,
     };
-    const file = `${String(col.id).padStart(2, "0")}-${col.slug}.yaml`;
-    writeFileSync(join(CONTENT, "matrix", "columns", file), toYaml(out), "utf8");
-    report.push(`  column ${col.id} (${col.name}): ${techniques.length} techniques`);
+    const file = `${String(cat.id).padStart(2, "0")}-${cat.slug}.yaml`;
+    writeFileSync(join(CONTENT, "matrix", "categories", file), toYaml(out), "utf8");
+    report.push(`  category ${cat.id} (${cat.name}): ${techniques.length} techniques`);
   }
 
-  // Phases
-  writeFileSync(join(CONTENT, "matrix", "phases.yaml"), toYaml(PHASES), "utf8");
+  // Intent degrees
+  writeFileSync(join(CONTENT, "matrix", "intent-degrees.yaml"), toYaml(DEGREES), "utf8");
 
   // Insider categories
   writeFileSync(join(CONTENT, "insider-categories.yaml"), toYaml(INSIDERS), "utf8");
@@ -331,13 +331,13 @@ async function main(): Promise<void> {
       title: fw.title,
       discipline: fw.discipline,
       origin: fw.origin,
-      mappedColumns: fw.mappedColumns,
+      mappedCategories: fw.mappedCategories,
       summary: fw.summary,
     });
     writeFileSync(join(CONTENT, "frameworks", `${fw.slug}.mdx`), mdx, "utf8");
   }
 
-  console.log("Imported content/ from the workbook.\nTechnique counts per column:");
+  console.log("Imported content/ from the workbook.\nTechnique counts per category:");
   console.log(report.join("\n"));
   console.log(
     "\nNEXT: author the `description` for every technique (currently empty), then run `npm run validate:content`.",

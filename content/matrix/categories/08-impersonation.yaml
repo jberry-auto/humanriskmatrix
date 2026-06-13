@@ -1,6 +1,6 @@
 id: 8
 name: Impersonation
-phaseId: deception
+degreeId: deception
 mappedModels:
   - cialdini-unity
   - cognitive-biases

@@ -1,6 +1,6 @@
 id: 11
 name: Coercion & Recruitment
-phaseId: alignment
+degreeId: alignment
 mappedModels:
   - mice
   - cognitive-biases

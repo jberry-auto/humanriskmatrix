@@ -1,6 +1,6 @@
 - slug: negligent-insider
   name: Negligent insider
-  primaryColumns:
+  primaryCategories:
     - 1
     - 2
     - 3
@@ -8,7 +8,7 @@
   note: Reason / Hollnagel / Dekker substrate is the relevant doctrine.
 - slug: compromised-credentials
   name: Compromised-credentials insider
-  primaryColumns:
+  primaryCategories:
     - 2
     - 7
     - 8
@@ -17,7 +17,7 @@
     actor.
 - slug: unwitting-exploited
   name: Unwitting exploited insider
-  primaryColumns:
+  primaryCategories:
     - 4
     - 5
     - 6
@@ -28,7 +28,7 @@
   note: The human is the medium of the attack, not the source of intent.
 - slug: departing-employee
   name: Departing-employee exfiltration
-  primaryColumns:
+  primaryCategories:
     - 3
     - 11
   responseMechanism: Cross-column investigation by default
@@ -36,20 +36,20 @@
     destination.
 - slug: third-party-vendor
   name: Third-party / vendor insider
-  primaryColumns:
+  primaryCategories:
     - 5
     - 8
   responseMechanism: Vendor-risk program at the human layer
   note: Vendor staff with access who are exploited or recruited.
 - slug: witting-recruited
   name: Witting recruited insider
-  primaryColumns:
+  primaryCategories:
     - 11
   responseMechanism: Counterintelligence response
   note: MICE doctrine.
 - slug: collusive
   name: Collusive insider
-  primaryColumns:
+  primaryCategories:
     - 11
   responseMechanism: Counterintelligence plus investigation
   note: Two or more witting insiders coordinating; rare but consequential.

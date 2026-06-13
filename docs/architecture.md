@@ -45,10 +45,10 @@ src/
   config.ts            # zod-validated env loading; fail-fast on missing required vars
   lib/
     content/
-      schema.ts        # zod schemas + z.infer types (Phase, Technique, MatrixColumn, Framework, InsiderCategory)
+      schema.ts        # zod schemas + z.infer types (IntentDegree, Technique, MatrixCategory, Framework, InsiderCategory)
       load.ts          # read + safeParse content/**; pure given a file map (fs injected)
     matrix/
-      group.ts         # pure helpers: group columns by phase, resolve MITRE links
+      group.ts         # pure helpers: group categories by intent degree, resolve MITRE links
     ai/                # Phase 2 — pure: buildThreatModel(input, deps), prompt builders, output schema
     feed/              # Phase 3 — pure: pipeline(articles, deps), mapping, dedup key
 app/
@@ -71,7 +71,7 @@ src/components/
 ## Data flow per page
 
 ### Matrix (Phase 1, static)
-Build time: `scripts/import-xlsx.ts` has already produced `content/`. `src/lib/content/load.ts` reads + validates all content; `src/lib/matrix/group.ts` groups columns by phase. The `app/matrix/page.tsx` server component renders `MatrixGrid` from this data. **Fully static** — no request-time work. Invalid content fails the build.
+Build time: `scripts/import-xlsx.ts` has already produced `content/`. `src/lib/content/load.ts` reads + validates all content; `src/lib/matrix/group.ts` groups categories by intent degree. The `app/matrix/page.tsx` server component renders the matrix from this data. **Fully static** — no request-time work. Invalid content fails the build.
 
 ### Theory (Phase 1, static)
 Same loader. MDX in `content/theory/` and `content/frameworks/` is rendered (via `@next/mdx` or `next-mdx-remote`); framework metadata drives `FrameworkCard`s and cross-links to `/matrix`. Static.

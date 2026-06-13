@@ -5,50 +5,50 @@ import { useCallback, useMemo, useState } from "react";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { HorizontalScroll } from "@/components/ui/HorizontalScroll";
 import { cn } from "@/lib/cn";
-import type { MatrixColumn, Phase, PhaseId, Technique } from "@/lib/content/schema";
-import type { PhaseGroup } from "@/lib/matrix/group";
+import type { IntentDegree, IntentDegreeId, MatrixCategory, Technique } from "@/lib/content/schema";
+import type { DegreeGroup } from "@/lib/matrix/group";
 
+import { DEGREE_STYLE } from "./degree-style";
 import { HeatmapSummary } from "./HeatmapSummary";
-import { PHASE_STYLE } from "./phase-style";
 import { TechniqueDetailDrawer, type FrameworkRef, type InsiderRef } from "./TechniqueDetailDrawer";
 import { useHeatmap } from "./use-heatmap";
 
 interface TechniqueContext {
   technique: Technique;
-  column: MatrixColumn;
-  phase: Phase;
+  category: MatrixCategory;
+  degree: IntentDegree;
 }
 
 interface MatrixViewProps {
-  groups: PhaseGroup[];
+  groups: DegreeGroup[];
   frameworks: Record<string, FrameworkRef>;
   insiders: Record<string, InsiderRef>;
 }
 
-function selectedInColumn(col: MatrixColumn, selected: ReadonlySet<string>): number {
-  return col.techniques.filter((t) => selected.has(t.id)).length;
+function selectedInCategory(cat: MatrixCategory, selected: ReadonlySet<string>): number {
+  return cat.techniques.filter((t) => selected.has(t.id)).length;
 }
 
 export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
   const { selected, toggle, clear } = useHeatmap();
   const [activeId, setActiveId] = useState<string | null>(null);
   const [focus, setFocus] = useState(false);
-  const [expanded, setExpanded] = useState<ReadonlySet<PhaseId>>(
-    () => new Set(groups.map((g) => g.phase.id)),
+  const [expanded, setExpanded] = useState<ReadonlySet<IntentDegreeId>>(
+    () => new Set(groups.map((g) => g.degree.id)),
   );
 
-  // All 11 columns left-to-right, each tagged with its phase.
-  const orderedColumns = useMemo(
-    () => groups.flatMap((g) => g.columns.map((col) => ({ col, phase: g.phase }))),
+  // All 11 categories left-to-right, each tagged with its intent degree.
+  const orderedCategories = useMemo(
+    () => groups.flatMap((g) => g.categories.map((cat) => ({ cat, degree: g.degree }))),
     [groups],
   );
 
   const index = useMemo(() => {
     const map = new Map<string, TechniqueContext>();
     for (const g of groups) {
-      for (const col of g.columns) {
-        for (const t of col.techniques)
-          map.set(t.id, { technique: t, column: col, phase: g.phase });
+      for (const cat of g.categories) {
+        for (const t of cat.techniques)
+          map.set(t.id, { technique: t, category: cat, degree: g.degree });
       }
     }
     return map;
@@ -56,7 +56,7 @@ export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
 
   const active = activeId ? (index.get(activeId) ?? null) : null;
 
-  const togglePhase = useCallback((id: PhaseId) => {
+  const toggleDegree = useCallback((id: IntentDegreeId) => {
     setExpanded((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
@@ -65,15 +65,17 @@ export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
     });
   }, []);
   const expandAll = useCallback(
-    () => setExpanded(new Set(groups.map((g) => g.phase.id))),
+    () => setExpanded(new Set(groups.map((g) => g.degree.id))),
     [groups],
   );
-  const collapseAll = useCallback(() => setExpanded(new Set<PhaseId>()), []);
+  const collapseAll = useCallback(() => setExpanded(new Set<IntentDegreeId>()), []);
   const onDrawerOpenChange = useCallback((isOpen: boolean) => {
     if (!isOpen) setActiveId(null);
   }, []);
 
-  const gridStyle = { gridTemplateColumns: `repeat(${orderedColumns.length}, minmax(11rem, 1fr))` };
+  const gridStyle = {
+    gridTemplateColumns: `repeat(${orderedCategories.length}, minmax(11rem, 1fr))`,
+  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -88,32 +90,32 @@ export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
       />
 
       <p className="-mb-2 text-sm text-muted">
-        Wide matrix — scroll horizontally (or use the arrows) to see all five phases.
+        Wide matrix — scroll horizontally (or use the arrows) to move along the spectrum of intent.
       </p>
       <HorizontalScroll label="the matrix">
         <div className="grid gap-px rounded-md border border-border bg-border" style={gridStyle}>
-          {/* Phase headers (span their columns) */}
+          {/* Degree headers (span their categories) */}
           {groups.map((g) => {
-            const style = PHASE_STYLE[g.phase.id];
-            const isExpanded = expanded.has(g.phase.id);
-            const phaseSel = g.columns.reduce((n, c) => n + selectedInColumn(c, selected), 0);
+            const style = DEGREE_STYLE[g.degree.id];
+            const isExpanded = expanded.has(g.degree.id);
+            const degreeSel = g.categories.reduce((n, c) => n + selectedInCategory(c, selected), 0);
             return (
               <button
-                key={`p-${g.phase.id}`}
+                key={`d-${g.degree.id}`}
                 type="button"
-                onClick={() => togglePhase(g.phase.id)}
+                onClick={() => toggleDegree(g.degree.id)}
                 aria-expanded={isExpanded}
-                style={{ gridColumn: `span ${g.columns.length}` }}
+                style={{ gridColumn: `span ${g.categories.length}` }}
                 className="flex items-center gap-2 bg-surface px-3 py-2 text-left focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
               >
                 <span
                   aria-hidden="true"
                   className={cn("h-3.5 w-1.5 shrink-0 rounded-full", style.dot)}
                 />
-                <span className="font-serif text-sm font-semibold">{g.phase.name}</span>
-                {phaseSel > 0 ? (
+                <span className="font-serif text-sm font-semibold">{g.degree.name}</span>
+                {degreeSel > 0 ? (
                   <span className="rounded-sm border border-border px-1 text-[10px] text-muted">
-                    {phaseSel}
+                    {degreeSel}
                   </span>
                 ) : null}
                 <svg
@@ -133,35 +135,35 @@ export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
             );
           })}
 
-          {/* Column headers */}
-          {orderedColumns.map(({ col }) => {
-            const colSel = selectedInColumn(col, selected);
+          {/* Category headers */}
+          {orderedCategories.map(({ cat }) => {
+            const catSel = selectedInCategory(cat, selected);
             return (
-              <div key={`h-${col.id}`} className="bg-surface px-2 py-2">
+              <div key={`h-${cat.id}`} className="bg-surface px-2 py-2">
                 <div className="flex items-baseline gap-1">
-                  <span className="font-mono text-[10px] text-faint">{col.id}</span>
-                  <h2 className="text-xs font-semibold leading-tight">{col.name}</h2>
+                  <span className="font-mono text-[10px] text-faint">{cat.id}</span>
+                  <h2 className="text-xs font-semibold leading-tight">{cat.name}</h2>
                 </div>
-                {colSel > 0 ? (
-                  <span className="mt-0.5 block text-[10px] text-muted">{colSel} selected</span>
+                {catSel > 0 ? (
+                  <span className="mt-0.5 block text-[10px] text-muted">{catSel} selected</span>
                 ) : null}
               </div>
             );
           })}
 
-          {/* Column bodies (technique cells stacked) */}
-          {orderedColumns.map(({ col, phase }) => {
-            const style = PHASE_STYLE[phase.id];
-            const isExpanded = expanded.has(phase.id);
+          {/* Category bodies (technique cells stacked) */}
+          {orderedCategories.map(({ cat, degree }) => {
+            const style = DEGREE_STYLE[degree.id];
+            const isExpanded = expanded.has(degree.id);
             const techniques = isExpanded
               ? focus
-                ? col.techniques.filter((t) => selected.has(t.id))
-                : col.techniques
+                ? cat.techniques.filter((t) => selected.has(t.id))
+                : cat.techniques
               : [];
             return (
-              <div key={`b-${col.id}`} className="bg-surface p-1">
+              <div key={`b-${cat.id}`} className="bg-surface p-1">
                 {!isExpanded ? (
-                  <p className="px-1 py-1 text-[10px] text-faint">{col.techniques.length} hidden</p>
+                  <p className="px-1 py-1 text-[10px] text-faint">{cat.techniques.length} hidden</p>
                 ) : (
                   <ul className="flex flex-col gap-0.5">
                     {techniques.map((t) => {
@@ -204,8 +206,8 @@ export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
 
       <TechniqueDetailDrawer
         technique={active?.technique ?? null}
-        column={active?.column ?? null}
-        phase={active?.phase ?? null}
+        category={active?.category ?? null}
+        degree={active?.degree ?? null}
         frameworks={frameworks}
         insiders={insiders}
         isSelected={active ? selected.has(active.technique.id) : false}

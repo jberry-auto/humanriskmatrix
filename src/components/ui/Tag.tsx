@@ -2,25 +2,25 @@ import type { ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
 
-export type Phase = "internal" | "approach" | "deception" | "imposition" | "alignment";
+export type Degree = "internal" | "approach" | "deception" | "imposition" | "alignment";
 
-const dotColor: Record<Phase, string> = {
-  internal: "bg-phase-internal",
-  approach: "bg-phase-approach",
-  deception: "bg-phase-deception",
-  imposition: "bg-phase-imposition",
-  alignment: "bg-phase-alignment",
+const dotColor: Record<Degree, string> = {
+  internal: "bg-degree-internal",
+  approach: "bg-degree-approach",
+  deception: "bg-degree-deception",
+  imposition: "bg-degree-imposition",
+  alignment: "bg-degree-alignment",
 };
 
 interface TagProps {
-  /** Optional phase — adds a color dot. The label text always carries the meaning. */
-  phase?: Phase;
+  /** Optional intent degree — adds a color dot. The label text always carries the meaning. */
+  degree?: Degree;
   className?: string;
   children: ReactNode;
 }
 
-/** A small label. When given a phase, shows a color dot AND the label (never color alone). */
-export function Tag({ phase, className, children }: TagProps) {
+/** A small label. When given a degree, shows a color dot AND the label (never color alone). */
+export function Tag({ degree, className, children }: TagProps) {
   return (
     <span
       className={cn(
@@ -28,8 +28,8 @@ export function Tag({ phase, className, children }: TagProps) {
         className,
       )}
     >
-      {phase ? (
-        <span aria-hidden="true" className={cn("size-2 rounded-full", dotColor[phase])} />
+      {degree ? (
+        <span aria-hidden="true" className={cn("size-2 rounded-full", dotColor[degree])} />
       ) : null}
       {children}
     </span>
