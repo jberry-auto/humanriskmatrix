@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
 import { MatrixView } from "@/components/matrix/MatrixView";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Heading } from "@/components/ui/Heading";
 import { loadContent } from "@/lib/content/load";
 import { groupColumnsByPhase } from "@/lib/matrix/group";
@@ -23,8 +22,7 @@ export default function MatrixPage() {
   return (
     <div className="flex flex-col gap-8">
       <header className="flex flex-col gap-3">
-        <Eyebrow>The taxonomy</Eyebrow>
-        <Heading level={1} size="h1">
+        <Heading level={1} size="display">
           Human Risk Matrix
         </Heading>
         <p className="max-w-2xl text-muted">
