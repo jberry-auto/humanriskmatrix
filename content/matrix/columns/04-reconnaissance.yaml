@@ -1,0 +1,68 @@
+id: 4
+name: Reconnaissance
+phaseId: approach
+mappedModels:
+  - cognitive-biases
+insiderCategories:
+  - unwitting-exploited
+techniques:
+  - id: 4-linkedin-org-chart-mapping
+    label: LinkedIn org-chart mapping
+    mitreId: T1591.004
+    description: An adversary reconstructs the org chart and reporting lines from
+      LinkedIn to target the right people.
+  - id: 4-github-code-secret-mining
+    label: GitHub code & secret mining
+    mitreId: T1593.003
+    description: Public repositories are mined for code, infrastructure details, and
+      leaked secrets.
+  - id: 4-social-media-profiling
+    label: Social media profiling
+    mitreId: T1593.001
+    description: Personal and professional social media is harvested to profile
+      targets and craft tailored lures.
+  - id: 4-job-posting-analysis
+    label: Job-posting analysis
+    mitreId: T1591
+    description: Job ads reveal the tech stack, tools, and teams, mapping the
+      environment for an attacker.
+  - id: 4-sec-filings-court-records
+    label: SEC filings & court records
+    mitreId: T1597
+    description: Public filings and legal records expose corporate structure,
+      finances, and relationships.
+  - id: 4-conference-attendee-speaker-lists
+    label: Conference attendee / speaker lists
+    mitreId: T1591.002
+    description: Event rosters identify who works where and on what, seeding
+      targeting and pretexts.
+  - id: 4-academic-publication-mining
+    label: Academic-publication mining
+    mitreId: T1593.002
+    description: Published papers reveal research, affiliations, and named staff for
+      targeting.
+  - id: 4-breach-data-correlation
+    label: Breach-data correlation
+    mitreId: T1597.002
+    description: Data from past breaches is correlated to enrich profiles, recover
+      credentials, and link identities.
+  - id: 4-data-broker-aggregation
+    label: Data-broker aggregation
+    mitreId: T1597
+    description: Commercial data brokers are used to assemble detailed personal
+      dossiers on targets.
+  - id: 4-ai-driven-osint-synthesis
+    label: AI-driven OSINT synthesis
+    mitreId: T1589
+    description: AI tools rapidly synthesize scattered open-source data into
+      actionable target intelligence.
+  - id: 4-physical-surveillance-passive
+    label: Physical surveillance (passive)
+    mitreId: null
+    description: A target's locations, routines, and contacts are observed in person
+      without interaction.
+  - id: 4-active-scanning
+    label: Active scanning
+    mitreId: T1595
+    description: An adversary probes internet-facing systems to map services and
+      find weaknesses.

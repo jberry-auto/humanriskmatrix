@@ -1,0 +1,68 @@
+id: 8
+name: Impersonation
+phaseId: deception
+mappedModels:
+  - cialdini-unity
+  - cognitive-biases
+insiderCategories:
+  - compromised-credentials
+  - unwitting-exploited
+  - third-party-vendor
+techniques:
+  - id: 8-ceo-executive-fraud
+    label: CEO / executive fraud
+    mitreId: T1656
+    description: An attacker impersonates a senior executive to pressure staff into
+      payments or disclosures.
+  - id: 8-attorney-impersonation
+    label: Attorney impersonation
+    mitreId: T1656
+    description: Posing as legal counsel invokes urgency and confidentiality to
+      force compliance.
+  - id: 8-help-desk-se-scattered-spider
+    label: Help-desk SE (Scattered Spider)
+    mitreId: T1656
+    description: An attacker impersonates IT help desk (or the user to it) to reset
+      credentials and seize accounts.
+  - id: 8-tech-support-scam
+    label: Tech support scam
+    mitreId: null
+    description: A fake support agent convinces the victim to grant access or pay.
+  - id: 8-angler-phishing-fake-support
+    label: Angler phishing (fake support)
+    mitreId: null
+    description: A fake support account on social media intercepts customers seeking help.
+  - id: 8-conversation-hijacking
+    label: Conversation hijacking
+    mitreId: T1656
+    description: An attacker inserts into an existing email or chat thread to
+      exploit the established trust.
+  - id: 8-deepfake-video-impersonation
+    label: Deepfake video impersonation
+    mitreId: null
+    description: Synthetic video impersonates a real person to authorize actions or
+      build false trust.
+  - id: 8-voice-clone-ai-vishing
+    label: Voice clone / AI vishing
+    mitreId: null
+    description: A cloned voice impersonates a known person over the phone to compel action.
+  - id: 8-synthetic-identity-full-persona
+    label: Synthetic identity (full persona)
+    mitreId: T1585
+    description: A complete fabricated identity, with supporting artifacts, is used
+      to gain access or employment.
+  - id: 8-false-flag-wrong-sponsor
+    label: False flag (wrong sponsor)
+    mitreId: null
+    description: An operation is staged to appear to come from a different actor,
+      misdirecting attribution and response.
+  - id: 8-authority-bias-impersonation
+    label: Authority-bias impersonation
+    mitreId: T1656
+    description: Impersonating an authority figure exploits the reflex to comply
+      with perceived authority.
+  - id: 8-sim-swap-carrier-impersonation
+    label: SIM swap (carrier impersonation)
+    mitreId: null
+    description: Impersonating the victim to their mobile carrier ports the number
+      to seize SMS codes and accounts.

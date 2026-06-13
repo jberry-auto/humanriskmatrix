@@ -1,0 +1,64 @@
+id: 9
+name: Forced Compliance
+phaseId: imposition
+mappedModels:
+  - cognitive-biases
+insiderCategories:
+  - unwitting-exploited
+techniques:
+  - id: 9-mfa-fatigue-push-bombing
+    label: MFA fatigue / push bombing
+    mitreId: T1621
+    description: Repeated MFA push prompts wear the victim down until they approve
+      one, granting access.
+  - id: 9-urgency-fear-framing
+    label: Urgency / fear framing
+    mitreId: null
+    description: Manufactured urgency or fear pushes the target to act before they
+      can verify.
+  - id: 9-cognitive-overload-multi-channel
+    label: Cognitive overload (multi-channel)
+    mitreId: null
+    description: Simultaneous pressure across channels overwhelms judgment and
+      forces a hasty decision.
+  - id: 9-loss-aversion-framing
+    label: Loss-aversion framing
+    mitreId: null
+    description: Threatening a loss ('your account will be closed') drives compliance.
+  - id: 9-embarrassment-avoidance-exploit
+    label: Embarrassment-avoidance exploit
+    mitreId: null
+    description: The fear of looking foolish or causing a problem is used to push
+      the target into compliance.
+  - id: 9-reputation-attack-on-employee
+    label: Reputation attack on employee
+    mitreId: null
+    description: Threatening or damaging someone's reputation coerces them into acting.
+  - id: 9-doxxing-as-pressure
+    label: Doxxing as pressure
+    mitreId: null
+    description: Exposing, or threatening to expose, personal information coerces
+      the target.
+  - id: 9-scarcity-manipulation
+    label: Scarcity manipulation
+    mitreId: null
+    description: A false 'limited time or quantity' pressure forces a rushed action.
+  - id: 9-account-recovery-abuse
+    label: Account-recovery abuse
+    mitreId: null
+    description: Account-recovery flows are abused to seize control of a target's account.
+  - id: 9-oauth-consent-phishing
+    label: OAuth consent phishing
+    mitreId: T1528
+    description: The victim is tricked into granting a malicious app OAuth
+      permissions, giving lasting access without a password.
+  - id: 9-device-code-phishing
+    label: Device-code phishing
+    mitreId: null
+    description: The victim is induced to authorize the attacker's device through a
+      legitimate device-code login flow.
+  - id: 9-sim-swap-push-bombing-prep
+    label: SIM swap (push-bombing prep)
+    mitreId: null
+    description: A SIM swap is staged to intercept the codes needed for a follow-on
+      account takeover.
