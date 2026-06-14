@@ -27,6 +27,7 @@ RUN addgroup -S nodejs && adduser -S nextjs -G nodejs
 # Standalone output bundles a minimal server + only the deps it needs.
 COPY --from=build /app/.next/standalone ./
 COPY --from=build /app/.next/static ./.next/static
+COPY --from=build /app/public ./public
 USER nextjs
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \

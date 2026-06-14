@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 type Level = 1 | 2 | 3 | 4;
-type Size = "display" | "h1" | "h2" | "h3" | "h4";
+type Size = "display" | "h1" | "h2" | "h3" | "h4" | "kicker";
 
 const tag = { 1: "h1", 2: "h2", 3: "h3", 4: "h4" } as const;
 
@@ -13,6 +13,8 @@ const sizeClass: Record<Size, string> = {
   h2: "text-2xl",
   h3: "text-xl",
   h4: "text-lg",
+  // A small-caps section label rendered as a real heading (sans, not the serif default).
+  kicker: "font-sans text-xs font-semibold uppercase tracking-[0.18em] text-muted",
 };
 
 interface HeadingProps {
