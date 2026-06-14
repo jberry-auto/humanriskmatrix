@@ -3,28 +3,29 @@ import { Heading } from "@/components/ui/Heading";
 import { Link } from "@/components/ui/Link";
 import { Section } from "@/components/ui/Section";
 
-const goals: ReadonlyArray<string> = [
-  "A shared vocabulary for human risk across teams",
-  "Every behavior mapped to MITRE ATT&CK",
-  "Open and community-maintained",
-  "Built for threat-informed defense of the human layer",
-];
-
-const roadmap: ReadonlyArray<{ version: string; label: string; description: string }> = [
+const roadmap: ReadonlyArray<{
+  version: string;
+  label: string;
+  goal: string;
+  detail: string;
+}> = [
   {
     version: "v0.1",
     label: "This version",
-    description: "Taxonomy and interactive matrix, in the open.",
+    goal: "A shared vocabulary for human risk",
+    detail: "Open taxonomy and interactive matrix, mapped to MITRE ATT&CK.",
   },
   {
     version: "v0.5",
     label: "Target",
-    description: "Site features for enterprise threat-informed defense.",
+    goal: "Threat-informed defense of the human layer",
+    detail: "Site features that put the matrix to work for enterprises.",
   },
   {
     version: "v1.0",
     label: "Planned",
-    description: "Community feedback incorporated; taxonomy stabilized.",
+    goal: "Open and community-maintained",
+    detail: "Community feedback incorporated; taxonomy stabilized.",
   },
 ];
 
@@ -53,26 +54,13 @@ export default function Home() {
         <div aria-hidden="true" className="hero-art" />
       </Section>
 
-      {/* Roadmap — with the goals it's working toward */}
+      {/* Roadmap — each milestone carries the goal it delivers */}
       <Section aria-label="Roadmap" className="items-center gap-10">
-        <div className="flex max-w-2xl flex-col items-center gap-4 text-center">
-          <Heading level={2} size="kicker">
-            Roadmap
-          </Heading>
-          <p className="text-muted">A few aims guide the work:</p>
-          <ul className="flex flex-col gap-1.5 text-left text-muted">
-            {goals.map((goal) => (
-              <li key={goal} className="flex gap-3">
-                <span aria-hidden="true" className="text-faint">
-                  —
-                </span>
-                <span>{goal}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <Heading level={2} size="kicker">
+          Roadmap
+        </Heading>
 
-        <div className="relative mt-2 w-full max-w-3xl">
+        <div className="relative w-full max-w-4xl">
           {/* connector rail (sm+) sits behind the centered nodes */}
           <span
             aria-hidden="true"
@@ -86,14 +74,17 @@ export default function Home() {
                   className="relative size-3 rounded-full border-2 border-accent bg-bg"
                 />
                 <div>
-                  <div className="font-mono text-sm font-semibold text-accent">
+                  <span className="font-mono text-sm font-semibold text-accent">
                     {milestone.version}
-                  </div>
-                  <div className="mt-1 text-[0.7rem] uppercase tracking-[0.14em] text-faint">
+                  </span>
+                  <span className="ml-2 text-[0.7rem] uppercase tracking-[0.14em] text-faint">
                     {milestone.label}
-                  </div>
+                  </span>
                 </div>
-                <p className="max-w-[24ch] text-sm text-muted">{milestone.description}</p>
+                <p className="max-w-[26ch] text-pretty font-serif text-lg font-semibold text-ink">
+                  {milestone.goal}
+                </p>
+                <p className="max-w-[28ch] text-sm text-muted">{milestone.detail}</p>
               </li>
             ))}
           </ol>
