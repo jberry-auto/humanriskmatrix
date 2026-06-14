@@ -101,13 +101,24 @@
  * swap with the `.dark` theme class; only the active image is fetched.
  */
 .hero-art {
+  width: 100%;
+  max-width: 64rem;
+  height: clamp(13rem, 26vw, 20rem);
+  margin-inline: auto;
   background-image: url("/light-hero.jpg");
   background-size: cover;
-  background-position: center;
+  background-position: center 42%;
   background-repeat: no-repeat;
-  --hero-mask: radial-gradient(120% 92% at 50% 46%, #000 50%, transparent 86%);
+  /* Dissolve the edges into the page background: fade left/right, and fade the
+     bottom so the cobblestones melt into the bg. Layered masks are intersected;
+     if a browser lacks mask-composite the layers union (image just shows more). */
+  --hero-mask:
+    linear-gradient(to right, transparent, #000 16%, #000 84%, transparent),
+    linear-gradient(to bottom, #000 55%, transparent);
   -webkit-mask-image: var(--hero-mask);
   mask-image: var(--hero-mask);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 
 .dark .hero-art {
