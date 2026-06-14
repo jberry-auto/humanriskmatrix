@@ -16,11 +16,10 @@ describe("Home", () => {
     expect(screen.getByRole("link", { name: /view matrix/i })).toHaveAttribute("href", "/matrix");
   });
 
-  it("shows the About section and roadmap milestones", () => {
+  it("shows the About content and roadmap milestones", () => {
     render(<Home />);
-    expect(
-      screen.getByRole("heading", { name: /about the human risk matrix project/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /about the project/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /project goals/i })).toBeInTheDocument();
     for (const v of ["v0.1", "v0.5", "v1.0"]) {
       expect(screen.getByText(v)).toBeInTheDocument();
     }

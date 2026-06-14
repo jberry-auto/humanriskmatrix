@@ -1,4 +1,3 @@
-import { Card } from "@/components/ui/Card";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Heading } from "@/components/ui/Heading";
 import { Link } from "@/components/ui/Link";
@@ -44,10 +43,11 @@ export default function Home() {
           <Heading level={1} size="display">
             Human Risk Matrix Project
           </Heading>
-          <p className="max-w-xl text-lg text-muted">
-            A comprehensive view of human risk — from honest mistakes to witting cooperation with an
-            adversary — arranged along a{" "}
-            <span className="text-ink">spectrum of malicious intent</span>.
+          <p className="max-w-2xl text-lg text-muted">
+            An open taxonomy providing a comprehensive view of human risk impacting organizational
+            systems and data confidentiality, availability, integrity, fitness for purpose, and
+            processes — from honest mistakes to witting cooperation with an adversary, arranged
+            along a <span className="text-ink">spectrum of malicious intent</span>.
           </p>
           <Link href="/matrix" variant="button" className="mt-1">
             View Matrix
@@ -57,14 +57,10 @@ export default function Home() {
       </Section>
 
       {/* About + Roadmap — combined */}
-      <Section aria-labelledby="about-heading" className="mx-auto w-full max-w-5xl gap-10">
-        <Heading level={2} id="about-heading" size="h2" className="text-center">
-          About the Human Risk Matrix Project
-        </Heading>
-
-        <div className="grid gap-6 md:grid-cols-2">
-          <Card className="flex flex-col gap-3">
-            <Heading level={3} size="h4">
+      <Section aria-label="About the Human Risk Matrix Project" className="w-full gap-12">
+        <div className="grid gap-8 md:grid-cols-2 md:gap-12">
+          <div className="flex flex-col gap-4">
+            <Heading level={2} size="h3" className="border-b border-border pb-2">
               About the project
             </Heading>
             <p className="text-muted">
@@ -76,9 +72,9 @@ export default function Home() {
               mapped to MITRE ATT&amp;CK where coded, and to the substrate models that explain why
               people act.
             </p>
-          </Card>
-          <Card className="flex flex-col gap-3">
-            <Heading level={3} size="h4">
+          </div>
+          <div className="flex flex-col gap-4">
+            <Heading level={2} size="h3" className="border-b border-border pb-2">
               Project goals
             </Heading>
             <ul className="flex flex-col gap-2 text-muted">
@@ -92,11 +88,11 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-          </Card>
+          </div>
         </div>
 
         <div className="flex flex-col gap-6">
-          <Heading level={3} size="h4" className="text-center">
+          <Heading level={2} size="h3" className="text-center">
             Roadmap
           </Heading>
           <div className="relative w-full">
