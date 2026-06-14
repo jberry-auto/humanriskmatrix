@@ -4,7 +4,7 @@ import { Link as AriaLink, type LinkProps as AriaLinkProps } from "react-aria-co
 
 import { cn } from "@/lib/cn";
 
-type Variant = "default" | "nav";
+type Variant = "default" | "nav" | "button";
 
 interface LinkProps extends Omit<AriaLinkProps, "className"> {
   variant?: Variant;
@@ -12,11 +12,13 @@ interface LinkProps extends Omit<AriaLinkProps, "className"> {
 }
 
 const base =
-  "rounded-sm cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
+  "cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
 
 const variantClass: Record<Variant, string> = {
-  default: "text-accent underline underline-offset-2 hovered:text-accent-hover",
-  nav: "text-ink hovered:text-accent",
+  default: "rounded-sm text-accent underline underline-offset-2 hovered:text-accent-hover",
+  nav: "rounded-sm text-ink hovered:text-accent",
+  button:
+    "inline-flex items-center justify-center rounded-md bg-accent px-5 py-2.5 font-medium text-accent-contrast hovered:bg-accent-hover",
 };
 
 /**

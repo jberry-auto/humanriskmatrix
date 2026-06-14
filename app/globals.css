@@ -102,19 +102,19 @@
  */
 .hero-art {
   width: 100%;
-  max-width: 64rem;
-  height: clamp(13rem, 26vw, 20rem);
-  margin-inline: auto;
+  height: 100%;
+  min-height: clamp(15rem, 32vw, 24rem);
   background-image: url("/light-hero.jpg");
   background-size: cover;
-  background-position: center 42%;
+  background-position: center;
   background-repeat: no-repeat;
-  /* Dissolve the edges into the page background: fade left/right, and fade the
-     bottom so the cobblestones melt into the bg. Layered masks are intersected;
-     if a browser lacks mask-composite the layers union (image just shows more). */
+  /* Sits in the right hero column and dissolves into the page background — a
+     strong fade on the left edge so it melts toward the heading/text, with
+     softer fades on the other edges. Layered masks are intersected; if a
+     browser lacks mask-composite the layers union (image just shows more). */
   --hero-mask:
-    linear-gradient(to right, transparent, #000 16%, #000 84%, transparent),
-    linear-gradient(to bottom, #000 55%, transparent);
+    linear-gradient(to right, transparent, #000 34%, #000 94%, transparent),
+    linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
   -webkit-mask-image: var(--hero-mask);
   mask-image: var(--hero-mask);
   -webkit-mask-composite: source-in;

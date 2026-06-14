@@ -47,7 +47,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           Skip to content
         </a>
         <Providers>
-          <header className="border-b border-border">
+          {/* Always-dark nav: the `dark` class makes every token-driven child
+              (links, toggle, border) use the dark palette regardless of page theme. */}
+          <header className="dark border-b border-border bg-bg text-ink">
             <Container>
               <nav className="flex items-center justify-between py-4">
                 <div className="flex items-center gap-6">
