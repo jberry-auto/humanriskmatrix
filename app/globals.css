@@ -113,8 +113,8 @@
      softer fades on the other edges. Layered masks are intersected; if a
      browser lacks mask-composite the layers union (image just shows more). */
   --hero-mask:
-    linear-gradient(to right, transparent, #000 34%, #000 94%, transparent),
-    linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+    linear-gradient(to right, transparent, #000 30%, #000 74%, transparent),
+    linear-gradient(to bottom, transparent, #000 26%, #000 74%, transparent);
   -webkit-mask-image: var(--hero-mask);
   mask-image: var(--hero-mask);
   -webkit-mask-composite: source-in;
