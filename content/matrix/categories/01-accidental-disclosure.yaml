@@ -13,83 +13,470 @@ techniques:
     mitreId: null
     description: An email goes to the wrong recipient because address autocomplete
       picked a similar name, exposing its contents to an unintended party.
+    detailedDescription: >-
+      Email autocomplete suggests recipients based on partial matches, but often presents
+      similar names in confusing ways. Users quickly select what appears to be the right
+      person without carefully verifying, especially under time pressure or when distracted.
+      The interface design makes errors easy while confirmation feels redundant.
+    attackerBehavior: >-
+      Adversaries monitor for misdirected emails by registering similar domains or creating
+      accounts with names that closely match target employees, increasing the likelihood
+      of receiving sensitive communications intended for legitimate recipients.
+    insiderBehavior: >-
+      The employee trusts the autocomplete system and clicks quickly on what looks like
+      the familiar name, feeling confident they've selected correctly until they realize
+      the mistake after sending.
+    prevention:
+      - mode: educate
+        action: Train staff to pause and verify recipient names, especially when autocomplete presents multiple similar options.
+      - mode: evaluate
+        action: Send simulated sensitive emails with similar recipient options to test verification habits.
+      - mode: monitor
+        action: Track email sending patterns for unusual recipients or domains that trigger manual review.
+      - mode: intervene
+        action: Provide immediate email recall tools and gentle reminders about recipient verification when misdirection is detected.
   - id: 1-reply-all-on-sensitive-thread
     label: Reply-all on sensitive thread
     mitreId: null
     description: Hitting reply-all broadcasts a confidential discussion to a far
       wider distribution than intended.
+    detailedDescription: >-
+      Email threads often evolve to include more recipients as they progress, but the
+      sensitivity level may not match the expanded audience. Reply-all becomes muscle memory
+      for staying engaged in group conversations, but users rarely re-examine the recipient
+      list when the content shifts to confidential matters.
+    attackerBehavior: >-
+      Adversaries position themselves on group email lists or threads where they might
+      eventually receive sensitive replies, or they compromise accounts of recipients
+      who are likely to receive confidential follow-ups via reply-all.
+    insiderBehavior: >-
+      The employee treats reply-all as the natural way to continue participating in the
+      ongoing discussion, focused on the content rather than consciously reviewing who
+      will receive their response.
+    prevention:
+      - mode: educate
+        action: Train staff to pause before reply-all and consciously review the recipient list for appropriateness.
+      - mode: evaluate
+        action: Send simulated email threads that escalate in sensitivity to test reply-all decision-making.
+      - mode: monitor
+        action: Flag reply-all messages that significantly expand recipient lists or contain sensitivity keywords.
+      - mode: intervene
+        action: Provide recall functionality and immediate guidance about appropriate distribution when over-sharing is detected.
   - id: 1-wrong-attachment-sent
     label: Wrong attachment sent
     mitreId: null
     description: The wrong file is attached to a message, disclosing data meant for
       no one or someone else.
+    detailedDescription: >-
+      Users often have multiple similar files open or in recent documents, making it easy
+      to attach the wrong version or a completely different document. File names may look
+      similar, or the correct file may sit adjacent to sensitive files in the directory.
+      Rushing through email composition increases the likelihood of this error.
+    attackerBehavior: >-
+      Adversaries benefit from any wrongly-attached sensitive documents they receive,
+      and may attempt to be included in communications or positioned as recipients
+      where such mistakes are more likely to occur.
+    insiderBehavior: >-
+      The employee quickly grabs what they believe is the intended file, often from
+      a recent documents list or file browser, without carefully verifying the contents
+      match their intent before sending.
+    prevention:
+      - mode: educate
+        action: Train staff to verify attachment contents and names before sending, especially for sensitive communications.
+      - mode: evaluate
+        action: Test attachment accuracy through simulated email scenarios with similarly-named files.
+      - mode: monitor
+        action: Scan outbound attachments for unexpected file types or content that doesn't match email context.
+      - mode: intervene
+        action: Enable attachment preview warnings and provide guidance on correct file selection when errors are caught.
   - id: 1-wrong-channel-dm-disclosure
     label: Wrong-channel DM disclosure
     mitreId: null
     description: Sensitive information is posted in the wrong chat channel or direct
       message, exposing it beyond its intended audience.
+    detailedDescription: >-
+      Chat interfaces often display multiple conversations simultaneously, and users
+      frequently switch between channels and direct messages rapidly. Sensitive information
+      intended for one person or private group can accidentally be posted to broader
+      channels or wrong recipients when attention is divided or the interface state is unclear.
+    attackerBehavior: >-
+      Adversaries position themselves in group channels where they might receive
+      accidentally-posted sensitive information, or they compromise accounts to access
+      chat histories containing past disclosure incidents.
+    insiderBehavior: >-
+      The employee continues typing in what they believe is the correct conversation
+      window, often distracted by multiple ongoing chats and not noticing they've
+      switched to a different channel or recipient.
+    prevention:
+      - mode: educate
+        action: Train staff to verify the active channel or recipient before sharing sensitive information.
+      - mode: evaluate
+        action: Simulate chat scenarios where staff must navigate between sensitive and general channels.
+      - mode: monitor
+        action: Alert on sensitive keywords posted to broad channels or unusual message patterns.
+      - mode: intervene
+        action: Provide immediate message deletion options and gentle reminders about channel verification when mispostings occur.
   - id: 1-inadvertent-file-share-link-to-wrong-place
     label: Inadvertent file share (link to wrong place)
     mitreId: null
     description: A document is shared to the wrong folder, team, or 'anyone with the
       link', granting unintended access.
+    detailedDescription: >-
+      Cloud sharing interfaces present many permission options that users often navigate
+      quickly without fully understanding the implications. Default settings may be overly
+      permissive, and the difference between "anyone with the link" and "specific people"
+      can feel minor in the moment but have major access control consequences.
+    attackerBehavior: >-
+      Adversaries scan for publicly accessible documents through search engines or
+      link discovery tools, or they position themselves in groups or teams where
+      they might receive overly-broad file shares.
+    insiderBehavior: >-
+      The employee focuses on getting the file to the intended recipient quickly,
+      often accepting default sharing settings or choosing what appears to be the
+      most convenient option without carefully considering the access implications.
+    prevention:
+      - mode: educate
+        action: Train staff on sharing permission levels and when to use restrictive versus open sharing options.
+      - mode: evaluate
+        action: Test file sharing decisions through scenarios requiring different permission levels.
+      - mode: monitor
+        action: Audit file sharing permissions and alert on unexpectedly broad access grants.
+      - mode: intervene
+        action: Provide sharing permission reviews and guidance on correcting overly permissive settings when detected.
   - id: 1-verbal-slip-overheard-in-public
     label: Verbal slip overheard in public
     mitreId: null
     description: Confidential details are spoken aloud in a public place and
       overheard by bystanders.
+    detailedDescription: >-
+      People naturally continue work conversations in elevators, coffee shops, airports,
+      and other public spaces without consciously adjusting their discretion level.
+      Phone calls feel private even in public settings, and background noise can create
+      a false sense of privacy. Work stress and familiarity with colleagues reduces
+      situational awareness about who else might be listening.
+    attackerBehavior: >-
+      Adversaries engage in physical surveillance of target employees in public spaces
+      where they're likely to discuss work, or they position themselves in locations
+      frequented by employees of target organizations to collect overheard information.
+    insiderBehavior: >-
+      The employee continues their work conversation naturally, feeling that the discussion
+      is routine and that strangers nearby aren't paying attention or wouldn't understand
+      the significance of what they're hearing.
+    prevention:
+      - mode: educate
+        action: Train staff on situational awareness and the risks of discussing work details in public spaces.
+      - mode: evaluate
+        action: Conduct controlled observations to test whether staff recognize and avoid public disclosure scenarios.
+      - mode: monitor
+        action: Encourage reporting of overheard sensitive conversations and track patterns of public exposure incidents.
+      - mode: intervene
+        action: Provide gentle reminders about location awareness when public discussions are observed or reported.
   - id: 1-screen-share-showing-wrong-window
     label: Screen-share showing wrong window
     mitreId: null
     description: During a call a presenter shares the wrong window or desktop,
       briefly exposing sensitive content.
+    detailedDescription: >-
+      Screen sharing interfaces often require quick selection from multiple windows
+      or offer "entire screen" options that reveal everything. Users may have sensitive
+      content in background windows, notifications, or desktop files that become visible
+      when they share broader than intended. The pressure to start presenting quickly
+      reduces careful window selection.
+    attackerBehavior: >-
+      Adversaries request or encourage screen sharing in meetings they attend, or
+      they record shared sessions to capture any accidentally-exposed sensitive content
+      that appears briefly during presentation setup or window switching.
+    insiderBehavior: >-
+      The employee focuses on getting the intended content shared quickly for the
+      waiting audience, often selecting "entire screen" or grabbing the wrong window
+      without carefully checking what else might be visible.
+    prevention:
+      - mode: educate
+        action: Train staff to prepare and verify screen sharing selections before meetings start.
+      - mode: evaluate
+        action: Simulate presentation scenarios with sensitive content visible to test sharing discipline.
+      - mode: monitor
+        action: Review meeting recordings for accidental exposure incidents when available.
+      - mode: intervene
+        action: Provide quick screen sharing cancellation options and gentle guidance on preparation when errors occur.
   - id: 1-sensitive-metadata-in-calendar-titles
     label: Sensitive metadata in calendar titles
     mitreId: null
     description: Meeting titles or invites leak deal names, projects, or attendees
       to anyone who can see the calendar.
+    detailedDescription: >-
+      Calendar systems encourage descriptive meeting titles to help attendees prepare,
+      but users often include client names, deal codes, project codenames, or strategic
+      initiatives without considering who can view their calendar. Shared calendars,
+      assistant access, and calendar integrations can expose this metadata to broader
+      audiences than intended.
+    attackerBehavior: >-
+      Adversaries gain access to calendar systems or compromise accounts with calendar
+      visibility to collect intelligence about meetings, projects, deals, and organizational
+      relationships revealed through meeting metadata and attendee lists.
+    insiderBehavior: >-
+      The employee creates clear, informative meeting titles to help everyone understand
+      the purpose and prepare appropriately, treating the calendar as a private organizational
+      tool without considering its broader visibility.
+    prevention:
+      - mode: educate
+        action: Train staff to use generic meeting titles for sensitive topics and include details only in private meeting descriptions.
+      - mode: evaluate
+        action: Review calendar entries for sensitive information disclosure in titles and attendee lists.
+      - mode: monitor
+        action: Scan calendar metadata for sensitive keywords and unusual external attendee patterns.
+      - mode: intervene
+        action: Provide guidance on calendar discretion and help edit overly revealing meeting information when identified.
   - id: 1-lost-device-laptop-phone-usb
     label: Lost device (laptop, phone, USB)
     mitreId: null
     description: A device holding work data is lost or stolen, exposing whatever was
       stored or cached on it.
+    detailedDescription: >-
+      Work devices accumulate cached data, documents, credentials, and application data
+      over time, often more than users realize. Loss can happen through theft, forgetfulness,
+      or accidental abandonment in travel or public spaces. Even devices with some security
+      measures may have vulnerabilities when physical access is available to determined
+      adversaries.
+    attackerBehavior: >-
+      Adversaries target lost or abandoned devices for data extraction, using forensic
+      tools to recover cached data, credentials, or application information that might
+      provide access to organizational systems or valuable intelligence.
+    insiderBehavior: >-
+      The employee treats the device as securely protected by passwords or biometrics,
+      not fully considering the cumulative sensitive data stored locally or the sophisticated
+      recovery techniques available to motivated attackers with physical access.
+    prevention:
+      - mode: educate
+        action: Train staff on device security practices and the risks of local data storage.
+      - mode: evaluate
+        action: Test device loss reporting procedures and data recovery capabilities through controlled simulations.
+      - mode: monitor
+        action: Track device check-ins and maintain inventories of devices with sensitive data access.
+      - mode: intervene
+        action: Provide immediate device disabling capabilities and clear loss reporting procedures when incidents occur.
   - id: 1-improper-disposal-of-papers-drives
     label: Improper disposal of papers / drives
     mitreId: null
     description: Documents or storage media are discarded without shredding or
       wiping, leaving recoverable data.
+    detailedDescription: >-
+      Normal disposal methods feel sufficient for everyday waste, but documents and
+      digital storage retain readable data through standard disposal. Users often
+      underestimate the recoverability of deleted files or the persistence of printed
+      materials in waste streams. Convenience and time pressure lead to shortcuts
+      in secure disposal processes.
+    attackerBehavior: >-
+      Adversaries engage in dumpster diving or waste stream monitoring to recover
+      discarded documents and storage media, using data recovery tools to extract
+      information from improperly disposed digital storage devices.
+    insiderBehavior: >-
+      The employee disposes of materials using convenient standard methods, believing
+      that deletion or regular trash disposal provides adequate security for materials
+      they no longer need.
+    prevention:
+      - mode: educate
+        action: Train staff on proper disposal methods for different types of sensitive materials and storage media.
+      - mode: evaluate
+        action: Test disposal practices through controlled audits of waste streams and storage disposal procedures.
+      - mode: monitor
+        action: Track disposal of sensitive materials and audit compliance with secure disposal requirements.
+      - mode: intervene
+        action: Provide secure disposal resources and guidance when improper disposal methods are identified.
   - id: 1-mis-classification-of-data-sensitivity
     label: Mis-classification of data sensitivity
     mitreId: null
     description: Data is labeled less sensitive than it is, so it receives weaker
       handling and broader access than warranted.
+    detailedDescription: >-
+      Data classification requires understanding both the content and its organizational
+      context, but users often classify based on immediate familiarity rather than
+      comprehensive sensitivity analysis. Classification decisions made early in data
+      lifecycles may become outdated as context changes, and users tend to err toward
+      lower restrictions to avoid workflow friction.
+    attackerBehavior: >-
+      Adversaries target data classified as lower sensitivity that actually contains
+      valuable information, knowing that under-classified data receives weaker
+      protection and broader access than its true sensitivity warrants.
+    insiderBehavior: >-
+      The employee classifies data based on their personal familiarity or immediate
+      use case, not considering the broader implications or long-term sensitivity
+      as the data moves through different organizational contexts.
+    prevention:
+      - mode: educate
+        action: Train staff on classification criteria and the importance of considering long-term and organizational sensitivity contexts.
+      - mode: evaluate
+        action: Test classification decisions through scenarios with varying data types and sensitivity contexts.
+      - mode: monitor
+        action: Review data classifications and access patterns to identify potential under-classification issues.
+      - mode: intervene
+        action: Provide classification review tools and guidance when data appears to be under-classified based on usage patterns.
   - id: 1-accidental-publication-draft-public
     label: Accidental publication (draft → public)
     mitreId: null
     description: Draft content is published before review, exposing unfinished or
       confidential material.
+    detailedDescription: >-
+      Publishing systems often have similar interfaces for draft and live publication,
+      making accidental publication easy when users are focused on content rather than
+      publication state. Draft content frequently contains unfiltered internal discussions,
+      confidential details, or incomplete information that was never intended for public
+      consumption but seems ready enough to publish.
+    attackerBehavior: >-
+      Adversaries monitor for accidentally published draft content through web crawling,
+      RSS monitoring, and content change detection tools, often capturing sensitive
+      information before it can be retracted or corrected.
+    insiderBehavior: >-
+      The employee focuses on completing their content creation task and clicks the
+      most prominent or familiar publishing option, treating the draft-to-public
+      transition as a minor procedural step rather than a critical security boundary.
+    prevention:
+      - mode: educate
+        action: Train staff on publication workflow stages and the importance of distinguishing draft from public content.
+      - mode: evaluate
+        action: Test publication workflows with scenarios containing sensitive content to verify review discipline.
+      - mode: monitor
+        action: Monitor published content for unexpected sensitivity or draft-like characteristics.
+      - mode: intervene
+        action: Provide immediate content retraction tools and guidance on publication review processes when accidental publication occurs.
   - id: 1-confidential-data-pasted-into-public-llm
     label: Confidential data pasted into public LLM
     mitreId: null
     description: An employee pastes confidential business data into a public AI
       tool, sending it outside the organization's control.
+    detailedDescription: >-
+      AI tools provide immediate value for document analysis, editing, and formatting
+      tasks, making them attractive for work optimization. Users often paste data
+      directly into these tools without considering that the information becomes
+      training data or is processed by external systems. The convenience and productivity
+      gains override privacy considerations in the moment.
+    attackerBehavior: >-
+      Adversaries monitor AI service data streams, compromise AI service provider
+      accounts, or position themselves to intercept data sent to public AI services
+      to collect confidential information inadvertently shared by target organizations.
+    insiderBehavior: >-
+      The employee treats the AI tool as a helpful work assistant, focusing on the
+      immediate task benefits without fully considering that the data leaves organizational
+      control and may be retained or processed by external parties.
+    prevention:
+      - mode: educate
+        action: Train staff on data residency risks with public AI tools and appropriate use policies.
+      - mode: evaluate
+        action: Test AI tool usage decisions through scenarios with varying data sensitivity levels.
+      - mode: monitor
+        action: Monitor network traffic and tool usage for sensitive data being sent to external AI services.
+      - mode: intervene
+        action: Provide approved AI tool alternatives and guidance on data sensitivity when inappropriate usage is detected.
   - id: 1-source-code-pasted-into-public-llm
     label: Source code pasted into public LLM
     mitreId: null
     description: Proprietary source code is pasted into a public AI assistant,
       leaking intellectual property to a third party.
+    detailedDescription: >-
+      AI coding assistants offer powerful debugging, optimization, and explanation
+      capabilities that dramatically improve developer productivity. Developers naturally
+      paste problematic code sections to get immediate help, often without considering
+      that proprietary algorithms, business logic, or system architectures become
+      visible to external services and potentially incorporated into training data.
+    attackerBehavior: >-
+      Adversaries monitor AI service data flows or compromise AI service provider
+      systems to collect source code containing valuable intellectual property,
+      system vulnerabilities, or business logic insights from target organizations.
+    insiderBehavior: >-
+      The developer focuses on solving the immediate coding problem and treats the
+      AI tool as a private debugging assistant, not considering the broader implications
+      of sharing proprietary implementation details with external services.
+    prevention:
+      - mode: educate
+        action: Train developers on intellectual property risks with public AI coding assistants and approved alternatives.
+      - mode: evaluate
+        action: Test coding tool usage through scenarios with proprietary code to verify discretion practices.
+      - mode: monitor
+        action: Monitor development tool usage and code repositories for potential external sharing of proprietary code.
+      - mode: intervene
+        action: Provide approved coding assistance tools and guidance when inappropriate code sharing is identified.
   - id: 1-customer-data-pasted-into-saas-without-dpa
     label: Customer data pasted into SaaS without DPA
     mitreId: null
     description: Customer data is entered into a SaaS tool with no data-processing
       agreement, creating uncontrolled processing and compliance exposure.
+    detailedDescription: >-
+      SaaS tools offer immediate capabilities for data analysis, formatting, and
+      processing that can solve urgent business needs. Employees focus on the functional
+      benefits without considering the legal and compliance implications of sharing
+      customer data with services that lack appropriate data processing agreements,
+      potentially violating privacy regulations and customer trust.
+    attackerBehavior: >-
+      Adversaries target SaaS services that handle customer data to collect valuable
+      personal information, or they compromise accounts of services that receive
+      customer data from organizations without proper legal protections in place.
+    insiderBehavior: >-
+      The employee prioritizes solving the immediate business problem using available
+      tools, treating customer data as work data without considering the specific
+      legal obligations and protections required for customer information.
+    prevention:
+      - mode: educate
+        action: Train staff on data processing agreement requirements and customer data protection obligations.
+      - mode: evaluate
+        action: Test SaaS tool usage decisions through scenarios involving customer data to verify compliance awareness.
+      - mode: monitor
+        action: Monitor SaaS tool usage and data flows for customer data being processed without appropriate agreements.
+      - mode: intervene
+        action: Provide approved SaaS alternatives and guidance on data processing compliance when violations are detected.
   - id: 1-discussing-details-on-podcasts-press
     label: Discussing details on podcasts / press
     mitreId: null
     description: Staff reveal sensitive operational or client details in interviews,
       podcasts, or press.
+    detailedDescription: >-
+      Public speaking opportunities feel like positive professional exposure, and
+      speakers often prepare general talking points but don't fully rehearse how
+      to navigate specific probing questions. The conversational nature of interviews
+      and podcasts can lead to spontaneous sharing of concrete examples, client
+      situations, or operational details that seemed harmless in isolation.
+    attackerBehavior: >-
+      Adversaries monitor public interviews, podcasts, and press coverage of target
+      organization employees to collect intelligence about operations, clients,
+      technologies, and internal processes revealed through casual professional discussion.
+    insiderBehavior: >-
+      The employee focuses on being helpful and engaging in the interview, sharing
+      concrete examples and details that demonstrate their expertise without carefully
+      considering the cumulative intelligence value to adversaries.
+    prevention:
+      - mode: educate
+        action: Train staff on media engagement practices and how to discuss work accomplishments without revealing sensitive details.
+      - mode: evaluate
+        action: Practice media interviews with scenarios designed to elicit sensitive information disclosure.
+      - mode: monitor
+        action: Monitor public appearances and media coverage for inappropriate disclosure of sensitive information.
+      - mode: intervene
+        action: Provide media training resources and guidance when public disclosure incidents are identified.
   - id: 1-geotagged-photos-from-sensitive-sites
     label: Geotagged photos from sensitive sites
     mitreId: null
     description: Photos taken at sensitive locations carry embedded geolocation,
       disclosing where work happens.
+    detailedDescription: >-
+      Modern smartphones automatically embed GPS coordinates in photos, creating
+      invisible metadata that reveals precise locations. Users share photos for
+      professional or social purposes without considering that the embedded location
+      data discloses sensitive facility locations, travel patterns, or operational
+      sites that should remain confidential.
+    attackerBehavior: >-
+      Adversaries extract geolocation metadata from photos shared by target organization
+      employees on social media, professional networks, or through other channels
+      to map sensitive facilities, track employee movements, and identify operational
+      locations.
+    insiderBehavior: >-
+      The employee shares photos to document work activities or for social purposes,
+      focusing on the visible content without considering the hidden metadata that
+      reveals precise location information embedded in the image files.
+    prevention:
+      - mode: educate
+        action: Train staff on photo metadata risks and how to disable or strip location data before sharing.
+      - mode: evaluate
+        action: Test photo sharing practices by reviewing social media and professional posts for location disclosure.
+      - mode: monitor
+        action: Monitor employee social media and professional posts for photos with embedded location data from sensitive sites.
+      - mode: intervene
+        action: Provide metadata removal tools and guidance on location privacy when geotagged photos from sensitive locations are identified.

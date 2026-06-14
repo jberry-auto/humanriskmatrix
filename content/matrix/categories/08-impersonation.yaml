@@ -14,55 +14,350 @@ techniques:
     mitreId: T1656
     description: An attacker impersonates a senior executive to pressure staff into
       payments or disclosures.
+    detailedDescription: >-
+      This technique leverages the natural deference to authority, time pressure, and
+      secrecy demands that make questioning inappropriate. The attacker uses executive
+      communication patterns and urgent scenarios to bypass normal verification procedures.
+      The success depends on the target's reluctance to challenge apparent senior leadership
+      and the artificial urgency that prevents careful consideration.
+    attackerBehavior: >-
+      The adversary researches executive communication styles through social media and
+      public sources, crafts urgent scenarios requiring immediate financial transfers or
+      sensitive data sharing, and emphasizes confidentiality to prevent verification with
+      colleagues or the real executive.
+    insiderBehavior: >-
+      The employee feels honored to be trusted with an urgent executive request and wants
+      to demonstrate competence and reliability. The secrecy requirement feels legitimate
+      for a sensitive business matter, making verification seem inappropriate or disloyal.
+    prevention:
+      - mode: educate
+        action: Train staff on executive impersonation tactics and establish that real executives welcome verification for sensitive requests.
+      - mode: evaluate
+        action: Run executive impersonation simulations targeting financial and administrative staff to test verification habits.
+      - mode: monitor
+        action: Monitor for unusual financial requests, out-of-band communications claiming executive authority, and bypass of approval workflows.
+      - mode: intervene
+        action: Immediately freeze any suspicious transactions, reset potentially compromised credentials, and coach the employee on verification procedures without blame.
   - id: 8-attorney-impersonation
     label: Attorney impersonation
     mitreId: T1656
     description: Posing as legal counsel invokes urgency and confidentiality to
       force compliance.
+    detailedDescription: >-
+      This technique exploits the automatic deference to legal authority and the fear of
+      legal consequences. By claiming attorney status, the attacker invokes confidentiality
+      requirements and urgent timelines that seem to justify bypassing normal security
+      procedures. The legal context creates a veneer of legitimacy that makes questioning
+      seem inappropriate or risky.
+    attackerBehavior: >-
+      The adversary poses as external counsel or claims to represent the target organization's
+      legal team, uses legal terminology and citation of regulations to establish credibility,
+      and creates artificial deadlines tied to litigation or compliance requirements to
+      pressure immediate action.
+    insiderBehavior: >-
+      The employee feels compelled to cooperate with what appears to be legitimate legal
+      authority, fears potential consequences of non-compliance with legal directives, and
+      believes that attorney-client privilege justifies the secrecy surrounding the request.
+    prevention:
+      - mode: educate
+        action: Train staff that legitimate attorneys can be verified through official channels and rarely require immediate sensitive data sharing.
+      - mode: evaluate
+        action: Test employee responses to legal impersonation scenarios using controlled attorney impersonation simulations.
+      - mode: monitor
+        action: Track communications claiming legal authority, requests for privileged information, and attempts to bypass legal department approval.
+      - mode: intervene
+        action: Halt any data sharing immediately, verify attorney credentials through official legal department channels, and provide supportive coaching on verification procedures.
   - id: 8-help-desk-se-scattered-spider
     label: Help-desk SE (Scattered Spider)
     mitreId: T1656
     description: An attacker impersonates IT help desk (or the user to it) to reset
       credentials and seize accounts.
+    detailedDescription: >-
+      This technique exploits the trust relationship between users and IT support services,
+      either by impersonating help desk staff to users or by impersonating users to the help
+      desk. The success relies on established support procedures and the human tendency to
+      be helpful in resolving apparent technical problems. The attacker leverages insider
+      knowledge of systems, procedures, and terminology to appear legitimate.
+    attackerBehavior: >-
+      The adversary researches organizational IT procedures and terminology, contacts targets
+      claiming to be IT support with urgent security warnings or poses as an employee to
+      the real help desk requesting password resets, using social engineering to bypass
+      verification procedures.
+    insiderBehavior: >-
+      The employee trusts the apparent IT authority and wants to resolve what seems like a
+      legitimate technical issue quickly. Help desk staff feel pressure to assist users
+      efficiently and may accept verbal verification that seems consistent with normal procedures.
+    prevention:
+      - mode: educate
+        action: Train employees to verify IT support contacts through official channels and help desk staff to require strong authentication for sensitive requests.
+      - mode: evaluate
+        action: Test IT support impersonation scenarios against both employees and help desk staff to assess verification compliance.
+      - mode: monitor
+        action: Monitor for unusual help desk ticket patterns, out-of-band IT communication attempts, and credential reset activities.
+      - mode: intervene
+        action: Immediately suspend affected accounts, require in-person verification for any credential changes, and provide targeted coaching on verification protocols.
   - id: 8-tech-support-scam
     label: Tech support scam
     mitreId: null
     description: A fake support agent convinces the victim to grant access or pay.
+    detailedDescription: >-
+      This technique creates artificial urgency around computer security issues to pressure
+      victims into granting remote access or making payments. The attacker exploits general
+      anxiety about malware and computer security, combined with limited technical knowledge
+      that makes fake diagnoses seem credible. The technique often involves cold calls or
+      pop-up warnings that appear to come from legitimate technology companies.
+    attackerBehavior: >-
+      The adversary contacts victims claiming urgent malware infections or security breaches,
+      uses technical jargon and fake system scans to create credibility, and pressures for
+      immediate remote access or payment to resolve the fabricated threat.
+    insiderBehavior: >-
+      The employee genuinely believes their computer is infected and wants to protect
+      organizational systems from potential damage. The apparent expertise of the caller
+      and the urgency of the situation make the requested access or payment seem reasonable
+      and necessary.
+    prevention:
+      - mode: educate
+        action: Train staff that legitimate tech support never contacts users unsolicited and provide clear reporting channels for suspicious tech support calls.
+      - mode: evaluate
+        action: Run tech support scam simulations to test employee recognition of fake support scenarios and adherence to verification procedures.
+      - mode: monitor
+        action: Monitor for reports of unsolicited tech support contacts, unusual remote access software installations, and unauthorized payment requests.
+      - mode: intervene
+        action: Immediately disconnect any suspicious remote sessions, scan affected systems for malware, and counsel the employee on legitimate support channels.
   - id: 8-angler-phishing-fake-support
     label: Angler phishing (fake support)
     mitreId: null
     description: A fake support account on social media intercepts customers seeking help.
+    detailedDescription: >-
+      This technique targets customers who post service complaints or help requests on social
+      media by responding faster than legitimate support with seemingly helpful assistance.
+      The attacker creates fake accounts that mimic official support channels and intercepts
+      frustrated customers when they are most vulnerable to accepting help. Success depends
+      on timing and the customer's desire for quick resolution.
+    attackerBehavior: >-
+      The adversary monitors social media for customer service complaints, responds quickly
+      with fake support accounts that appear official, and directs victims to malicious
+      links or requests sensitive information under the guise of account verification or
+      problem resolution.
+    insiderBehavior: >-
+      The employee is frustrated with poor service response and grateful when apparent
+      official support reaches out proactively. They want to resolve their issue quickly
+      and trust that the helpful response comes from a legitimate support representative.
+    prevention:
+      - mode: educate
+        action: Train staff to verify support contacts through official channels and recognize that legitimate support rarely initiates contact via social media.
+      - mode: evaluate
+        action: Test employee susceptibility to fake social media support through controlled angler phishing simulations.
+      - mode: monitor
+        action: Monitor social media mentions of the organization, track reports of suspicious support interactions, and watch for credential compromise attempts.
+      - mode: intervene
+        action: Reset any credentials potentially shared with fake support, remove malicious content if discovered, and coach the employee on official support verification procedures.
   - id: 8-conversation-hijacking
     label: Conversation hijacking
     mitreId: T1656
     description: An attacker inserts into an existing email or chat thread to
       exploit the established trust.
+    detailedDescription: >-
+      This technique leverages the established trust and context of an ongoing conversation
+      by inserting malicious content that appears to come from a trusted participant. The
+      attacker either compromises one party's account or creates lookalike accounts to
+      inject into existing threads. The technique exploits the assumption that familiar
+      conversation contexts are safe and that participants have already been verified.
+    attackerBehavior: >-
+      The adversary monitors email threads or chat conversations through compromised accounts
+      or public channels, creates convincing responses that fit the conversation context,
+      and injects malicious requests, links, or attachments that appear to come from a
+      trusted conversation participant.
+    insiderBehavior: >-
+      The employee assumes the communication is safe because it appears within an established,
+      trusted conversation thread. They process the malicious content with less scrutiny
+      because the source appears to be someone they have already been working with successfully.
+    prevention:
+      - mode: educate
+        action: Train staff to verify unusual requests even within established conversations and to watch for subtle changes in communication patterns.
+      - mode: evaluate
+        action: Test conversation hijacking scenarios using simulated compromised accounts within real or simulated business communications.
+      - mode: monitor
+        action: Monitor for email account compromises, unusual sending patterns, and reports of suspicious messages within ongoing threads.
+      - mode: intervene
+        action: Quarantine suspicious messages, reset credentials for potentially compromised accounts, and verify the legitimacy of recent thread participants with affected parties.
   - id: 8-deepfake-video-impersonation
     label: Deepfake video impersonation
     mitreId: null
     description: Synthetic video impersonates a real person to authorize actions or
       build false trust.
+    detailedDescription: >-
+      This technique uses AI-generated synthetic video to create convincing impersonations
+      of real people, often executives or trusted contacts, to authorize transactions or
+      share sensitive information. The technique exploits the deep trust placed in visual
+      confirmation and the assumption that video calls provide stronger verification than
+      audio or text. Quality improvements in synthetic media make detection increasingly difficult.
+    attackerBehavior: >-
+      The adversary collects video and audio samples of the target person from public sources,
+      uses AI tools to generate convincing synthetic video calls, and conducts brief,
+      scripted interactions designed to avoid detection while accomplishing specific objectives
+      like fund transfers or credential sharing.
+    insiderBehavior: >-
+      The employee trusts what appears to be a normal video call with a known person and
+      processes requests more readily because they can "see" the requester. They may notice
+      subtle oddities but dismiss them as technical issues rather than evidence of synthetic media.
+    prevention:
+      - mode: educate
+        action: Train staff on deepfake capabilities and establish verification protocols that go beyond visual confirmation for sensitive requests.
+      - mode: evaluate
+        action: Test employee ability to detect synthetic media through controlled deepfake scenarios and measure reliance on visual verification alone.
+      - mode: monitor
+        action: Monitor for reports of unusual video call behavior, technical anomalies in video communications, and requests made via video that bypass normal procedures.
+      - mode: intervene
+        action: Immediately halt any sensitive actions authorized via suspicious video calls, implement additional verification channels, and coach employees on multi-factor verification techniques.
   - id: 8-voice-clone-ai-vishing
     label: Voice clone / AI vishing
     mitreId: null
     description: A cloned voice impersonates a known person over the phone to compel action.
+    detailedDescription: >-
+      This technique uses AI-generated voice synthesis to create convincing audio impersonations
+      of familiar voices, typically executives or trusted contacts, over phone calls. The
+      attacker leverages the emotional impact of hearing a familiar voice and the difficulty
+      of detecting high-quality voice synthesis. The technique is often combined with social
+      engineering tactics to create urgent scenarios requiring immediate action.
+    attackerBehavior: >-
+      The adversary collects audio samples from public sources like conference recordings
+      or social media, generates synthetic voice models, and conducts scripted phone calls
+      designed to sound natural while avoiding extended conversation that might reveal
+      inconsistencies in the synthesis.
+    insiderBehavior: >-
+      The employee recognizes the familiar voice and trusts the call authenticity based on
+      audio confirmation. They may notice slight voice quality issues but attribute them
+      to poor phone connection rather than synthetic generation, especially when under
+      pressure from the urgent nature of the request.
+    prevention:
+      - mode: educate
+        action: Train staff on voice cloning capabilities and establish callback verification procedures for sensitive phone requests.
+      - mode: evaluate
+        action: Test voice cloning detection through controlled AI voice synthesis scenarios targeting high-risk roles.
+      - mode: monitor
+        action: Monitor for reports of suspicious phone calls from known contacts, unusual request patterns via voice calls, and attempts to bypass callback verification.
+      - mode: intervene
+        action: Block any sensitive actions initiated via suspicious voice calls, require in-person or multi-channel verification for authorization, and provide supportive guidance on voice verification techniques.
   - id: 8-synthetic-identity-full-persona
     label: Synthetic identity (full persona)
     mitreId: T1585
     description: A complete fabricated identity, with supporting artifacts, is used
       to gain access or employment.
+    detailedDescription: >-
+      This technique involves creating a comprehensive false identity with supporting documents,
+      social media presence, references, and credentials to gain employment or access to
+      organizations. Unlike simple impersonation, this creates a persistent, detailed persona
+      that can withstand casual verification. The technique exploits gaps in background
+      verification processes and the difficulty of detecting well-crafted false identities.
+    attackerBehavior: >-
+      The adversary constructs detailed false credentials including fabricated employment
+      history, educational background, and references, builds supporting social media
+      presence over time, and applies for positions or access that align with intelligence
+      gathering or insider threat objectives.
+    insiderBehavior: >-
+      Colleagues accept the fabricated persona as legitimate based on apparent credentials
+      and normal workplace interactions. The false identity holder appears to be a regular
+      employee or contractor, making their access and information gathering seem routine
+      rather than suspicious.
+    prevention:
+      - mode: educate
+        action: Train HR and security staff on indicators of fabricated identities and the importance of thorough background verification procedures.
+      - mode: evaluate
+        action: Test background verification processes using controlled synthetic identity scenarios to identify verification gaps.
+      - mode: monitor
+        action: Monitor for inconsistencies in personnel records, unusual access patterns by new hires, and reports of verification failures or suspicious credentials.
+      - mode: intervene
+        action: Immediately suspend access for individuals with questionable credentials, conduct thorough re-verification through independent channels, and involve legal authorities if synthetic identity is confirmed.
   - id: 8-false-flag-wrong-sponsor
     label: False flag (wrong sponsor)
     mitreId: null
     description: An operation is staged to appear to come from a different actor,
       misdirecting attribution and response.
+    detailedDescription: >-
+      This technique involves conducting operations while deliberately leaving indicators
+      that point to a different threat actor, nation-state, or criminal group. The goal
+      is to misdirect investigative resources and response efforts while concealing the
+      true sponsor's involvement. The technique exploits the tendency to focus on attribution
+      and can significantly delay or misdirect defensive responses.
+    attackerBehavior: >-
+      The adversary deliberately plants false indicators such as language artifacts, known
+      tools associated with other groups, or operational patterns that mimic different
+      threat actors, while carefully concealing their true identity and organizational
+      affiliation throughout the operation.
+    insiderBehavior: >-
+      Security analysts and investigators follow the planted false indicators and direct
+      response efforts based on incorrect attribution. They apply countermeasures and
+      defensive strategies appropriate for the wrong threat actor, potentially leaving
+      vulnerabilities that the true adversary can exploit.
+    prevention:
+      - mode: educate
+        action: Train security analysts on false flag techniques and the importance of considering multiple attribution hypotheses during incident response.
+      - mode: evaluate
+        action: Test analyst susceptibility to false attribution through controlled exercises with planted false indicators.
+      - mode: monitor
+        action: Monitor for inconsistent threat indicators, unusual combinations of tactics across known groups, and attribution conflicts in threat intelligence.
+      - mode: intervene
+        action: Maintain open attribution hypotheses during incidents, seek corroborating evidence from multiple sources, and avoid premature defensive pivots based on initial indicators.
   - id: 8-authority-bias-impersonation
     label: Authority-bias impersonation
     mitreId: T1656
     description: Impersonating an authority figure exploits the reflex to comply
       with perceived authority.
+    detailedDescription: >-
+      This technique exploits the deeply ingrained psychological tendency to comply with
+      authority figures by impersonating people in positions of power or expertise. The
+      attacker leverages the target's conditioned response to authority, which often
+      overrides critical thinking and normal security procedures. The technique works
+      across various authority types including organizational hierarchy, law enforcement,
+      regulatory bodies, and technical expertise.
+    attackerBehavior: >-
+      The adversary researches organizational structure and authority relationships, adopts
+      the communication style and terminology of the impersonated authority figure, and
+      creates scenarios that invoke compliance reflexes while minimizing opportunity for
+      verification or questioning.
+    insiderBehavior: >-
+      The employee automatically defers to apparent authority and feels uncomfortable
+      questioning or verifying what seems to be a legitimate command from someone in a
+      position of power. They prioritize compliance over security procedures to avoid
+      appearing insubordinate or difficult.
+    prevention:
+      - mode: educate
+        action: Train staff that questioning authority is appropriate for security verification and that legitimate authorities support proper verification procedures.
+      - mode: evaluate
+        action: Test employee responses to authority impersonation scenarios across different types of authority figures and compliance pressure.
+      - mode: monitor
+        action: Monitor for communications invoking authority, attempts to bypass normal approval chains, and requests that discourage verification.
+      - mode: intervene
+        action: Halt compliance with suspicious authority demands, verify authority through independent channels, and coach employees that verification demonstrates professionalism rather than insubordination.
   - id: 8-sim-swap-carrier-impersonation
     label: SIM swap (carrier impersonation)
     mitreId: null
     description: Impersonating the victim to their mobile carrier ports the number
       to seize SMS codes and accounts.
+    detailedDescription: >-
+      This technique involves impersonating a target to their mobile carrier to transfer
+      their phone number to an attacker-controlled SIM card, enabling interception of
+      SMS-based authentication codes and account takeover. The attack exploits carrier
+      customer service procedures and the widespread reliance on SMS for two-factor
+      authentication. Success often depends on social engineering carrier representatives
+      or exploiting weak verification procedures.
+    attackerBehavior: >-
+      The adversary gathers personal information about the target through open sources
+      or previous breaches, contacts the mobile carrier claiming to be the victim with
+      a lost or damaged phone, and uses social engineering to convince carrier representatives
+      to port the number to an attacker-controlled SIM card.
+    insiderBehavior: >-
+      The employee trusts SMS authentication codes as secure and does not immediately
+      recognize that loss of mobile service could indicate SIM swapping. They may attempt
+      to resolve service issues through normal technical support channels while their
+      accounts are being compromised through intercepted SMS codes.
+    prevention:
+      - mode: educate
+        action: Train staff to recognize SIM swap indicators and use authentication methods less vulnerable to SMS interception.
+      - mode: evaluate
+        action: Test employee awareness of SIM swap risks through scenarios involving mobile service disruption and account access attempts.
+      - mode: monitor
+        action: Monitor for reports of unexpected mobile service loss, unusual authentication patterns, and account access from new devices following service disruptions.
+      - mode: intervene
+        action: Immediately lock potentially affected accounts, verify SIM card status with carrier through official channels, and assist with account recovery using non-SMS authentication methods.

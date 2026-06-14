@@ -27,12 +27,37 @@ export type IntentDegree = z.infer<typeof IntentDegreeSchema>;
 // MITRE ATT&CK technique id (e.g. T1566 or T1566.004), or null when uncoded.
 const MitreIdSchema = z.string().regex(/^T\d{4}(\.\d{3})?$/);
 
+// --- Countermeasure ---
+// Defensive responses framed by the four-mode model: educate (awareness), evaluate
+// (testing via simulation), monitor (behavioral signal collection), intervene (graduated
+// response, scaled to how malicious the behavior is). Every technique must cover all four
+// modes — this invariant is enforced by the content loader, not by this per-record schema.
+export const COUNTERMEASURE_MODES = ["educate", "evaluate", "monitor", "intervene"] as const;
+export const CountermeasureModeSchema = z.enum(COUNTERMEASURE_MODES);
+export type CountermeasureMode = z.infer<typeof CountermeasureModeSchema>;
+
+export const CountermeasureSchema = z.object({
+  mode: CountermeasureModeSchema,
+  action: z.string().min(1),
+});
+export type Countermeasure = z.infer<typeof CountermeasureSchema>;
+
 export const TechniqueSchema = z.object({
   // Stable, globally unique id: "<categoryId>-<slug(label)>", e.g. "7-spearphishing-attachment".
   id: z.string().regex(/^\d{1,2}-[a-z0-9-]+$/),
   label: z.string().min(1),
   mitreId: MitreIdSchema.nullable(),
+  // Short one-line summary; shown in the matrix cell and as the drawer lead.
   description: z.string().min(1),
+  // Full prose write-up of the behavior.
+  detailedDescription: z.string().min(1),
+  // How an adversary operates the technique (for categories 1–3, how an adversary leverages
+  // the resulting exposure).
+  attackerBehavior: z.string().min(1),
+  // How the human / insider acts in the moment.
+  insiderBehavior: z.string().min(1),
+  // Mode-tagged countermeasures; must cover all four COUNTERMEASURE_MODES (loader-enforced).
+  prevention: z.array(CountermeasureSchema).min(1),
 });
 export type Technique = z.infer<typeof TechniqueSchema>;
 

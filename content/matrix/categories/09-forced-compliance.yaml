@@ -11,54 +11,319 @@ techniques:
     mitreId: T1621
     description: Repeated MFA push prompts wear the victim down until they approve
       one, granting access.
+    detailedDescription: >-
+      A barrage of push notifications or authentication requests exploits the human desire
+      to stop the interruption and get back to work. Each denial prompts another immediate
+      request, creating a psychological pressure that wears down defenses until the victim
+      approves just to end the harassment. The technique bypasses technical MFA protections
+      by targeting the human approval mechanism.
+    attackerBehavior: >-
+      The adversary triggers automated, rapid-fire authentication requests at inconvenient
+      times — during meetings, sleep, or high-stress periods — making each denial immediately
+      followed by another prompt to maximize frustration and the urge to comply.
+    insiderBehavior: >-
+      The employee becomes increasingly annoyed by the constant interruptions, thinking
+      "maybe I accidentally triggered this" or "I'll just approve it once to make it stop."
+      The decision feels like ending a minor technical nuisance rather than a security choice.
+    prevention:
+      - mode: educate
+        action: Train users that legitimate systems don't spam authentication requests and to never approve unfamiliar prompts just to stop them.
+      - mode: evaluate
+        action: Test user responses to simulated MFA bombing scenarios to measure resilience to pressure tactics.
+      - mode: monitor
+        action: Set up alerts for rapid-fire authentication attempts and unusual approval patterns that suggest fatigue-based compromise.
+      - mode: intervene
+        action: Provide immediate incident response channels for users under authentication pressure and implement automatic MFA request throttling.
   - id: 9-urgency-fear-framing
     label: Urgency / fear framing
     mitreId: null
     description: Manufactured urgency or fear pushes the target to act before they
       can verify.
+    detailedDescription: >-
+      False deadlines and fabricated consequences create artificial time pressure that
+      short-circuits normal verification processes. The technique exploits the fight-or-flight
+      response, making the target feel they must act immediately to avoid a catastrophic
+      outcome. Critical thinking is suppressed when the brain perceives an emergency.
+    attackerBehavior: >-
+      The adversary creates scenarios with tight deadlines, severe consequences, and high
+      stakes ("your account will be deleted in 30 minutes," "security breach detected")
+      to force immediate action without time for verification or consultation.
+    insiderBehavior: >-
+      The employee feels genuine panic or stress about the supposed threat and focuses
+      entirely on preventing the feared outcome rather than questioning the legitimacy
+      of the request or following normal verification procedures.
+    prevention:
+      - mode: educate
+        action: Train staff to recognize artificial urgency tactics and establish "pause before panic" protocols for high-pressure requests.
+      - mode: evaluate
+        action: Test employee responses to urgent but fabricated scenarios to measure susceptibility to time-pressure manipulation.
+      - mode: monitor
+        action: Track behavioral patterns around rushed decisions and flag actions taken under claimed emergency conditions for review.
+      - mode: intervene
+        action: Create safe escalation paths for employees feeling pressured and establish verification protocols that work even under time constraints.
   - id: 9-cognitive-overload-multi-channel
     label: Cognitive overload (multi-channel)
     mitreId: null
     description: Simultaneous pressure across channels overwhelms judgment and
       forces a hasty decision.
+    detailedDescription: >-
+      Multiple simultaneous demands across different communication channels create cognitive
+      strain that impairs decision-making capacity. The technique exploits limited attention
+      and working memory by forcing the target to juggle competing urgent requests, making
+      it difficult to think clearly or follow established verification procedures.
+    attackerBehavior: >-
+      The adversary coordinates attacks across email, phone, text, and sometimes physical
+      channels simultaneously, each claiming urgency and requiring immediate action, to
+      overwhelm the target's ability to process and verify each request properly.
+    insiderBehavior: >-
+      The employee feels overwhelmed trying to manage multiple "urgent" demands and may
+      comply with requests just to reduce the immediate cognitive load, hoping to sort
+      out any issues later once the pressure subsides.
+    prevention:
+      - mode: educate
+        action: Train staff to recognize multi-channel pressure tactics and to systematically triage rather than react to simultaneous demands.
+      - mode: evaluate
+        action: Simulate coordinated multi-channel pressure scenarios to test employee resilience under cognitive overload conditions.
+      - mode: monitor
+        action: Detect patterns of simultaneous access attempts or requests across multiple communication channels targeting the same individual.
+      - mode: intervene
+        action: Establish protocols for employees to request assistance when overwhelmed and create single-point verification processes that work during high-pressure situations.
   - id: 9-loss-aversion-framing
     label: Loss-aversion framing
     mitreId: null
     description: Threatening a loss ('your account will be closed') drives compliance.
+    detailedDescription: >-
+      Threats to take away something valuable exploit the psychological principle that people
+      feel losses more acutely than equivalent gains. The technique creates a compelling
+      motivation to act by threatening to remove access, privileges, or benefits the target
+      currently enjoys and fears losing. The fear of loss often overrides skeptical thinking.
+    attackerBehavior: >-
+      The adversary threatens specific consequences that matter to the target — account
+      closure, service termination, lost benefits, or revoked access — creating a powerful
+      motivation to comply immediately rather than risk the threatened loss.
+    insiderBehavior: >-
+      The employee focuses intensely on preventing the threatened loss and may bypass
+      normal verification procedures in their urgency to preserve what they fear losing,
+      viewing compliance as the safe, protective action.
+    prevention:
+      - mode: educate
+        action: Train staff to recognize loss-aversion manipulation and verify threatening communications through established channels before acting.
+      - mode: evaluate
+        action: Test employee responses to simulated loss-based threats to measure susceptibility to this cognitive bias.
+      - mode: monitor
+        action: Flag communications containing loss-based threats and track rapid compliance responses that bypass normal verification procedures.
+      - mode: intervene
+        action: Provide immediate verification channels for employees receiving threatening communications and create protocols to validate claimed consequences.
   - id: 9-embarrassment-avoidance-exploit
     label: Embarrassment-avoidance exploit
     mitreId: null
     description: The fear of looking foolish or causing a problem is used to push
       the target into compliance.
+    detailedDescription: >-
+      Social shame and the desire to avoid appearing incompetent or difficult become
+      weapons of compliance. The technique exploits the human need to maintain face and
+      avoid social judgment, making targets choose compliance over the risk of looking
+      foolish, ignorant, or obstructive. Professional identity and social standing become leverage points.
+    attackerBehavior: >-
+      The adversary implies the target should already know about the request, suggests
+      others have already complied, or frames questions as signs of incompetence to make
+      verification feel like admitting ignorance or creating unnecessary obstacles.
+    insiderBehavior: >-
+      The employee feels pressure to appear knowledgeable and cooperative, thinking "I
+      should know about this" or "I don't want to look difficult," leading them to
+      comply rather than ask questions that might reveal their uncertainty.
+    prevention:
+      - mode: educate
+        action: Normalize verification behaviors and emphasize that questioning unfamiliar requests demonstrates security awareness, not ignorance.
+      - mode: evaluate
+        action: Test employee willingness to verify requests that come with social pressure or implications of incompetence for questioning.
+      - mode: monitor
+        action: Track patterns where employees bypass verification after being told they "should know" or that others have already complied.
+      - mode: intervene
+        action: Create psychologically safe verification processes and publicly recognize employees who appropriately question suspicious requests.
   - id: 9-reputation-attack-on-employee
     label: Reputation attack on employee
     mitreId: null
     description: Threatening or damaging someone's reputation coerces them into acting.
+    detailedDescription: >-
+      Direct threats to professional standing or public reputation create powerful coercive
+      pressure. The technique leverages the target's investment in their career, relationships,
+      and social standing as leverage points. The fear of reputational damage can be more
+      compelling than financial loss, making people willing to comply to protect their image.
+    attackerBehavior: >-
+      The adversary threatens to expose embarrassing information, spread damaging claims
+      to colleagues or superiors, or otherwise attack the target's professional or personal
+      reputation unless they comply with specific demands.
+    insiderBehavior: >-
+      The employee feels genuine fear about potential damage to their career or relationships
+      and may comply with demands to protect their reputation, believing that cooperation
+      is less risky than the threatened exposure or character attack.
+    prevention:
+      - mode: educate
+        action: Train staff to recognize reputation-based coercion and emphasize that legitimate organizations won't use reputational threats for compliance.
+      - mode: evaluate
+        action: Test employee responses to simulated reputation-based pressure to assess vulnerability to this form of coercion.
+      - mode: monitor
+        action: Watch for signs of employees under reputational pressure and track behavioral changes that suggest external coercion.
+      - mode: intervene
+        action: Provide confidential reporting channels for employees experiencing reputational threats and involve HR, legal, and security teams to address the coercion source.
   - id: 9-doxxing-as-pressure
     label: Doxxing as pressure
     mitreId: null
     description: Exposing, or threatening to expose, personal information coerces
       the target.
+    detailedDescription: >-
+      The threat or actual release of private information creates powerful coercive leverage
+      by making the target vulnerable to harassment, identity theft, or personal safety
+      risks. The technique exploits the growing value of personal privacy and the serious
+      consequences of exposure in an interconnected digital world.
+    attackerBehavior: >-
+      The adversary gathers personal information about the target through reconnaissance
+      and threatens to publish it publicly or share it with people who could cause harm,
+      using the threat of exposure to compel specific actions.
+    insiderBehavior: >-
+      The employee feels genuine fear about personal safety, family security, or privacy
+      violations and may comply with demands to prevent the threatened exposure, viewing
+      cooperation as necessary protection for themselves and their loved ones.
+    prevention:
+      - mode: educate
+        action: Train staff about digital privacy protection and to report any threats involving personal information exposure.
+      - mode: evaluate
+        action: Assess employee digital footprints through simulated reconnaissance to identify potential doxxing vulnerabilities.
+      - mode: monitor
+        action: Watch for signs of employees under personal information-based threats and monitor for unusual behavioral changes suggesting external pressure.
+      - mode: intervene
+        action: Provide immediate security support for employees experiencing doxxing threats, involving law enforcement when appropriate and prioritizing personal safety.
   - id: 9-scarcity-manipulation
     label: Scarcity manipulation
     mitreId: null
     description: A false 'limited time or quantity' pressure forces a rushed action.
+    detailedDescription: >-
+      Artificial scarcity exploits the psychological tendency to value and desire things
+      that appear limited or soon to be unavailable. The technique creates false urgency
+      by claiming restricted availability, limited seats, expiring offers, or final opportunities,
+      compelling immediate action before the supposed opportunity disappears.
+    attackerBehavior: >-
+      The adversary fabricates time limits, availability constraints, or exclusive opportunities
+      to create pressure for immediate compliance, often combining scarcity claims with
+      other pressure tactics to maximize the sense of urgency.
+    insiderBehavior: >-
+      The employee feels compelled to act quickly to avoid missing out on what appears
+      to be a valuable or important opportunity, focusing on securing the benefit rather
+      than verifying the legitimacy of the offer or request.
+    prevention:
+      - mode: educate
+        action: Train staff to recognize artificial scarcity tactics and to verify any "limited time" offers through established channels before acting.
+      - mode: evaluate
+        action: Test employee responses to simulated scarcity-based pressure scenarios to measure susceptibility to this manipulation technique.
+      - mode: monitor
+        action: Flag communications containing scarcity language and track rapid responses to time-limited requests that bypass normal procedures.
+      - mode: intervene
+        action: Establish verification protocols for time-sensitive requests and provide guidance for employees feeling pressure from scarcity-based claims.
   - id: 9-account-recovery-abuse
     label: Account-recovery abuse
     mitreId: null
     description: Account-recovery flows are abused to seize control of a target's account.
+    detailedDescription: >-
+      Legitimate password reset and account recovery mechanisms become attack vectors
+      when adversaries exploit their design assumptions. The technique leverages social
+      engineering against help desk staff or exploits weak recovery questions to bypass
+      normal authentication, often combining multiple pressure tactics to force approval.
+    attackerBehavior: >-
+      The adversary contacts support with urgent, pressure-filled requests to recover
+      a "locked" account, using gathered personal information and social engineering
+      to convince help desk staff to bypass normal verification procedures under false urgency.
+    insiderBehavior: >-
+      Help desk staff feel pressure to assist what appears to be a distressed legitimate
+      user who has lost access, especially when the caller demonstrates knowledge of
+      personal details and creates urgency around the need for immediate access.
+    prevention:
+      - mode: educate
+        action: Train support staff to recognize pressure tactics and always follow account recovery verification procedures regardless of claimed urgency.
+      - mode: evaluate
+        action: Test help desk resilience with simulated account recovery social engineering attempts under various pressure scenarios.
+      - mode: monitor
+        action: Track account recovery requests for unusual patterns, rushed approvals, and deviations from standard verification procedures.
+      - mode: intervene
+        action: Implement multi-person verification for sensitive account recovery requests and provide escalation paths for staff feeling pressured to bypass procedures.
   - id: 9-oauth-consent-phishing
     label: OAuth consent phishing
     mitreId: T1528
     description: The victim is tricked into granting a malicious app OAuth
       permissions, giving lasting access without a password.
+    detailedDescription: >-
+      Malicious applications disguised as legitimate services trick users into granting
+      broad permissions through OAuth consent flows. The technique exploits user
+      unfamiliarity with permission scopes and the pressure to quickly approve access
+      requests that appear to come from trusted platforms or necessary services.
+    attackerBehavior: >-
+      The adversary creates apps with names and descriptions that mimic legitimate services,
+      then pressures targets to approve OAuth permissions through urgency tactics, threat
+      scenarios, or by embedding the consent flow within convincing phishing campaigns.
+    insiderBehavior: >-
+      The employee sees what appears to be a normal app permission request from a
+      familiar-looking service and approves it quickly, either under time pressure or
+      without carefully reviewing the specific permissions being granted.
+    prevention:
+      - mode: educate
+        action: Train users to carefully review OAuth permission requests and recognize red flags like excessive permissions or unfamiliar app developers.
+      - mode: evaluate
+        action: Test employee responses to simulated malicious OAuth consent requests under various pressure and deception scenarios.
+      - mode: monitor
+        action: Implement OAuth app approval monitoring and flag applications requesting unusual permission combinations or coming from unverified developers.
+      - mode: intervene
+        action: Establish enterprise OAuth policies with pre-approved applications and provide immediate revocation procedures for employees who suspect compromise.
   - id: 9-device-code-phishing
     label: Device-code phishing
     mitreId: null
     description: The victim is induced to authorize the attacker's device through a
       legitimate device-code login flow.
+    detailedDescription: >-
+      Legitimate device authorization flows are weaponized by tricking users into entering
+      device codes that authorize an attacker's device or application. The technique
+      exploits user unfamiliarity with device pairing processes and applies pressure
+      to complete the authorization quickly without understanding the implications.
+    attackerBehavior: >-
+      The adversary generates device codes through legitimate platforms, then uses
+      social engineering and pressure tactics to convince targets to enter these codes,
+      often disguising the authorization as technical support, security verification, or troubleshooting.
+    insiderBehavior: >-
+      The employee follows what seems like legitimate technical instructions to resolve
+      a problem or verify their identity, not realizing they are authorizing an attacker's
+      device to access their accounts or organizational resources.
+    prevention:
+      - mode: educate
+        action: Train users about device authorization flows and to verify any requests to enter device codes through independent channels.
+      - mode: evaluate
+        action: Test employee responses to simulated device code phishing attempts disguised as legitimate technical support or security verification.
+      - mode: monitor
+        action: Monitor device authorization patterns for unusual activity and flag rapid authorizations that occur during or after suspicious communications.
+      - mode: intervene
+        action: Implement device management policies that require approval for new device registrations and provide rapid response for users who suspect unauthorized device access.
   - id: 9-sim-swap-push-bombing-prep
     label: SIM swap (push-bombing prep)
     mitreId: null
     description: A SIM swap is staged to intercept the codes needed for a follow-on
       account takeover.
+    detailedDescription: >-
+      The adversary executes a SIM swap to gain control of the target's phone number,
+      often using social engineering pressure tactics against cellular provider customer
+      service representatives. This enables interception of SMS-based authentication codes
+      and sets up follow-on attacks that bypass SMS-based multi-factor authentication.
+    attackerBehavior: >-
+      The adversary contacts cellular providers with urgent stories about lost phones,
+      travel emergencies, or immediate need for number transfers, using gathered personal
+      information and pressure tactics to convince customer service to transfer the number.
+    insiderBehavior: >-
+      Customer service representatives feel pressure to help what appears to be a distressed
+      customer with an urgent need to regain access to their phone number, especially
+      when the caller provides convincing personal details and creates urgency around the situation.
+    prevention:
+      - mode: educate
+        action: Train cellular customer service staff to recognize SIM swap social engineering and always follow identity verification procedures regardless of urgency claims.
+      - mode: evaluate
+        action: Test customer service resilience with simulated SIM swap attempts using various urgency and pressure scenarios.
+      - mode: monitor
+        action: Implement monitoring for unusual SIM swap requests and track patterns that suggest coordinated social engineering campaigns.
+      - mode: intervene
+        action: Establish enhanced verification requirements for SIM transfers and provide escalation procedures for customer service staff experiencing pressure to bypass security protocols.

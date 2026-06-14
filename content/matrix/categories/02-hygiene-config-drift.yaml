@@ -16,68 +16,396 @@ techniques:
     mitreId: null
     description: A storage bucket is left publicly readable, exposing its contents
       to anyone on the internet.
+    detailedDescription: >-
+      A cloud storage container is inadvertently configured with public read permissions,
+      making all stored files accessible to anyone with the URL. This often happens during
+      rushed deployments, copy-paste configurations, or when developers prioritize
+      functionality over security during testing phases.
+    attackerBehavior: >-
+      Adversaries use automated tools to scan for public buckets across cloud providers,
+      systematically downloading exposed data. They often find credentials, customer data,
+      or source code that enables deeper access into the organization's systems.
+    insiderBehavior: >-
+      The administrator or developer focused on making something work quickly, often
+      unaware that "public read" applies to the entire internet rather than just their
+      organization, or assuming they would remember to fix it later.
+    prevention:
+      - mode: educate
+        action: Train cloud users on permission models and the difference between internal and public access controls.
+      - mode: evaluate
+        action: Run cloud configuration assessments and penetration tests that probe for publicly accessible resources.
+      - mode: monitor
+        action: Deploy cloud security posture management tools that alert on public bucket creation or permission changes.
+      - mode: intervene
+        action: Immediately restrict bucket access when detected and provide gentle coaching on secure configuration practices.
   - id: 2-iam-over-permissioning
     label: IAM over-permissioning
     mitreId: null
     description: Identities are granted broader permissions than they need, widening
       what an attacker gains from any single compromise.
+    detailedDescription: >-
+      Users, services, or roles receive access rights far exceeding their actual job
+      requirements, often because it's easier to grant broad permissions than to determine
+      the minimum necessary access. This violates the principle of least privilege and
+      turns any compromised account into a gateway to excessive organizational resources.
+    attackerBehavior: >-
+      Once an adversary compromises any over-privileged account, they immediately gain
+      access to systems and data far beyond what that user actually needed, accelerating
+      lateral movement and data exfiltration without requiring additional privilege escalation.
+    insiderBehavior: >-
+      The administrator grants broad permissions to avoid future access requests and
+      troubleshooting, or inherits permissions from a role template without reviewing
+      what access is actually required for the specific function.
+    prevention:
+      - mode: educate
+        action: Train administrators on least-privilege principles and how to analyze actual job function requirements.
+      - mode: evaluate
+        action: Conduct access reviews and privilege escalation simulations to test whether current permissions enable unintended access.
+      - mode: monitor
+        action: Use identity governance tools to track permission assignments and flag accounts with unusually broad access patterns.
+      - mode: intervene
+        action: Review over-privileged accounts when detected and work with users to right-size their access without disrupting legitimate work.
   - id: 2-default-unrotated-credentials
     label: Default / unrotated credentials
     mitreId: null
     description: Default or never-rotated passwords and keys stay in use, offering
       an easy, well-known way in.
+    detailedDescription: >-
+      Systems ship with known default credentials or use passwords and keys that are
+      never changed over time, creating predictable attack vectors. Default credentials
+      are often documented publicly, while stale credentials accumulate in shared
+      knowledge or automated tools, making them easy targets for adversaries.
+    attackerBehavior: >-
+      Adversaries scan for devices and services using default credentials from public
+      databases or attempt to access systems with credentials known to be long-unchanged.
+      They often target IoT devices, network equipment, and service accounts with
+      predictable default configurations.
+    insiderBehavior: >-
+      The administrator or user either didn't realize credentials needed changing from
+      defaults, or intended to rotate them later but never found time, or didn't
+      understand that the system was using default rather than generated credentials.
+    prevention:
+      - mode: educate
+        action: Train users to identify default credentials during initial setup and establish rotation schedules for all authentication materials.
+      - mode: evaluate
+        action: Run default credential scans and penetration tests targeting common default username-password combinations.
+      - mode: monitor
+        action: Deploy credential scanning tools that detect default passwords and track credential age across systems.
+      - mode: intervene
+        action: Force immediate credential changes when defaults are detected and provide step-by-step guidance on secure credential generation.
   - id: 2-hardcoded-secrets-in-code
     label: Hardcoded secrets in code
     mitreId: null
     description: API keys or passwords are embedded directly in source code,
       exposing them to anyone who reads the repository.
+    detailedDescription: >-
+      Developers embed sensitive credentials directly into source code files for
+      convenience during development, forgetting they will be visible to anyone with
+      repository access. This practice persists because it eliminates configuration
+      complexity but creates permanent exposure that scales with every person who
+      touches the codebase.
+    attackerBehavior: >-
+      Adversaries search public and internal repositories for credential patterns,
+      using automated tools to scan commit histories where secrets often remain even
+      after being removed from current code. They then use these credentials to access
+      APIs, databases, or third-party services.
+    insiderBehavior: >-
+      The developer needed to test integration quickly and hardcoded credentials as a
+      temporary solution, planning to externalize them later but forgetting in the rush
+      to complete features or during context switches between tasks.
+    prevention:
+      - mode: educate
+        action: Train developers on secure credential management patterns and the risks of embedding secrets in source code.
+      - mode: evaluate
+        action: Run automated secret scanning during code reviews and simulate repository compromise scenarios.
+      - mode: monitor
+        action: Deploy pre-commit hooks and CI/CD secret scanners that prevent credential commits and scan existing repositories.
+      - mode: intervene
+        action: Immediately revoke exposed credentials when detected and guide developers through proper environment variable configuration.
   - id: 2-secrets-pushed-to-public-repository
     label: Secrets pushed to public repository
     mitreId: null
     description: Credentials are committed and pushed to a public repo, where they
       are quickly discovered and abused.
+    detailedDescription: >-
+      Sensitive credentials are accidentally included in commits to public repositories,
+      either through configuration files, environment variable examples, or test data.
+      Once public, these credentials are indexed by search engines and scanning bots,
+      making them discoverable within minutes of being pushed.
+    attackerBehavior: >-
+      Adversaries use automated tools to continuously monitor public repositories for
+      credential patterns, often discovering and exploiting secrets within minutes of
+      their publication. They target both current commits and historical git data where
+      secrets may have been exposed then later removed.
+    insiderBehavior: >-
+      The developer either didn't realize the repository was public, forgot to remove
+      test credentials before committing, or mistakenly included a configuration file
+      that contained production secrets, often while working quickly to meet deadlines.
+    prevention:
+      - mode: educate
+        action: Train developers to verify repository visibility settings and always review commits for sensitive data before pushing.
+      - mode: evaluate
+        action: Simulate repository exposure scenarios and test whether teams can identify and respond to accidental credential disclosure.
+      - mode: monitor
+        action: Use repository monitoring services that scan public commits for exposed credentials and alert immediately upon detection.
+      - mode: intervene
+        action: Immediately revoke exposed credentials and guide developers through proper secret removal from git history and future prevention.
   - id: 2-api-keys-in-client-side-code
     label: API keys in client-side code
     mitreId: null
     description: Secrets shipped in browser or client code are visible to any user
       and can be extracted and reused.
+    detailedDescription: >-
+      API keys or other credentials are embedded in JavaScript, mobile apps, or other
+      client-side code where they must be transmitted to end users. Since client code
+      is inherently accessible to anyone who receives it, any embedded secrets become
+      effectively public, regardless of obfuscation attempts.
+    attackerBehavior: >-
+      Adversaries examine client-side code through browser developer tools, mobile app
+      reverse engineering, or static analysis to extract embedded credentials. They
+      then use these credentials to access APIs directly, often exceeding rate limits
+      or accessing unauthorized endpoints.
+    insiderBehavior: >-
+      The developer needed to integrate with an external API and either didn't understand
+      the difference between client-side and server-side contexts, or chose convenience
+      over security architecture, believing that obfuscation would provide adequate protection.
+    prevention:
+      - mode: educate
+        action: Train developers on the fundamental difference between client-side and server-side contexts and secure API integration patterns.
+      - mode: evaluate
+        action: Conduct code reviews and penetration tests that specifically target client applications for embedded credentials.
+      - mode: monitor
+        action: Use static analysis tools to scan client-side code for credential patterns and monitor API usage for suspicious patterns.
+      - mode: intervene
+        action: Immediately revoke exposed API keys and architect proper server-side proxy patterns to eliminate client-side credential requirements.
   - id: 2-exposed-database-snapshot-no-auth
     label: Exposed database / snapshot (no auth)
     mitreId: null
     description: A database or its snapshot is reachable without authentication,
       exposing all its records.
+    detailedDescription: >-
+      Database instances or their exported snapshots are configured without proper
+      authentication controls, making them accessible to anyone who can reach the
+      network endpoint. This often occurs during development, testing, or migration
+      activities where convenience takes precedence over access controls.
+    attackerBehavior: >-
+      Adversaries scan network ranges for database ports and test for unauthenticated
+      access, often using automated tools to identify exposed instances. Once discovered,
+      they can directly query, download, or modify the entire database contents without
+      any credential requirements.
+    insiderBehavior: >-
+      The administrator or developer disabled authentication temporarily for testing or
+      troubleshooting purposes, or copied a production database to a development environment
+      without realizing the access controls didn't transfer with the data.
+    prevention:
+      - mode: educate
+        action: Train database administrators on secure configuration defaults and the importance of authentication even in development environments.
+      - mode: evaluate
+        action: Run network scans and database security assessments to identify unauthenticated database instances across all environments.
+      - mode: monitor
+        action: Deploy network monitoring tools that detect database services without proper authentication and track database access patterns.
+      - mode: intervene
+        action: Immediately enable authentication on exposed databases and provide guidance on secure database configuration practices.
   - id: 2-backup-left-exposed
     label: Backup left exposed
     mitreId: null
     description: A backup is stored without access controls, exposing a full copy of
       the protected data.
+    detailedDescription: >-
+      Backup files containing complete copies of sensitive databases or filesystems
+      are stored in locations without proper access controls, often in cloud storage,
+      shared drives, or temporary locations. Since backups typically contain historical
+      data spanning long periods, their exposure can reveal information across the
+      entire organizational timeline.
+    attackerBehavior: >-
+      Adversaries search for backup files in predictable locations like cloud storage,
+      file shares, or backup directories, often finding unencrypted archives that
+      provide complete datasets without requiring access to production systems. They
+      particularly target database dumps and filesystem archives.
+    insiderBehavior: >-
+      The administrator created the backup for legitimate purposes like system migration
+      or disaster recovery testing, but stored it in a convenient location without
+      considering long-term access controls, or forgot to clean up temporary backup
+      files after completing the task.
+    prevention:
+      - mode: educate
+        action: Train backup operators on secure storage practices and the importance of encryption and access controls for backup media.
+      - mode: evaluate
+        action: Conduct backup security assessments and test whether backup files can be accessed without proper authorization.
+      - mode: monitor
+        action: Use data discovery tools to scan for backup files in unexpected locations and monitor backup storage access patterns.
+      - mode: intervene
+        action: Immediately secure or remove exposed backups and establish proper backup retention and access control policies.
   - id: 2-sensitive-data-in-logs
     label: Sensitive data in logs
     mitreId: null
     description: Secrets or personal data are written to logs, where they persist
       and reach more readers than intended.
+    detailedDescription: >-
+      Applications inadvertently log sensitive information like passwords, API keys,
+      personal data, or confidential business information that should never be recorded.
+      This happens through overly verbose logging, error handling that exposes request
+      contents, or debugging code left in production, creating persistent exposure
+      across log retention periods.
+    attackerBehavior: >-
+      Adversaries who gain access to log files or centralized logging systems can
+      extract credentials and sensitive data spanning long time periods. They often
+      search log aggregation platforms for patterns indicating passwords, tokens, or
+      personal information that can be used for further attacks.
+    insiderBehavior: >-
+      The developer enabled detailed logging to troubleshoot an issue or left debug
+      statements that log request/response data, not realizing that logs are read by
+      many more people than the application itself and persist far longer than intended.
+    prevention:
+      - mode: educate
+        action: Train developers on data classification and what types of information should never appear in log files.
+      - mode: evaluate
+        action: Run log analysis and penetration tests to identify sensitive data exposure in existing log streams.
+      - mode: monitor
+        action: Deploy log scanning tools that detect patterns indicating sensitive data and monitor log access for unusual activity.
+      - mode: intervene
+        action: Immediately remove sensitive data from active logs and implement filtering to prevent future exposure.
   - id: 2-stack-traces-leaking-internal-info
     label: Stack traces leaking internal info
     mitreId: null
     description: Error pages or stack traces reveal internal paths, versions, or
       data that help an attacker.
+    detailedDescription: >-
+      Application error handlers display detailed stack traces or debugging information
+      to end users, revealing internal system architecture, file paths, database
+      connection strings, software versions, or even sensitive data from variables.
+      This information helps adversaries understand the system structure and identify
+      additional attack vectors.
+    attackerBehavior: >-
+      Adversaries intentionally trigger application errors to gather intelligence
+      about the system architecture, technology stack, internal file structures, and
+      potential vulnerabilities revealed through version information or configuration
+      details exposed in stack traces.
+    insiderBehavior: >-
+      The developer left detailed error reporting enabled for easier debugging during
+      development, or configured the application to show full stack traces to help
+      with troubleshooting without realizing this information would be visible to
+      end users in production.
+    prevention:
+      - mode: educate
+        action: Train developers on proper error handling that logs detailed information server-side while showing generic messages to users.
+      - mode: evaluate
+        action: Run application security tests that trigger various error conditions to assess information disclosure in error responses.
+      - mode: monitor
+        action: Monitor error logs for unusual patterns that might indicate error-based reconnaissance attempts.
+      - mode: intervene
+        action: Immediately configure generic error pages for production and ensure detailed error information is only logged server-side.
   - id: 2-tls-certificate-misconfiguration
     label: TLS / certificate misconfiguration
     mitreId: null
     description: Weak, expired, or misconfigured TLS undermines transport security
       and can enable interception.
+    detailedDescription: >-
+      TLS implementations use weak cipher suites, expired certificates, improper
+      certificate validation, or insecure configuration that allows downgrade attacks
+      or man-in-the-middle interception. This often results from using default
+      configurations, failing to update certificate management processes, or
+      prioritizing compatibility over security.
+    attackerBehavior: >-
+      Adversaries exploit weak TLS configurations to intercept communications through
+      man-in-the-middle attacks, certificate impersonation, or protocol downgrade
+      attacks that force connections to use weaker encryption or no encryption at all.
+    insiderBehavior: >-
+      The administrator configured TLS quickly to meet a deadline, used default settings
+      for maximum compatibility, or didn't establish proper certificate renewal processes,
+      often not fully understanding the security implications of the chosen configuration.
+    prevention:
+      - mode: educate
+        action: Train system administrators on TLS best practices, proper cipher suite selection, and certificate lifecycle management.
+      - mode: evaluate
+        action: Run TLS configuration assessments and penetration tests that attempt protocol downgrade and certificate validation bypass.
+      - mode: monitor
+        action: Deploy certificate monitoring tools that track expiration dates and scan for weak TLS configurations across all endpoints.
+      - mode: intervene
+        action: Immediately update weak TLS configurations and implement automated certificate renewal processes to prevent future issues.
   - id: 2-shadow-infrastructure-forgotten-environments
     label: Shadow infrastructure / forgotten environments
     mitreId: null
     description: Unmanaged or forgotten servers run without patching or monitoring,
       becoming soft targets.
+    detailedDescription: >-
+      Systems deployed for temporary projects, testing, or proof-of-concepts remain
+      running but fall outside normal management processes, accumulating security
+      debt over time. These "ghost" systems often retain access to production networks
+      or data but receive no security updates, monitoring, or oversight, making them
+      ideal entry points for adversaries.
+    attackerBehavior: >-
+      Adversaries specifically target these forgotten systems because they typically
+      have outdated software, weak credentials, and minimal monitoring, providing a
+      low-risk entry point into otherwise well-defended networks. They often discover
+      these systems through network scanning or DNS enumeration.
+    insiderBehavior: >-
+      The administrator deployed the system for a specific short-term need or experimental
+      project, intending to decommission it later but forgetting about it as priorities
+      shifted, or assuming someone else would handle the cleanup.
+    prevention:
+      - mode: educate
+        action: Train teams on infrastructure lifecycle management and the importance of formal decommissioning processes for temporary systems.
+      - mode: evaluate
+        action: Conduct regular network discovery and penetration tests to identify unmanaged systems and assess their security posture.
+      - mode: monitor
+        action: Deploy network discovery tools that maintain inventory of all systems and alert when unregistered infrastructure appears.
+      - mode: intervene
+        action: Immediately bring forgotten systems under management or securely decommission them, then establish regular infrastructure audits.
   - id: 2-unmaintained-dependencies-no-sbom
     label: Unmaintained dependencies / no SBOM
     mitreId: null
     description: Outdated dependencies with no software bill of materials carry
       known vulnerabilities no one is tracking.
+    detailedDescription: >-
+      Applications rely on third-party libraries and components that are never updated
+      or inventoried, creating blind spots where known vulnerabilities accumulate
+      undetected. Without a software bill of materials (SBOM), organizations cannot
+      assess their exposure when new vulnerabilities are disclosed in common dependencies.
+    attackerBehavior: >-
+      Adversaries target applications using known vulnerable dependencies, often
+      through automated scanning that identifies outdated libraries with published
+      exploits. They focus on widely-used libraries where a single vulnerability
+      affects numerous targets across the ecosystem.
+    insiderBehavior: >-
+      The developer included dependencies during initial development but never established
+      update processes, or avoided updates to prevent breaking changes, not realizing
+      that outdated components were accumulating serious security vulnerabilities over time.
+    prevention:
+      - mode: educate
+        action: Train developers on dependency management practices and the importance of maintaining current software bills of materials.
+      - mode: evaluate
+        action: Run dependency vulnerability scans and penetration tests that target known vulnerabilities in outdated components.
+      - mode: monitor
+        action: Deploy software composition analysis tools that track dependencies and alert when vulnerable components are detected.
+      - mode: intervene
+        action: Immediately update vulnerable dependencies when detected and establish regular dependency review cycles.
   - id: 2-insecure-credential-sharing
     label: Insecure Credential Sharing
     mitreId: null
     description: Credentials are shared over chat, email, or spreadsheets,
       multiplying exposure and removing accountability.
+    detailedDescription: >-
+      Passwords, API keys, and other credentials are transmitted through insecure
+      channels like email, chat systems, or shared documents, where they persist
+      in multiple locations and become accessible to far more people than intended.
+      This practice eliminates the ability to track who has access to specific
+      credentials and when they were used.
+    attackerBehavior: >-
+      Adversaries who compromise email accounts, chat systems, or shared drives gain
+      access to credentials that were transmitted through these channels, often
+      finding archived messages or documents containing multiple sets of credentials
+      from various time periods.
+    insiderBehavior: >-
+      The user needed to share access quickly and chose the most convenient communication
+      method available, not considering that these channels aren't designed for sensitive
+      information and that the credentials would persist in logs, archives, and backups.
+    prevention:
+      - mode: educate
+        action: Train users on secure credential sharing tools and the risks of using general communication channels for sensitive information.
+      - mode: evaluate
+        action: Run social engineering simulations and communication audits to identify instances of credential sharing through inappropriate channels.
+      - mode: monitor
+        action: Deploy data loss prevention tools that detect credential patterns in email and chat systems and flag inappropriate sharing.
+      - mode: intervene
+        action: Immediately revoke credentials shared through insecure channels and guide users to proper credential management tools.

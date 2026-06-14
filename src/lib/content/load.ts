@@ -6,6 +6,7 @@ import { z } from "zod";
 import { parse as parseYaml } from "yaml";
 
 import {
+  COUNTERMEASURE_MODES,
   FrameworkSchema,
   InsiderCategorySchema,
   IntentDegreeSchema,
@@ -161,6 +162,11 @@ function checkCrossReferences(bundle: ContentBundle, errors: string[]): void {
         errors.push(`category ${cat.id}: duplicate technique label "${tech.label}"`);
       }
       labels.add(tech.label);
+      const modes = new Set(tech.prevention.map((c) => c.mode));
+      const missing = COUNTERMEASURE_MODES.filter((mode) => !modes.has(mode));
+      if (missing.length > 0) {
+        errors.push(`technique "${tech.id}": prevention is missing mode(s): ${missing.join(", ")}`);
+      }
     }
   }
 }

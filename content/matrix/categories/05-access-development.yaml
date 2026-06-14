@@ -15,62 +15,383 @@ techniques:
     mitreId: null
     description: An adversary builds a trusted relationship with a target slowly,
       over months, to develop access.
+    detailedDescription: >-
+      A patient relationship-building process where adversaries invest months or years
+      establishing authentic-seeming personal or professional bonds with targets before
+      attempting to leverage the relationship. The technique exploits the human tendency
+      to lower guard with familiar, trusted contacts and to reciprocate kindness and
+      attention over time.
+    attackerBehavior: >-
+      The adversary identifies high-value targets and maps their interests, vulnerabilities,
+      and social circles, then approaches with genuine-seeming shared interests or mutual
+      connections, building rapport through consistent, helpful interactions before
+      gradually introducing requests or opportunities that serve their objectives.
+    insiderBehavior: >-
+      The target experiences what feels like an organic friendship or mentorship,
+      appreciating the attentive relationship and wanting to reciprocate the kindness
+      they have received, making them more willing to help or share when asked.
+    prevention:
+      - mode: educate
+        action: Train employees to recognize relationship cultivation patterns and maintain healthy skepticism about new contacts who show excessive interest.
+      - mode: evaluate
+        action: Conduct controlled cultivation simulations against high-value personnel to test their resistance to relationship-building approaches.
+      - mode: monitor
+        action: Track patterns in employee social contacts and flag unusual relationship development velocity or targeting of specific roles.
+      - mode: intervene
+        action: Provide clear reporting channels for suspicious relationship approaches and coach employees on maintaining professional boundaries with new contacts.
   - id: 5-pig-butchering-romance
     label: Pig butchering / romance
     mitreId: null
     description: A long con built on a fabricated romantic or investment
       relationship to extract money or access.
+    detailedDescription: >-
+      A sophisticated emotional manipulation campaign where adversaries create fake romantic
+      or investment mentor personas to build deep emotional bonds over time before exploiting
+      the target's trust for financial gain or access to sensitive information. The technique
+      leverages isolation, emotional needs, and the gradual escalation of trust and intimacy.
+    attackerBehavior: >-
+      The adversary develops an attractive online persona with compelling backstory, targets
+      individuals showing loneliness or financial stress, builds emotional dependency through
+      constant attention and apparent care, then introduces investment opportunities or access
+      requests that seem like natural extensions of the relationship.
+    insiderBehavior: >-
+      The target feels genuine emotional connection and gratitude for the attention and care,
+      viewing requests for help or investment as natural parts of a loving relationship
+      rather than exploitation, often dismissing warning signs due to emotional investment.
+    prevention:
+      - mode: educate
+        action: Raise awareness about romance scams and emotional manipulation tactics, emphasizing how genuine relationships develop versus manufactured ones.
+      - mode: evaluate
+        action: Run social engineering simulations that test susceptibility to relationship-based manipulation and financial lures.
+      - mode: monitor
+        action: Watch for behavioral indicators of employees in manipulative relationships, including sudden financial stress or secretive online activity.
+      - mode: intervene
+        action: Create safe reporting mechanisms for suspected romance scams and provide counseling resources for emotionally compromised employees.
   - id: 5-operation-dream-job
     label: Operation Dream Job
     mitreId: T1566.003
     description: Targets are lured with fake, attractive job offers that deliver
       malware or elicit access during 'recruitment'.
+    detailedDescription: >-
+      A sophisticated recruitment lure where adversaries craft compelling fake job
+      opportunities targeting specific individuals or roles, using the recruitment process
+      as cover to deliver malware, steal credentials, or gather intelligence. The technique
+      exploits career ambition and the normal expectation of sharing professional information
+      during legitimate hiring processes.
+    attackerBehavior: >-
+      The adversary researches target companies and individuals to create tailored job
+      postings that match career aspirations, impersonates legitimate recruiters or companies,
+      and uses the multi-step recruitment process to gradually escalate information requests
+      and malware delivery through seemingly normal interactions.
+    insiderBehavior: >-
+      The target feels excited about career advancement opportunities and follows normal
+      recruitment protocols like downloading job descriptions, completing assessments,
+      or sharing professional credentials, not recognizing the malicious intent behind
+      otherwise standard requests.
+    prevention:
+      - mode: educate
+        action: Train employees to verify recruiter identities through independent channels and recognize suspicious recruitment tactics.
+      - mode: evaluate
+        action: Test employee response to fake recruitment approaches that attempt to deliver malware or harvest credentials.
+      - mode: monitor
+        action: Monitor for unusual file downloads, credential use, or information sharing patterns that could indicate recruitment-based targeting.
+      - mode: intervene
+        action: Establish verification procedures for unexpected recruitment contact and provide guidance on safely engaging with legitimate opportunities.
   - id: 5-contagious-interview
     label: Contagious Interview
     mitreId: null
     description: Fake interview processes get developers to run attacker-supplied
       code or tasks that compromise them.
+    detailedDescription: >-
+      A targeted attack against developers and technical professionals where adversaries
+      conduct fake technical interviews requiring candidates to download, review, or execute
+      malicious code disguised as coding challenges or technical assessments. The technique
+      exploits the normal expectation that technical interviews involve hands-on coding
+      and the professional desire to demonstrate competence.
+    attackerBehavior: >-
+      The adversary targets developers at specific companies, creates realistic job postings
+      and interview processes, then provides coding challenges or technical tasks that contain
+      malware or backdoors, often requesting screen sharing to observe the target's environment
+      and gather additional intelligence during the "interview."
+    insiderBehavior: >-
+      The developer treats the interview as a legitimate career opportunity, downloads and
+      runs the provided code to demonstrate their skills, shares their screen to walk through
+      their solution, and focuses on proving technical competence rather than questioning
+      the authenticity of the process.
+    prevention:
+      - mode: educate
+        action: Train technical staff to verify interview legitimacy and use isolated environments for any code evaluation during external interviews.
+      - mode: evaluate
+        action: Simulate fake technical interviews against development teams to test their security awareness during recruitment processes.
+      - mode: monitor
+        action: Monitor developer workstations for unusual code execution patterns and track external interview activities that involve code sharing.
+      - mode: intervene
+        action: Establish policies for external interview participation and provide secure environments for legitimate technical assessments.
   - id: 5-talent-program-exploitation
     label: Talent program exploitation
     mitreId: null
     description: Recruiting, fellowship, or talent programs are used as a pretext to
       cultivate insiders.
+    detailedDescription: >-
+      A cultivation approach where adversaries create or infiltrate legitimate-seeming
+      talent development programs, fellowships, or recruiting initiatives to identify
+      and build relationships with high-potential individuals who may later provide
+      valuable access or information. The technique leverages career development aspirations
+      and the prestigious appeal of selective programs.
+    attackerBehavior: >-
+      The adversary establishes fake talent programs or compromises legitimate ones,
+      targets high-potential individuals in key organizations, uses the program structure
+      to justify ongoing contact and information gathering, and gradually builds influence
+      and access through mentorship or networking relationships.
+    insiderBehavior: >-
+      The target feels honored to be selected for a prestigious opportunity, engages
+      enthusiastically with program activities and networking, shares professional
+      background and aspirations freely, and maintains ongoing contact with program
+      organizers and fellow participants.
+    prevention:
+      - mode: educate
+        action: Educate employees about vetting external talent programs and maintaining appropriate information boundaries even in prestigious opportunities.
+      - mode: evaluate
+        action: Test employee response to fake talent program invitations that attempt to gather sensitive professional information.
+      - mode: monitor
+        action: Track employee participation in external programs and watch for unusual information sharing or relationship patterns.
+      - mode: intervene
+        action: Require approval for participation in external talent programs and provide guidance on safe engagement with development opportunities.
   - id: 5-academic-collaboration-cultivation
     label: Academic collaboration cultivation
     mitreId: null
     description: A research collaboration is used as cover to build trust and draw
       out sensitive work.
+    detailedDescription: >-
+      A technique where adversaries pose as academic researchers or infiltrate legitimate
+      research collaborations to build trusted relationships with targets working on
+      sensitive projects. The approach exploits the academic culture of open collaboration
+      and information sharing, using research interests as a natural conversation starter
+      and trust-building mechanism.
+    attackerBehavior: >-
+      The adversary identifies researchers working on sensitive topics, approaches with
+      complementary research interests or collaboration proposals, builds credibility
+      through seemingly legitimate academic credentials and publications, then uses
+      the collaboration to gather intelligence about ongoing work and organizational details.
+    insiderBehavior: >-
+      The target researcher feels excited about potential collaboration opportunities,
+      shares research interests and preliminary findings openly as part of normal academic
+      discourse, and develops collegial relationships that make information sharing feel
+      natural and beneficial to their work.
+    prevention:
+      - mode: educate
+        action: Train researchers to verify academic collaborator credentials and maintain appropriate information boundaries in early collaboration phases.
+      - mode: evaluate
+        action: Test researcher response to fake collaboration proposals that attempt to elicit sensitive research or organizational information.
+      - mode: monitor
+        action: Track external research collaborations and monitor for unusual information sharing patterns or targeting of specific research areas.
+      - mode: intervene
+        action: Establish approval processes for new external research collaborations and provide guidance on protecting sensitive research information.
   - id: 5-fake-vendor-onboarding
     label: Fake vendor onboarding
     mitreId: null
     description: A bogus vendor relationship is established to gain
       legitimate-looking access and contact.
+    detailedDescription: >-
+      An infiltration technique where adversaries create fake companies or compromise
+      legitimate vendors to establish business relationships that provide ongoing access
+      to target organizations. The approach exploits normal business development processes
+      and the expectation that vendor relationships require regular contact and information
+      sharing.
+    attackerBehavior: >-
+      The adversary creates realistic company facades with professional websites and
+      credentials, targets organizations through normal business channels, uses the vendor
+      onboarding process to gather organizational intelligence, then leverages the established
+      business relationship to maintain contact and access over time.
+    insiderBehavior: >-
+      The target treats interactions as normal business development, follows standard
+      vendor onboarding procedures, shares organizational information as part of legitimate
+      business evaluation, and maintains ongoing contact that feels like routine vendor
+      relationship management.
+    prevention:
+      - mode: educate
+        action: Train procurement and business development teams to thoroughly vet new vendors and verify business legitimacy through multiple channels.
+      - mode: evaluate
+        action: Test vendor onboarding processes with fake companies that attempt to gather excessive organizational information.
+      - mode: monitor
+        action: Monitor vendor relationships for unusual information requests or access patterns that exceed normal business needs.
+      - mode: intervene
+        action: Implement robust vendor verification procedures and limit information sharing during initial vendor evaluation phases.
   - id: 5-conference-panel-invite-lures
     label: Conference / panel invite lures
     mitreId: null
     description: Speaking or panel invitations create rapport and a pretext for
       ongoing contact.
+    detailedDescription: >-
+      A prestige-based approach where adversaries create fake conferences or speaking
+      opportunities to build relationships with targets and establish ongoing communication
+      channels. The technique exploits professional ego, the desire for industry recognition,
+      and the networking expectations that surround legitimate speaking engagements.
+    attackerBehavior: >-
+      The adversary creates realistic conference invitations targeting subject matter experts,
+      uses the speaking opportunity to justify detailed background research and ongoing
+      communication, builds rapport through the planning process, then leverages the
+      relationship for intelligence gathering or future access opportunities.
+    insiderBehavior: >-
+      The target feels flattered by the speaking invitation and recognition of their
+      expertise, engages enthusiastically in planning discussions, shares professional
+      background and current work to prepare relevant presentations, and maintains
+      contact with organizers as part of normal conference relationships.
+    prevention:
+      - mode: educate
+        action: Train employees to verify conference legitimacy and speaking opportunity authenticity before sharing detailed professional information.
+      - mode: evaluate
+        action: Test employee response to fake conference invitations that attempt to gather professional background and current project information.
+      - mode: monitor
+        action: Track external speaking engagements and monitor for unusual information sharing patterns during conference planning.
+      - mode: intervene
+        action: Establish approval processes for external speaking opportunities and provide guidance on safe information sharing with event organizers.
   - id: 5-honey-trap-cultivation-phase
     label: Honey trap (cultivation phase)
     mitreId: null
     description: A romantic or personal relationship is engineered to build access
       and future leverage.
+    detailedDescription: >-
+      The relationship-building phase of a honey trap operation where adversaries use
+      romantic or intimate relationships to cultivate access and develop leverage over
+      targets before exploitation. The technique exploits emotional vulnerability, physical
+      attraction, and the natural tendency to share personal and professional information
+      with romantic partners.
+    attackerBehavior: >-
+      The adversary identifies targets with access to valuable information, approaches
+      through dating platforms or social situations, builds genuine-seeming romantic
+      relationships while gathering intelligence about the target's work and personal
+      vulnerabilities, preparing for future exploitation or leverage.
+    insiderBehavior: >-
+      The target experiences what feels like a natural romantic connection, shares personal
+      and professional details as part of normal relationship development, lowers security
+      awareness due to emotional investment, and gradually increases trust and intimacy
+      without recognizing the manipulative intent.
+    prevention:
+      - mode: educate
+        action: Raise awareness about honey trap tactics and the security risks of sharing professional information in personal relationships.
+      - mode: evaluate
+        action: Conduct controlled integrity assessments that test susceptibility to relationship-based manipulation and information elicitation.
+      - mode: monitor
+        action: Watch for behavioral changes in high-value personnel that could indicate romantic manipulation or emotional compromise.
+      - mode: intervene
+        action: Provide confidential counseling resources for employees experiencing suspicious relationship pressure and establish clear reporting channels.
   - id: 5-sockpuppet-network-grooming
     label: Sockpuppet network grooming
     mitreId: T1585
     description: Coordinated fake personas befriend and groom a target across platforms.
+    detailedDescription: >-
+      A sophisticated social engineering campaign where adversaries create multiple
+      interconnected fake online personas that independently befriend and interact with
+      targets across different platforms and contexts. The technique builds credibility
+      through apparent social proof while creating multiple channels for influence and
+      information gathering.
+    attackerBehavior: >-
+      The adversary creates a network of realistic fake personas with established social
+      media histories, coordinates these personas to naturally encounter and befriend
+      the target across multiple platforms, uses the network to reinforce narratives
+      and create apparent consensus, then leverages multiple relationships for intelligence
+      and influence.
+    insiderBehavior: >-
+      The target builds what appear to be organic friendships with different people
+      across various platforms, feels validated by the apparent interest and agreement
+      from multiple sources, shares information freely across these relationships without
+      recognizing they are all controlled by the same adversary.
+    prevention:
+      - mode: educate
+        action: Train employees to recognize coordinated fake persona campaigns and unusual patterns in online social connections.
+      - mode: evaluate
+        action: Simulate sockpuppet network approaches against personnel to test their ability to identify coordinated manipulation.
+      - mode: monitor
+        action: Monitor employee social media interactions for unusual relationship patterns or coordinated contact from multiple suspicious accounts.
+      - mode: intervene
+        action: Provide tools and guidance for verifying online contact authenticity and establish reporting procedures for suspected sockpuppet campaigns.
   - id: 5-cooptation-ideological-drift
     label: Cooptation (ideological drift)
     mitreId: null
     description: A target is gradually drawn toward an adversary's cause until they
       cooperate by conviction.
+    detailedDescription: >-
+      A long-term influence campaign where adversaries gradually shift a target's political
+      or ideological beliefs toward positions that align with adversary interests, creating
+      willing cooperation based on genuine conviction rather than deception or coercion.
+      The technique exploits cognitive biases, social identity, and the gradual nature
+      of belief change over time.
+    attackerBehavior: >-
+      The adversary identifies individuals with malleable beliefs or existing grievances,
+      slowly introduces aligned perspectives through trusted sources or peer networks,
+      reinforces new beliefs through carefully curated information and social feedback,
+      then guides the target toward actions that serve adversary objectives.
+    insiderBehavior: >-
+      The target experiences what feels like natural intellectual growth and conviction
+      development, adopts new perspectives that seem reasonable and well-supported,
+      feels motivated to act on their evolving beliefs, and genuinely believes their
+      actions are morally justified and personally chosen.
+    prevention:
+      - mode: educate
+        action: Build awareness of gradual influence techniques and encourage critical thinking about evolving political or ideological perspectives.
+      - mode: evaluate
+        action: Assess organizational resilience to ideological influence campaigns through controlled exposure to persuasive content.
+      - mode: monitor
+        action: Watch for sudden ideological shifts in employees, particularly those with access to sensitive information or systems.
+      - mode: intervene
+        action: Provide counseling and perspective-broadening resources for employees showing signs of ideological manipulation or radicalization.
   - id: 5-mutual-contact-referral-seed
     label: Mutual-contact / referral seed
     mitreId: null
     description: A shared acquaintance or warm referral is used to manufacture
       instant credibility.
+    detailedDescription: >-
+      A trust-building technique where adversaries leverage genuine or manufactured
+      connections to mutual acquaintances to gain immediate credibility with targets.
+      The approach exploits the natural tendency to extend trust to those recommended
+      by trusted contacts and the social proof provided by apparent shared connections.
+    attackerBehavior: >-
+      The adversary identifies key relationships around the target, either cultivates
+      genuine relationships with mutual contacts or creates fake connections, then
+      approaches the target with the referral or mutual connection as credentials,
+      using the borrowed trust to accelerate relationship development and access.
+    insiderBehavior: >-
+      The target feels comfortable engaging with the new contact because of the trusted
+      referral source, lowers normal verification and skepticism barriers, treats
+      the interaction as pre-validated by the mutual connection, and engages more
+      openly than they would with a cold contact.
+    prevention:
+      - mode: educate
+        action: Train employees to independently verify new contacts even when introduced through trusted referrals and mutual connections.
+      - mode: evaluate
+        action: Test employee security awareness by using fake referrals from compromised or manipulated mutual contacts.
+      - mode: monitor
+        action: Track unusual patterns in employee networking and referral-based contact development, especially around sensitive roles.
+      - mode: intervene
+        action: Establish verification procedures for referral-based business contacts and provide guidance on confirming referral authenticity.
   - id: 5-narrative-laundering
     label: Narrative laundering
     mitreId: null
     description: A false narrative is seeded through seemingly independent channels
       to shape a target's beliefs and actions.
+    detailedDescription: >-
+      A sophisticated influence operation where adversaries plant false or misleading
+      narratives through multiple seemingly independent sources to create apparent
+      consensus and credibility around information designed to influence target behavior.
+      The technique exploits confirmation bias and the tendency to believe information
+      that appears corroborated by multiple sources.
+    attackerBehavior: >-
+      The adversary creates or controls multiple information channels including blogs,
+      social media accounts, and media contacts, coordinates the release of consistent
+      false narratives across these channels to create apparent independent verification,
+      then targets specific individuals who encounter the narrative from multiple sources.
+    insiderBehavior: >-
+      The target encounters the false narrative through various trusted information
+      sources, gains confidence in its accuracy through apparent corroboration, incorporates
+      the narrative into their understanding of events, and makes decisions based on
+      the false information while believing they are well-informed.
+    prevention:
+      - mode: educate
+        action: Train employees to recognize coordinated information campaigns and verify narrative sources independently before making decisions.
+      - mode: evaluate
+        action: Test organizational susceptibility to false narrative campaigns by tracking how manufactured stories spread and influence decision-making.
+      - mode: monitor
+        action: Monitor information consumption patterns and watch for coordinated narrative campaigns targeting organizational personnel.
+      - mode: intervene
+        action: Provide media literacy training and establish procedures for verifying information that influences organizational decisions.

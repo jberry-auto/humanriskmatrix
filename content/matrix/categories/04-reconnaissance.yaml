@@ -11,58 +11,322 @@ techniques:
     mitreId: T1591.004
     description: An adversary reconstructs the org chart and reporting lines from
       LinkedIn to target the right people.
+    detailedDescription: >-
+      By systematically collecting employee profiles, job titles, and connection patterns on
+      LinkedIn, an adversary maps the organizational hierarchy and identifies key personnel.
+      This intelligence reveals who has authority over what, who reports to whom, and which
+      individuals would be most valuable to target for specific types of access or information.
+    attackerBehavior: >-
+      The adversary systematically crawls LinkedIn profiles of organization employees, noting
+      titles, departments, tenure, and mutual connections to reconstruct reporting structures
+      and identify high-value targets for social engineering or credential theft campaigns.
+    insiderBehavior: >-
+      Employees maintain detailed professional profiles to network and advance their careers,
+      openly sharing their role, responsibilities, team structure, and professional relationships
+      without realizing how this data can be weaponized against their organization.
+    prevention:
+      - mode: educate
+        action: Train employees on limiting professional profile details and understanding how organizational information can be aggregated for targeting.
+      - mode: evaluate
+        action: Conduct reconnaissance simulations to test how much organizational intelligence can be gathered from public profiles.
+      - mode: monitor
+        action: Monitor for unusual profile viewing patterns and track employee reports of suspicious LinkedIn contact attempts.
+      - mode: intervene
+        action: Provide employees with guidelines for appropriate professional profile content and coach on recognizing targeting attempts.
   - id: 4-github-code-secret-mining
     label: GitHub code & secret mining
     mitreId: T1593.003
     description: Public repositories are mined for code, infrastructure details, and
       leaked secrets.
+    detailedDescription: >-
+      Developers often commit code containing hardcoded credentials, configuration details,
+      internal URLs, and architectural information to public repositories. Adversaries
+      systematically scan these repos using automated tools to extract sensitive data that
+      reveals system internals, provides access credentials, or exposes attack surfaces.
+    attackerBehavior: >-
+      The adversary uses automated scanning tools to search public repositories for patterns
+      indicating secrets (API keys, passwords, database strings), then correlates findings
+      with other intelligence to map the target's infrastructure and identify entry points.
+    insiderBehavior: >-
+      Developers focus on functionality and collaboration, committing code with embedded
+      credentials or sensitive configuration details without realizing these repositories
+      are publicly searchable and that such information provides adversaries with direct access.
+    prevention:
+      - mode: educate
+        action: Train developers on secure coding practices and the risks of committing sensitive information to public repositories.
+      - mode: evaluate
+        action: Run regular automated scans of public repositories to test what sensitive information is being exposed.
+      - mode: monitor
+        action: Implement pre-commit hooks and continuous monitoring for secrets in code repositories and track public exposure incidents.
+      - mode: intervene
+        action: Immediately rotate any exposed credentials and provide targeted coaching when sensitive information is found in public repos.
   - id: 4-social-media-profiling
     label: Social media profiling
     mitreId: T1593.001
     description: Personal and professional social media is harvested to profile
       targets and craft tailored lures.
+    detailedDescription: >-
+      Social media platforms provide rich behavioral and personal data that adversaries
+      systematically collect to build detailed psychological profiles of targets. This
+      intelligence enables highly personalized social engineering attacks by revealing
+      interests, relationships, travel patterns, political views, and emotional triggers.
+    attackerBehavior: >-
+      The adversary systematically harvests social media data to identify personal interests,
+      family relationships, travel schedules, and behavioral patterns, then uses this
+      intelligence to craft convincing pretexts and build rapport in social engineering attacks.
+    insiderBehavior: >-
+      Employees share personal updates, photos, opinions, and life events to connect with
+      friends and professional networks, not realizing how this aggregate data can be used
+      to manipulate them or predict their behavior during targeted attacks.
+    prevention:
+      - mode: educate
+        action: Train employees on privacy settings and the risks of oversharing personal information that can be used for targeting.
+      - mode: evaluate
+        action: Conduct social media reconnaissance exercises to demonstrate how much personal intelligence can be gathered from public profiles.
+      - mode: monitor
+        action: Track employee reports of suspicious social media contact attempts and monitor for signs of employees being researched or profiled.
+      - mode: intervene
+        action: Provide privacy settings guidance and coach employees when they report suspicious social media interactions or targeting attempts.
   - id: 4-job-posting-analysis
     label: Job-posting analysis
     mitreId: T1591
     description: Job ads reveal the tech stack, tools, and teams, mapping the
       environment for an attacker.
+    detailedDescription: >-
+      Job postings unintentionally reveal detailed technical infrastructure, security
+      tools, organizational structure, and operational priorities. By analyzing requirements
+      and qualifications across multiple postings, adversaries can map the target's
+      technology environment and identify specific systems to target or expertise gaps to exploit.
+    attackerBehavior: >-
+      The adversary systematically analyzes job postings to identify specific technologies,
+      security tools, and skill gaps, then uses this intelligence to tailor attacks against
+      known systems or to pose as consultants offering expertise in areas where the organization is hiring.
+    insiderBehavior: >-
+      HR and hiring managers write detailed job descriptions to attract qualified candidates,
+      including specific technologies, tools, and access requirements without considering how
+      this technical inventory can be used to map their organization's infrastructure.
+    prevention:
+      - mode: educate
+        action: Train hiring teams to limit technical specificity in job postings and understand how detailed requirements can reveal infrastructure.
+      - mode: evaluate
+        action: Conduct reviews of current job postings to assess what technical intelligence they reveal about organizational systems.
+      - mode: monitor
+        action: Monitor for unusual patterns in job application submissions and track reports of suspicious recruiter or candidate interactions.
+      - mode: intervene
+        action: Provide guidelines for appropriate job posting content and coach hiring teams when overly revealing postings are identified.
   - id: 4-sec-filings-court-records
     label: SEC filings & court records
     mitreId: T1597
     description: Public filings and legal records expose corporate structure,
       finances, and relationships.
+    detailedDescription: >-
+      Regulatory filings, court documents, and legal disclosures contain detailed information
+      about corporate structure, financial relationships, key personnel, business partnerships,
+      and operational challenges. This intelligence helps adversaries understand organizational
+      vulnerabilities, identify high-value targets, and craft convincing pretexts based on real business context.
+    attackerBehavior: >-
+      The adversary systematically searches public legal databases and regulatory filings to
+      identify corporate relationships, financial pressures, key executives, and business
+      challenges that can be leveraged in social engineering attacks or used to time targeting campaigns.
+    insiderBehavior: >-
+      Legal and compliance teams fulfill mandatory disclosure requirements and handle litigation
+      professionally, often without considering how the cumulative detail in public filings
+      can be used to map organizational structure and identify targeting opportunities.
+    prevention:
+      - mode: educate
+        action: Train legal and compliance teams to understand how public filings can be aggregated for intelligence gathering.
+      - mode: evaluate
+        action: Conduct reviews of public filings and legal records to assess what organizational intelligence they reveal.
+      - mode: monitor
+        action: Monitor for unusual interest in organizational legal documents and track reports of suspicious legal or regulatory inquiries.
+      - mode: intervene
+        action: Provide guidance on minimizing sensitive details in public filings while maintaining compliance requirements.
   - id: 4-conference-attendee-speaker-lists
     label: Conference attendee / speaker lists
     mitreId: T1591.002
     description: Event rosters identify who works where and on what, seeding
       targeting and pretexts.
+    detailedDescription: >-
+      Conference attendee lists, speaker rosters, and event materials reveal which employees
+      attend specific technical or business events, indicating their roles, interests, and
+      expertise areas. This intelligence helps adversaries identify subject matter experts,
+      map organizational capabilities, and establish credible pretexts for follow-up contact.
+    attackerBehavior: >-
+      The adversary harvests attendee and speaker lists from conferences to identify employees
+      with specific technical expertise or business roles, then uses shared event attendance
+      as a conversation starter and credibility marker in subsequent social engineering attempts.
+    insiderBehavior: >-
+      Employees attend conferences for professional development and networking, often sharing
+      their attendance publicly and engaging with other attendees without recognizing how
+      this information can be used to map their expertise and establish false rapport.
+    prevention:
+      - mode: educate
+        action: Train employees to be selective about publicly sharing conference attendance and to verify contacts made at professional events.
+      - mode: evaluate
+        action: Run simulations testing how conference connections can be leveraged for social engineering and pretext development.
+      - mode: monitor
+        action: Monitor employee reports of suspicious follow-up contacts from conferences and track patterns in post-event targeting attempts.
+      - mode: intervene
+        action: Provide guidance on safe networking practices and coach employees who report suspicious post-conference contact attempts.
   - id: 4-academic-publication-mining
     label: Academic-publication mining
     mitreId: T1593.002
     description: Published papers reveal research, affiliations, and named staff for
       targeting.
+    detailedDescription: >-
+      Academic publications, research papers, and patent filings contain detailed information
+      about organizational research directions, technical capabilities, key researchers, and
+      collaborative relationships. This intelligence reveals cutting-edge projects, intellectual
+      property development, and the specific expertise of individual researchers who become high-value targets.
+    attackerBehavior: >-
+      The adversary systematically searches academic databases to identify published research
+      from target organizations, then uses this intelligence to understand proprietary research
+      directions and identify key researchers for targeted social engineering or recruitment attempts.
+    insiderBehavior: >-
+      Researchers publish their work to advance their careers and contribute to their fields,
+      openly sharing technical details, research methodologies, and collaboration networks
+      without considering how this information can be used to target them or their organizations.
+    prevention:
+      - mode: educate
+        action: Train researchers on balancing publication goals with operational security when sharing technical details and institutional affiliations.
+      - mode: evaluate
+        action: Conduct reviews of published research to assess what sensitive technical or organizational intelligence is being revealed.
+      - mode: monitor
+        action: Monitor for unusual interest in organizational research publications and track reports of suspicious academic or research inquiries.
+      - mode: intervene
+        action: Provide guidance on appropriate publication practices and coach researchers who report suspicious research-related contact attempts.
   - id: 4-breach-data-correlation
     label: Breach-data correlation
     mitreId: T1597.002
     description: Data from past breaches is correlated to enrich profiles, recover
       credentials, and link identities.
+    detailedDescription: >-
+      Historical breach data contains passwords, email patterns, security questions, and
+      personal details that adversaries correlate across multiple incidents to build
+      comprehensive profiles. This aggregated intelligence reveals credential reuse patterns,
+      personal information, and behavioral data that enhances the effectiveness of targeted attacks.
+    attackerBehavior: >-
+      The adversary systematically correlates breach databases to identify target employees,
+      discover password patterns and reused credentials, and gather personal details that
+      can be used for social engineering or to bypass security questions and authentication challenges.
+    insiderBehavior: >-
+      Employees often reuse passwords and security question answers across multiple accounts,
+      not realizing that data from unrelated breaches can be combined to compromise their
+      work accounts or be used to manipulate them through knowledge of personal details.
+    prevention:
+      - mode: educate
+        action: Train employees on password uniqueness and the risks of credential reuse across different accounts and services.
+      - mode: evaluate
+        action: Conduct controlled tests to identify employees using compromised credentials or predictable password patterns.
+      - mode: monitor
+        action: Monitor dark web breach databases for organizational email addresses and track reports of suspicious attempts using personal information.
+      - mode: intervene
+        action: Force password resets when employee credentials appear in breach data and provide targeted coaching on unique password practices.
   - id: 4-data-broker-aggregation
     label: Data-broker aggregation
     mitreId: T1597
     description: Commercial data brokers are used to assemble detailed personal
       dossiers on targets.
+    detailedDescription: >-
+      Commercial data aggregation services compile detailed personal profiles from public
+      records, financial data, social media, and consumer behavior that adversaries can
+      purchase or access. These comprehensive dossiers include contact information, family
+      relationships, financial status, and behavioral patterns that enable highly targeted social engineering.
+    attackerBehavior: >-
+      The adversary purchases or accesses commercial data broker services to obtain detailed
+      personal profiles of target employees, then uses this intelligence to craft convincing
+      pretexts, establish false rapport, or identify personal vulnerabilities for manipulation.
+    insiderBehavior: >-
+      Employees conduct their daily lives without realizing how much personal information
+      is aggregated and sold by commercial data brokers, making them vulnerable to attacks
+      that leverage intimate knowledge of their personal circumstances and relationships.
+    prevention:
+      - mode: educate
+        action: Train employees about data broker practices and how personal information aggregation enables targeted social engineering.
+      - mode: evaluate
+        action: Purchase data broker reports on key employees to demonstrate what personal intelligence is commercially available.
+      - mode: monitor
+        action: Monitor for signs that employees are being targeted with attacks using detailed personal information from commercial sources.
+      - mode: intervene
+        action: Help employees opt out of data broker services and coach them when attacks show evidence of commercial intelligence gathering.
   - id: 4-ai-driven-osint-synthesis
     label: AI-driven OSINT synthesis
     mitreId: T1589
     description: AI tools rapidly synthesize scattered open-source data into
       actionable target intelligence.
+    detailedDescription: >-
+      Artificial intelligence dramatically accelerates the collection, correlation, and
+      analysis of open-source intelligence by automatically processing vast amounts of
+      public data to identify patterns, connections, and insights that would take human
+      analysts weeks to discover. This enables rapid, comprehensive targeting intelligence at scale.
+    attackerBehavior: >-
+      The adversary employs AI tools to automatically collect and correlate open-source data
+      across multiple platforms, rapidly building comprehensive target profiles and identifying
+      optimal attack vectors that would be impractical to develop through manual intelligence gathering.
+    insiderBehavior: >-
+      Employees share information across various public platforms without understanding how
+      AI can rapidly synthesize these scattered data points into comprehensive profiles
+      that reveal sensitive patterns and relationships invisible to human analysis.
+    prevention:
+      - mode: educate
+        action: Train employees on how AI accelerates intelligence gathering and the cumulative risk of scattered public information.
+      - mode: evaluate
+        action: Use AI tools to conduct reconnaissance simulations against the organization to demonstrate the speed and depth of automated profiling.
+      - mode: monitor
+        action: Deploy behavioral analytics to detect automated data collection patterns and track unusual intelligence gathering activities.
+      - mode: intervene
+        action: Provide employees with guidance on reducing their digital footprint and coach them on recognizing AI-enhanced targeting attempts.
   - id: 4-physical-surveillance-passive
     label: Physical surveillance (passive)
     mitreId: null
     description: A target's locations, routines, and contacts are observed in person
       without interaction.
+    detailedDescription: >-
+      Physical observation of target employees reveals daily routines, security practices,
+      social relationships, and behavioral patterns that enable precise timing of attacks
+      and identification of optimal approach vectors. This intelligence gathering occurs
+      without direct contact, making it nearly impossible for targets to detect.
+    attackerBehavior: >-
+      The adversary conducts systematic observation of target employees to map their daily
+      routines, identify security vulnerabilities in their physical environment, and determine
+      optimal timing and locations for social engineering or physical access attempts.
+    insiderBehavior: >-
+      Employees follow predictable daily routines and maintain consistent security practices
+      without realizing they are being observed or considering how their behavioral patterns
+      can be used to predict their movements and vulnerabilities.
+    prevention:
+      - mode: educate
+        action: Train employees on situational awareness and recognizing signs of physical surveillance or unusual observation.
+      - mode: evaluate
+        action: Conduct physical surveillance detection exercises to test employee awareness and ability to identify observation attempts.
+      - mode: monitor
+        action: Encourage reporting of suspicious individuals or vehicles and maintain security awareness of unusual activity patterns around facilities.
+      - mode: intervene
+        action: Provide employees with protocols for reporting suspected surveillance and coach them on varying routines when surveillance is suspected.
   - id: 4-active-scanning
     label: Active scanning
     mitreId: T1595
     description: An adversary probes internet-facing systems to map services and
       find weaknesses.
+    detailedDescription: >-
+      Technical reconnaissance through network scanning, port enumeration, and service
+      fingerprinting reveals the organization's digital infrastructure, running services,
+      and potential vulnerabilities. While primarily technical, this intelligence often
+      targets systems that employees access or manage, creating opportunities for credential theft or social engineering.
+    attackerBehavior: >-
+      The adversary systematically probes internet-facing systems to identify services,
+      versions, and vulnerabilities, then correlates this technical intelligence with employee
+      roles and access patterns to target system administrators or users with privileged access.
+    insiderBehavior: >-
+      IT staff and system administrators maintain internet-facing systems focused on
+      functionality and availability, sometimes without fully considering how service
+      enumeration and vulnerability scanning can reveal attack surfaces and targeting opportunities.
+    prevention:
+      - mode: educate
+        action: Train IT staff on minimizing service exposure and understanding how technical reconnaissance enables human targeting.
+      - mode: evaluate
+        action: Conduct regular external scanning assessments to identify what technical intelligence is visible to potential adversaries.
+      - mode: monitor
+        action: Deploy network monitoring to detect scanning activity and track unusual probing patterns against organizational systems.
+      - mode: intervene
+        action: Reduce exposed services and attack surfaces while coaching staff on responding appropriately to detected reconnaissance activities.

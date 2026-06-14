@@ -89,11 +89,25 @@ export type IntentDegree = z.infer<typeof IntentDegreeSchema>;
 // --- Technique ---
 // MITRE ATT&CK technique id, e.g. T1566 or T1566.004, or null when uncoded.
 const MitreIdSchema = z.string().regex(/^T\d{4}(\.\d{3})?$/);
+
+// Countermeasures are framed by four modes; every technique must cover all four
+// (loader-enforced). intervene scales with the category's intent degree.
+export const COUNTERMEASURE_MODES = ['educate', 'evaluate', 'monitor', 'intervene'] as const;
+export const CountermeasureModeSchema = z.enum(COUNTERMEASURE_MODES);
+export const CountermeasureSchema = z.object({
+  mode: CountermeasureModeSchema,
+  action: z.string().min(1),
+});
+
 export const TechniqueSchema = z.object({
   id: z.string().regex(/^\d{1,2}-[a-z0-9-]+$/), // stable, globally unique: "<categoryId>-<slug(label)>"
   label: z.string().min(1),
   mitreId: MitreIdSchema.nullable(),
-  description: z.string().min(1),                // authored one-line write-up (required)
+  description: z.string().min(1),                // authored one-line summary (matrix cell + drawer lead)
+  detailedDescription: z.string().min(1),        // full prose write-up of the behavior
+  attackerBehavior: z.string().min(1),           // how an adversary operates / leverages it
+  insiderBehavior: z.string().min(1),            // how the human / insider acts in the moment
+  prevention: z.array(CountermeasureSchema).min(1), // must cover all four modes (loader-enforced)
 });
 export type Technique = z.infer<typeof TechniqueSchema>;
 
@@ -140,7 +154,15 @@ Beyond per-record validation, `load.ts` checks the **whole set**:
 - Every slug in `category.mappedModels` resolves to a `content/frameworks/*` file; every slug in `insiderCategories` resolves to a defined insider category.
 - Every `framework.mappedCategories` / `insiderCategory.primaryCategories` id is in 1–11.
 - No duplicate technique `label` within a category; every technique `id` is globally unique and prefixed with its `<categoryId>-`.
+- Every technique's `prevention` covers **all four** countermeasure modes (`educate`, `evaluate`, `monitor`, `intervene`).
 A failure throws with the offending file + field, and the **build fails**.
+
+### Countermeasure modes
+`prevention` entries are tagged with one of four modes, and the detail drawer groups them under these headings:
+- **educate** — build awareness through short, consumable messaging/training for the specific behavior.
+- **evaluate** — test resilience via simulation (phishing/scenario) and controlled integrity probes; not purely technical.
+- **monitor** — collect behavioral signals to detect the behavior (e.g. UEBA, DLP, access/audit telemetry).
+- **intervene** — respond, **scaled to the category's intent degree**: at `unintentional`, blame-free in-the-moment re-education; escalating through containment, protective/supportive response, up to manual investigation and law-enforcement / counter-intelligence handling at `complicit`.
 
 ---
 
@@ -177,11 +199,22 @@ techniques:
     label: "Spearphishing Attachment"
     mitreId: "T1566.001"
     description: "A targeted email delivers a malicious attachment crafted to compromise the recipient when opened."
-  - id: 7-quishing-qr-phishing
-    label: "Quishing (QR phishing)"
-    mitreId: null
-    description: "A QR code routes the victim to a malicious site, bypassing link inspection."
-  # … remaining techniques from the Framework tab, in order, each with id + description
+    detailedDescription: >-
+      Full prose write-up of the behavior and the human dynamic it exploits.
+    attackerBehavior: >-
+      How an adversary operates the technique.
+    insiderBehavior: >-
+      How the recipient acts, and why it feels like normal work.
+    prevention:
+      - mode: educate
+        action: "Train recipients to verify unexpected attachments out-of-band."
+      - mode: evaluate
+        action: "Run spearphishing simulations against high-exposure roles."
+      - mode: monitor
+        action: "Ingest mail-gateway and endpoint signals for suspicious attachments."
+      - mode: intervene
+        action: "Contain (reset/quarantine) and coach the user; treat them as a victim."
+  # … remaining techniques from the Framework tab, in order, each with the full field set
 ```
 
 ### Example framework file
@@ -212,7 +245,7 @@ A committed, repeatable Node script (run via `tsx`) that converts the **local, g
 2. **Framework tab → categories:** read the header row and the 11 category headers; walk each category top-to-bottom collecting non-empty cells; split each cell on the `… / (MITRE)` convention into `{ label, mitreId }` (map `—`/empty → `null`); generate a stable `id`; emit `content/matrix/categories/NN-*.yaml` preserving order.
 3. **Concepts tab → theory + tables:** extract the prose blocks into `content/theory/*.mdx`; extract the substrate-model and insider-category tables into structured records (`frameworks/*.mdx` frontmatter + `insider-categories.yaml`).
 4. Emit `intent-degrees.yaml` from the degree table.
-5. The emitted `description` is empty — author each one afterward (the strict schema requires a non-empty description, so content only validates once authored).
+5. The emitted authored fields (`description`, `detailedDescription`, `attackerBehavior`, `insiderBehavior`) are empty and `prevention` is `[]` — author each afterward (the strict schema requires non-empty values and all four countermeasure modes, so content only validates once authored).
 
 **Fidelity guard (required):** the Framework tab is dense and a few cells span degrees. The importer must:
 - preserve every non-empty technique cell (count techniques in and out; log the totals per category),

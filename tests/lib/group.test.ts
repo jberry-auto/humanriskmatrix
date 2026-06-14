@@ -1,7 +1,26 @@
 import { describe, expect, it } from "vitest";
 
-import type { IntentDegree, MatrixCategory } from "@/lib/content/schema";
+import type { IntentDegree, MatrixCategory, Technique } from "@/lib/content/schema";
 import { groupCategoriesByDegree } from "@/lib/matrix/group";
+
+// This suite only exercises degree grouping; technique detail is irrelevant here.
+function makeTechnique(id: string): Technique {
+  return {
+    id,
+    label: "a",
+    mitreId: null,
+    description: "d",
+    detailedDescription: "d",
+    attackerBehavior: "d",
+    insiderBehavior: "d",
+    prevention: [
+      { mode: "educate", action: "a" },
+      { mode: "evaluate", action: "a" },
+      { mode: "monitor", action: "a" },
+      { mode: "intervene", action: "a" },
+    ],
+  };
+}
 
 const degrees: IntentDegree[] = [
   {
@@ -29,7 +48,7 @@ const categories: MatrixCategory[] = [
     degreeId: "unaware",
     mappedModels: [],
     insiderCategories: [],
-    techniques: [{ id: "4-a", label: "a", mitreId: null, description: "d" }],
+    techniques: [makeTechnique("4-a")],
   },
   {
     id: 1,
@@ -37,7 +56,7 @@ const categories: MatrixCategory[] = [
     degreeId: "unintentional",
     mappedModels: [],
     insiderCategories: [],
-    techniques: [{ id: "1-a", label: "a", mitreId: null, description: "d" }],
+    techniques: [makeTechnique("1-a")],
   },
 ];
 
