@@ -11,62 +11,349 @@ techniques:
   - id: 6-conversational-elicitation
     label: Conversational elicitation
     mitreId: null
-    description: Skilled, casual conversation draws out sensitive information
-      without the target realizing they disclosed it.
+    description: Skilled, casual conversation draws out sensitive information without the target realizing they disclosed it.
+    detailedDescription: >-
+      A technique of guiding an ordinary-seeming conversation so the target volunteers
+      sensitive details — roles, schedules, system names, project status — without ever
+      being asked a direct question. It exploits the social reflex to be helpful, to correct
+      an error, and to fill silences, leaving the target with no memory of having disclosed
+      anything of value.
+    attackerBehavior: >-
+      The adversary opens with low-stakes rapport, seeds a deliberately wrong statement to
+      provoke a correction, uses strategic pauses and feigned ignorance to draw elaboration,
+      and spreads probes across multiple short exchanges so no single conversation looks like
+      an interrogation.
+    insiderBehavior: >-
+      The employee answers helpfully in what feels like normal shop-talk — at a conference,
+      in a queue, online — correcting and over-explaining without recognizing the cumulative
+      sensitivity of what they are giving away.
+    prevention:
+      - mode: educate
+        action: Train staff to recognize elicitation tactics (false statements, flattery, deliberate pauses) and to redirect rather than correct.
+      - mode: evaluate
+        action: Run elicitation simulations and controlled integrity probes against high-exposure roles to measure how much they give away.
+      - mode: monitor
+        action: Encourage and track reporting of conversations that probed for non-public details, watching UEBA and report signals for patterns across people.
+      - mode: intervene
+        action: Give employees a sanctioned, low-friction way to disengage and report, and follow up with targeted coaching when elicitation is suspected.
   - id: 6-pretextual-journalism
     label: Pretextual journalism
     mitreId: null
     description: Posing as a journalist provides a plausible reason to ask probing
       questions.
+    detailedDescription: >-
+      An adversary impersonates a journalist, blogger, or researcher conducting interviews
+      or writing articles to legitimize direct questioning about sensitive topics. The
+      journalistic cover story provides natural justification for probing questions that
+      would otherwise raise suspicion, while flattering the target's expertise.
+    attackerBehavior: >-
+      The adversary researches the target's field to ask credible questions, name-drops
+      publications or outlets, and frames questions as seeking expert commentary or
+      industry insights, gradually steering toward sensitive operational details.
+    insiderBehavior: >-
+      The employee feels flattered to be approached as a subject-matter expert and
+      readily shares insights, viewing the exchange as professional recognition rather
+      than a security risk.
+    prevention:
+      - mode: educate
+        action: Train staff to verify journalist credentials and route media requests through official channels before engaging.
+      - mode: evaluate
+        action: Test employees with simulated journalist approaches to measure information disclosure patterns.
+      - mode: monitor
+        action: Track unsolicited media contact reports and monitor social media for attempts to engage staff as sources.
+      - mode: intervene
+        action: Provide clear escalation paths for media contact and coach employees on appropriate information boundaries when genuine media interest occurs.
   - id: 6-eavesdropping-active
     label: Eavesdropping (active)
     mitreId: null
     description: An adversary actively positions to overhear conversations in person
       or over channels.
+    detailedDescription: >-
+      Deliberate positioning to intercept sensitive conversations through physical proximity,
+      technical surveillance of communication channels, or social engineering to gain access
+      to spaces where confidential discussions occur. Unlike passive eavesdropping, this
+      involves active effort to place oneself within earshot of valuable intelligence.
+    attackerBehavior: >-
+      The adversary stakes out locations where targets gather, uses technical means to
+      monitor communications, or gains legitimate access to meetings and workspaces where
+      sensitive information is discussed openly.
+    insiderBehavior: >-
+      Employees speak freely in areas they consider private or secure, unaware that
+      conversations in elevators, cafeterias, public transit, or open offices can be
+      easily overheard by positioned adversaries.
+    prevention:
+      - mode: educate
+        action: Train staff to avoid sensitive discussions in public spaces and recognize that conversations can be overheard in unexpected places.
+      - mode: evaluate
+        action: Conduct covert listening exercises in common areas to demonstrate how easily conversations can be intercepted.
+      - mode: monitor
+        action: Use UEBA to detect unusual access patterns to sensitive meeting spaces and track reporting of suspicious individuals in work areas.
+      - mode: intervene
+        action: Establish clear protocols for where sensitive conversations can occur and provide guidance when employees report potential eavesdropping.
   - id: 6-chatbot-credential-harvesting
     label: Chatbot credential harvesting
     mitreId: null
     description: A malicious chatbot or assistant is used to coax users into
       revealing credentials.
+    detailedDescription: >-
+      Adversaries deploy conversational AI interfaces that mimic legitimate support or
+      assistant services to gradually extract login credentials, security questions, or
+      other authentication details through seemingly helpful interactions. The chatbot's
+      persistent, patient nature allows it to gather information across multiple sessions.
+    attackerBehavior: >-
+      The adversary creates chatbots that appear as technical support, HR assistants,
+      or system helpers, using social engineering prompts to request credential
+      verification or password resets while building rapport through multiple interactions.
+    insiderBehavior: >-
+      Employees interact with what appears to be a legitimate automated service,
+      providing requested information to resolve apparent system issues or complete
+      routine administrative tasks without questioning the bot's authenticity.
+    prevention:
+      - mode: educate
+        action: Train staff to recognize that legitimate organizational chatbots never request passwords or sensitive authentication details.
+      - mode: evaluate
+        action: Deploy controlled chatbot scenarios to test whether employees would provide credentials to automated requests.
+      - mode: monitor
+        action: Monitor for unauthorized chatbot domains targeting the organization and track employee reports of suspicious automated interactions.
+      - mode: intervene
+        action: Provide clear guidance on legitimate organizational chatbot capabilities and establish reporting mechanisms for suspicious automated requests.
   - id: 6-reciprocity-exploitation
     label: Reciprocity exploitation
     mitreId: null
     description: A small favor or gift creates a sense of obligation the target
       repays with information or access.
+    detailedDescription: >-
+      Exploiting the psychological principle that receiving a favor creates social pressure
+      to reciprocate with a favor in return. The adversary provides small gestures of
+      kindness, assistance, or gifts to establish a debt that can be collected through
+      requests for sensitive information or unauthorized access.
+    attackerBehavior: >-
+      The adversary offers timely help, brings coffee, shares useful information, or
+      provides small gifts to create a sense of indebtedness, then leverages this
+      psychological debt to make requests that seem reasonable in comparison.
+    insiderBehavior: >-
+      The employee feels genuinely grateful for the assistance or kindness and wants
+      to return the favor when asked, viewing the exchange as normal workplace
+      reciprocity rather than manipulation.
+    prevention:
+      - mode: educate
+        action: Train staff to recognize reciprocity pressure and maintain professional boundaries when receiving unexpected favors.
+      - mode: evaluate
+        action: Test employee responses to simulated favor-based requests for information or access.
+      - mode: monitor
+        action: Watch for patterns of gift-giving or unusual assistance preceding information requests through behavioral analytics and employee reports.
+      - mode: intervene
+        action: Establish clear gift policies and provide scripts for politely declining favors while maintaining professional relationships.
   - id: 6-liking-rapport-leverage
     label: Liking / rapport leverage
     mitreId: null
     description: Manufactured likeability and rapport make a target more willing to comply.
+    detailedDescription: >-
+      Adversaries deliberately cultivate personal connection and affinity to lower the
+      target's guard and increase compliance with requests. Through mirroring, shared
+      interests, compliments, and attentiveness, they create artificial intimacy that
+      makes refusal feel socially awkward or personally hurtful.
+    attackerBehavior: >-
+      The adversary researches the target's interests, mirrors their communication style,
+      offers genuine-seeming compliments, and invests time in building personal connection
+      before making information or access requests that leverage this manufactured bond.
+    insiderBehavior: >-
+      The employee enjoys the personal connection and attention, feeling that they have
+      found a genuine friend or ally who understands them, making subsequent requests
+      feel like helping a trusted colleague rather than a security risk.
+    prevention:
+      - mode: educate
+        action: Train staff to maintain professional boundaries and recognize when personal rapport is being used to bypass security protocols.
+      - mode: evaluate
+        action: Test employee susceptibility to rapport-based compliance through simulated relationship-building scenarios.
+      - mode: monitor
+        action: Monitor for patterns of personal relationship development followed by information requests through UEBA and social interaction reports.
+      - mode: intervene
+        action: Provide coaching on professional relationship management and create structured escalation when personal requests conflict with security policies.
   - id: 6-unity-shared-identity-exploit
     label: Unity (shared-identity) exploit
     mitreId: null
     description: Claiming a shared identity ('we're both veterans') builds trust
       that lowers the target's guard.
+    detailedDescription: >-
+      Exploiting the psychological tendency to trust and help members of perceived in-groups
+      by fabricating or emphasizing shared identities, backgrounds, or experiences. The
+      adversary poses as a fellow alumnus, veteran, parent, or member of the same
+      professional, ethnic, or social group to establish instant credibility and kinship.
+    attackerBehavior: >-
+      The adversary researches the target's background to identify meaningful group
+      memberships, then claims authentic connection to those same groups, using
+      insider knowledge and terminology to reinforce the shared identity before making requests.
+    insiderBehavior: >-
+      The employee feels an immediate bond with someone who shares their background,
+      experiences, or challenges, leading to increased openness and willingness to
+      help a perceived member of their community.
+    prevention:
+      - mode: educate
+        action: Train staff to verify shared identity claims and maintain security protocols even when feeling personal connection to requesters.
+      - mode: evaluate
+        action: Test employee responses to requests from people claiming shared backgrounds or group memberships.
+      - mode: monitor
+        action: Track attempts to leverage organizational or personal identity groups through employee reports and social engineering indicators.
+      - mode: intervene
+        action: Provide verification procedures for identity claims and coach employees on maintaining professional skepticism while being respectful to genuine community members.
   - id: 6-social-proof-manipulation
     label: Social-proof manipulation
     mitreId: null
     description: Suggesting 'everyone else does this' pressures the target to comply
       with a request.
+    detailedDescription: >-
+      Leveraging the human tendency to follow perceived group behavior by claiming that
+      colleagues, peers, or industry standards already engage in the requested action.
+      The adversary creates artificial consensus to make their request seem normal,
+      expected, or professionally required rather than exceptional or risky.
+    attackerBehavior: >-
+      The adversary references supposed common practices, mentions that other departments
+      or companies already share similar information, or claims that previous employees
+      readily provided the same access to normalize their request.
+    insiderBehavior: >-
+      The employee assumes that if others are already doing something, it must be
+      acceptable or required, feeling pressure not to appear uncooperative or out of
+      step with organizational or industry norms.
+    prevention:
+      - mode: educate
+        action: Train staff to verify claims about standard practices and resist pressure to conform without proper authorization.
+      - mode: evaluate
+        action: Test employee resistance to requests justified by claims that others have already complied.
+      - mode: monitor
+        action: Track reports of requests that reference supposed standard practices and monitor for patterns of social proof claims.
+      - mode: intervene
+        action: Provide clear guidance on actual organizational policies and create verification channels when employees encounter claims about standard practices.
   - id: 6-foot-in-the-door-commitment
     label: Foot-in-the-door / commitment
     mitreId: null
     description: A small initial agreement is leveraged into progressively larger ones.
+    detailedDescription: >-
+      Beginning with tiny, reasonable requests that establish a pattern of compliance
+      and gradually escalating to larger, more sensitive requests. Each small agreement
+      creates psychological momentum and commitment consistency pressure that makes
+      subsequent, bigger requests harder to refuse without seeming inconsistent or unhelpful.
+    attackerBehavior: >-
+      The adversary starts with trivial requests like confirming public information,
+      then gradually increases the sensitivity of subsequent requests, using the
+      established pattern of compliance to make larger asks seem like natural progression.
+    insiderBehavior: >-
+      The employee wants to remain consistent with their previous helpful behavior
+      and finds it awkward to suddenly become uncooperative, so they continue
+      agreeing to requests without recognizing the escalating risk.
+    prevention:
+      - mode: educate
+        action: Train staff to evaluate each request independently rather than feeling obligated by previous compliance.
+      - mode: evaluate
+        action: Test employee resistance to escalating request sequences through controlled scenarios.
+      - mode: monitor
+        action: Watch for patterns of progressive requests from the same sources through interaction logs and employee reports.
+      - mode: intervene
+        action: Provide decision frameworks for evaluating requests independently and coach employees on recognizing escalation tactics.
   - id: 6-door-in-the-face-concessions
     label: Door-in-the-face / concessions
     mitreId: null
     description: An extreme first request makes a smaller, real ask seem reasonable
       by comparison.
+    detailedDescription: >-
+      Opening with an intentionally large, unreasonable request that will be refused,
+      then following with a smaller, seemingly more reasonable request that appears
+      like a compromise or concession. The contrast makes the second request feel
+      modest and reasonable, even when it would normally be inappropriate or risky.
+    attackerBehavior: >-
+      The adversary opens with an obviously excessive request for extensive access
+      or highly sensitive information, then retreats to their actual target request,
+      framing it as a reasonable compromise that shows flexibility and understanding.
+    insiderBehavior: >-
+      The employee feels relieved that the requester has become more reasonable and
+      wants to meet them halfway, viewing the smaller request as a fair compromise
+      rather than recognizing it as the intended target all along.
+    prevention:
+      - mode: educate
+        action: Train staff to evaluate requests on their own merits rather than relative to previous larger requests.
+      - mode: evaluate
+        action: Test employee responses to request sequences that use extreme anchoring followed by moderate requests.
+      - mode: monitor
+        action: Track patterns of large requests followed by smaller ones from the same sources through communication logs.
+      - mode: intervene
+        action: Provide frameworks for independent request evaluation and coach employees on recognizing concession-based manipulation.
   - id: 6-anchoring
     label: Anchoring
     mitreId: null
     description: An initial reference point is planted to skew the target's later
       judgments and disclosures.
+    detailedDescription: >-
+      Establishing an initial piece of information or assumption that unconsciously
+      influences how the target evaluates subsequent requests or frames their responses.
+      The adversary seeds reference points about normal practices, typical information
+      sharing, or standard access levels that make their actual requests seem reasonable by comparison.
+    attackerBehavior: >-
+      The adversary opens conversations by mentioning supposedly typical access levels,
+      standard information sharing practices, or normal security procedures that
+      establish a baseline making their subsequent requests appear routine or modest.
+    insiderBehavior: >-
+      The employee unconsciously uses the planted reference point to evaluate what
+      seems normal or appropriate, making decisions based on the adversary's framing
+      rather than actual organizational policies or security best practices.
+    prevention:
+      - mode: educate
+        action: Train staff to recognize anchoring tactics and evaluate requests against actual organizational policies rather than suggested baselines.
+      - mode: evaluate
+        action: Test how employee decisions change when presented with different reference points or anchoring information.
+      - mode: monitor
+        action: Monitor for patterns where information requests are preceded by references to supposed standards or norms.
+      - mode: intervene
+        action: Provide clear policy references that employees can use to evaluate requests independently of external framing or suggestions.
   - id: 6-trust-transference-via-referral
     label: Trust transference (via referral)
     mitreId: null
     description: Trust in a known third party is transferred to the adversary
       through a referral.
+    detailedDescription: >-
+      Leveraging the target's existing trust in a colleague, authority figure, or
+      organization by claiming to have been referred or directed by that trusted party.
+      The adversary borrows credibility from established relationships to bypass
+      normal skepticism and security procedures.
+    attackerBehavior: >-
+      The adversary researches organizational relationships, claims to have been
+      referred by trusted colleagues or superiors, and uses knowledge of internal
+      relationships to make their requests seem legitimate and properly authorized.
+    insiderBehavior: >-
+      The employee trusts the supposed referral source and assumes that if a trusted
+      colleague or authority recommended this person, they must be legitimate and
+      their requests must be appropriate.
+    prevention:
+      - mode: educate
+        action: Train staff to independently verify referrals and authorization claims before sharing information or granting access.
+      - mode: evaluate
+        action: Test employee verification behaviors when presented with requests claiming trusted referrals.
+      - mode: monitor
+        action: Track claims of internal referrals and cross-reference with actual authorization patterns through access logs.
+      - mode: intervene
+        action: Establish clear verification procedures for referral claims and provide coaching when employees report suspicious authorization claims.
   - id: 6-plausibility-engineering
     label: Plausibility engineering
     mitreId: null
     description: A request is wrapped in just enough believable detail to pass scrutiny.
+    detailedDescription: >-
+      Constructing requests with carefully researched context, technical terminology,
+      and organizational details that make them appear legitimate and properly informed.
+      The adversary invests effort in understanding processes, relationships, and
+      current events to craft requests that survive initial skepticism and verification attempts.
+    attackerBehavior: >-
+      The adversary thoroughly researches organizational structure, current projects,
+      and industry terminology to construct requests that include authentic-seeming
+      details, proper context, and believable justifications for information or access needs.
+    insiderBehavior: >-
+      The employee is impressed by the requester's apparent knowledge of internal
+      processes and current situations, assuming that such detailed awareness indicates
+      legitimate involvement and proper authorization.
+    prevention:
+      - mode: educate
+        action: Train staff to verify authorization through established channels regardless of how knowledgeable or informed requesters appear.
+      - mode: evaluate
+        action: Test employee verification behaviors when presented with highly detailed and contextually accurate but unauthorized requests.
+      - mode: monitor
+        action: Monitor for information gathering activities that could support plausible request construction through reconnaissance indicators.
+      - mode: intervene
+        action: Provide structured verification procedures that require independent confirmation regardless of request sophistication or apparent insider knowledge.

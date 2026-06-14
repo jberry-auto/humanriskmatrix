@@ -9,57 +9,373 @@ techniques:
     label: Tailgating / piggybacking
     mitreId: null
     description: An unauthorized person follows authorized staff through a secure entrance.
+    detailedDescription: >-
+      Tailgating exploits the social courtesy of holding doors and the awkwardness of
+      confronting someone who appears to belong. The unauthorized person times their
+      approach to follow close behind an authorized person, relying on the target's
+      reluctance to challenge someone who seems confident and expected.
+    attackerBehavior: >-
+      The adversary waits near secure entrances, identifies authorized personnel through
+      observation or research, and approaches just as the target reaches the door. They
+      may carry props like coffee or packages to appear legitimate and create the
+      impression they belong in the environment.
+    insiderBehavior: >-
+      The authorized person feels social pressure to be polite and helpful, finding it
+      uncomfortable to challenge someone who appears confident. They rationalize that
+      security isn't their job or assume the person must have access since they're
+      attempting entry.
+    prevention:
+      - mode: educate
+        action: Train staff on the importance of badge verification and provide scripts for politely asking unknown individuals to use their own access credentials.
+      - mode: evaluate
+        action: Conduct controlled tailgating simulations to test how often staff challenge unauthorized individuals at secure entrances.
+      - mode: monitor
+        action: Deploy entry monitoring systems that detect and alert on multiple badge scans or unusual entry patterns at secure doors.
+      - mode: intervene
+        action: Create a confidential reporting mechanism for staff who feel pressured to allow unauthorized access, and investigate potential coercion incidents.
   - id: 10-in-person-pretext-vendor-it-fire-marshal
     label: In-person pretext (vendor, IT, fire marshal)
     mitreId: null
     description: An attacker poses as a vendor, technician, or official to gain
       physical entry.
+    detailedDescription: >-
+      This technique leverages authority bias and the human tendency to defer to perceived
+      officials or service personnel. The adversary adopts a convincing persona complete
+      with uniforms, credentials, and industry knowledge, exploiting the target's
+      reluctance to challenge apparent authority or delay legitimate work.
+    attackerBehavior: >-
+      The adversary researches the organization's vendor relationships and normal
+      service patterns, acquires convincing uniforms or identification, and arrives
+      with confidence and urgency. They may reference real employees or recent events
+      to establish credibility and create pressure to grant immediate access.
+    insiderBehavior: >-
+      The staff member feels obligated to accommodate what appears to be a legitimate
+      service provider or authority figure. They avoid challenging credentials thoroughly
+      due to social pressure, time constraints, or fear of interfering with important
+      work or safety inspections.
+    prevention:
+      - mode: educate
+        action: Train reception and security staff to verify all service personnel through proper channels before granting access, regardless of apparent urgency.
+      - mode: evaluate
+        action: Test staff response to unscheduled service personnel through simulated vendor and official visits.
+      - mode: monitor
+        action: Maintain logs of all vendor visits and compare against scheduled services, flagging unverified entries for investigation.
+      - mode: intervene
+        action: Provide staff with a secure escalation path to verify suspicious officials without confrontation, and protect those who report potential impersonation attempts.
   - id: 10-baiting-usb-drops-conference-swag
     label: Baiting — USB drops, conference swag
     mitreId: null
     description: Malicious USB devices or giveaways are left for curious victims to plug in.
+    detailedDescription: >-
+      Baiting exploits human curiosity and the perceived value of free items by leaving
+      attractive, functional-looking USB devices in locations where targets will find them.
+      The devices appear legitimate and valuable, triggering both curiosity about their
+      contents and reluctance to discard apparently useful items.
+    attackerBehavior: >-
+      The adversary crafts USB devices with malware payloads and attractive labeling
+      like "Executive Salary Data" or branded conference giveaways. They strategically
+      place devices in parking lots, bathrooms, conference areas, or mail them as
+      promotional items to target organizations.
+    insiderBehavior: >-
+      The person who finds the device experiences curiosity about its contents and feels
+      it would be wasteful to throw away something that appears valuable. They rationalize
+      that quickly checking the contents poses minimal risk, especially if the device
+      appears to be from a reputable source.
+    prevention:
+      - mode: educate
+        action: Train staff to never plug in unknown USB devices and provide secure channels for reporting found devices.
+      - mode: evaluate
+        action: Conduct controlled USB drop tests around the organization to measure how many employees would plug in unknown devices.
+      - mode: monitor
+        action: Deploy endpoint detection tools that alert on new USB device connections and scan for autorun behavior.
+      - mode: intervene
+        action: Establish procedures for safely collecting and disposing of found USB devices, and support staff who report potential baiting attempts without blame.
   - id: 10-shoulder-surfing
     label: Shoulder surfing
     mitreId: null
     description: Credentials or data are observed over a target's shoulder in person.
+    detailedDescription: >-
+      Shoulder surfing takes advantage of the natural human tendency to focus on work
+      rather than surroundings, especially in familiar environments. The technique
+      relies on positioning and timing to observe sensitive information entry without
+      the target noticing the surveillance.
+    attackerBehavior: >-
+      The adversary positions themselves to observe the target's screen or keyboard,
+      often in public spaces, offices, or during presentations. They may use mobile
+      devices to record keystrokes or screen contents, timing their observation during
+      login sequences or sensitive data handling.
+    insiderBehavior: >-
+      The target becomes absorbed in their work and loses awareness of their surroundings,
+      particularly in spaces they consider safe or private. They prioritize task
+      completion over security awareness, especially under time pressure or in
+      routine environments.
+    prevention:
+      - mode: educate
+        action: Train employees to be aware of their surroundings when entering sensitive information and to use privacy screens in open areas.
+      - mode: evaluate
+        action: Test staff awareness through simulated shoulder surfing attempts in common work areas and public spaces.
+      - mode: monitor
+        action: Review security camera footage for suspicious observation patterns and encourage reporting of uncomfortable surveillance experiences.
+      - mode: intervene
+        action: Provide safe reporting channels for staff who feel watched or pressured, and investigate potential surveillance threats to employee safety.
   - id: 10-dumpster-diving
     label: Dumpster diving
     mitreId: null
     description: Discarded documents and media are recovered from trash for useful
       information.
+    detailedDescription: >-
+      Dumpster diving exploits the common assumption that discarded materials are no
+      longer valuable or accessible. Organizations and individuals often dispose of
+      sensitive documents and devices without proper destruction, creating opportunities
+      for intelligence gathering through waste recovery.
+    attackerBehavior: >-
+      The adversary targets trash receptacles, recycling areas, and disposal sites
+      around the organization, looking for intact documents, device remnants, or
+      storage media that contain useful information like organizational charts,
+      system documentation, or personal details about employees.
+    insiderBehavior: >-
+      Employees dispose of documents and devices without considering the sensitivity
+      of information they contain, viewing discarded materials as no longer relevant
+      to security. They may lack awareness of proper destruction procedures or find
+      them inconvenient for routine disposal.
+    prevention:
+      - mode: educate
+        action: Train staff on proper document destruction and the security risks of improperly discarded materials.
+      - mode: evaluate
+        action: Conduct periodic waste audits to test whether sensitive materials are being properly destroyed before disposal.
+      - mode: monitor
+        action: Implement secure waste handling procedures and monitor disposal areas for unauthorized access or scavenging activity.
+      - mode: intervene
+        action: Provide secure disposal methods that are convenient to use and investigate any reports of suspicious activity around waste areas.
   - id: 10-badge-cloning-rfid-skim
     label: Badge cloning / RFID skim
     mitreId: null
     description: An access badge is read and copied to gain physical entry.
+    detailedDescription: >-
+      Badge cloning exploits the wireless nature of many access control systems and
+      the tendency of badge holders to be unaware when their credentials are being
+      scanned. The technique requires brief proximity to capture badge data, often
+      through social interactions or concealed scanning devices.
+    attackerBehavior: >-
+      The adversary uses portable RFID readers to capture badge information from
+      targets without their knowledge, often during normal social interactions,
+      crowded events, or while posing as maintenance personnel. They then program
+      blank badges with the captured data to gain unauthorized access.
+    insiderBehavior: >-
+      The badge holder remains unaware that their access credentials have been
+      compromised, continuing normal work routines while their cloned badge provides
+      unauthorized access to the adversary. They may not realize scanning has occurred
+      during brief social encounters or crowded situations.
+    prevention:
+      - mode: educate
+        action: Train staff about RFID skimming risks and encourage use of shielded badge holders or wallets.
+      - mode: evaluate
+        action: Test badge security through simulated skimming attempts to measure how often unauthorized scanning goes unnoticed.
+      - mode: monitor
+        action: Deploy access control analytics that detect unusual badge usage patterns, multiple simultaneous uses, or off-hours access.
+      - mode: intervene
+        action: Provide immediate badge replacement and access review when cloning is suspected, and investigate potential coercion scenarios.
   - id: 10-lock-picking-mechanical-bypass
     label: Lock picking / mechanical bypass
     mitreId: null
     description: Physical locks are picked or bypassed to reach restricted areas.
+    detailedDescription: >-
+      Lock picking and mechanical bypass techniques exploit weaknesses in physical
+      security mechanisms that organizations rely upon to restrict access. These
+      methods often go undetected because they leave minimal evidence and can appear
+      as normal access when performed skillfully.
+    attackerBehavior: >-
+      The adversary uses specialized tools and techniques to manipulate locks, exploit
+      design flaws in locking mechanisms, or bypass locks entirely through methods
+      like bump keys, lock picks, or exploiting installation weaknesses. They target
+      moments when areas are unobserved and work quickly to minimize detection.
+    insiderBehavior: >-
+      Employees in the area may not realize unauthorized access has occurred, as
+      skilled bypass techniques leave locks functional and doors properly closed.
+      Staff may attribute any unusual observations to authorized maintenance or
+      security activities rather than recognizing intrusion attempts.
+    prevention:
+      - mode: educate
+        action: Train security and facilities staff to recognize signs of lock manipulation and report suspicious activity around secure areas.
+      - mode: evaluate
+        action: Conduct physical penetration testing to assess the effectiveness of lock-based security controls.
+      - mode: monitor
+        action: Install door monitoring sensors that detect opening events and correlate with authorized access logs.
+      - mode: intervene
+        action: Establish immediate response procedures for suspected lock tampering and provide secure reporting for staff who observe unusual activity.
   - id: 10-evil-maid-attacks
     label: Evil maid attacks
     mitreId: null
     description: Brief unsupervised physical access to a device is used to tamper
       with or compromise it.
+    detailedDescription: >-
+      Evil maid attacks exploit the trust placed in service personnel and the brief
+      periods when devices are left unattended. The technique takes advantage of
+      legitimate access opportunities, such as hotel housekeeping or office cleaning,
+      to install hardware implants or compromise device security.
+    attackerBehavior: >-
+      The adversary gains access to devices during routine service activities or
+      poses as service personnel to create access opportunities. They quickly install
+      hardware keyloggers, modify boot processes, or plant monitoring devices that
+      capture data or provide ongoing access to the compromised system.
+    insiderBehavior: >-
+      The device owner trusts the service environment and leaves their device
+      unattended during routine activities like hotel stays or office cleaning.
+      They remain unaware that their device has been compromised and continue
+      normal usage patterns while malicious monitoring occurs.
+    prevention:
+      - mode: educate
+        action: Train employees never to leave devices unattended in unsecured locations and to be aware of service personnel access to their workspace.
+      - mode: evaluate
+        action: Test device security awareness through simulated scenarios where devices might be left unattended.
+      - mode: monitor
+        action: Deploy endpoint detection tools that alert on unauthorized hardware additions or changes to system boot processes.
+      - mode: intervene
+        action: Provide secure device storage options and investigate any reports of suspicious service personnel or unauthorized device access.
   - id: 10-mail-interception
     label: Mail interception
     mitreId: null
     description: Physical mail is intercepted to obtain cards, codes, or documents.
+    detailedDescription: >-
+      Mail interception exploits the trust placed in postal and delivery systems
+      and the predictable patterns of sensitive mail delivery. The technique targets
+      high-value items like access cards, authentication tokens, or confidential
+      documents that organizations routinely send through physical mail channels.
+    attackerBehavior: >-
+      The adversary monitors delivery patterns, intercepts mail through compromised
+      postal workers, redirects mail through change-of-address fraud, or physically
+      removes items from mailboxes and mail rooms. They focus on timing to capture
+      items before legitimate recipients notice them missing.
+    insiderBehavior: >-
+      The intended recipient expects delivery within normal timeframes but may not
+      immediately notice when items don't arrive, attributing delays to normal
+      postal variations. They trust the security of the mail system and don't
+      consider interception as a likely cause for missing items.
+    prevention:
+      - mode: educate
+        action: Train staff to expect and confirm receipt of sensitive mailings and to report missing items immediately.
+      - mode: evaluate
+        action: Test mail security by sending tracked sensitive items and measuring detection of interception attempts.
+      - mode: monitor
+        action: Track delivery confirmations for all sensitive mailings and flag undelivered items for investigation.
+      - mode: intervene
+        action: Provide immediate replacement of intercepted credentials and investigate potential postal compromise or coercion scenarios.
   - id: 10-hardware-additions-implants
     label: Hardware additions / implants
     mitreId: T1200
     description: A malicious device is added to systems or networks to gain
       persistent access.
+    detailedDescription: >-
+      Hardware implants exploit the complexity of modern systems and the difficulty
+      of visually detecting small, sophisticated devices. These attacks insert
+      malicious hardware into the supply chain, network infrastructure, or endpoint
+      devices to establish persistent, covert access that survives software-based
+      security measures.
+    attackerBehavior: >-
+      The adversary plants small, inconspicuous devices into network equipment,
+      computers, or infrastructure components during manufacturing, shipping, or
+      maintenance windows. These implants provide ongoing network access, capture
+      data, or enable remote system control while appearing as legitimate hardware
+      components.
+    insiderBehavior: >-
+      IT and security staff trust the integrity of hardware components and focus
+      on software-based threats, making them less likely to notice small physical
+      additions to systems. They may attribute unusual network behavior or
+      performance issues to software problems rather than hardware compromise.
+    prevention:
+      - mode: educate
+        action: Train IT staff to inspect hardware for unauthorized additions and to verify chain of custody for all equipment.
+      - mode: evaluate
+        action: Conduct hardware integrity assessments and penetration testing that includes physical implant scenarios.
+      - mode: monitor
+        action: Deploy network monitoring tools that detect unusual traffic patterns and maintain hardware inventory with regular integrity checks.
+      - mode: intervene
+        action: Establish immediate containment procedures for suspected hardware compromise and investigate potential supply chain or insider threats.
   - id: 10-active-physical-surveillance
     label: Active physical surveillance
     mitreId: null
     description: A target is followed and watched in person to enable an intrusion
       or approach.
+    detailedDescription: >-
+      Active physical surveillance builds intelligence about targets' routines,
+      security practices, and vulnerabilities through direct observation. The
+      technique gathers information about access patterns, relationships, and
+      behavioral habits that can be exploited in subsequent attacks.
+    attackerBehavior: >-
+      The adversary conducts systematic observation of targets, documenting their
+      daily routines, security practices, social interactions, and physical access
+      patterns. They may use multiple operatives, vehicles, and observation points
+      to build comprehensive profiles while avoiding detection.
+    insiderBehavior: >-
+      The target goes about their normal routine, generally unaware they are being
+      watched. They may occasionally notice the same person or vehicle but dismiss
+      it as coincidence, failing to recognize systematic surveillance patterns or
+      feeling uncertain about whether to report vague suspicions.
+    prevention:
+      - mode: educate
+        action: Train employees to recognize surveillance indicators and provide clear guidance on when and how to report suspicious observation.
+      - mode: evaluate
+        action: Conduct surveillance detection exercises to test staff awareness and response to being watched or followed.
+      - mode: monitor
+        action: Review security camera footage for suspicious loitering or repeated presence of unknown individuals around facilities.
+      - mode: intervene
+        action: Provide immediate protection and investigation when surveillance is reported, treating it as a potential threat to employee safety.
   - id: 10-conference-trade-show-targeting
     label: Conference / trade-show targeting
     mitreId: null
     description: Events are used as venues to approach targets and reach people and devices.
+    detailedDescription: >-
+      Conference targeting exploits the open, social nature of professional events
+      where attendees expect to meet new people and share information. The relaxed
+      security environment and networking expectations create opportunities for
+      unauthorized access to both people and their devices.
+    attackerBehavior: >-
+      The adversary registers for events or gains access through social engineering,
+      then approaches targets during networking sessions, presentations, or social
+      activities. They may clone badges, install malware on charging stations, or
+      gather intelligence through seemingly innocent professional conversations.
+    insiderBehavior: >-
+      The attendee is in networking mode, more willing to share information and
+      connect devices to charging stations or networks than they would be in their
+      normal work environment. They view the event as a safe professional space
+      and lower their usual security awareness.
+    prevention:
+      - mode: educate
+        action: Train employees on conference security practices including device protection, information sharing boundaries, and verification of new contacts.
+      - mode: evaluate
+        action: Conduct simulated targeting exercises at internal events to test staff awareness and response to suspicious approaches.
+      - mode: monitor
+        action: Encourage reporting of suspicious individuals or activities at events and maintain awareness of who from the organization is attending public conferences.
+      - mode: intervene
+        action: Provide secure communication channels for reporting threats at events and coordinate with event security when suspicious activity is identified.
   - id: 10-sim-swap-in-person-carrier-se
     label: SIM swap (in-person carrier SE)
     mitreId: null
     description: An attacker socially engineers a carrier store in person to swap
       the victim's SIM.
+    detailedDescription: >-
+      In-person SIM swapping exploits the human element in carrier stores, where
+      employees may be pressured or deceived into transferring phone service to
+      an adversary's device. This technique bypasses many technical controls by
+      manipulating the social and procedural weaknesses in identity verification
+      processes.
+    attackerBehavior: >-
+      The adversary gathers personal information about the target, visits a carrier
+      store with fabricated identification or emotional appeals, and convinces store
+      employees to transfer the target's phone number to a SIM card under their
+      control, often claiming device loss or urgent need for service.
+    insiderBehavior: >-
+      The carrier store employee wants to provide good customer service and may
+      be influenced by emotional appeals, apparent urgency, or pressure to complete
+      transactions quickly. They may not strictly follow identity verification
+      procedures, especially when faced with convincing documentation or distressing
+      circumstances.
+    prevention:
+      - mode: educate
+        action: Educate employees about SIM swap risks and encourage them to add carrier account security measures like additional authentication requirements.
+      - mode: evaluate
+        action: Test organizational awareness of SIM swap attacks through simulated scenarios and assess staff response to identity verification bypasses.
+      - mode: monitor
+        action: Monitor for unexpected loss of mobile service or authentication issues that could indicate SIM swap attempts.
+      - mode: intervene
+        action: Provide immediate support for suspected SIM swap victims and investigate potential coercion or pressure tactics used against carrier employees.

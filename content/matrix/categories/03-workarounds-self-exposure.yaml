@@ -16,88 +16,489 @@ techniques:
     mitreId: null
     description: Staff adopt unapproved tools, moving data into services the
       organization can't see or secure.
+    detailedDescription: >-
+      Employees discover productivity tools online and sign up independently, often
+      uploading work documents or data to get immediate results. The convenience and
+      speed drive adoption without considering security implications, data residency,
+      or contractual obligations. Each new service creates an unmanaged endpoint
+      outside the organization's visibility and control.
+    attackerBehavior: >-
+      Adversaries monitor newly registered domains and SaaS integrations to identify
+      corporate accounts, then exploit weak security on these unmanaged services to
+      access organizational data or use them as pivot points into the main environment.
+    insiderBehavior: >-
+      Employees see a tool that solves an immediate problem and sign up quickly,
+      thinking it's just another browser tab. The service feels safe and professional,
+      so uploading work files seems reasonable for getting the job done efficiently.
+    prevention:
+      - mode: educate
+        action: Share simple criteria for evaluating new tools and a one-click escalation path for requesting approved alternatives.
+      - mode: evaluate
+        action: Run simulations where staff are offered compelling but risky productivity tools to measure adoption patterns.
+      - mode: monitor
+        action: Use network monitoring and SaaS discovery tools to detect new service signups and data uploads to unmanaged platforms.
+      - mode: intervene
+        action: When shadow IT is detected, provide immediate guidance on approved alternatives and help migrate data without blame or disruption.
   - id: 3-personal-device-for-work-data
     label: Personal device for work data
     mitreId: null
     description: Work data is handled on unmanaged personal devices outside the
       organization's controls.
+    detailedDescription: >-
+      Employees use their personal phones, tablets, or computers for work tasks when
+      it's more convenient than switching devices or waiting for IT support. This
+      creates an unmanaged endpoint where work data lives outside corporate security
+      controls, backup systems, and data loss prevention measures.
+    attackerBehavior: >-
+      Adversaries target personal devices through malware, compromised apps, or
+      physical access, knowing these devices often have weaker security than corporate
+      systems and may contain both personal and work data that can be leveraged.
+    insiderBehavior: >-
+      Employees reach for the device that's already in their hand or immediately
+      available, especially when working from home or traveling. It feels natural to
+      use the same device for multiple purposes without thinking about data boundaries.
+    prevention:
+      - mode: educate
+        action: Explain the risks of mixing personal and work data with clear examples of how corporate data gets exposed on personal devices.
+      - mode: evaluate
+        action: Test whether employees can identify and properly handle work data when using personal devices through scenario-based simulations.
+      - mode: monitor
+        action: Use mobile device management signals and data loss prevention alerts to detect work data on unmanaged personal devices.
+      - mode: intervene
+        action: Provide immediate guidance on secure alternatives and help transfer work data to managed devices without criticism or delay.
   - id: 3-skipping-vpn-on-untrusted-networks
     label: Skipping VPN on untrusted networks
     mitreId: null
     description: Connecting to work over untrusted networks without a VPN exposes
       traffic to interception.
+    detailedDescription: >-
+      Employees connect directly to work systems from coffee shops, airports, or
+      hotels without activating their VPN, often because it's slow, complicated, or
+      they forget. This exposes authentication credentials, work communications, and
+      data transfers to anyone monitoring the network.
+    attackerBehavior: >-
+      Adversaries set up malicious Wi-Fi hotspots or monitor legitimate public
+      networks to capture credentials and session tokens, then use these to access
+      corporate systems or impersonate employees in further attacks.
+    insiderBehavior: >-
+      Employees want to quickly check email or join a meeting without waiting for
+      the VPN to connect or dealing with the slower connection it typically provides.
+      The immediate task feels more important than the abstract security risk.
+    prevention:
+      - mode: educate
+        action: Use concrete examples showing how credentials get stolen on public Wi-Fi and provide simple VPN troubleshooting steps.
+      - mode: evaluate
+        action: Set up controlled network monitoring exercises to show employees how much data is visible when they skip the VPN.
+      - mode: monitor
+        action: Track VPN usage patterns and alert when employees connect to corporate resources from untrusted networks without protection.
+      - mode: intervene
+        action: Send immediate reminders to connect the VPN when unprotected access is detected, with quick troubleshooting help if needed.
   - id: 3-holding-doors-accommodating-tailgating
     label: Holding doors / accommodating tailgating
     mitreId: null
     description: Politely holding a secure door lets an unauthorized person follow
       staff inside.
+    detailedDescription: >-
+      Employees hold doors open for people behind them as a social courtesy,
+      especially when the person looks professional or is carrying coffee or packages.
+      This basic politeness overrides security awareness, allowing unauthorized
+      individuals to bypass physical access controls designed to authenticate every
+      person entering.
+    attackerBehavior: >-
+      Adversaries dress professionally, time their approach to follow employees
+      through secure doors, and use social engineering tactics like carrying items
+      to appear legitimate and trigger helping behavior from staff.
+    insiderBehavior: >-
+      Employees follow ingrained social norms of politeness and helpfulness,
+      automatically holding doors without stopping to consider whether the person
+      behind them is authorized. Confronting someone feels awkward and antisocial.
+    prevention:
+      - mode: educate
+        action: Teach polite ways to enforce badge requirements and explain how professional-looking intruders exploit courtesy.
+      - mode: evaluate
+        action: Run physical penetration tests where actors attempt to tailgate employees to measure compliance with access controls.
+      - mode: monitor
+        action: Use access card logs and security camera analytics to detect patterns of multiple people entering on a single badge swipe.
+      - mode: intervene
+        action: Provide gentle reminders about badge requirements when tailgating is observed, with role-playing scripts for polite enforcement.
   - id: 3-bypassing-change-management
     label: Bypassing change management
     mitreId: null
     description: Changes are pushed without review, removing the checks that catch
       risky or breaking changes.
+    detailedDescription: >-
+      Engineers skip formal change approval processes when under pressure to deliver
+      quickly or when the change seems small and harmless. This removes the safety
+      net of peer review and coordination that catches conflicts, security issues,
+      and unintended consequences before they reach production.
+    attackerBehavior: >-
+      Adversaries exploit the lack of oversight by introducing malicious changes
+      during periods when change management is commonly bypassed, or by compromising
+      developers who have direct deployment access outside normal review processes.
+    insiderBehavior: >-
+      Developers feel confident about their changes and view the formal process as
+      bureaucratic overhead that slows down urgent fixes or simple updates. The
+      immediate pressure to solve a problem outweighs abstract procedural concerns.
+    prevention:
+      - mode: educate
+        action: Share real examples of seemingly minor changes that caused major incidents and explain how change management prevents these outcomes.
+      - mode: evaluate
+        action: Simulate urgent scenarios to test whether teams maintain proper change management under pressure.
+      - mode: monitor
+        action: Track deployment patterns and alert on changes made outside approved processes or normal business hours.
+      - mode: intervene
+        action: Immediately review any emergency changes after deployment and provide streamlined approval processes for truly urgent situations.
   - id: 3-direct-production-access-without-ticket
     label: Direct production access without ticket
     mitreId: null
     description: Engineers act directly in production outside the ticketed, audited
       workflow, bypassing oversight.
+    detailedDescription: >-
+      Experienced engineers access production systems directly to quickly investigate
+      issues or make urgent fixes, skipping the formal ticketing and approval process.
+      This removes the audit trail and oversight designed to prevent unauthorized
+      changes and ensure proper coordination across teams.
+    attackerBehavior: >-
+      Adversaries who compromise developer accounts exploit direct production access
+      to make malicious changes without triggering the review and approval workflows
+      that would normally catch unauthorized activity.
+    insiderBehavior: >-
+      Engineers trust their expertise and want to solve problems immediately without
+      waiting for approvals or explaining routine tasks to non-technical reviewers.
+      The ticketing process feels like bureaucratic friction when they know exactly what needs to be done.
+    prevention:
+      - mode: educate
+        action: Explain how direct production access creates blind spots and liability, and demonstrate streamlined emergency ticket processes.
+      - mode: evaluate
+        action: Create production incident simulations to test whether teams follow proper access procedures under time pressure.
+      - mode: monitor
+        action: Log all production access and alert on actions taken outside the ticketed workflow or without proper approvals.
+      - mode: intervene
+        action: Follow up immediately on unticketed production access to understand the urgency and help create proper documentation.
   - id: 3-skipping-code-review
     label: Skipping code review
     mitreId: null
     description: Merging code without review removes a key layer that catches
       defects and malicious changes.
+    detailedDescription: >-
+      Developers merge their own code or approve changes with minimal review to meet
+      deadlines or avoid delays. This bypasses the collaborative oversight that
+      catches security flaws, logic errors, and design issues that the original
+      author might miss due to familiarity or time pressure.
+    attackerBehavior: >-
+      Adversaries exploit weak code review practices to introduce backdoors,
+      vulnerabilities, or malicious functionality, knowing that superficial or
+      rubber-stamp reviews are unlikely to catch sophisticated attacks.
+    insiderBehavior: >-
+      Developers feel confident about their code quality and view thorough review
+      as a bottleneck, especially for small changes or when reviewers are busy.
+      The immediate goal of shipping code takes precedence over the review process.
+    prevention:
+      - mode: educate
+        action: Share examples of critical bugs and security flaws that were only caught during code review, emphasizing the value of fresh perspectives.
+      - mode: evaluate
+        action: Inject subtle flaws into test code submissions to measure whether review processes catch them consistently.
+      - mode: monitor
+        action: Track code review metrics including time spent, comment density, and approval patterns to identify rushed or superficial reviews.
+      - mode: intervene
+        action: Provide immediate feedback on fast approvals or self-merges, with guidance on maintaining review quality under deadline pressure.
   - id: 3-production-data-in-dev-test
     label: Production data in dev / test
     mitreId: null
     description: Real production data is copied into lower environments that have
       weaker controls.
+    detailedDescription: >-
+      Developers copy production data to development and testing environments to
+      work with realistic datasets and debug issues effectively. However, these
+      non-production environments typically have weaker access controls, less
+      monitoring, and broader access, exposing sensitive data to unnecessary risk.
+    attackerBehavior: >-
+      Adversaries target development environments as easier entry points, knowing
+      they often contain production data but have relaxed security controls and
+      broader access permissions than production systems.
+    insiderBehavior: >-
+      Engineers need realistic data to properly test their code and troubleshoot
+      issues, and production data provides the most accurate representation of what
+      the system will encounter. Creating synthetic data feels like extra work when real data is available.
+    prevention:
+      - mode: educate
+        action: Demonstrate data masking and synthetic data generation tools that provide realistic test data without exposing sensitive information.
+      - mode: evaluate
+        action: Audit development environments to test whether production data can be accessed by unauthorized personnel.
+      - mode: monitor
+        action: Use data classification and movement tracking to detect when production data is copied to non-production environments.
+      - mode: intervene
+        action: Provide immediate help with data masking tools and policies when production data is found in development environments.
   - id: 3-customer-data-downloaded-locally
     label: Customer data downloaded locally
     mitreId: null
     description: Customer records are pulled onto a local machine, taking them
       outside monitored systems.
+    detailedDescription: >-
+      Employees download customer records, transaction data, or contact lists to
+      their local machines to work more efficiently offline, perform analysis, or
+      prepare presentations. This removes sensitive data from centralized systems
+      where access is logged and controlled, creating untracked copies on potentially
+      vulnerable endpoints.
+    attackerBehavior: >-
+      Adversaries target employee endpoints through malware or physical access,
+      knowing that locally stored customer data is easier to exfiltrate than data
+      in centralized systems with monitoring and access controls.
+    insiderBehavior: >-
+      Employees want to work efficiently with the data they need, especially when
+      central systems are slow or when they need to manipulate data in familiar
+      tools like spreadsheets. The convenience of local access outweighs abstract security concerns.
+    prevention:
+      - mode: educate
+        action: Explain the risks of customer data on endpoints and demonstrate secure ways to analyze data within monitored systems.
+      - mode: evaluate
+        action: Conduct data handling simulations to test whether employees can complete tasks without downloading sensitive information locally.
+      - mode: monitor
+        action: Use data loss prevention tools and endpoint monitoring to detect when customer data is downloaded or copied to local storage.
+      - mode: intervene
+        action: Provide immediate assistance with secure alternatives when local customer data downloads are detected, without disrupting urgent work.
   - id: 3-endpoint-protection-disabled-during-dev
     label: Endpoint protection disabled during dev
     mitreId: null
     description: Security tooling is turned off for convenience, leaving the
       endpoint unprotected.
+    detailedDescription: >-
+      Developers disable antivirus, endpoint detection and response tools, or other
+      security software because it interferes with development work by flagging
+      legitimate tools, slowing compilation, or blocking debugging activities.
+      This creates an unprotected window where malware can operate undetected.
+    attackerBehavior: >-
+      Adversaries exploit developer machines with disabled security tools,
+      knowing these systems often have elevated privileges and access to source
+      code, development infrastructure, and potentially production systems.
+    insiderBehavior: >-
+      Developers find security tools disruptive to their workflow, especially when
+      they generate false positives or slow down compilation and testing. Temporarily
+      disabling protection feels like a reasonable trade-off for productivity.
+    prevention:
+      - mode: educate
+        action: Explain how compromised developer machines can lead to supply chain attacks and provide guidance on security tool exceptions and allowlists.
+      - mode: evaluate
+        action: Test developer machines with disabled protection using controlled malware samples to demonstrate the increased risk.
+      - mode: monitor
+        action: Track endpoint protection status and alert when security tools are disabled on developer machines for extended periods.
+      - mode: intervene
+        action: Provide immediate help with security tool configuration and exceptions when protection is disabled, rather than forcing re-enablement.
   - id: 3-procurement-bypass-saas-signed-up-direct
     label: Procurement bypass (SaaS signed up direct)
     mitreId: null
     description: A team signs up for a SaaS directly, skipping security and
       contractual review.
+    detailedDescription: >-
+      Teams sign up directly for software-as-a-service tools using corporate credit
+      cards or personal accounts, bypassing procurement and security review processes.
+      This creates unvetted services handling company data without proper contracts,
+      security assessments, or compliance verification.
+    attackerBehavior: >-
+      Adversaries monitor for new corporate accounts on various SaaS platforms,
+      then target these unvetted services that may lack proper security controls
+      or have been set up with weak authentication by users unfamiliar with security best practices.
+    insiderBehavior: >-
+      Teams need to solve immediate business problems and find tools that work,
+      especially when official procurement processes are slow or complex. Signing
+      up directly feels like initiative and problem-solving rather than policy violation.
+    prevention:
+      - mode: educate
+        action: Explain the legal and security risks of unvetted SaaS services and provide a fast-track approval process for legitimate business needs.
+      - mode: evaluate
+        action: Run procurement scenario simulations to test whether teams follow proper approval processes when they need new tools.
+      - mode: monitor
+        action: Monitor corporate credit card transactions and email domains to detect new SaaS signups that bypass procurement.
+      - mode: intervene
+        action: Help teams transition to approved alternatives or fast-track legitimate tools through security review when unauthorized signups are discovered.
   - id: 3-side-channel-work-comms-personal-whatsapp-imessage
     label: Side-channel work comms (personal WhatsApp / iMessage)
     mitreId: null
     description: Work is discussed on personal messaging apps outside retention,
       governance, and security controls.
+    detailedDescription: >-
+      Employees use personal messaging platforms like WhatsApp, iMessage, or Discord
+      for work discussions because they're already installed, have better mobile
+      interfaces, or allow easier file sharing. This moves business communications
+      outside corporate retention policies, monitoring capabilities, and legal hold processes.
+    attackerBehavior: >-
+      Adversaries target personal messaging accounts to access work discussions,
+      exploit the lack of corporate security controls on personal platforms, or
+      use compromised personal accounts to appear legitimate in further social engineering.
+    insiderBehavior: >-
+      Employees use whatever communication tool is most convenient and accessible,
+      especially when corporate tools are slow, blocked, or don't work well on
+      mobile devices. Personal apps feel more natural for quick conversations.
+    prevention:
+      - mode: educate
+        action: Explain the legal and compliance risks of work discussions on personal platforms and highlight improved corporate messaging features.
+      - mode: evaluate
+        action: Monitor for work-related discussions on personal platforms during controlled scenarios to measure usage patterns.
+      - mode: monitor
+        action: Use mobile device management and network monitoring to detect corporate data being shared through personal messaging applications.
+      - mode: intervene
+        action: Redirect work conversations to corporate channels when detected and provide quick setup help for approved messaging tools.
   - id: 3-rubber-stamp-approvals-prs-access-reviews
     label: Rubber-stamp approvals (PRs, access reviews)
     mitreId: null
     description: Approvals are granted without real scrutiny, so the control exists
       on paper but not in practice.
+    detailedDescription: >-
+      Reviewers approve pull requests, access requests, and compliance reviews
+      quickly without thorough examination, often because they're busy, trust the
+      requester, or don't feel qualified to evaluate the content. This turns
+      security controls into empty ceremonies that provide false assurance.
+    attackerBehavior: >-
+      Adversaries exploit superficial review processes by submitting malicious
+      changes or requests during busy periods or to reviewers known for quick
+      approvals, counting on the rubber-stamp pattern to avoid detection.
+    insiderBehavior: >-
+      Reviewers feel pressured to approve quickly to avoid blocking colleagues,
+      may lack the expertise to evaluate complex requests, or trust that others
+      wouldn't submit anything inappropriate. Thorough review feels like an obstacle to progress.
+    prevention:
+      - mode: educate
+        action: Provide specific guidance on what to look for during reviews and explain how superficial approvals create liability for approvers.
+      - mode: evaluate
+        action: Inject test submissions with subtle but detectable issues to measure whether reviewers catch problems consistently.
+      - mode: monitor
+        action: Track approval patterns including review time and comment activity to identify consistently rushed or superficial reviews.
+      - mode: intervene
+        action: Provide immediate coaching when approval patterns suggest insufficient scrutiny, with specific examples of what to check.
   - id: 3-skipped-required-training
     label: Skipped required training
     mitreId: null
     description: Required security training is skipped, leaving staff unaware of
       expected practices and current threats.
+    detailedDescription: >-
+      Employees postpone or skip mandatory security training because it's viewed
+      as repetitive, time-consuming, or irrelevant to their daily work. This leaves
+      knowledge gaps about current threat tactics, security policies, and proper
+      incident response procedures, making the entire organization more vulnerable.
+    attackerBehavior: >-
+      Adversaries research an organization's security training requirements and
+      timing to identify periods when many employees may have lapsed training,
+      then target these individuals with tactics that trained staff would recognize.
+    insiderBehavior: >-
+      Employees see training as a checkbox exercise that takes time away from
+      "real work," especially if previous training felt generic or outdated. They
+      assume they already know the basics and don't need formal instruction.
+    prevention:
+      - mode: educate
+        action: Make training content immediately relevant to current threats and specific to the organization's environment rather than generic security awareness.
+      - mode: evaluate
+        action: Test employees who have completed training against those who haven't to measure the actual effectiveness of the curriculum.
+      - mode: monitor
+        action: Track training completion rates and correlate with security incident patterns to identify high-risk gaps.
+      - mode: intervene
+        action: Provide personalized catch-up sessions for employees with lapsed training, focusing on the most critical concepts rather than complete re-training.
   - id: 3-linkedin-social-oversharing-of-work
     label: LinkedIn / social oversharing of work
     mitreId: null
     description: Detailed work posts reveal tools, projects, and org structure
       useful to an adversary's reconnaissance.
+    detailedDescription: >-
+      Employees share detailed information about their work, technologies, projects,
+      and organizational structure on social media platforms to build their
+      professional brand or celebrate achievements. This aggregated information
+      provides adversaries with detailed intelligence about internal systems,
+      processes, and potential targets.
+    attackerBehavior: >-
+      Adversaries compile social media posts from employees to map organizational
+      structure, identify key technologies and vendors, understand project timelines,
+      and select specific targets for social engineering attacks.
+    insiderBehavior: >-
+      Employees want to showcase their work achievements and technical expertise
+      to build their professional reputation, network with peers, and advance their
+      careers. The professional benefits feel more immediate than abstract security risks.
+    prevention:
+      - mode: educate
+        action: Provide specific examples of how aggregated social media posts reveal sensitive organizational information and suggest safer ways to build professional presence.
+      - mode: evaluate
+        action: Conduct open source intelligence exercises to show employees how much information can be gathered from their collective social media activity.
+      - mode: monitor
+        action: Monitor public social media posts by employees for sensitive information disclosure and track mentions of internal projects or systems.
+      - mode: intervene
+        action: Provide gentle feedback when posts contain sensitive details, with suggestions for editing or future posting guidelines rather than demanding removal.
   - id: 3-conference-q-a-oversharing
     label: Conference Q&A oversharing
     mitreId: null
     description: Answering questions in public talks reveals internal details beyond
       what was intended.
+    detailedDescription: >-
+      Speakers at conferences, meetups, or webinars provide detailed answers to
+      audience questions that reveal more internal information than planned, often
+      because they want to be helpful or demonstrate expertise. The spontaneous
+      nature of Q&A sessions bypasses the careful information filtering applied to prepared content.
+    attackerBehavior: >-
+      Adversaries attend public presentations or watch recordings specifically to
+      ask probing questions during Q&A sessions, knowing speakers are more likely
+      to share sensitive details when put on the spot or trying to demonstrate knowledge.
+    insiderBehavior: >-
+      Speakers feel energized by audience engagement and want to provide valuable,
+      detailed answers that demonstrate their expertise and helpfulness. The pressure
+      to not disappoint the audience overrides caution about sensitive information.
+    prevention:
+      - mode: educate
+        action: Train speakers to recognize sensitive information boundaries and practice deflecting questions that probe beyond appropriate limits.
+      - mode: evaluate
+        action: Run mock Q&A sessions with probing questions to test speakers' ability to maintain information boundaries under pressure.
+      - mode: monitor
+        action: Review recordings of employee presentations and track mentions of internal systems, processes, or sensitive organizational details.
+      - mode: intervene
+        action: Provide immediate post-presentation feedback when oversharing occurs, with coaching on better boundary-setting techniques for future talks.
   - id: 3-public-photos-of-badges-desks-screens
     label: Public photos of badges / desks / screens
     mitreId: null
     description: Photos expose badge designs, on-screen data, or desk contents that
       aid impersonation or intrusion.
+    detailedDescription: >-
+      Employees post photos from work that inadvertently capture security badges,
+      computer screens with sensitive data, desk contents, or office layouts on
+      social media or professional platforms. These images provide adversaries with
+      visual intelligence useful for impersonation, tailgating, and social engineering attacks.
+    attackerBehavior: >-
+      Adversaries analyze photos posted by employees to replicate badge designs,
+      gather information from visible screens, understand office layouts and security
+      measures, and identify specific targets for social engineering.
+    insiderBehavior: >-
+      Employees focus on the main subject of their photo — celebrating an
+      achievement, showing their workspace, or documenting an event — without
+      noticing sensitive items in the background or periphery of the image.
+    prevention:
+      - mode: educate
+        action: Train employees to scan photos for background information before posting and provide examples of seemingly innocent photos that revealed sensitive details.
+      - mode: evaluate
+        action: Review employee social media photos to identify and demonstrate how much information is inadvertently revealed in workplace images.
+      - mode: monitor
+        action: Use social media monitoring tools to scan employee posts for images containing badges, screens, or other sensitive visual information.
+      - mode: intervene
+        action: Suggest photo editing or reposting when sensitive information is identified, focusing on education rather than demanding removal.
   - id: 3-bragging-about-clients-deals-publicly
     label: Bragging about clients / deals publicly
     mitreId: null
     description: Publicly naming clients or deals leaks confidential relationships
       and timing.
+    detailedDescription: >-
+      Employees share exciting news about major clients, deals, or contracts on
+      social media or professional platforms before official announcements,
+      revealing confidential business relationships, deal timing, or competitive
+      information. This violates confidentiality agreements and provides competitors
+      with strategic intelligence.
+    attackerBehavior: >-
+      Adversaries monitor employee social media for early disclosure of business
+      relationships and deals, using this intelligence for competitive advantage,
+      stock manipulation, or targeted attacks on newly announced partnerships.
+    insiderBehavior: >-
+      Employees feel proud of their work success and want to share achievements
+      with their professional network, especially when major deals or prestigious
+      clients are involved. The excitement of the moment overrides confidentiality considerations.
+    prevention:
+      - mode: educate
+        action: Explain the legal and competitive risks of early deal disclosure and provide guidelines on what work achievements can be safely shared publicly.
+      - mode: evaluate
+        action: Test employee understanding of confidentiality requirements through scenarios involving exciting but confidential business developments.
+      - mode: monitor
+        action: Monitor employee social media for premature disclosure of client relationships, deals, or business partnerships.
+      - mode: intervene
+        action: Provide immediate guidance on confidentiality requirements when premature disclosures are detected, with help on safe ways to celebrate achievements.

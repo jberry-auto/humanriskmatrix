@@ -67,7 +67,7 @@ The shipped Matrix follows the **MITRE ATT&CK viewer** model rather than per-cat
 
 - `app/matrix/page.tsx` — static Server Component; `loadContent()` → passes serializable data to `MatrixView`.
 - `src/components/matrix/MatrixView.tsx` (client) — the wide grid (`repeat(11, minmax(11rem,1fr))`), collapsible degree bands, per-technique checkbox + label button; owns the active-technique and selection state. Wrapped in the `HorizontalScroll` UI primitive.
-- `src/components/matrix/TechniqueDetailDrawer.tsx` (client) — the `SideSheet` detail pull-out: description, MITRE link, category/intent context, mapped models/insider categories.
+- `src/components/matrix/TechniqueDetailDrawer.tsx` (client) — the `SideSheet` detail pull-out: description + MITRE link, the per-technique detail (Overview, How an adversary operates, How the insider acts), Countermeasures grouped by the four modes (educate/evaluate/monitor/intervene), then secondary category/intent context + mapped models/insider categories.
 - `src/components/matrix/HeatmapSummary.tsx` (client) — selected totals, per-degree counts, Focus toggle, Clear.
 - `src/components/matrix/use-heatmap.ts` (client) — `useSyncExternalStore` module store persisted to `localStorage` (`hrm.heatmap.v1`).
 - `src/components/matrix/degree-style.ts` — static per-degree Tailwind classes.

@@ -44,11 +44,21 @@ Each category file lists techniques in priority order. A technique is:
 - id: 7-spearphishing-attachment       # stable, globally unique: "<categoryId>-<slug(label)>"
   label: "Spearphishing Attachment"    # the human-readable behavior/technique
   mitreId: "T1566.001"                 # real MITRE ATT&CK ID, or null if uncoded
-  description: "A targeted email delivers a malicious attachment…"  # required, authored
+  description: "A targeted email delivers a malicious attachment…"  # required: one-line summary
+  detailedDescription: "…"             # required: full prose write-up of the behavior
+  attackerBehavior: "…"                # required: how an adversary operates / leverages it
+  insiderBehavior: "…"                 # required: how the human acts in the moment
+  prevention:                          # required: must cover all four modes
+    - { mode: educate,   action: "…" }
+    - { mode: evaluate,  action: "…" }
+    - { mode: monitor,   action: "…" }
+    - { mode: intervene, action: "…" }
 ```
 
 - **`label`** — concise, specific, sentence-case noun phrase describing the behavior. Match the vocabulary already used in the category. Avoid vendor product names unless the technique is named for one (e.g., "Help-desk SE (Scattered Spider)").
 - **`mitreId`** — the canonical ATT&CK technique ID (e.g., `T1566`, `T1566.004`, `T1597.002`). Verify it on attack.mitre.org. Use `null` (not `""`, not `"—"`) when no coded technique applies. **Never invent an ID.**
+- **`detailedDescription` / `attackerBehavior` / `insiderBehavior`** — neutral, practitioner-facing prose. Describe adversary technique to help defenders, never as an operational how-to. For accidental categories (1–3), `attackerBehavior` describes how an adversary *leverages* the resulting exposure.
+- **`prevention`** — mode-tagged countermeasures; **cover all four modes** (`educate`, `evaluate`, `monitor`, `intervene` — see `docs/content-model.md`). `intervene` scales to the category's intent degree (blame-free re-education at `unintentional` → investigation / law-enforcement handling at `complicit`). Treat technology (UEBA, DLP, HRM platforms, manual investigation) as an enabler of the behavioral response, not the primary control. Stay neutral — no vendor names, no marketing tone.
 - One behavior per entry. Don't merge two techniques into one label.
 - Order reflects prominence/representativeness within the category, mirroring the source workbook.
 

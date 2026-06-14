@@ -1,9 +1,17 @@
 "use client";
 
+import type { ReactNode } from "react";
+
 import { Button } from "@/components/ui/Button";
 import { SideSheet } from "@/components/ui/SideSheet";
 import { Tag } from "@/components/ui/Tag";
-import type { IntentDegree, MatrixCategory, Technique } from "@/lib/content/schema";
+import {
+  COUNTERMEASURE_MODES,
+  type CountermeasureMode,
+  type IntentDegree,
+  type MatrixCategory,
+  type Technique,
+} from "@/lib/content/schema";
 import { mitreUrl } from "@/lib/matrix/mitre";
 
 export interface FrameworkRef {
@@ -12,6 +20,22 @@ export interface FrameworkRef {
 }
 export interface InsiderRef {
   readonly name: string;
+}
+
+const MODE_LABEL: Record<CountermeasureMode, string> = {
+  educate: "Educate",
+  evaluate: "Evaluate",
+  monitor: "Monitor",
+  intervene: "Intervene",
+};
+
+function DetailSection({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <section className="flex flex-col gap-1.5">
+      <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-ink">{title}</h3>
+      {children}
+    </section>
+  );
 }
 
 interface TechniqueDetailDrawerProps {
@@ -64,7 +88,40 @@ export function TechniqueDetailDrawer({
             </p>
           ) : null}
 
-          <section className="flex flex-col gap-1">
+          <DetailSection title="Overview">
+            <p className="text-sm leading-relaxed text-ink">{technique.detailedDescription}</p>
+          </DetailSection>
+
+          <DetailSection title="How an adversary operates">
+            <p className="text-sm leading-relaxed text-ink">{technique.attackerBehavior}</p>
+          </DetailSection>
+
+          <DetailSection title="How the insider acts">
+            <p className="text-sm leading-relaxed text-ink">{technique.insiderBehavior}</p>
+          </DetailSection>
+
+          <DetailSection title="Countermeasures">
+            <div className="flex flex-col gap-3">
+              {COUNTERMEASURE_MODES.map((mode) => {
+                const actions = technique.prevention.filter((c) => c.mode === mode);
+                if (actions.length === 0) return null;
+                return (
+                  <div key={mode} className="flex flex-col gap-1">
+                    <h4 className="text-xs font-semibold text-ink">{MODE_LABEL[mode]}</h4>
+                    <ul className="flex flex-col gap-1">
+                      {actions.map((c) => (
+                        <li key={c.action} className="text-sm leading-relaxed text-muted">
+                          {c.action}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
+          </DetailSection>
+
+          <section className="flex flex-col gap-1 border-t border-border pt-4">
             <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">
               Intent context
             </h3>

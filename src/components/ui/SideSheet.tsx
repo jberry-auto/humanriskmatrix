@@ -20,7 +20,7 @@ export function SideSheet({ isOpen, onOpenChange, title, children }: SideSheetPr
       isDismissable
       className="fixed inset-0 z-50 flex justify-end bg-ink/40 transition-opacity duration-200 entering:opacity-0 exiting:opacity-0"
     >
-      <Modal className="h-full w-full max-w-md border-l border-border bg-surface shadow-lg outline-none transition-transform duration-200 ease-out entering:translate-x-full exiting:translate-x-full">
+      <Modal className="h-full w-full border-l border-border bg-surface shadow-lg outline-none transition-transform duration-200 ease-out entering:translate-x-full exiting:translate-x-full md:w-2/5">
         <Dialog className="flex h-full flex-col outline-none">
           {({ close }) => (
             <>

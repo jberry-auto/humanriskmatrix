@@ -14,113 +14,728 @@ techniques:
     mitreId: T1566.001
     description: A targeted email delivers a malicious attachment crafted to
       compromise the recipient when opened.
+    detailedDescription: >-
+      This technique leverages the recipient's trust in the sender and their familiarity
+      with common file types to deliver malware hidden in documents, PDFs, or executables.
+      The attachment appears legitimate — often mimicking business documents, invoices, or
+      urgent updates — while containing embedded macros, exploits, or trojans that activate
+      when the victim opens the file.
+    attackerBehavior: >-
+      The adversary crafts a convincing email context that justifies why the recipient
+      should open the attachment, often impersonating trusted contacts or creating urgent
+      scenarios. They embed malicious code in common file types and may use social
+      engineering to bypass user suspicion about enabling macros or running executables.
+    insiderBehavior: >-
+      The employee receives what appears to be a legitimate business document from a trusted
+      source and opens it as part of their normal workflow. They may dismiss security
+      warnings as routine false positives or feel pressured by the apparent urgency to
+      act quickly without additional verification.
+    prevention:
+      - mode: educate
+        action: Train employees to verify unexpected attachments through a separate communication channel before opening.
+      - mode: evaluate
+        action: Conduct simulated spearphishing campaigns with tracked attachments to measure opening rates and response times.
+      - mode: monitor
+        action: Deploy email security gateways and endpoint detection to flag suspicious attachments and track user interaction patterns.
+      - mode: intervene
+        action: Rapidly isolate affected systems when malicious attachments are detected, reset credentials, and provide immediate coaching on verification protocols.
   - id: 7-spearphishing-link
     label: Spearphishing Link
     mitreId: T1566.002
     description: A targeted email lures the recipient to a malicious link that
       harvests credentials or delivers malware.
+    detailedDescription: >-
+      This attack exploits the recipient's trust and urgency response by presenting
+      compelling reasons to click a link that leads to credential harvesting sites or
+      drive-by malware downloads. The email context creates believable scenarios — account
+      security alerts, document sharing notifications, or time-sensitive opportunities —
+      that bypass normal skepticism about unfamiliar links.
+    attackerBehavior: >-
+      The adversary crafts emails with urgent or enticing content that naturally leads to
+      link clicking, often using URL shorteners or legitimate-looking domains to mask
+      the destination. They may create convincing replica login pages or exploit kits
+      that automatically compromise visiting browsers.
+    insiderBehavior: >-
+      The employee clicks the link believing it serves a legitimate business purpose,
+      such as accessing a shared document, responding to a security alert, or claiming
+      a benefit. They enter credentials on what appears to be a familiar login page
+      without carefully examining the URL or context.
+    prevention:
+      - mode: educate
+        action: Teach employees to hover over links to preview destinations and verify legitimacy before clicking.
+      - mode: evaluate
+        action: Deploy simulated phishing campaigns with tracked malicious links to measure click rates and credential entry.
+      - mode: monitor
+        action: Implement URL filtering, web proxies, and behavioral analytics to detect suspicious link interactions and credential harvesting attempts.
+      - mode: intervene
+        action: Immediately reset credentials and session tokens when credential harvesting is detected, quarantine affected accounts, and coach users on link verification.
   - id: 7-spearphishing-via-service
     label: Spearphishing via Service
     mitreId: T1566.003
     description: A tailored lure is delivered over a third-party service (social or
       messaging) rather than email.
+    detailedDescription: >-
+      This technique exploits the trust and casual communication norms of social media,
+      messaging platforms, and collaboration tools to deliver targeted attacks. Users
+      often have lower security awareness on these platforms compared to email, making
+      them more susceptible to malicious links, file shares, or social engineering within
+      familiar interfaces they use for both personal and professional communication.
+    attackerBehavior: >-
+      The adversary leverages compromised accounts or creates fake profiles on platforms
+      like LinkedIn, Slack, Teams, or WhatsApp to establish rapport before delivering
+      malicious content. They exploit the informal nature of these platforms and the
+      difficulty of verifying sender identity to increase the likelihood of successful
+      deception.
+    insiderBehavior: >-
+      The employee receives what appears to be a normal message from a contact or colleague
+      on a platform they trust and use regularly. They interact with shared links or files
+      without applying the same scrutiny they might use for suspicious emails, treating
+      the communication as routine social or work interaction.
+    prevention:
+      - mode: educate
+        action: Extend phishing awareness training to cover social media and messaging platforms, emphasizing verification of unexpected requests.
+      - mode: evaluate
+        action: Simulate attacks through approved business collaboration tools to test user vigilance across communication channels.
+      - mode: monitor
+        action: Implement monitoring for unusual file sharing patterns and external communications that could indicate compromise or targeting.
+      - mode: intervene
+        action: Rapidly investigate and contain suspected compromised accounts, reset platform credentials, and provide targeted coaching on cross-platform verification.
   - id: 7-spearphishing-voice-vishing
     label: Spearphishing Voice / Vishing
     mitreId: T1566.004
     description: A targeted phone call manipulates the recipient into disclosing
       data or taking a harmful action.
+    detailedDescription: >-
+      Voice-based social engineering exploits the immediacy and authority of phone
+      communication to pressure victims into bypassing normal security procedures.
+      The caller creates urgency, leverages supposed authority, or impersonates trusted
+      entities to extract credentials, financial information, or remote access. The
+      real-time nature makes it harder for victims to verify claims or think critically.
+    attackerBehavior: >-
+      The adversary researches the target organization to craft believable scenarios,
+      often impersonating IT support, executives, or external vendors. They use
+      psychological pressure tactics like urgency, authority, or fear to override the
+      victim's normal caution and may use caller ID spoofing to appear legitimate.
+    insiderBehavior: >-
+      The employee receives an unexpected call that seems urgent and legitimate, often
+      requesting immediate action to resolve a supposed crisis or security issue. They
+      comply with requests believing they are helping their organization or avoiding
+      negative consequences, feeling pressured by the caller's apparent authority.
+    prevention:
+      - mode: educate
+        action: Train employees to recognize voice social engineering tactics and establish verification protocols for unexpected phone requests.
+      - mode: evaluate
+        action: Conduct controlled voice-based social engineering tests to assess susceptibility and response protocols.
+      - mode: monitor
+        action: Track reports of suspicious phone calls and monitor for unusual remote access or system changes following calls.
+      - mode: intervene
+        action: Immediately verify and contain any access granted during suspicious calls, reset affected credentials, and coach on phone verification procedures.
   - id: 7-whaling
     label: Whaling
     mitreId: T1566
     description: A spearphish aimed at senior executives, exploiting their authority
       and access.
+    detailedDescription: >-
+      This highly targeted attack focuses on senior executives who have significant
+      authority, access to sensitive information, and the ability to authorize large
+      financial transactions. Attackers invest considerable effort in researching their
+      targets to craft highly personalized and believable scenarios that exploit the
+      executive's responsibilities, relationships, and decision-making authority.
+    attackerBehavior: >-
+      The adversary conducts extensive research on executive targets using public sources,
+      social media, and organizational intelligence to craft highly personalized attacks.
+      They may impersonate business partners, board members, or regulatory authorities
+      to create scenarios that naturally require executive-level attention and action.
+    insiderBehavior: >-
+      The executive receives what appears to be a high-priority communication requiring
+      their immediate attention and authority, often related to confidential business
+      matters, regulatory compliance, or urgent financial decisions. They respond quickly
+      due to their responsibility for critical business functions and time constraints.
+    prevention:
+      - mode: educate
+        action: Provide executives with specialized training on advanced targeting techniques and verification protocols for high-value requests.
+      - mode: evaluate
+        action: Conduct executive-specific simulations using realistic business scenarios to test decision-making under pressure.
+      - mode: monitor
+        action: Implement enhanced monitoring for executive communications and financial transaction requests, including behavioral baselines.
+      - mode: intervene
+        action: Establish immediate escalation procedures for suspected executive targeting, with rapid verification channels and containment protocols.
   - id: 7-smishing
     label: Smishing
     mitreId: T1566
     description: A phishing lure delivered by SMS or text message.
+    detailedDescription: >-
+      SMS-based phishing exploits the personal and immediate nature of text messaging,
+      where recipients typically have lower security awareness compared to email.
+      Messages often create false urgency around account security, package deliveries,
+      or financial alerts, directing victims to malicious websites or phone numbers
+      that harvest credentials or personal information.
+    attackerBehavior: >-
+      The adversary sends targeted text messages that appear to come from trusted
+      organizations like banks, delivery services, or IT departments. They use
+      shortened URLs to hide malicious destinations and craft urgent scenarios that
+      prompt immediate action without careful consideration.
+    insiderBehavior: >-
+      The employee receives a text message on their personal device that appears to
+      be from a legitimate service they use, creating a sense of urgency or concern.
+      They click links or call numbers provided in the message, treating it as a
+      normal customer service interaction rather than a potential security threat.
+    prevention:
+      - mode: educate
+        action: Train employees to recognize SMS phishing tactics and verify unexpected text messages through official channels.
+      - mode: evaluate
+        action: Conduct simulated SMS phishing campaigns to test user response to mobile-delivered threats.
+      - mode: monitor
+        action: Encourage reporting of suspicious text messages and monitor for unusual mobile device activity patterns.
+      - mode: intervene
+        action: Rapidly reset credentials and review account access when SMS-based compromise is suspected, providing immediate mobile security guidance.
   - id: 7-quishing-qr-phishing
     label: Quishing (QR phishing)
     mitreId: null
     description: A QR code routes the victim to a malicious site, bypassing link inspection.
+    detailedDescription: >-
+      QR code phishing exploits the obscured nature of QR codes, where users cannot
+      easily inspect the destination URL before scanning. These codes appear in emails,
+      physical documents, or public spaces, directing victims to credential harvesting
+      sites or malware downloads while bypassing traditional email security controls
+      that scan text-based links.
+    attackerBehavior: >-
+      The adversary embeds malicious QR codes in legitimate-looking documents, emails,
+      or physical materials, often accompanied by urgent instructions to scan for
+      account updates, Wi-Fi access, or document downloads. They leverage the user's
+      inability to preview the destination and the perception that QR codes are safe.
+    insiderBehavior: >-
+      The employee scans a QR code believing it provides convenient access to a
+      legitimate service, document, or network connection. They follow the mobile
+      browser to what appears to be a familiar login page or download site without
+      scrutinizing the actual URL or domain.
+    prevention:
+      - mode: educate
+        action: Train users to be cautious with unexpected QR codes and to verify the source before scanning.
+      - mode: evaluate
+        action: Test QR code security awareness through simulated quishing campaigns with tracking and education.
+      - mode: monitor
+        action: Deploy mobile device management and security solutions that can detect suspicious QR code destinations and behaviors.
+      - mode: intervene
+        action: Rapidly contain mobile device access when malicious QR code interaction is detected and provide immediate security guidance.
   - id: 7-calendar-invite-phishing
     label: Calendar-invite phishing
     mitreId: null
     description: A malicious calendar invite delivers a lure or link directly into
       the target's schedule.
+    detailedDescription: >-
+      Calendar-based attacks exploit the trust and automatic acceptance features of
+      calendar systems to deliver malicious content directly into the victim's daily
+      workflow. Since calendar invites often bypass traditional email security
+      scanning and appear as legitimate business meetings, recipients are more likely
+      to interact with embedded links or attachments without suspicion.
+    attackerBehavior: >-
+      The adversary creates realistic-looking meeting invitations with malicious links
+      in the description, location field, or attached documents. They may impersonate
+      colleagues, external partners, or create urgent meeting scenarios that require
+      immediate preparation through clicking provided links.
+    insiderBehavior: >-
+      The employee sees a calendar invitation that appears to be a normal business
+      meeting and clicks links to access supposedly shared agendas, dial-in information,
+      or preparation materials. They trust the calendar system and treat the interaction
+      as routine meeting preparation.
+    prevention:
+      - mode: educate
+        action: Train users to scrutinize unexpected calendar invitations and verify meeting legitimacy through separate communication channels.
+      - mode: evaluate
+        action: Conduct simulated calendar phishing attacks to test user vigilance with calendar-delivered threats.
+      - mode: monitor
+        action: Implement calendar security scanning and monitor for suspicious meeting patterns or external invitations.
+      - mode: intervene
+        action: Rapidly investigate and remove malicious calendar entries, reset credentials if compromise occurred, and coach on calendar security practices.
   - id: 7-browser-in-the-browser-bitb
     label: Browser-in-the-Browser (BitB)
     mitreId: null
     description: A fake browser window mimics a legitimate login pop-up to steal
       credentials.
+    detailedDescription: >-
+      This technique creates a convincing replica of a browser window using HTML,
+      CSS, and JavaScript that appears to be a legitimate authentication popup from
+      trusted services like Microsoft, Google, or corporate SSO systems. Users cannot
+      easily distinguish the fake window from a real browser popup, leading them to
+      enter credentials into what appears to be a standard login flow.
+    attackerBehavior: >-
+      The adversary crafts pixel-perfect replicas of authentic login windows, complete
+      with correct branding, URLs, and user interface elements. They trigger these
+      fake windows from compromised websites or phishing pages, timing them to appear
+      natural within the user's browsing context.
+    insiderBehavior: >-
+      The employee sees what appears to be a standard authentication popup from a
+      familiar service and enters their credentials as they would in any normal
+      login scenario. The fake window looks identical to legitimate popups they've
+      used countless times before.
+    prevention:
+      - mode: educate
+        action: Train users to recognize fake browser windows and always verify authentication requests by navigating directly to official sites.
+      - mode: evaluate
+        action: Simulate browser-in-the-browser attacks to test user ability to distinguish fake authentication popups.
+      - mode: monitor
+        action: Deploy browser security extensions and endpoint detection to identify suspicious JavaScript and window manipulation.
+      - mode: intervene
+        action: Immediately reset credentials when fake authentication windows are detected, quarantine affected sessions, and provide popup verification coaching.
   - id: 7-adversary-in-the-middle-aitm
     label: Adversary-in-the-Middle (AitM)
     mitreId: T1557
     description: A reverse proxy relays a real login to steal credentials and
       session tokens, defeating many MFA methods.
+    detailedDescription: >-
+      This sophisticated attack intercepts the complete authentication flow between
+      the victim and legitimate services, capturing not just usernames and passwords
+      but also session cookies and MFA tokens. The victim interacts with the real
+      service through the attacker's proxy, making the experience completely authentic
+      while the attacker harvests all authentication artifacts in real-time.
+    attackerBehavior: >-
+      The adversary deploys a reverse proxy server that seamlessly forwards all
+      traffic between the victim and the legitimate authentication server, capturing
+      credentials, MFA codes, and session tokens as they pass through. They use
+      phishing or other delivery methods to direct victims to the proxy URL.
+    insiderBehavior: >-
+      The employee completes what appears to be a completely normal and authentic
+      login process, including multi-factor authentication, without any indication
+      that their credentials and session are being intercepted. The real-time proxy
+      makes the interaction indistinguishable from a direct connection.
+    prevention:
+      - mode: educate
+        action: Train users to carefully verify URLs and domain names before authentication, especially for sensitive systems.
+      - mode: evaluate
+        action: Simulate adversary-in-the-middle attacks against test users to assess detection capabilities and response.
+      - mode: monitor
+        action: Deploy network monitoring to detect proxy patterns and implement certificate pinning where possible.
+      - mode: intervene
+        action: Immediately invalidate all sessions and require full re-authentication when AitM activity is detected, with enhanced verification protocols.
   - id: 7-clickfix-fakecaptcha
     label: ClickFix / FakeCaptcha
     mitreId: T1204.004
     description: A fake error or CAPTCHA tricks the user into running attacker
       commands themselves.
+    detailedDescription: >-
+      This technique presents convincing fake error messages or CAPTCHA challenges
+      that instruct users to copy and paste malicious commands into their terminal
+      or PowerShell. The instructions appear to resolve a legitimate technical issue
+      or prove human identity, exploiting users' troubleshooting instincts and trust
+      in official-looking system messages.
+    attackerBehavior: >-
+      The adversary creates realistic system error dialogs or CAPTCHA interfaces
+      that provide step-by-step instructions for users to execute malicious code.
+      They disguise commands as troubleshooting steps or verification procedures,
+      often using base64 encoding or other obfuscation to hide the true purpose.
+    insiderBehavior: >-
+      The employee encounters what appears to be a technical error or security
+      verification that requires manual intervention to resolve. They follow the
+      provided instructions believing they are fixing a system issue or proving
+      they are human, copying and executing the provided commands without recognizing
+      their malicious nature.
+    prevention:
+      - mode: educate
+        action: Train users never to copy-paste commands from web pages or error dialogs and to verify any technical instructions through IT support.
+      - mode: evaluate
+        action: Simulate ClickFix scenarios to test whether users will execute suspicious commands when presented with convincing error messages.
+      - mode: monitor
+        action: Implement endpoint monitoring to detect unusual command execution patterns and suspicious terminal activity.
+      - mode: intervene
+        action: Immediately isolate systems where malicious commands were executed, terminate suspicious processes, and provide emergency command verification training.
   - id: 7-reverse-vishing-toad
     label: Reverse vishing / TOAD
     mitreId: null
     description: A lure prompts the victim to call an attacker-run 'support' line
       (telephone-oriented attack delivery).
+    detailedDescription: >-
+      Reverse vishing flips traditional voice phishing by making the victim initiate
+      contact with the attacker. Fake security alerts, error messages, or subscription
+      notifications provide a phone number for "immediate assistance," leading victims
+      to call an attacker-controlled help desk where they voluntarily provide credentials
+      or install remote access tools.
+    attackerBehavior: >-
+      The adversary creates convincing security warnings, error pages, or subscription
+      notices that include a sense of urgency and provide a phone number for resolution.
+      They staff call centers with trained social engineers who guide callers through
+      credential disclosure or remote access installation while maintaining the facade
+      of legitimate technical support.
+    insiderBehavior: >-
+      The employee encounters an alarming security warning or technical error and
+      calls the provided support number seeking help. They cooperate with the helpful
+      "support technician" by providing requested information or following technical
+      instructions, believing they are resolving a legitimate security or technical issue.
+    prevention:
+      - mode: educate
+        action: Train employees to verify support phone numbers through official channels rather than calling numbers from unexpected alerts or messages.
+      - mode: evaluate
+        action: Simulate reverse vishing scenarios to test whether users will call suspicious support numbers when presented with alarming messages.
+      - mode: monitor
+        action: Monitor for reports of suspicious support calls and track unusual remote access or system changes following support interactions.
+      - mode: intervene
+        action: Immediately verify and revoke any access granted during suspicious support calls, reset credentials, and provide guidance on official support channels.
   - id: 7-pharming
     label: Pharming
     mitreId: T1584.002
     description: DNS or host manipulation silently redirects victims to a malicious
       site even when they type the right address.
+    detailedDescription: >-
+      Pharming attacks manipulate the fundamental infrastructure that translates
+      domain names to IP addresses, redirecting users to malicious sites even when
+      they type correct URLs or click legitimate links. This can occur through
+      compromised DNS servers, poisoned local DNS caches, or modified host files,
+      making detection extremely difficult for end users.
+    attackerBehavior: >-
+      The adversary compromises DNS infrastructure, local network equipment, or
+      individual systems to redirect legitimate domain names to attacker-controlled
+      servers. They create convincing replicas of banking, corporate, or popular
+      websites to harvest credentials and sensitive information from redirected users.
+    insiderBehavior: >-
+      The employee navigates to a familiar website using their normal methods —
+      typing the URL, using bookmarks, or clicking trusted links — but unknowingly
+      reaches a malicious replica instead of the legitimate site. They enter
+      credentials or sensitive information believing they are on the authentic website.
+    prevention:
+      - mode: educate
+        action: Train users to recognize signs of pharming attacks and verify site authenticity through certificate inspection and secure browsing practices.
+      - mode: evaluate
+        action: Test organizational DNS security and user response to simulated pharming scenarios.
+      - mode: monitor
+        action: Implement DNS monitoring, certificate transparency logging, and network traffic analysis to detect unauthorized redirections.
+      - mode: intervene
+        action: Rapidly identify and remediate DNS poisoning when detected, reset potentially compromised credentials, and guide users to legitimate sites.
   - id: 7-watering-hole
     label: Watering hole
     mitreId: T1189
     description: A site the target group frequents is compromised to deliver malware
       to its visitors.
+    detailedDescription: >-
+      Watering hole attacks compromise legitimate websites that the target organization's
+      employees frequently visit, turning trusted resources into malware delivery
+      mechanisms. This technique exploits the implicit trust users have in familiar
+      websites and bypasses many security controls by using legitimate infrastructure
+      to host malicious content.
+    attackerBehavior: >-
+      The adversary researches the target organization's online habits to identify
+      commonly visited websites, then compromises those sites to inject malicious
+      code that targets specific users or organizations. They may use drive-by downloads,
+      credential harvesting forms, or exploit kits delivered through the compromised
+      legitimate site.
+    insiderBehavior: >-
+      The employee visits a website they regularly use for work or professional
+      development and unknowingly downloads malware or enters credentials into harvesting
+      forms. They trust the site completely due to their familiarity with it and have
+      no reason to suspect it has been compromised.
+    prevention:
+      - mode: educate
+        action: Train employees about watering hole risks and encourage reporting of unusual behavior on familiar websites.
+      - mode: evaluate
+        action: Simulate watering hole scenarios by hosting controlled malicious content on approved test sites.
+      - mode: monitor
+        action: Deploy web content filtering, browser security extensions, and network monitoring to detect malicious activity on legitimate sites.
+      - mode: intervene
+        action: Immediately quarantine systems that accessed compromised watering hole sites, scan for malware, and provide guidance on safe browsing practices.
   - id: 7-seo-poisoning
     label: SEO poisoning
     mitreId: T1608.006
     description: Malicious pages are ranked highly in search results so victims find
       and trust them.
+    detailedDescription: >-
+      SEO poisoning manipulates search engine algorithms to rank malicious websites
+      highly in search results for legitimate queries. Users searching for software
+      downloads, technical support, or business services encounter attacker-controlled
+      sites that appear credible due to their prominent search ranking, leading to
+      malware downloads or credential theft.
+    attackerBehavior: >-
+      The adversary uses search engine optimization techniques to rank malicious
+      sites highly for popular search terms, often creating convincing replicas of
+      legitimate software repositories, support sites, or business services. They
+      exploit users' tendency to trust top search results as authoritative and safe.
+    insiderBehavior: >-
+      The employee searches for legitimate business tools, software updates, or
+      technical solutions and clicks on a top-ranked result that appears professional
+      and relevant. They download software or enter information believing they are
+      interacting with a legitimate vendor or service provider.
+    prevention:
+      - mode: educate
+        action: Train employees to verify website authenticity beyond search ranking and to use official vendor channels for software downloads.
+      - mode: evaluate
+        action: Test user behavior when encountering high-ranking malicious sites in controlled search scenarios.
+      - mode: monitor
+        action: Implement web filtering, reputation services, and download monitoring to detect access to suspicious high-ranking sites.
+      - mode: intervene
+        action: Rapidly quarantine systems that accessed poisoned search results, scan for malware, and coach on safe search practices.
   - id: 7-malvertising
     label: Malvertising
     mitreId: T1583.008
     description: Malicious ads on legitimate sites deliver lures or malware.
+    detailedDescription: >-
+      Malvertising embeds malicious code within seemingly legitimate advertisements
+      on trusted websites, exploiting the advertising ecosystem to reach targets
+      without compromising the host site itself. Users can be infected simply by
+      viewing a page with malicious ads, or more commonly by clicking on ads that
+      appear to offer legitimate products or services.
+    attackerBehavior: >-
+      The adversary purchases ad space on legitimate websites or compromises advertising
+      networks to distribute malicious advertisements. They create convincing ads
+      that mimic legitimate products, services, or security warnings to entice clicks,
+      then deliver malware through drive-by downloads or redirect to credential
+      harvesting sites.
+    insiderBehavior: >-
+      The employee encounters an advertisement on a trusted website that appears
+      to offer a relevant product, service, or urgent security update. They click
+      the ad believing it to be legitimate business content, unaware that the advertisement
+      itself has been weaponized by attackers.
+    prevention:
+      - mode: educate
+        action: Train employees to be cautious with web advertisements and to use ad blockers when appropriate for security.
+      - mode: evaluate
+        action: Test user response to simulated malicious advertisements in controlled browsing environments.
+      - mode: monitor
+        action: Deploy ad-blocking technology, content filtering, and browser security solutions to detect and prevent malicious advertising.
+      - mode: intervene
+        action: Rapidly isolate systems that interacted with malicious ads, scan for malware, and provide guidance on safe browsing with ad awareness.
   - id: 7-fake-breach-notification
     label: Fake breach notification
     mitreId: null
     description: A bogus 'you've been breached' alert panics the victim into a
       harmful action.
+    detailedDescription: >-
+      This technique exploits fear and urgency by presenting fake security breach
+      notifications that appear to come from legitimate services or security companies.
+      The false alerts claim the victim's accounts have been compromised and require
+      immediate action to secure them, leading to credential disclosure or malware
+      installation through the victim's panic response.
+    attackerBehavior: >-
+      The adversary creates convincing breach notifications using legitimate company
+      branding and urgent language, often delivered via email, browser popups, or
+      fake websites. They provide immediate "remediation" steps that actually compromise
+      the victim, such as clicking malicious links, downloading security tools, or
+      entering credentials for verification.
+    insiderBehavior: >-
+      The employee receives an alarming notification claiming their account or personal
+      information has been breached and reacts with urgency to protect themselves.
+      They follow the provided instructions to "secure" their account without taking
+      time to verify the notification's authenticity through official channels.
+    prevention:
+      - mode: educate
+        action: Train employees to verify breach notifications through official channels and never respond to unsolicited security alerts.
+      - mode: evaluate
+        action: Simulate fake breach notifications to test user response to urgent security-themed social engineering.
+      - mode: monitor
+        action: Monitor for reports of suspicious breach notifications and unusual security-related actions following alerts.
+      - mode: intervene
+        action: Immediately verify and contain any actions taken in response to fake breach notifications, reset credentials, and provide breach response guidance.
   - id: 7-living-document-attack
     label: Living-document attack
     mitreId: null
     description: A shared document is updated with a malicious link or payload after
       it is already trusted.
+    detailedDescription: >-
+      This technique exploits the collaborative nature of cloud-based documents
+      by establishing trust through legitimate shared content, then updating the
+      document later with malicious elements. Users who bookmarked or regularly
+      access the document don't expect it to become dangerous over time, making
+      them susceptible to newly inserted malicious links or content.
+    attackerBehavior: >-
+      The adversary gains control of a legitimate shared document through compromised
+      accounts or social engineering, waits for it to be widely distributed and
+      trusted, then updates it with malicious links, credential harvesting forms,
+      or malware downloads. They leverage the existing trust relationship and user
+      habits around the document.
+    insiderBehavior: >-
+      The employee accesses a shared document they've used before or that was shared
+      by a trusted colleague, not expecting it to have changed from legitimate content
+      to malicious. They interact with new links or forms believing them to be routine
+      updates to content they already trust.
+    prevention:
+      - mode: educate
+        action: Train employees to treat shared document updates with caution and verify unexpected new content or requests.
+      - mode: evaluate
+        action: Test user response to malicious updates in trusted shared documents through controlled simulations.
+      - mode: monitor
+        action: Implement document sharing monitoring to track changes to widely-shared documents and detect suspicious modifications.
+      - mode: intervene
+        action: Rapidly investigate and contain suspected living document attacks, remove malicious content, and alert all document users with guidance.
   - id: 7-llm-generated-spearphishing
     label: LLM-generated spearphishing
     mitreId: null
     description: AI generates fluent, personalized phishing at scale, removing the
       usual language tells.
+    detailedDescription: >-
+      Large language models enable attackers to create sophisticated, personalized
+      phishing content at unprecedented scale and quality. AI-generated emails eliminate
+      traditional indicators like poor grammar, awkward phrasing, or generic content,
+      while incorporating personal details and organizational context to create highly
+      convincing and targeted attacks that are difficult for users to detect.
+    attackerBehavior: >-
+      The adversary leverages AI tools to generate highly personalized and contextually
+      appropriate phishing content based on scraped personal information, organizational
+      intelligence, and writing style analysis. They can produce thousands of unique,
+      fluent messages that adapt to individual targets and organizational communication
+      patterns.
+    insiderBehavior: >-
+      The employee receives a phishing email that reads like natural, professional
+      communication from a colleague or business partner, with perfect grammar,
+      appropriate tone, and relevant personal or organizational details. They have
+      no linguistic cues to trigger suspicion and respond as they would to legitimate
+      correspondence.
+    prevention:
+      - mode: educate
+        action: Train employees that advanced AI-generated phishing looks identical to legitimate communication and emphasize verification over linguistic detection.
+      - mode: evaluate
+        action: Test defenses against AI-generated phishing using current language models to create realistic attack simulations.
+      - mode: monitor
+        action: Deploy advanced email security with AI-based detection capabilities and behavioral analysis that can identify sophisticated generated content.
+      - mode: intervene
+        action: Rapidly contain suspected AI-generated phishing attacks, reset credentials, and reinforce the importance of independent verification protocols.
   - id: 7-internal-spearphishing
     label: Internal Spearphishing
     mitreId: T1534
     description: Phishing sent from an already-compromised internal account, which
       coworkers inherently trust.
+    detailedDescription: >-
+      This technique leverages previously compromised internal accounts to conduct
+      phishing attacks that appear to come from trusted colleagues or business partners.
+      Since the messages originate from legitimate internal accounts and email systems,
+      they bypass many security controls and exploit the inherent trust employees
+      have in communications from familiar internal contacts.
+    attackerBehavior: >-
+      The adversary uses compromised credentials or persistent access to send convincing
+      phishing emails from legitimate internal accounts. They may study the compromised
+      user's communication patterns, relationships, and responsibilities to craft
+      highly believable requests that other employees would naturally fulfill.
+    insiderBehavior: >-
+      The employee receives what appears to be a routine request from a trusted
+      colleague through official company communication channels. They respond helpfully
+      without question, providing requested information or clicking links because
+      the sender is someone they work with regularly and the communication appears
+      authentic.
+    prevention:
+      - mode: educate
+        action: Train employees to verify unusual requests even from trusted internal contacts through secondary communication channels.
+      - mode: evaluate
+        action: Simulate internal spearphishing scenarios using authorized test accounts to assess trust-based vulnerabilities.
+      - mode: monitor
+        action: Implement email behavior analysis to detect unusual communication patterns from internal accounts and track lateral movement indicators.
+      - mode: intervene
+        action: Immediately investigate and contain suspected account compromise, reset credentials for affected accounts, and alert the organization about internal phishing.
   - id: 7-bec-vendor-email-compromise
     label: BEC — Vendor email compromise
     mitreId: null
     description: A compromised or spoofed vendor account is used to redirect invoice
       payments.
+    detailedDescription: >-
+      Business Email Compromise targeting vendor relationships exploits the trust
+      between organizations and their suppliers to redirect legitimate payments to
+      attacker-controlled accounts. The attack leverages compromised vendor email
+      accounts or convincing impersonation to request payment redirections, banking
+      changes, or invoice modifications that appear to be routine business operations.
+    attackerBehavior: >-
+      The adversary either compromises legitimate vendor email accounts or creates
+      convincing impersonations to send payment redirection requests. They time
+      these requests to coincide with expected invoices or contract renewals, and
+      provide plausible explanations for banking changes such as acquisitions,
+      system updates, or compliance requirements.
+    insiderBehavior: >-
+      The accounts payable employee receives what appears to be a routine vendor
+      request to update payment information or redirect an invoice payment. They
+      process the change as part of normal vendor management, trusting the communication
+      because it comes from an established business relationship and includes reasonable
+      explanations for the change.
+    prevention:
+      - mode: educate
+        action: Train finance staff to verify all vendor payment changes through separate communication channels and established verification procedures.
+      - mode: evaluate
+        action: Test finance teams with simulated vendor payment redirection requests to assess verification protocols and response.
+      - mode: monitor
+        action: Implement payment workflow monitoring to flag unusual vendor changes and require multi-step verification for banking modifications.
+      - mode: intervene
+        action: Immediately freeze suspicious payment changes, verify vendor authenticity through known contacts, and recover misdirected payments when possible.
   - id: 7-bec-payroll-diversion
     label: BEC — Payroll diversion
     mitreId: null
     description: An impersonation request reroutes an employee's payroll to an
       attacker account.
+    detailedDescription: >-
+      This BEC variant targets payroll systems by impersonating employees to request
+      direct deposit changes that redirect paychecks to attacker-controlled bank
+      accounts. The attack often coincides with life events that naturally require
+      banking changes, such as moving, marriage, or account closures, making the
+      request appear routine to HR and payroll staff.
+    attackerBehavior: >-
+      The adversary researches target employees and creates convincing impersonation
+      requests for payroll changes, often using personal information from social
+      media or data breaches to add authenticity. They may compromise employee
+      email accounts or create convincing spoofed messages that appear to come from
+      legitimate employees with reasonable explanations for banking changes.
+    insiderBehavior: >-
+      The HR or payroll employee receives what appears to be a standard employee
+      request to change direct deposit information, complete with personal details
+      and plausible explanations for the change. They process the request as part
+      of routine employee services without additional verification beyond normal procedures.
+    prevention:
+      - mode: educate
+        action: Train HR and payroll staff to verify all direct deposit changes through in-person or phone verification with the requesting employee.
+      - mode: evaluate
+        action: Test payroll security through simulated employee impersonation requests for banking changes.
+      - mode: monitor
+        action: Implement payroll change monitoring with multi-step verification requirements and alerts for banking modifications.
+      - mode: intervene
+        action: Immediately freeze suspicious payroll changes, verify employee identity through secure channels, and coordinate with banks to recover misdirected funds.
   - id: 7-bec-w-2-tax-doc-theft
     label: BEC — W-2 / tax doc theft
     mitreId: null
     description: A finance or HR impersonation extracts employee tax documents for fraud.
+    detailedDescription: >-
+      This BEC attack impersonates executives or external accountants to request
+      employee W-2 forms and tax documents from HR departments, typically during
+      tax season when such requests appear routine. The stolen tax information is
+      then used for identity theft, fraudulent tax returns, or sold on criminal
+      markets, causing significant financial harm to affected employees.
+    attackerBehavior: >-
+      The adversary impersonates company executives, external accounting firms,
+      or legal counsel to create urgent requests for employee tax documents, often
+      claiming compliance, audit, or legal requirements. They time attacks during
+      tax season or during legitimate business events like acquisitions when document
+      requests would seem normal.
+    insiderBehavior: >-
+      The HR employee receives what appears to be a legitimate executive or external
+      professional request for employee tax documents, often with urgent timelines
+      and plausible business justifications. They fulfill the request believing
+      they are supporting important business or compliance activities.
+    prevention:
+      - mode: educate
+        action: Train HR staff to verify all requests for employee tax documents through established procedures regardless of apparent authority or urgency.
+      - mode: evaluate
+        action: Test HR responses to simulated executive impersonation requests for sensitive employee documents.
+      - mode: monitor
+        action: Implement document access monitoring and require multi-person authorization for bulk employee data requests.
+      - mode: intervene
+        action: Immediately investigate unauthorized tax document disclosures, notify affected employees, and coordinate with authorities on identity theft protection.
   - id: 7-bec-beneficiary-change
     label: BEC — Beneficiary change
     mitreId: null
     description: A fraudulent request changes payment beneficiary details to divert funds.
+    detailedDescription: >-
+      This sophisticated BEC attack impersonates executives or trusted business
+      partners to request changes to payment beneficiaries for contracts, insurance
+      policies, or investment accounts. The attacker provides convincing business
+      justifications for redirecting payments to new accounts they control, often
+      targeting large or recurring payments for maximum financial impact.
+    attackerBehavior: >-
+      The adversary impersonates company executives or external partners to request
+      beneficiary changes for financial instruments, often providing detailed business
+      explanations such as corporate restructuring, tax optimization, or compliance
+      requirements. They target high-value or recurring payments and create urgency
+      to bypass normal verification procedures.
+    insiderBehavior: >-
+      The finance employee receives what appears to be a legitimate executive request
+      to change payment beneficiaries with plausible business justifications and
+      apparent authorization. They process the change believing they are implementing
+      important business decisions or responding to external requirements.
+    prevention:
+      - mode: educate
+        action: Train finance teams to verify all beneficiary changes through multiple authentication methods regardless of apparent authority.
+      - mode: evaluate
+        action: Test finance procedures through simulated beneficiary change requests from impersonated executives.
+      - mode: monitor
+        action: Implement financial transaction monitoring with mandatory verification workflows for beneficiary modifications.
+      - mode: intervene
+        action: Immediately freeze suspicious beneficiary changes, verify requests through established executive contacts, and coordinate with financial institutions to prevent fund diversion.

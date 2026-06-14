@@ -9,7 +9,7 @@ Tooling: **Vitest** (unit/component), `@testing-library/react` for components, `
 ### Content (Phase 1 — highest priority)
 - `src/lib/content/load.ts`:
   - a valid content fixture parses into the expected typed structure;
-  - **each cross-reference invariant has a failing-case test** (missing category id, dup category id, unknown `mappedModels` slug, out-of-range `mappedCategories`, dup technique label, category→unknown degree);
+  - **each cross-reference invariant has a failing-case test** (missing category id, dup category id, unknown `mappedModels` slug, out-of-range `mappedCategories`, dup technique label, category→unknown degree, technique `prevention` missing a countermeasure mode);
   - malformed YAML / bad MDX frontmatter fails with a precise, file-attributed error.
 - A test that the **real seeded `content/`** validates — this guards `main` against a future content PR that breaks the build.
 - Importer (`scripts/import-xlsx.ts`): given a small fixture workbook, technique counts in == out per category; the `… / (MITRE)` split parses ids and maps `—`/empty → `null`; nothing dropped/merged.
@@ -20,7 +20,7 @@ Tooling: **Vitest** (unit/component), `@testing-library/react` for components, `
 
 ### Components (Phase 1)
 - `MatrixView` renders the grid from fixture content; toggling a technique checkbox updates the heatmap selection and per-degree counts, persists to `localStorage`, and rehydrates on reload; Clear empties it. (`tests/matrix/matrix-view.test.tsx`.)
-- `TechniqueDetailDrawer`: clicking a technique opens the side-sheet with its description, MITRE link, and category/intent context; Esc closes; a `null` MITRE id renders text with no broken link.
+- `TechniqueDetailDrawer`: clicking a technique opens the side-sheet with its description, MITRE link, the per-technique detail sections (Overview, How an adversary operates, How the insider acts), the Countermeasures grouped under the four mode headings (Educate/Evaluate/Monitor/Intervene), and the secondary category/intent context; Esc closes; a `null` MITRE id renders text with no broken link.
 - `FrameworkCard` renders frontmatter + category chips. *(With the Theory page.)*
 - Accessibility smoke: rows reachable by accessible name; checkbox `aria-checked` exposed; keyboard focusability of disclosures + drawer.
 

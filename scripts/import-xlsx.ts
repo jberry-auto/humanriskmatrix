@@ -293,8 +293,18 @@ async function main(): Promise<void> {
 
   for (const cat of CATEGORIES) {
     const seen = new Set<string>();
-    const techniques: { id: string; label: string; mitreId: string | null; description: string }[] =
-      [];
+    // Authored fields are emitted empty; the strict schema requires them to be filled in
+    // before content validates. See docs/content-model.md.
+    const techniques: {
+      id: string;
+      label: string;
+      mitreId: string | null;
+      description: string;
+      detailedDescription: string;
+      attackerBehavior: string;
+      insiderBehavior: string;
+      prevention: { mode: string; action: string }[];
+    }[] = [];
     for (let r = headerRow + 1; r <= ws.rowCount; r += 1) {
       const raw = cellText(ws.getRow(r).getCell(cat.id));
       if (!raw) continue;
@@ -304,7 +314,16 @@ async function main(): Promise<void> {
       let n = 2;
       while (seen.has(id)) id = `${cat.id}-${slugify(label)}-${n++}`;
       seen.add(id);
-      techniques.push({ id, label, mitreId, description: "" });
+      techniques.push({
+        id,
+        label,
+        mitreId,
+        description: "",
+        detailedDescription: "",
+        attackerBehavior: "",
+        insiderBehavior: "",
+        prevention: [],
+      });
     }
 
     const mappedModels = FRAMEWORKS.filter((f) =>
