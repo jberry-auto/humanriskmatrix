@@ -11,10 +11,18 @@ describe("Home", () => {
     ).toBeInTheDocument();
   });
 
-  it("lists all five intent degrees", () => {
+  it("links to the Matrix from the hero", () => {
     render(<Home />);
-    for (const degree of ["Unintentional", "Unaware", "Deceived", "Coerced", "Complicit"]) {
-      expect(screen.getByText(degree)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /view matrix/i })).toHaveAttribute("href", "/matrix");
+  });
+
+  it("shows the About section and roadmap milestones", () => {
+    render(<Home />);
+    expect(
+      screen.getByRole("heading", { name: /about the human risk matrix project/i }),
+    ).toBeInTheDocument();
+    for (const v of ["v0.1", "v0.5", "v1.0"]) {
+      expect(screen.getByText(v)).toBeInTheDocument();
     }
   });
 });

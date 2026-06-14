@@ -3,45 +3,6 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Heading } from "@/components/ui/Heading";
 import { Link } from "@/components/ui/Link";
 import { Section } from "@/components/ui/Section";
-import { Tag, type Degree } from "@/components/ui/Tag";
-
-const degrees: ReadonlyArray<{
-  id: Degree;
-  name: string;
-  categories: string;
-  description: string;
-}> = [
-  {
-    id: "unintentional",
-    name: "Unintentional",
-    categories: "1–3",
-    description: "Honest mistakes, habit, and convenience — no adversary, no malicious intent.",
-  },
-  {
-    id: "unaware",
-    name: "Unaware",
-    categories: "4–6",
-    description: "Being observed or cultivated by an adversary, without knowing you're a target.",
-  },
-  {
-    id: "deceived",
-    name: "Deceived",
-    categories: "7–8",
-    description: "Acting on a lie you believe is true.",
-  },
-  {
-    id: "coerced",
-    name: "Coerced",
-    categories: "9–10",
-    description: "Acting under pressure, force, or confusion.",
-  },
-  {
-    id: "complicit",
-    name: "Complicit",
-    categories: "11",
-    description: "Knowingly aligned with an adversary.",
-  },
-];
 
 const goals: ReadonlyArray<string> = [
   "Give security, insider-risk, and counter-intelligence teams one shared vocabulary for human risk.",
@@ -93,36 +54,6 @@ export default function Home() {
           </Link>
         </div>
         <div aria-hidden="true" className="hero-art" />
-      </Section>
-
-      {/* Five degrees of intent */}
-      <Section aria-labelledby="degrees-heading" className="items-center gap-6">
-        <Heading level={2} id="degrees-heading" size="h3" className="text-center">
-          The five degrees of intent
-        </Heading>
-        <p className="text-center text-muted">
-          The 11 categories of behavior are grouped into five degrees of intent, read left to right
-          from least to most malicious.
-        </p>
-        <ol className="grid w-full gap-3 sm:grid-cols-2 lg:grid-cols-5">
-          {degrees.map((degree) => (
-            <li key={degree.id}>
-              <Link
-                href="/matrix"
-                variant="nav"
-                aria-label={`Open the Matrix — ${degree.name}`}
-                className="group block h-full"
-              >
-                <Card className="flex h-full flex-col gap-2 p-4 transition-colors group-hover:border-border-strong">
-                  <Tag degree={degree.id}>{degree.name}</Tag>
-                  <span className="text-xs text-faint">Categories {degree.categories}</span>
-                  <p className="text-sm text-muted">{degree.description}</p>
-                </Card>
-              </Link>
-            </li>
-          ))}
-        </ol>
-        <p className="text-sm text-faint">Least malicious intent → most malicious intent</p>
       </Section>
 
       {/* About + Roadmap — combined */}
