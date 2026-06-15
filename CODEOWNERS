@@ -9,7 +9,7 @@
 # Default — everything requires the owner's review unless a more specific rule matches.
 *                       @jberry-auto
 
-# Taxonomy content (the source workbook is git-ignored and never committed).
+# Taxonomy content.
 /content/               @jberry-auto
 
 # Documentation / specs.

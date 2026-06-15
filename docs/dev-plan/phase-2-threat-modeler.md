@@ -2,7 +2,7 @@
 
 **Status: outline.** Locked decisions are captured here; expand to a build-ready spec (like `phase-1-matrix-theory.md`) at the start of Phase 2. Read with `docs/security.md`, `docs/secrets-management.md`, and `docs/architecture.md`.
 
-**Goal:** a user enters a **vertical or company name** and receives a generated **heatmap over the 11 matrix categories** — which human-risk areas to prioritize — with per-category rationale and a short list of focus areas. This is the artifact the workbook's empty *Heat-Map* tab anticipated.
+**Goal:** a user enters a **vertical or company name** and receives a generated **heatmap over the 11 matrix categories** — which human-risk areas to prioritize — with per-category rationale and a short list of focus areas.
 
 ## Locked decisions
 - Model: **Claude Haiku 4.5** (`claude-haiku-4-5-20251001`) via the Anthropic SDK.

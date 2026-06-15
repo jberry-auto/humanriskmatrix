@@ -50,6 +50,7 @@ src/
     matrix/
       group.ts         # pure helper: group categories by intent degree
       mitre.ts         # pure helper: build attack.mitre.org technique URLs
+      share.ts         # pure helper: encode/decode the heatmap to a shareable URL string
     ai/                # Phase 2 — pure: buildThreatModel(input, deps), prompt builders, output schema
     feed/              # Phase 3 — pure: pipeline(articles, deps), mapping, dedup key
 app/
@@ -66,14 +67,14 @@ app/
     health/route.ts         # liveness/readiness
 src/components/
   ui/                  # Design system primitives (docs/design-system.md): Button, Link, Card, Tag, Dialog, Tabs, Disclosure, TextField, SideSheet, Checkbox, HorizontalScroll …
-  matrix/              # Matrix feature (client): MatrixView, TechniqueDetailDrawer, HeatmapSummary, use-heatmap, degree-style
+  matrix/              # Matrix feature (client): MatrixView, TechniqueDetailDrawer, HeatmapSummary, use-heatmap, degree-style, highlight-style
   # later: FrameworkCard (Theory), RiskHeatmap (P2), FeedCard (P3)
 ```
 
 ## Data flow per page
 
 ### Matrix (Phase 1, static + client interactivity)
-Build time: `scripts/import-xlsx.ts` has already produced `content/`. `src/lib/content/load.ts` reads + validates all content; `src/lib/matrix/group.ts` groups categories by intent degree. The static `app/matrix/page.tsx` server component passes plain serializable data to the client `MatrixView`, which renders the ATT&CK-style grid, opens the `TechniqueDetailDrawer` (a `SideSheet`) on click, and manages the multi-select **environmental heatmap** via `use-heatmap` (a `useSyncExternalStore` module store persisted to `localStorage`, key `hrm.heatmap.v1`). **Page is static** — no request-time work, no secrets, selection state lives only in the browser. Invalid content fails the build.
+Build time: `src/lib/content/load.ts` reads and validates the committed `content/`; `src/lib/matrix/group.ts` groups categories by intent degree. The static `app/matrix/page.tsx` server component passes plain serializable data to the client `MatrixView`, which renders the ATT&CK-style grid and opens the `TechniqueDetailDrawer` (a `SideSheet`) on click. The **environmental heatmap** — each technique marked none / green / yellow / red — lives in `use-heatmap` (a `useSyncExternalStore` module store persisted to `localStorage`, key `hrm.heatmap.v2`) and is shareable via a URL hash encoded by the pure `src/lib/matrix/share.ts`. **Page is static** — no request-time work, no secrets, selection state lives only in the browser. Invalid content fails the build.
 
 ### Theory (Phase 1, static)
 Same loader. MDX in `content/theory/` and `content/frameworks/` is rendered (via `@next/mdx` or `next-mdx-remote`); framework metadata drives `FrameworkCard`s and cross-links to `/matrix`. Static.

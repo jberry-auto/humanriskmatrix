@@ -17,8 +17,8 @@ The static reference site: content only, no AI, no database.
 
 **Scope**
 - ✅ Next.js (App Router, TS) scaffold; standalone container; CI/CD; deployed to DigitalOcean at humanriskmatrix.org.
-- ✅ Content pipeline: `content/` schemas + loader + `scripts/import-xlsx.ts`; validation as a build gate.
-- ✅ **Page 1 — Human Risk Matrix:** interactive ATT&CK-style grid of 11 categories across the 5 degrees of intent; click a technique → detail side-sheet (description, MITRE link, category/intent context); multi-select **environmental heatmap** persisted to localStorage.
+- ✅ Content pipeline: `content/` schemas + loader; validation as a build gate.
+- ✅ **Page 1 — Human Risk Matrix:** interactive ATT&CK-style grid of 11 categories across the 5 degrees of intent; click a technique for a detail side-sheet (overview, how an adversary operates, how the insider acts, countermeasures, MITRE link); mark techniques with a green/yellow/red **environmental heatmap** that persists to localStorage and is shareable by URL.
 - ⏳ **Page 2 — Theory & Frameworks:** foundations prose, substrate-model and insider-category tables, framework cards. *(Next milestone; framework/theory content is already seeded.)*
 - ✅ Home/landing + nav; responsive + accessible; light/dark theme.
 
@@ -60,8 +60,8 @@ Search across the matrix · stable permalinks/anchors per category & technique �
 
 The taxonomy is the product; the site is its surface. This track can progress in any phase.
 
-### C0 — Seed (with Phase 1)  ·  ✅ done
-Imported the local working workbook (`human-risk-framework.xlsx`, git-ignored, maintainer-held) into the committed `content/` tree: 5 degrees of intent, 11 categories with **160 techniques** (each with an authored description), MITRE IDs where coded, 9 framework records, and 7 insider-threat categories. Each technique was spot-checked so none was dropped or mis-assigned. Only the generated `content/` is committed — not the workbook. *(Long-form framework/theory essays remain — see C2.)*
+### C0 — Foundation (with Phase 1)  ·  ✅ done
+The committed `content/` tree: 5 degrees of intent, 11 categories with **160 techniques**, MITRE IDs where coded, 9 framework records, and 7 insider-threat categories. Each technique carries a full write-up — overview, how an adversary operates, how the insider acts, and mode-tagged countermeasures (educate / evaluate / monitor / intervene). *(Long-form framework/theory essays remain — see C2.)*
 
 ### C1 — Complete coverage
 Fill gaps in technique lists; add MITRE IDs where currently `null` and a real technique exists; ensure every category's `mappedModels` and `insiderCategories` are accurate.
@@ -84,7 +84,7 @@ Implementation proceeds one milestone per PR via `/plan → /dev → /qa → /re
 | Milestone | Track | Output | Status |
 |---|---|---|---|
 | M0 | Feature | Scaffold + CI + deploy pipeline | ✅ done |
-| M1 | Content/Feature | Content schemas, loader, importer, seeded `content/` | ✅ done |
+| M1 | Content/Feature | Content schemas, loader, authored `content/` | ✅ done |
 | M2 | Feature | Matrix + Theory pages (Phase 1 exit) | Matrix ✅; Theory ⏳ |
 | M3 | Feature | Threat Modeler (Phase 2 exit) | planned |
 | M4 | Feature | Threat Feed + Postgres (Phase 3 exit) | planned |

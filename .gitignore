@@ -101,9 +101,5 @@ Thumbs.db
 *.swo
 *~
 
-# ----- Source workbook (see security audit) ----------------------------------
-# The raw working master `human-risk-framework.xlsx` carries cell comments and
-# author metadata (PII + draft notes). Keep the messy master out of the public
-# repo; the canonical committed source is the derived, reviewed content/ tree.
-# (Remove this line if you commit a SANITIZED workbook instead — see docs.)
+# Local-only working files — never commit (may contain PII / draft notes).
 /human-risk-framework.xlsx

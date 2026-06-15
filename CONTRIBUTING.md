@@ -33,9 +33,9 @@ When in doubt about *how to write* a contribution, read **[docs/style-guide.md](
 
 ## Editing content
 
-Content is **version-controlled and schema-validated**. The canonical source is the committed **`content/`** tree; you edit those files **directly**. (`content/` was initially seeded from a local working spreadsheet via `scripts/import-xlsx.ts`; that spreadsheet is git-ignored and not part of the repo — the importer is a maintainer-only bootstrap tool, not something contributors run.)
+Content is **version-controlled and schema-validated**. The canonical source is the committed **`content/`** tree; you edit those files **directly**.
 
-- **Add/edit a matrix technique:** edit the relevant `content/matrix/columns/NN-*.yaml`. Each technique is `{ label, mitreId }` — use the real MITRE ATT&CK technique ID (e.g., `T1566.001`) or `null` if uncoded. See [docs/content-model.md](docs/content-model.md) and [docs/style-guide.md](docs/style-guide.md).
+- **Add/edit a matrix technique:** edit the relevant `content/matrix/categories/NN-*.yaml`. Each technique has a label, a MITRE ATT&CK ID (e.g., `T1566.001`) or `null` if uncoded, an authored write-up, and mode-tagged countermeasures — see the `Technique` schema in [docs/content-model.md](docs/content-model.md) and [docs/style-guide.md](docs/style-guide.md).
 - **Add/edit a framework or theory essay:** edit/add an MDX file under `content/frameworks/` or `content/theory/` with the required frontmatter.
 - **Validation:** `npm run validate:content` must pass. CI runs the same check and **a malformed content file fails the build** — this is intentional. The error message tells you which field is wrong.
 - **Cite sources** for claims, especially MITRE mappings and attributed models.

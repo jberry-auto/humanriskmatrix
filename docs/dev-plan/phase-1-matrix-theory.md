@@ -21,18 +21,18 @@ The component design below reflects the **original plan**; the Matrix shipped wi
 - Apply the strict `tsconfig.json` baseline from the TS style guide (`noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, `verbatimModuleSyntax`, etc.).
 - `next.config.ts`: `output: 'standalone'`; security headers (see `docs/security.md`).
 - Add Prettier, ESLint (with `no-restricted-imports` encoding the layering rule for `src/lib`), Vitest, and `@next/mdx` (or `next-mdx-remote`).
-- `package.json` scripts: `dev`, `build`, `start`, `lint`, `typecheck`, `test`, `validate:content`, `import:xlsx`.
+- `package.json` scripts: `dev`, `build`, `start`, `lint`, `typecheck`, `test`, `validate:content`.
 - `Dockerfile` (multi-stage, `node:22-alpine`, standalone, non-root, `HEALTHCHECK`), `.dockerignore`.
 - `.do/app.yaml` (single web service, health check) and `.github/workflows/ci.yml` + `deploy.yml` per `docs/cicd-github-actions.md`.
 - `app/api/health/route.ts` returning `{ status: 'ok' }`.
 - **Exit:** CI green; container builds; deploys to DO showing a placeholder home page.
 
-### M1 — Content pipeline + seed
+### M1 — Content pipeline + content
 - Implement `src/lib/content/schema.ts` and `src/lib/content/load.ts` exactly per `docs/content-model.md` (schemas, `z.infer` types, cross-reference invariants, fail-loud).
-- Implement `scripts/import-xlsx.ts`; run it locally to seed `content/` from the git-ignored working `human-risk-framework.xlsx`; **commit only the generated `content/` + the import report** (never the workbook); **spot-check** technique counts per category.
+- Author the `content/` tree directly: intent degrees, the 11 category files (each a ranked technique list with MITRE IDs where coded), framework MDX, and insider-category data, all conforming to the schemas.
 - `npm run validate:content` passes; wire it into `next build` and CI.
 - Tests: valid fixtures parse; malformed fixtures fail with a precise error; cross-reference invariants caught.
-- **Exit:** `content/` fully seeded and validated; build fails on injected bad content.
+- **Exit:** `content/` authored and validated; build fails on injected bad content.
 
 ### M2 — Matrix + Theory pages (Phase 1 exit)
 - Build the two pages + components below; nav + landing; responsive + accessible.

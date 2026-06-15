@@ -64,7 +64,6 @@ CMD ["node", "server.js"]
   *.pfx
   secrets.*
   .npmrc
-  human-risk-framework.xlsx
   # build artifacts / noise
   node_modules
   .next
@@ -74,7 +73,7 @@ CMD ["node", "server.js"]
   coverage
   ```
 
-  Secrets reach the container **only** at runtime via DO encrypted env vars. **Never** put a secret in a Dockerfile `ENV` or `ARG`, and never reference `ANTHROPIC_API_KEY` (or any secret) at build time — `next build` would inline it into the bundle. The image reads only the committed `content/`, never the workbook.
+  Secrets reach the container **only** at runtime via DO encrypted env vars. **Never** put a secret in a Dockerfile `ENV` or `ARG`, and never reference `ANTHROPIC_API_KEY` (or any secret) at build time — `next build` would inline it into the bundle. The image reads only the committed `content/`.
 
 ## `.do/app.yaml` (Phase 1 — live spec)
 
