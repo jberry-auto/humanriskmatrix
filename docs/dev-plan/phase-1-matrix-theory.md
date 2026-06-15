@@ -63,14 +63,15 @@ A **server component** that loads validated content and renders the matrix. No c
 
 ### As built
 
-The shipped Matrix follows the **MITRE ATT&CK viewer** model rather than per-category cards: one wide grid with all 11 categories side-by-side under their 5 degree-of-intent bands (horizontal scroll, with edge fades + chevron affordance), collapsible degrees, and an environmental heatmap built by multi-selecting techniques.
+The shipped Matrix follows the **MITRE ATT&CK viewer** model rather than per-category cards: one wide grid with all 11 categories side-by-side under their 5 degree-of-intent bands (horizontal scroll, with edge fades + chevron affordance), collapsible degrees, and an environmental heatmap built by marking techniques with a green/yellow/red highlight. The heatmap is **shareable** via a URL hash that encodes the marked techniques.
 
 - `app/matrix/page.tsx` — static Server Component; `loadContent()` → passes serializable data to `MatrixView`.
-- `src/components/matrix/MatrixView.tsx` (client) — the wide grid (`repeat(11, minmax(11rem,1fr))`), collapsible degree bands, per-technique checkbox + label button; owns the active-technique and selection state. Wrapped in the `HorizontalScroll` UI primitive.
-- `src/components/matrix/TechniqueDetailDrawer.tsx` (client) — the `SideSheet` detail pull-out: description + MITRE link, the per-technique detail (Overview, How an adversary operates, How the insider acts), Countermeasures grouped by the four modes (educate/evaluate/monitor/intervene), then secondary category/intent context + mapped models/insider categories.
-- `src/components/matrix/HeatmapSummary.tsx` (client) — selected totals, per-degree counts, Focus toggle, Clear.
-- `src/components/matrix/use-heatmap.ts` (client) — `useSyncExternalStore` module store persisted to `localStorage` (`hrm.heatmap.v1`).
-- `src/components/matrix/degree-style.ts` — static per-degree Tailwind classes.
+- `src/components/matrix/MatrixView.tsx` (client) — the wide grid (`repeat(11, minmax(11rem,1fr))`), collapsible degree bands; each technique row has a **highlight dot** (click cycles none→green→yellow→red→none) and a **label button** that opens the detail drawer. Owns the active-technique state and seeds the selection from a `#h=` share hash on mount. Wrapped in the `HorizontalScroll` UI primitive.
+- `src/components/matrix/TechniqueDetailDrawer.tsx` (client) — the `SideSheet` detail pull-out: description + MITRE link, the per-technique detail (Overview, How an adversary operates, How the insider acts), Countermeasures grouped by the four modes (educate/evaluate/monitor/intervene), then secondary category/intent context + mapped models/insider categories, and a None/Green/Yellow/Red highlight control.
+- `src/components/matrix/HeatmapSummary.tsx` (client) — per-color and per-degree counts, Focus toggle, Share (copies the link + sets the URL hash), Clear.
+- `src/components/matrix/use-heatmap.ts` (client) — `useSyncExternalStore` module store of a `Map<techniqueId, color>`, persisted to `localStorage` (`hrm.heatmap.v2`); `cycle`/`setColor`/`clear`/`loadShared`.
+- `src/lib/matrix/share.ts` — pure share codec: packs the selection to/from a compact, URL-safe string (2 bits per technique over a canonical id order, version byte + length guard). Unit-tested.
+- `src/components/matrix/degree-style.ts` / `highlight-style.ts` — static per-degree and per-highlight Tailwind classes.
 - Pure helpers `src/lib/matrix/group.ts` + `mitre.ts` are unit-tested, as planned.
 
 The `DegreeLegend` / `MatrixGrid` / `CategoryCard` / `MitreLink` components above were **not** built as separate files; their roles are absorbed into `MatrixView` + `TechniqueDetailDrawer` + `mitre.ts`.

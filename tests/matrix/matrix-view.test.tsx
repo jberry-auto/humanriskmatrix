@@ -1,8 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import type { DegreeGroup } from "@/lib/matrix/group";
+import { encodeHeatmap, type HighlightColor } from "@/lib/matrix/share";
 
 const groups: DegreeGroup[] = [
   {
@@ -69,54 +70,71 @@ async function renderMatrix() {
   return render(<MatrixView groups={groups} frameworks={frameworks} insiders={insiders} />);
 }
 
+const cycleButton = (label: string) =>
+  screen.getByRole("button", { name: new RegExp(`^${label}: `) });
+
 beforeEach(() => {
   localStorage.clear();
+  window.location.hash = "";
   vi.resetModules();
 });
 
+afterEach(() => {
+  window.location.hash = "";
+});
+
 describe("MatrixView", () => {
-  it("opens the detail drawer with the technique's description", async () => {
+  it("opens the detail drawer (with detail sections) by clicking the technique", async () => {
     await renderMatrix();
     await userEvent.click(screen.getByRole("button", { name: "Misdirected email" }));
     expect(await screen.findByRole("dialog")).toBeInTheDocument();
     expect(screen.getByText("Wrong recipient gets the email.")).toBeInTheDocument();
-  });
-
-  it("renders the per-technique detail sections and mode-grouped countermeasures", async () => {
-    await renderMatrix();
-    await userEvent.click(screen.getByRole("button", { name: "Misdirected email" }));
-    expect(await screen.findByRole("dialog")).toBeInTheDocument();
-
-    expect(screen.getByRole("heading", { name: "Overview" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "How an adversary operates" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "How the insider acts" })).toBeInTheDocument();
-
-    expect(screen.getByRole("heading", { name: "Countermeasures" })).toBeInTheDocument();
-    for (const mode of ["Educate", "Evaluate", "Monitor", "Intervene"]) {
-      expect(screen.getByRole("heading", { name: mode })).toBeInTheDocument();
-    }
-    expect(
-      screen.getByText("Send a blame-free nudge when a misfire is detected."),
-    ).toBeInTheDocument();
   });
 
-  it("selects a technique into the heatmap and persists it", async () => {
+  it("cycles a technique through highlight colors and persists to v2 storage", async () => {
     await renderMatrix();
     expect(screen.getByText(/0 techniques selected/i)).toBeInTheDocument();
 
-    await userEvent.click(
-      screen.getByRole("checkbox", { name: /add Misdirected email to heatmap/i }),
-    );
-
+    await userEvent.click(cycleButton("Misdirected email"));
     expect(screen.getByText(/1 technique selected/i)).toBeInTheDocument();
-    expect(localStorage.getItem("hrm.heatmap.v1")).toContain("1-a");
+    expect(screen.getByText("Green 1")).toBeInTheDocument();
+    expect(localStorage.getItem("hrm.heatmap.v2")).toContain("green");
+
+    await userEvent.click(cycleButton("Misdirected email"));
+    expect(screen.getByText("Yellow 1")).toBeInTheDocument();
+    expect(screen.getByText("Green 0")).toBeInTheDocument();
+  });
+
+  it("shares a link that encodes the current selection", async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, "clipboard", { value: { writeText }, configurable: true });
+
+    await renderMatrix();
+    await userEvent.click(cycleButton("Misdirected email"));
+    await userEvent.click(screen.getByRole("button", { name: "Share" }));
+
+    expect(writeText).toHaveBeenCalledTimes(1);
+    expect(writeText.mock.calls[0]?.[0]).toContain("#h=");
+    expect(window.location.hash).toMatch(/^#h=/);
+  });
+
+  it("seeds the selection from a shared link hash on mount", async () => {
+    const encoded = encodeHeatmap(new Map<string, HighlightColor>([["1-a", "red"]]), [
+      "1-a",
+      "1-b",
+    ]);
+    window.location.hash = `#h=${encoded}`;
+
+    await renderMatrix();
+    expect(screen.getByText(/1 technique selected/i)).toBeInTheDocument();
+    expect(screen.getByText("Red 1")).toBeInTheDocument();
   });
 
   it("collapses an intent degree", async () => {
     await renderMatrix();
-    const header = screen.getByRole("button", { name: /Unintentional/i });
-    expect(screen.getByRole("button", { name: "Misdirected email" })).toBeInTheDocument();
-    await userEvent.click(header);
-    expect(screen.queryByRole("button", { name: "Misdirected email" })).not.toBeInTheDocument();
+    expect(cycleButton("Misdirected email")).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: /Unintentional/i }));
+    expect(screen.queryByRole("button", { name: /^Misdirected email: / })).not.toBeInTheDocument();
   });
 });

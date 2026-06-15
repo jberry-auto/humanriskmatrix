@@ -17,10 +17,11 @@ Tooling: **Vitest** (unit/component), `@testing-library/react` for components, `
 ### Matrix helpers (Phase 1)
 - `src/lib/matrix/group.ts`: grouping order and completeness (11 categories, 5 degrees of intent).
 - `src/lib/matrix/mitre.ts`: `mitreUrl` for a base technique (`T1566`) and a sub-technique (`T1566.004`); `null` yields no link.
+- `src/lib/matrix/share.ts`: the heatmap share codec round-trips a selection irrespective of input id order, decodes an empty payload to empty, produces a URL-safe string, and returns empty on a corrupt payload or one sized for a different technique set (drift guard). (`tests/lib/share.test.ts`.)
 
 ### Components (Phase 1)
-- `MatrixView` renders the grid from fixture content; toggling a technique checkbox updates the heatmap selection and per-degree counts, persists to `localStorage`, and rehydrates on reload; Clear empties it. (`tests/matrix/matrix-view.test.tsx`.)
-- `TechniqueDetailDrawer`: clicking a technique opens the side-sheet with its description, MITRE link, the per-technique detail sections (Overview, How an adversary operates, How the insider acts), the Countermeasures grouped under the four mode headings (Educate/Evaluate/Monitor/Intervene), and the secondary category/intent context; Esc closes; a `null` MITRE id renders text with no broken link.
+- `MatrixView` renders the grid from fixture content; clicking a technique's highlight dot cycles its color (none→green→yellow→red), which updates the per-color/per-degree counts and persists to `localStorage` (`hrm.heatmap.v2`); Share encodes the selection into the URL hash and copies it; opening the page with a `#h=` hash seeds the selection; Clear empties it. (`tests/matrix/matrix-view.test.tsx`.)
+- `TechniqueDetailDrawer`: clicking a technique's label opens the side-sheet with its description, MITRE link, the per-technique detail sections (Overview, How an adversary operates, How the insider acts), the Countermeasures grouped under the four mode headings (Educate/Evaluate/Monitor/Intervene), the secondary category/intent context, and the None/Green/Yellow/Red highlight control; Esc closes; a `null` MITRE id renders text with no broken link.
 - `FrameworkCard` renders frontmatter + category chips. *(With the Theory page.)*
 - Accessibility smoke: rows reachable by accessible name; checkbox `aria-checked` exposed; keyboard focusability of disclosures + drawer.
 
