@@ -2,7 +2,6 @@
 
 import type { ReactNode } from "react";
 
-import { Button } from "@/components/ui/Button";
 import { SideSheet } from "@/components/ui/SideSheet";
 import { Tag } from "@/components/ui/Tag";
 import {
@@ -12,7 +11,11 @@ import {
   type MatrixCategory,
   type Technique,
 } from "@/lib/content/schema";
+import { cn } from "@/lib/cn";
 import { mitreUrl } from "@/lib/matrix/mitre";
+import { HIGHLIGHT_COLORS, type HighlightColor } from "@/lib/matrix/share";
+
+import { HIGHLIGHT_STYLE } from "./highlight-style";
 
 export interface FrameworkRef {
   readonly title: string;
@@ -38,14 +41,58 @@ function DetailSection({ title, children }: { title: string; children: ReactNode
   );
 }
 
+interface HighlightControlProps {
+  color: HighlightColor | null;
+  onSetColor: (color: HighlightColor | null) => void;
+}
+
+function HighlightControl({ color, onSetColor }: HighlightControlProps) {
+  return (
+    <div role="group" aria-label="Highlight" className="flex flex-wrap gap-1.5">
+      <button
+        type="button"
+        aria-pressed={color === null}
+        onClick={() => onSetColor(null)}
+        className={cn(
+          "rounded-sm border px-3 py-1 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+          color === null ? "border-ink font-semibold text-ink" : "border-border text-muted",
+        )}
+      >
+        None
+      </button>
+      {HIGHLIGHT_COLORS.map((c) => {
+        const style = HIGHLIGHT_STYLE[c];
+        const isActive = color === c;
+        return (
+          <button
+            key={c}
+            type="button"
+            aria-pressed={isActive}
+            onClick={() => onSetColor(c)}
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-sm border px-3 py-1 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+              isActive
+                ? `${style.border} ${style.bg} font-semibold text-ink`
+                : "border-border text-muted",
+            )}
+          >
+            <span aria-hidden="true" className={cn("size-2.5 rounded-full", style.dot)} />
+            {style.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 interface TechniqueDetailDrawerProps {
   technique: Technique | null;
   category: MatrixCategory | null;
   degree: IntentDegree | null;
   frameworks: Record<string, FrameworkRef>;
   insiders: Record<string, InsiderRef>;
-  isSelected: boolean;
-  onToggleSelect: () => void;
+  color: HighlightColor | null;
+  onSetColor: (color: HighlightColor | null) => void;
   onOpenChange: (isOpen: boolean) => void;
 }
 
@@ -55,8 +102,8 @@ export function TechniqueDetailDrawer({
   degree,
   frameworks,
   insiders,
-  isSelected,
-  onToggleSelect,
+  color,
+  onSetColor,
   onOpenChange,
 }: TechniqueDetailDrawerProps) {
   const isOpen = technique !== null && category !== null && degree !== null;
@@ -168,10 +215,11 @@ export function TechniqueDetailDrawer({
             </section>
           ) : null}
 
-          <div className="border-t border-border pt-4">
-            <Button variant={isSelected ? "secondary" : "primary"} onPress={onToggleSelect}>
-              {isSelected ? "Remove from heatmap" : "Add to environmental heatmap"}
-            </Button>
+          <div className="flex flex-col gap-2 border-t border-border pt-4">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">
+              Highlight on heatmap
+            </h3>
+            <HighlightControl color={color} onSetColor={onSetColor} />
           </div>
 
           <p className="text-xs text-faint">

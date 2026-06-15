@@ -1,8 +1,7 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { Checkbox } from "@/components/ui/Checkbox";
 import { HorizontalScroll } from "@/components/ui/HorizontalScroll";
 import { cn } from "@/lib/cn";
 import type { IntentDegree, IntentDegreeId, MatrixCategory, Technique } from "@/lib/content/schema";
@@ -10,8 +9,10 @@ import type { DegreeGroup } from "@/lib/matrix/group";
 
 import { DEGREE_STYLE } from "./degree-style";
 import { HeatmapSummary } from "./HeatmapSummary";
+import { HIGHLIGHT_STYLE } from "./highlight-style";
 import { TechniqueDetailDrawer, type FrameworkRef, type InsiderRef } from "./TechniqueDetailDrawer";
 import { useHeatmap } from "./use-heatmap";
+import type { HeatmapSelection } from "@/lib/matrix/share";
 
 interface TechniqueContext {
   technique: Technique;
@@ -25,17 +26,31 @@ interface MatrixViewProps {
   insiders: Record<string, InsiderRef>;
 }
 
-function selectedInCategory(cat: MatrixCategory, selected: ReadonlySet<string>): number {
-  return cat.techniques.filter((t) => selected.has(t.id)).length;
+function selectedInCategory(cat: MatrixCategory, selection: HeatmapSelection): number {
+  return cat.techniques.filter((t) => selection.has(t.id)).length;
 }
 
+const SHARE_HASH = /[#&]h=([^&]+)/;
+
 export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
-  const { selected, toggle, clear } = useHeatmap();
+  const { selection, cycle, setColor, clear, loadShared } = useHeatmap();
   const [activeId, setActiveId] = useState<string | null>(null);
   const [focus, setFocus] = useState(false);
   const [expanded, setExpanded] = useState<ReadonlySet<IntentDegreeId>>(
     () => new Set(groups.map((g) => g.degree.id)),
   );
+
+  // All technique ids, the canonical set the share codec packs against.
+  const allIds = useMemo(
+    () => groups.flatMap((g) => g.categories.flatMap((c) => c.techniques.map((t) => t.id))),
+    [groups],
+  );
+
+  // Seed from a shared link (#h=…) once on mount; falls back to the stored selection.
+  useEffect(() => {
+    const match = SHARE_HASH.exec(window.location.hash);
+    if (match?.[1]) loadShared(match[1], allIds);
+  }, [allIds, loadShared]);
 
   // All 11 categories left-to-right, each tagged with its intent degree.
   const orderedCategories = useMemo(
@@ -81,7 +96,8 @@ export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
     <div className="flex flex-col gap-6">
       <HeatmapSummary
         groups={groups}
-        selected={selected}
+        selection={selection}
+        allIds={allIds}
         focus={focus}
         onFocusChange={setFocus}
         onClear={clear}
@@ -95,7 +111,10 @@ export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
           {groups.map((g) => {
             const style = DEGREE_STYLE[g.degree.id];
             const isExpanded = expanded.has(g.degree.id);
-            const degreeSel = g.categories.reduce((n, c) => n + selectedInCategory(c, selected), 0);
+            const degreeSel = g.categories.reduce(
+              (n, c) => n + selectedInCategory(c, selection),
+              0,
+            );
             return (
               <button
                 key={`d-${g.degree.id}`}
@@ -134,7 +153,7 @@ export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
 
           {/* Category headers */}
           {orderedCategories.map(({ cat }) => {
-            const catSel = selectedInCategory(cat, selected);
+            const catSel = selectedInCategory(cat, selection);
             return (
               <div key={`h-${cat.id}`} className="bg-surface px-2 py-2">
                 <div className="flex items-baseline gap-1">
@@ -150,11 +169,10 @@ export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
 
           {/* Category bodies (technique cells stacked) */}
           {orderedCategories.map(({ cat, degree }) => {
-            const style = DEGREE_STYLE[degree.id];
             const isExpanded = expanded.has(degree.id);
             const techniques = isExpanded
               ? focus
-                ? cat.techniques.filter((t) => selected.has(t.id))
+                ? cat.techniques.filter((t) => selection.has(t.id))
                 : cat.techniques
               : [];
             return (
@@ -164,25 +182,30 @@ export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
                 ) : (
                   <ul className="flex flex-col gap-0.5">
                     {techniques.map((t) => {
-                      const isSel = selected.has(t.id);
+                      const color = selection.get(t.id) ?? null;
+                      const hl = color ? HIGHLIGHT_STYLE[color] : null;
                       return (
                         <li
                           key={t.id}
                           className={cn(
                             "flex items-start gap-1.5 rounded-sm border-l-2 px-1.5 py-1",
-                            isSel
-                              ? `${style.selBorder} ${style.selBg}`
-                              : "border-transparent hover:bg-bg",
+                            hl ? `${hl.border} ${hl.bg}` : "border-transparent hover:bg-bg",
                           )}
                         >
-                          <Checkbox
-                            isSelected={isSel}
-                            onChange={() => toggle(t.id)}
-                            aria-label={
-                              isSel ? `Remove ${t.label} from heatmap` : `Add ${t.label} to heatmap`
-                            }
-                            className="mt-0.5"
-                          />
+                          <button
+                            type="button"
+                            onClick={() => cycle(t.id)}
+                            aria-label={`${t.label}: ${hl ? hl.label : "not highlighted"}. Click to change highlight.`}
+                            className="-m-0.5 mt-0 shrink-0 rounded-full p-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                          >
+                            <span
+                              aria-hidden="true"
+                              className={cn(
+                                "block size-3 rounded-full border",
+                                hl ? `${hl.dot} border-transparent` : "border-border-strong",
+                              )}
+                            />
+                          </button>
                           <button
                             type="button"
                             onClick={() => setActiveId(t.id)}
@@ -207,9 +230,9 @@ export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
         degree={active?.degree ?? null}
         frameworks={frameworks}
         insiders={insiders}
-        isSelected={active ? selected.has(active.technique.id) : false}
-        onToggleSelect={() => {
-          if (active) toggle(active.technique.id);
+        color={active ? (selection.get(active.technique.id) ?? null) : null}
+        onSetColor={(color) => {
+          if (active) setColor(active.technique.id, color);
         }}
         onOpenChange={onDrawerOpenChange}
       />
