@@ -15,8 +15,6 @@ humanriskmatrix/
 ├── .gitignore  .editorconfig
 ├── .env.example                  # Documented env vars (no real values) — added with Phase 1 code
 │
-# (human-risk-framework.xlsx)     # LOCAL working seed only — git-ignored, NOT committed
-│
 ├── content/                      # Taxonomy content (CC BY-NC 4.0) — see content/LICENSE
 │   ├── LICENSE
 │   ├── matrix/
@@ -50,7 +48,6 @@ humanriskmatrix/
 │       └── phase-3-threat-feed.md       # outline
 │
 ├── scripts/
-│   ├── import-xlsx.ts            # Maintainer-only xlsx → content/ importer (run locally via tsx)
 │   └── validate-content.ts      # tsx runner for the content loader (npm run validate:content)
 │
 ├── src/                          # Application code (alias @/* → ./src/*)
@@ -59,7 +56,7 @@ humanriskmatrix/
 │   │   ├── cn.ts                 # className join helper (pure)
 │   │   ├── health.ts             # health-check payload (pure)
 │   │   ├── content/              # schema.ts (zod), load.ts (read+validate)
-│   │   ├── matrix/               # group.ts, mitre.ts — category/degree helpers (pure)
+│   │   ├── matrix/               # group.ts, mitre.ts, share.ts — category/degree/heatmap helpers (pure)
 │   │   ├── ai/                   # Phase 2: threat-model logic (client injected)
 │   │   └── feed/                 # Phase 3: RSS fetch/parse/pipeline (pure core)
 │   └── components/
@@ -67,8 +64,8 @@ humanriskmatrix/
 │       │                         #   Button, Card, Checkbox, Container, Dialog, Disclosure,
 │       │                         #   Eyebrow, Heading, HorizontalScroll, Link, Prose, Section,
 │       │                         #   SideSheet, Tabs, Tag, TextField, ThemeToggle
-│       └── matrix/               # Matrix feature: MatrixView, TechniqueDetailDrawer,
-│                                 #   HeatmapSummary, use-heatmap, degree-style
+│       └── matrix/               # Matrix feature: MatrixView, TechniqueDetailDrawer, HeatmapSummary,
+│                                 #   use-heatmap, degree-style, highlight-style
 │
 ├── app/                          # Next.js App Router (pages, layouts, API routes)
 │   ├── providers.tsx             # 'use client' — React Aria RouterProvider
@@ -110,7 +107,6 @@ humanriskmatrix/
 | Add/fix an intent-degree definition | `content/matrix/intent-degrees.yaml` | content-owners |
 | Write a framework/model essay | `content/frameworks/<slug>.mdx` | content-owners |
 | Write/edit foundational theory prose | `content/theory/<slug>.mdx` | content-owners |
-| Re-import from the spreadsheet | `scripts/import-xlsx.ts` (+ regenerate `content/`) | infra-owners |
 | Add pure business logic | `src/lib/<domain>/` | maintainers |
 | Add a page or route | `app/` | maintainers |
 | Add a UI component | `src/components/` (`ui/` for design-system primitives) | maintainers |

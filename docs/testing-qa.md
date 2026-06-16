@@ -11,8 +11,7 @@ Tooling: **Vitest** (unit/component), `@testing-library/react` for components, `
   - a valid content fixture parses into the expected typed structure;
   - **each cross-reference invariant has a failing-case test** (missing category id, dup category id, unknown `mappedModels` slug, out-of-range `mappedCategories`, dup technique label, category→unknown degree, technique `prevention` missing a countermeasure mode);
   - malformed YAML / bad MDX frontmatter fails with a precise, file-attributed error.
-- A test that the **real seeded `content/`** validates — this guards `main` against a future content PR that breaks the build.
-- Importer (`scripts/import-xlsx.ts`): given a small fixture workbook, technique counts in == out per category; the `… / (MITRE)` split parses ids and maps `—`/empty → `null`; nothing dropped/merged.
+- A test that the **committed `content/`** validates — this guards `main` against a future content PR that breaks the build.
 
 ### Matrix helpers (Phase 1)
 - `src/lib/matrix/group.ts`: grouping order and completeness (11 categories, 5 degrees of intent).

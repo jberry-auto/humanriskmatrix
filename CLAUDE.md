@@ -6,7 +6,7 @@ This file is loaded into every Claude Code session for this project. It is **pro
 
 **humanriskmatrix.org** — a public, community-maintained reference site + two AI tools for the Human Risk Matrix taxonomy. Next.js (TypeScript, App Router), containerized on DigitalOcean App Platform. Built in phases; see `docs/roadmap.md`.
 
-The canonical, committed source of the taxonomy content is the **`content/`** tree (schema-validated YAML + MDX). It was initially seeded from a **local working workbook** (`human-risk-framework.xlsx`, tabs *Concepts* / *Framework* / *Heat-Map*) that is **git-ignored and never committed** — it carries author metadata and draft comments and is only a bootstrap aid. Treat `content/` as the source of truth; edits go there directly.
+The canonical source of the taxonomy is the **`content/`** tree — schema-validated YAML and MDX, authored and reviewed directly in the repo. Treat it as the source of truth; make edits there.
 
 ## Read before you build
 
