@@ -739,3 +739,30 @@ techniques:
         action: Implement financial transaction monitoring with mandatory verification workflows for beneficiary modifications.
       - mode: intervene
         action: Immediately freeze suspicious beneficiary changes, verify requests through established executive contacts, and coordinate with financial institutions to prevent fund diversion.
+  - id: 7-indirect-prompt-injection-of-ai-assistant
+    label: Indirect prompt injection of a user's AI assistant
+    mitreId: null
+    description: Attacker-planted text in content the AI reads hijacks the employee's assistant into exfiltrating data or taking action.
+    detailedDescription: >-
+      An attacker hides instructions in a document, email, web page, or ticket that the
+      victim's AI assistant later ingests. When the user asks the agent to summarize or act
+      on that content, the hidden text redirects it — to leak data, send messages, or change
+      settings — using the employee's own access. (Catalogued in MITRE ATLAS as indirect
+      prompt injection.)
+    attackerBehavior: >-
+      The adversary seeds malicious instructions where the target's agent will read them and
+      crafts them to blend in, so the AI follows the injected commands while the user
+      believes it is doing the task they asked for.
+    insiderBehavior: >-
+      The employee delegates a routine task to their AI assistant on attacker-supplied
+      content, trusting the agent and never seeing the embedded instructions it quietly
+      obeyed.
+    prevention:
+      - mode: educate
+        action: Make staff aware that AI agents can be hijacked by hidden instructions in untrusted content and to treat agent actions on external data with caution.
+      - mode: evaluate
+        action: Run prompt-injection simulations against sanctioned agents using booby-trapped documents and pages, and measure impact.
+      - mode: monitor
+        action: Log AI-agent actions and tool calls and alert on anomalous exfiltration, messaging, or configuration changes initiated via an assistant.
+      - mode: intervene
+        action: Contain the agent's session and access on suspected injection, then coach the user with a verify-then-act workflow for agent tasks on untrusted content.

@@ -409,3 +409,80 @@ techniques:
         action: Deploy data loss prevention tools that detect credential patterns in email and chat systems and flag inappropriate sharing.
       - mode: intervene
         action: Immediately revoke credentials shared through insecure channels and guide users to proper credential management tools.
+  - id: 2-over-permissioned-ai-agent-connector
+    label: Over-permissioned AI agent / connector
+    mitreId: null
+    description: An AI assistant, browser agent, or OAuth/MCP connector is granted broad standing access to mailboxes, drives, or systems.
+    detailedDescription: >-
+      To make an AI assistant "just work," a user or admin grants it wide, persistent scopes
+      — full mailbox, entire drive, admin APIs — far beyond the task at hand. The grant
+      lingers as an over-privileged, often unmonitored identity that can read or act on
+      sensitive data, and that an attacker can ride if the AI service or token is
+      compromised.
+    attackerBehavior: >-
+      An adversary abuses the connector's standing access — stealing or replaying its token,
+      or steering the agent — to reach mailboxes, files, and systems at the breadth the
+      over-broad grant allows, without needing the user's own credentials.
+    insiderBehavior: >-
+      The user accepts every permission the AI app requests to avoid friction, assuming the
+      convenience is worth it and that someone else vets which tools are safe to connect.
+    prevention:
+      - mode: educate
+        action: Teach least-privilege for AI connectors — request only the scopes a task needs — with quick guidance on reading consent prompts.
+      - mode: evaluate
+        action: Review and test AI/OAuth grants against least-privilege, including red-team checks that abuse an over-scoped connector.
+      - mode: monitor
+        action: Inventory OAuth/MCP grants and AI app identities; alert on broad scopes, dormant connectors, and anomalous agent activity.
+      - mode: intervene
+        action: Right-size or revoke over-broad grants in the moment and coach the owner on the minimum scope that still works.
+  - id: 2-insecure-ai-generated-code-merged-unreviewed
+    label: Insecure AI-generated code merged unreviewed
+    mitreId: null
+    description: AI-suggested code carrying vulnerabilities, secrets, or risky dependencies is accepted and shipped without review.
+    detailedDescription: >-
+      A developer accepts AI-generated code — functions, config, infrastructure — and merges
+      it with little scrutiny. The output may contain injection-prone patterns, hardcoded
+      secrets, insecure defaults, or hallucinated and abandoned dependencies, which then
+      enter production as durable weaknesses ("vibe coding").
+    attackerBehavior: >-
+      An adversary exploits the introduced weakness directly, or seeds malicious and
+      typosquatted packages that AI assistants recommend, so vulnerable or attacker-
+      controlled code lands in the codebase through trusted-looking suggestions.
+    insiderBehavior: >-
+      The developer trusts the fluent, confident AI output and is rewarded for shipping fast,
+      so they skim rather than review, assuming the assistant produced safe code.
+    prevention:
+      - mode: educate
+        action: Give engineers concise guidance on reviewing AI output for secrets, injection, insecure defaults, and unverified dependencies.
+      - mode: evaluate
+        action: Seed AI-suggested-but-flawed code into exercises and measure whether review and CI catch it.
+      - mode: monitor
+        action: Run SAST, secret scanning, and dependency/SBOM checks in CI and surface signals on AI-assisted changes.
+      - mode: intervene
+        action: Block merges on failing security gates and coach the author in the moment on the specific flaw and the safe pattern.
+  - id: 2-access-privilege-creep
+    label: Access / privilege creep
+    mitreId: null
+    description: Entitlements accumulate across role changes and are never revoked, quietly expanding each person's blast radius.
+    detailedDescription: >-
+      As people move between teams and projects, they keep collecting access — old group
+      memberships, lingering admin rights, standing tokens — that no one removes. Over time
+      individuals hold far more than their current role needs, so a single compromised or
+      misused account reaches much further than it should, and least-privilege erodes
+      silently.
+    attackerBehavior: >-
+      An adversary who compromises or recruits such an account inherits its over-broad
+      reach, moving laterally and accessing sensitive systems the person no longer has any
+      business reason to touch.
+    insiderBehavior: >-
+      The employee requests access for each new task and never thinks to give the old access
+      back, assuming someone else prunes stale entitlements.
+    prevention:
+      - mode: educate
+        action: Remind staff and managers that access should track current role, and make requesting removal as normal as requesting access.
+      - mode: evaluate
+        action: Run periodic access recertification and least-privilege reviews, and red-team how far a typical account can actually reach.
+      - mode: monitor
+        action: Track entitlement growth and dormant permissions per identity, flagging accounts whose access has drifted far beyond peers in the same role.
+      - mode: intervene
+        action: Right-size or revoke excess entitlements as they surface, with a blame-free note to the owner on why the access was removed.

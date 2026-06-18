@@ -480,3 +480,30 @@ techniques:
         action: Monitor employee social media and professional posts for photos with embedded location data from sensitive sites.
       - mode: intervene
         action: Provide metadata removal tools and guidance on location privacy when geotagged photos from sensitive locations are identified.
+  - id: 1-sensitive-files-uploaded-to-ai
+    label: Sensitive files/datasets uploaded to AI
+    mitreId: null
+    description: Whole documents or datasets are uploaded to an AI tool for analysis, sending the data outside the organization's boundary.
+    detailedDescription: >-
+      Beyond pasting a snippet, a user uploads entire files — spreadsheets, contracts,
+      customer exports, source archives — into a consumer or third-party AI tool to
+      summarize, analyze, or transform them. The data leaves controlled storage, may be
+      retained or used for training, and is no longer subject to the organization's access
+      controls or retention rules.
+    attackerBehavior: >-
+      An adversary harvests data exposed through AI providers — via breached or
+      misconfigured AI accounts, retained training corpora, or a malicious tool posing as a
+      productivity assistant — to obtain bulk sensitive material the victim handed over.
+    insiderBehavior: >-
+      The employee is under time pressure and treats the AI tool like a trusted colleague,
+      uploading the whole file because it is faster than redacting or doing the work by
+      hand, without registering that the data has left the building.
+    prevention:
+      - mode: educate
+        action: Use short, consumable guidance on what data may and may not be uploaded to AI tools, with sanctioned alternatives for analysis.
+      - mode: evaluate
+        action: Run simulations and spot tests that offer staff an AI shortcut for sensitive files and measure who uploads.
+      - mode: monitor
+        action: Ingest CASB/DLP and egress telemetry for file uploads to AI domains and flag sensitive-data patterns leaving for AI services.
+      - mode: intervene
+        action: When a sensitive upload is detected, deliver a blame-free in-the-moment prompt, point to the approved tool, and help retract or revoke where possible.

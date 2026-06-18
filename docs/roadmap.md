@@ -61,7 +61,7 @@ Search across the matrix · stable permalinks/anchors per category & technique �
 The taxonomy is the product; the site is its surface. This track can progress in any phase.
 
 ### C0 — Foundation (with Phase 1)  ·  ✅ done
-The committed `content/` tree: 5 degrees of intent, 11 categories with **160 techniques**, MITRE IDs where coded, 9 framework records, and 7 insider-threat categories. Each technique carries a full write-up — overview, how an adversary operates, how the insider acts, and mode-tagged countermeasures (educate / evaluate / monitor / intervene). *(Long-form framework/theory essays remain — see C2.)*
+The committed `content/` tree: 5 degrees of intent, 11 categories with **186 techniques**, MITRE IDs where coded, 9 framework records, and 7 insider-threat categories. Each technique carries a full write-up — overview, how an adversary operates, how the insider acts, and mode-tagged countermeasures (educate / evaluate / monitor / intervene). *(Long-form framework/theory essays remain — see C2.)*
 
 ### C1 — Complete coverage
 Fill gaps in technique lists; add MITRE IDs where currently `null` and a real technique exists; ensure every category's `mappedModels` and `insiderCategories` are accurate.
