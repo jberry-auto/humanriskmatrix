@@ -11,7 +11,7 @@ describe("loadContent — real content/", () => {
 
   it("loads the full taxonomy", () => {
     expect(bundle.degrees).toHaveLength(5);
-    expect(bundle.categories).toHaveLength(11);
+    expect(bundle.categories).toHaveLength(12);
     const techniques = bundle.categories.reduce((n, c) => n + c.techniques.length, 0);
     expect(techniques).toBe(186);
   });

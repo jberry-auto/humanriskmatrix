@@ -14,7 +14,7 @@ Tooling: **Vitest** (unit/component), `@testing-library/react` for components, `
 - A test that the **committed `content/`** validates — this guards `main` against a future content PR that breaks the build.
 
 ### Matrix helpers (Phase 1)
-- `src/lib/matrix/group.ts`: grouping order and completeness (11 categories, 5 degrees of intent).
+- `src/lib/matrix/group.ts`: grouping order and completeness (12 categories, 5 degrees of intent).
 - `src/lib/matrix/mitre.ts`: `mitreUrl` for a base technique (`T1566`) and a sub-technique (`T1566.004`); `null` yields no link.
 - `src/lib/matrix/share.ts`: the heatmap share codec round-trips a selection irrespective of input id order, decodes an empty payload to empty, produces a URL-safe string, and returns empty on a corrupt payload or one sized for a different technique set (drift guard). (`tests/lib/share.test.ts`.)
 

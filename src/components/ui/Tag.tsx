@@ -2,14 +2,14 @@ import type { ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
 
-export type Degree = "unintentional" | "unaware" | "deceived" | "coerced" | "complicit";
+export type Degree = "unintentional" | "unaware" | "deceived" | "coerced" | "intentional";
 
 const dotColor: Record<Degree, string> = {
   unintentional: "bg-degree-unintentional",
   unaware: "bg-degree-unaware",
   deceived: "bg-degree-deceived",
   coerced: "bg-degree-coerced",
-  complicit: "bg-degree-complicit",
+  intentional: "bg-degree-intentional",
 };
 
 interface TagProps {

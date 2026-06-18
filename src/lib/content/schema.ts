@@ -9,7 +9,7 @@ export const IntentDegreeIdSchema = z.enum([
   "unaware",
   "deceived",
   "coerced",
-  "complicit",
+  "intentional",
 ]);
 export type IntentDegreeId = z.infer<typeof IntentDegreeIdSchema>;
 
@@ -62,9 +62,9 @@ export const TechniqueSchema = z.object({
 export type Technique = z.infer<typeof TechniqueSchema>;
 
 // --- Matrix category ---
-// One of the 11 categories of behavior. `degreeId` places it on the intent spectrum.
+// One of the 12 categories of behavior. `degreeId` places it on the intent spectrum.
 export const MatrixCategorySchema = z.object({
-  id: z.number().int().min(1).max(11),
+  id: z.number().int().min(1).max(12),
   name: z.string().min(1),
   degreeId: IntentDegreeIdSchema,
   techniques: z.array(TechniqueSchema).min(1),
@@ -82,7 +82,7 @@ export const FrameworkSchema = z.object({
   title: z.string().min(1),
   discipline: DisciplineSchema,
   origin: z.string().optional(),
-  mappedCategories: z.array(z.number().int().min(1).max(11)).min(1),
+  mappedCategories: z.array(z.number().int().min(1).max(12)).min(1),
   summary: z.string().min(1),
 });
 export type Framework = z.infer<typeof FrameworkSchema>;
@@ -91,7 +91,7 @@ export type Framework = z.infer<typeof FrameworkSchema>;
 export const InsiderCategorySchema = z.object({
   slug: z.string().regex(/^[a-z0-9-]+$/),
   name: z.string().min(1),
-  primaryCategories: z.array(z.number().int().min(1).max(11)).min(1),
+  primaryCategories: z.array(z.number().int().min(1).max(12)).min(1),
   responseMechanism: z.string().min(1),
   note: z.string().optional(),
 });

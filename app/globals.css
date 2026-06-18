@@ -28,7 +28,7 @@
   --color-degree-unaware: #4e5c8a;
   --color-degree-deceived: #6b5080;
   --color-degree-coerced: #9a5b57;
-  --color-degree-complicit: #8c3b36;
+  --color-degree-intentional: #8c3b36;
 
   /* Heatmap highlight colors — generic green/yellow/red. Always paired with a text label. */
   --color-hl-green: #2f8f5b;
@@ -73,7 +73,7 @@
   --color-degree-unaware: #8089b8;
   --color-degree-deceived: #9e84b0;
   --color-degree-coerced: #c58e89;
-  --color-degree-complicit: #c9706a;
+  --color-degree-intentional: #c9706a;
 
   --color-hl-green: #5fbf86;
   --color-hl-yellow: #d8a93f;

@@ -1,0 +1,312 @@
+id: 11
+name: Solo Malicious Insider
+degreeId: intentional
+mappedModels:
+  - cognitive-biases
+insiderCategories:
+  - departing-employee
+  - collusive
+techniques:
+  - id: 11-insider-data-theft-bulk-exfiltration
+    label: Insider data theft / bulk exfiltration
+    mitreId: null
+    description: A witting insider copies sensitive data out — personal cloud, email-to-self, USB, screenshots — for gain or a third party.
+    detailedDescription: >-
+      An employee who has chosen to act against the organization uses their legitimate
+      access to remove sensitive data in bulk, routing it through personal cloud storage,
+      webmail, removable media, printing, or screen capture. Unlike an accidental leak, the
+      act is deliberate and usually staged to look like normal work.
+    attackerBehavior: >-
+      An external sponsor or competitor receiving the data directs collection priorities and
+      provides exfiltration channels, treating the insider as a tasked, trusted collector
+      inside the perimeter.
+    insiderBehavior: >-
+      The insider rationalizes the theft — owed compensation, a grievance, loyalty elsewhere
+      — and deliberately blends the exfiltration into routine activity to avoid detection.
+    prevention:
+      - mode: educate
+        action: Set clear acceptable-use and data-ownership expectations and make lawful reporting and exit obligations unambiguous.
+      - mode: evaluate
+        action: Use counter-intelligence-style integrity tests and red-team exfiltration exercises to probe whether bulk theft is detectable.
+      - mode: monitor
+        action: Ingest DLP, UEBA, and egress signals for bulk downloads, anomalous access, and movement to personal channels, especially around resignations.
+      - mode: intervene
+        action: Open a discreet investigation with access containment and forensic preservation, and coordinate with legal and law enforcement for prosecution.
+  - id: 11-ip-theft-on-departure
+    label: IP / trade-secret theft on departure
+    mitreId: null
+    description: A departing employee takes source code, customer lists, or designs to a competitor or new venture.
+    detailedDescription: >-
+      In the window around resignation, an employee copies proprietary assets — code,
+      schematics, pricing, customer and pipeline data — intending to use them at a competitor
+      or their own startup. The behavior clusters near notice periods and offer acceptances
+      and is often framed by the insider as taking "their own" work.
+    attackerBehavior: >-
+      A competitor or new employer benefits from and may quietly solicit the stolen material,
+      gaining a market advantage built on another organization's protected IP.
+    insiderBehavior: >-
+      The departing employee feels ownership over work they produced and convinces themselves
+      that taking it is fair, downloading or forwarding assets before handing back access.
+    prevention:
+      - mode: educate
+        action: Remind staff at hire and exit of IP ownership, trade-secret obligations, and what they may not take with them.
+      - mode: evaluate
+        action: Review departure-window activity patterns and test whether offboarding catches pre-resignation data hoarding.
+      - mode: monitor
+        action: Heighten DLP/UEBA monitoring of repositories, CRM, and design stores during notice periods and on flight-risk signals.
+      - mode: intervene
+        action: Investigate suspected IP theft, preserve evidence, revoke access immediately, and pursue legal remedies and law-enforcement referral.
+  - id: 11-privilege-abuse-snooping
+    label: Privilege abuse / unauthorized snooping
+    mitreId: null
+    description: An insider uses legitimate access to browse, exfiltrate, or stalk data beyond any business need.
+    detailedDescription: >-
+      An insider with broad access misuses it for personal ends — looking up colleagues,
+      VIPs, or exes; pulling records to sell; or satisfying curiosity. Each action is
+      individually "authorized," so abuse hides in legitimate access unless need-to-know is
+      enforced and reviewed.
+    attackerBehavior: >-
+      A buyer of personal data or a party seeking leverage may pay or pressure the insider to
+      look up specific individuals, turning routine access into targeted collection.
+    insiderBehavior: >-
+      The insider treats their access as a personal privilege, viewing records they have no
+      business reason to see and assuming no one is watching individual lookups.
+    prevention:
+      - mode: educate
+        action: Make need-to-know explicit and remind staff that access is logged and personal use of records is prohibited.
+      - mode: evaluate
+        action: Test access governance with least-privilege reviews and integrity checks for unjustified lookups of sensitive records.
+      - mode: monitor
+        action: Apply UEBA to detect out-of-pattern access to VIP, HR, or customer records and lookups with no associated work item.
+      - mode: intervene
+        action: Investigate unjustified access, remove excess privilege, and escalate to HR, legal, or law enforcement based on intent and harm.
+  - id: 11-sabotage-data-system-destruction
+    label: Sabotage — data/system destruction
+    mitreId: T1485
+    description: An aggrieved or recruited insider intentionally deletes or corrupts data or systems.
+    detailedDescription: >-
+      A witting insider uses their access to destroy or corrupt data, wipe systems, or
+      degrade services on purpose — out of revenge, on behalf of a sponsor, or to cause
+      maximum disruption. Because the access is legitimate, the damage can be wide and fast
+      before controls react.
+    attackerBehavior: >-
+      An external actor may task or pay the insider to time destruction with a
+      business-critical moment, amplifying impact beyond what an outside attacker could reach.
+    insiderBehavior: >-
+      The insider, often after a grievance or termination notice, decides to do damage and
+      uses familiar systems and timing to make the destruction effective.
+    prevention:
+      - mode: educate
+        action: Reinforce a speak-up culture and lawful grievance channels so disputes are raised before they escalate to harm.
+      - mode: evaluate
+        action: Test destructive-action detection and recovery readiness through controlled exercises and tabletop scenarios.
+      - mode: monitor
+        action: Alert on mass-delete, mass-encrypt, and destructive admin actions, with tighter watch on privileged and notice-period users.
+      - mode: intervene
+        action: Contain access immediately, invoke incident response and recovery, preserve forensic evidence, and coordinate with law enforcement.
+  - id: 11-inhibit-recovery-delete-backups
+    label: Inhibit recovery / delete backups
+    mitreId: T1490
+    description: An insider destroys or disables backups and snapshots to maximize damage or force payment.
+    detailedDescription: >-
+      Alongside or ahead of sabotage or extortion, a witting insider targets the recovery
+      path — deleting backups, disabling snapshots, revoking restore permissions, or
+      corrupting replicas — so the organization cannot bounce back. Insider knowledge of
+      where backups live makes this far more effective than an outsider's attempt.
+    attackerBehavior: >-
+      A ransomware crew or sponsor leverages the insider to neutralize backups first,
+      converting a recoverable incident into a forced-payment or total-loss scenario.
+    insiderBehavior: >-
+      The insider applies their operational knowledge to quietly weaken recovery before
+      acting, presenting backup changes as routine maintenance.
+    prevention:
+      - mode: educate
+        action: Establish that backup and recovery systems are protected assets and changes follow strict, witnessed procedures.
+      - mode: evaluate
+        action: Test backup immutability and restore integrity, including attempts to tamper with recovery from privileged accounts.
+      - mode: monitor
+        action: Alert on backup deletion, snapshot disablement, and retention or permission changes, separating these duties from primary admins.
+      - mode: intervene
+        action: Freeze the implicated accounts, fail over to immutable or offline copies, and launch investigation with law-enforcement coordination.
+  - id: 11-logic-bomb-delayed-trigger-sabotage
+    label: Logic bomb / delayed-trigger sabotage
+    mitreId: null
+    description: An insider plants code or automation that triggers damage later, often after termination.
+    detailedDescription: >-
+      A technical insider embeds dormant logic — a scheduled job, conditional script, or
+      booby-trapped change — set to corrupt data or disrupt systems at a future date or on a
+      trigger such as their account being disabled. The delay distances the act from the
+      perpetrator and can detonate after they have left.
+    attackerBehavior: >-
+      A sponsor may commission delayed sabotage to activate after the insider's departure,
+      preserving deniability and timing impact for maximum effect.
+    insiderBehavior: >-
+      Anticipating a grievance or exit, the insider plants the mechanism in advance and
+      conceals it within legitimate-looking code or configuration.
+    prevention:
+      - mode: educate
+        action: Make clear that planting unauthorized automation is a serious offense and reinforce lawful avenues for disputes.
+      - mode: evaluate
+        action: Use code review, change audits, and integrity checks to probe for hidden triggers and unauthorized scheduled tasks.
+      - mode: monitor
+        action: Inventory scheduled tasks, triggers, and code changes; alert on anomalous or undocumented automation, especially from departing staff.
+      - mode: intervene
+        action: Isolate and analyze suspect code, remove the trigger, preserve evidence, and pursue investigation and prosecution.
+  - id: 11-rogue-account-backdoor-persistence
+    label: Rogue account / backdoor for persistence
+    mitreId: T1136
+    description: An insider creates hidden accounts or access paths to retain entry after leaving.
+    detailedDescription: >-
+      A witting insider provisions unauthorized accounts, API keys, service principals, or
+      remote-access paths — or plants credentials — to keep access after their own is
+      revoked. The backdoor lets them, or a sponsor, return quietly once they are no longer
+      an employee.
+    attackerBehavior: >-
+      An external actor uses the insider-created account or key as durable, low-profile
+      access into the environment, bypassing the scrutiny a fresh intrusion would draw.
+    insiderBehavior: >-
+      The insider sets up the alternate access ahead of departure, disguising it as a
+      legitimate service or test account so it survives offboarding.
+    prevention:
+      - mode: educate
+        action: Reinforce that creating undisclosed accounts or access paths is prohibited and offboarding will reconcile all access.
+      - mode: evaluate
+        action: Audit account-creation and access-grant trails and red-team for orphaned or hidden persistence after simulated departures.
+      - mode: monitor
+        action: Alert on out-of-process account or key creation and reconcile every identity against an authoritative owner, especially at exit.
+      - mode: intervene
+        action: Disable discovered rogue access, investigate its origin and use, and coordinate with law enforcement where warranted.
+  - id: 11-witting-security-control-circumvention
+    label: Witting security-control circumvention
+    mitreId: T1562
+    description: A witting insider deliberately disables or weakens security controls to enable theft, sabotage, or outside access.
+    detailedDescription: >-
+      Ahead of or during a malicious act, an insider turns off the defenses — disabling EDR or
+      DLP, creating monitoring exclusions, weakening firewall or MFA policy, or pausing
+      logging — so their theft, sabotage, or an outside accomplice's intrusion proceeds
+      unseen. Privileged access and knowledge of the control stack make the sabotage of
+      defenses precise and credible as "maintenance."
+    attackerBehavior: >-
+      An external partner relies on the insider to blind specific controls at a chosen time,
+      converting a hardened environment into an open one for the duration of the operation.
+    insiderBehavior: >-
+      The insider deliberately lowers defenses they are trusted to manage, framing the change
+      as troubleshooting, tuning, or a temporary exception to avoid suspicion.
+    prevention:
+      - mode: educate
+        action: Establish that disabling or weakening security controls outside change control is a serious offense, with clear sanctioned exception paths.
+      - mode: evaluate
+        action: Test detection of control tampering and verify that defensive changes require separation of duties and are tamper-evident.
+      - mode: monitor
+        action: Alert on disabled agents, new monitoring exclusions, and policy weakening, shipping those events off-host and watching privileged users closely.
+      - mode: intervene
+        action: Treat unexplained control changes as a strong insider indicator; contain access, restore controls, preserve evidence, and investigate with law enforcement.
+  - id: 11-log-tampering-covering-tracks
+    label: Log tampering / covering tracks
+    mitreId: T1070
+    description: An insider disables logging or deletes audit trails to conceal malicious activity.
+    detailedDescription: >-
+      To hide theft, sabotage, or abuse, a witting insider manipulates the evidence —
+      clearing logs, disabling auditing, altering timestamps, or excluding their activity
+      from monitoring. Privileged access and knowledge of the logging pipeline make the
+      cover-up more thorough than an outsider's.
+    attackerBehavior: >-
+      A sponsor benefits from the insider suppressing telemetry so the broader operation —
+      collection or intrusion — proceeds without tripping detection or leaving a trail.
+    insiderBehavior: >-
+      The insider deliberately weakens or edits the audit trail around their actions, framing
+      logging changes as maintenance or tuning.
+    prevention:
+      - mode: educate
+        action: Establish that tampering with logs or monitoring is a serious offense and that audit integrity is protected.
+      - mode: evaluate
+        action: Test detection of log manipulation and verify that audit trails are tamper-evident under privileged misuse.
+      - mode: monitor
+        action: Ship logs off-host to append-only storage and alert on logging being disabled, cleared, or selectively modified.
+      - mode: intervene
+        action: Treat audit tampering as a strong indicator of insider activity; contain access, recover logs from immutable copies, and investigate with law enforcement.
+  - id: 11-collusive-fraud-embezzlement
+    label: Collusive fraud / embezzlement
+    mitreId: null
+    description: An insider manipulates financial records or systems for theft, often colluding with an outside party.
+    detailedDescription: >-
+      A witting insider abuses access to financial or business systems to divert funds,
+      create fake vendors, approve fraudulent payments, or falsify records. It frequently
+      involves collusion — with a colleague to defeat separation of duties, or with an
+      external party who receives the proceeds.
+    attackerBehavior: >-
+      An external co-conspirator supplies fraudulent invoices, mule accounts, or shell
+      vendors and splits the proceeds, relying on the insider to push transactions past
+      controls.
+    insiderBehavior: >-
+      The insider exploits their knowledge of approval workflows and control gaps, structuring
+      the fraud to look routine and, where needed, recruiting an accomplice to bypass
+      separation of duties.
+    prevention:
+      - mode: educate
+        action: Train staff on fraud schemes, separation-of-duties expectations, and confidential channels to report suspected collusion.
+      - mode: evaluate
+        action: Test financial controls and separation of duties with audits and integrity checks designed to surface collusion.
+      - mode: monitor
+        action: Analyze transactions for anomalies — new vendors, split approvals, round-dollar or off-hours payments — and reconcile against owners.
+      - mode: intervene
+        action: Investigate suspected fraud with finance and legal, preserve records, freeze implicated accounts, and coordinate with law enforcement.
+  - id: 11-hostage-of-data-leak-threat
+    label: Hostage-of-data (leak threat)
+    mitreId: null
+    description: Stolen data is held over the victim with the threat of release to
+      coerce payment or action.
+    detailedDescription: >-
+      Previously exfiltrated sensitive data — personal information, business secrets,
+      communications, or other compromising material — is held as leverage to force
+      ongoing cooperation or payment. The threat of selective or complete data release
+      creates sustained pressure that can be used for long-term control rather than
+      one-time extortion.
+    attackerBehavior: >-
+      The adversary demonstrates possession of valuable or damaging data, provides
+      samples to establish credibility, threatens strategic release timed for maximum
+      damage, and uses the ongoing threat as leverage for sustained cooperation or
+      repeated payments rather than single transaction.
+    insiderBehavior: >-
+      The victim weighs the certain damage of data release against the possibility
+      of satisfying demands and ending the threat, often believing they can manage
+      the situation privately while providing incremental cooperation to prevent
+      escalation or exposure.
+    prevention:
+      - mode: educate
+        action: Train staff that data theft and extortion should be reported immediately as security incidents rather than handled as private matters.
+      - mode: evaluate
+        action: Test employee knowledge of data incident reporting procedures and their understanding that cooperation with extortion typically leads to escalation.
+      - mode: monitor
+        action: Monitor for data exfiltration patterns, unusual access to sensitive information, and behavioral changes that may indicate ongoing extortion.
+      - mode: intervene
+        action: Treat data extortion as active threat requiring immediate incident response, forensic analysis of data theft, access containment, and coordination with law enforcement.
+  - id: 11-whistleblower-channel-abuse
+    label: Whistleblower-channel abuse
+    mitreId: null
+    description: Whistleblower or disclosure channels are abused to launder leaks or
+      pressure the organization.
+    detailedDescription: >-
+      Legitimate whistleblower protections and disclosure channels are exploited to
+      release selected information that serves adversary interests rather than genuine
+      public benefit. The legal protections and moral authority of whistleblowing
+      provide cover for intelligence operations or competitive attacks disguised as
+      principled disclosure.
+    attackerBehavior: >-
+      The adversary identifies or recruits someone with legitimate access, frames requests
+      in terms of public interest or ethical obligation, provides selective information
+      that supports a particular narrative, and uses formal disclosure channels to
+      legitimize and protect the leak operation.
+    insiderBehavior: >-
+      The employee believes they are serving a legitimate public interest or exposing
+      genuine wrongdoing, often unaware that their information is being selectively
+      used to support an adversary agenda rather than broad transparency or reform.
+    prevention:
+      - mode: educate
+        action: Train staff on the difference between legitimate whistleblowing and adversary influence operations that exploit disclosure channels.
+      - mode: evaluate
+        action: Test employee understanding of proper disclosure channels and their ability to distinguish legitimate ethical concerns from manipulation.
+      - mode: monitor
+        action: Monitor disclosure patterns for unusual timing, selective information, or coordination with external events that may indicate orchestrated campaigns.
+      - mode: intervene
+        action: Investigate suspected abuse through counter-intelligence analysis, assess the employee's motivations and knowledge, and coordinate with legal and law enforcement as appropriate.

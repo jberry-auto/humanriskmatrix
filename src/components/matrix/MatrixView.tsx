@@ -52,7 +52,7 @@ export function MatrixView({ groups, frameworks, insiders }: MatrixViewProps) {
     if (match?.[1]) loadShared(match[1], allIds);
   }, [allIds, loadShared]);
 
-  // All 11 categories left-to-right, each tagged with its intent degree.
+  // All 12 categories left-to-right, each tagged with its intent degree.
   const orderedCategories = useMemo(
     () => groups.flatMap((g) => g.categories.map((cat) => ({ cat, degree: g.degree }))),
     [groups],

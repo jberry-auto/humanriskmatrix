@@ -119,12 +119,12 @@ function checkCrossReferences(bundle: ContentBundle, errors: string[]): void {
   const frameworkSlugs = new Set(bundle.frameworks.map((f) => f.slug));
   const insiderSlugs = new Set(bundle.insiderCategories.map((c) => c.slug));
 
-  // All 11 category ids present exactly once.
+  // All 12 category ids present exactly once.
   const seenCategoryIds = new Map<number, number>();
   for (const cat of bundle.categories) {
     seenCategoryIds.set(cat.id, (seenCategoryIds.get(cat.id) ?? 0) + 1);
   }
-  for (let id = 1; id <= 11; id += 1) {
+  for (let id = 1; id <= 12; id += 1) {
     const count = seenCategoryIds.get(id) ?? 0;
     if (count !== 1)
       errors.push(`categories: category id ${id} appears ${count} time(s) (expected 1)`);
