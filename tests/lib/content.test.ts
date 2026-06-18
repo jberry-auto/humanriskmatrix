@@ -13,7 +13,7 @@ describe("loadContent — real content/", () => {
     expect(bundle.degrees).toHaveLength(5);
     expect(bundle.categories).toHaveLength(11);
     const techniques = bundle.categories.reduce((n, c) => n + c.techniques.length, 0);
-    expect(techniques).toBe(160);
+    expect(techniques).toBe(186);
   });
 
   it("has a globally unique id and a non-empty description for every technique", () => {
@@ -25,7 +25,7 @@ describe("loadContent — real content/", () => {
         expect(t.description.length).toBeGreaterThan(0);
       }
     }
-    expect(ids.size).toBe(160);
+    expect(ids.size).toBe(186);
   });
 
   it("has the four authored detail fields on every technique", () => {

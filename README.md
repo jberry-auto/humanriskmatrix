@@ -30,7 +30,7 @@ UNINTENTIONAL              UNAWARE                   DECEIVED         COERCED   
 
 ## Project status & roadmap
 
-This repository is in **Phase 1** (static Matrix + Theory). The **interactive Matrix page is live** at [humanriskmatrix.org/matrix](https://humanriskmatrix.org/matrix) — the full 160-technique taxonomy with a technique detail side-sheet and a personal environmental heatmap; the **Theory & Frameworks page is next**. The build is phased — see **[docs/roadmap.md](docs/roadmap.md)** for the dual-track (content + feature) roadmap and exit criteria per phase.
+This repository is in **Phase 1** (static Matrix + Theory). The **interactive Matrix page is live** at [humanriskmatrix.org/matrix](https://humanriskmatrix.org/matrix) — the full 186-technique taxonomy with a technique detail side-sheet and a personal environmental heatmap; the **Theory & Frameworks page is next**. The build is phased — see **[docs/roadmap.md](docs/roadmap.md)** for the dual-track (content + feature) roadmap and exit criteria per phase.
 
 ## Tech stack
 

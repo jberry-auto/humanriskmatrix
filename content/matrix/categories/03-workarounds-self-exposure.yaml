@@ -502,3 +502,80 @@ techniques:
         action: Monitor employee social media for premature disclosure of client relationships, deals, or business partnerships.
       - mode: intervene
         action: Provide immediate guidance on confidentiality requirements when premature disclosures are detected, with help on safe ways to celebrate achievements.
+  - id: 3-shadow-ai-unsanctioned-tools
+    label: Shadow AI (unsanctioned tools)
+    mitreId: null
+    description: Staff route work through unapproved AI services or personal AI accounts, outside any governance or DLP.
+    detailedDescription: >-
+      Employees adopt AI tools that IT has not vetted — personal chatbot accounts, browser
+      extensions, niche SaaS with embedded AI — to get work done faster. The activity is
+      invisible to security, bypasses data-loss controls, and moves company data into
+      services with unknown retention, training, and breach exposure.
+    attackerBehavior: >-
+      An adversary targets the weakly-governed shadow tools and the data they accumulate, or
+      stands up a convincing AI service to attract corporate use and quietly collect
+      whatever staff feed it.
+    insiderBehavior: >-
+      The employee finds the sanctioned tooling slow or lacking and reaches for whatever AI
+      gets the job done, not seeing the personal account as a data-exfiltration path.
+    prevention:
+      - mode: educate
+        action: Publish a clear, consumable list of approved AI tools and the data each may handle, and explain why shadow tools are risky.
+      - mode: evaluate
+        action: Survey and test which AI tools staff actually use, including controlled probes that offer an unsanctioned shortcut.
+      - mode: monitor
+        action: Use CASB/DNS/egress telemetry to discover traffic to AI services and surface unsanctioned usage and its data flows.
+      - mode: intervene
+        action: When shadow AI is found, redirect the user to a sanctioned equivalent with a blame-free nudge rather than a block-and-punish.
+  - id: 3-acting-on-unverified-ai-output
+    label: Acting on unverified AI output
+    mitreId: null
+    description: A user takes a consequential action on hallucinated or incorrect AI output without verifying it — automation bias.
+    detailedDescription: >-
+      A user treats AI output as authoritative and acts on it — changing a configuration,
+      following security "advice," approving a payment, citing a fabricated fact — without
+      independent checking. AI models state wrong answers fluently and confidently, and
+      automation bias makes people defer to them, so the error propagates into a real
+      decision.
+    attackerBehavior: >-
+      An adversary exploits this trust by poisoning the AI's inputs or context so it
+      confidently recommends an insecure action, turning the victim's own assistant into a
+      channel for bad guidance.
+    insiderBehavior: >-
+      The employee is busy and the AI sounds authoritative, so they accept its answer as a
+      shortcut, assuming a confident, well-formatted response is a correct one.
+    prevention:
+      - mode: educate
+        action: Build awareness that AI can be confidently wrong and teach a verify-before-acting habit for consequential actions.
+      - mode: evaluate
+        action: Test decision-making with scenarios where AI gives plausible-but-wrong guidance and measure who verifies.
+      - mode: monitor
+        action: Watch for high-impact actions taken with AI assistance (config, finance, access) and add verification checkpoints to those flows.
+      - mode: intervene
+        action: Insert a confirmation step before irreversible AI-suggested actions and re-educate in the moment when unverified action is caught.
+  - id: 3-ai-notetaker-in-sensitive-meetings
+    label: AI notetaker/transcription bot in sensitive meetings
+    mitreId: null
+    description: A third-party AI bot joins and records confidential meetings; transcripts persist outside the organization's controls.
+    detailedDescription: >-
+      A user invites an AI notetaker or transcription assistant into meetings for
+      convenience. The bot — often a personal subscription — records, transcribes, and
+      stores confidential discussions in a third-party service with its own retention and
+      access, exposing strategy, IP, or personal data well beyond the meeting.
+    attackerBehavior: >-
+      An adversary targets the notetaker service or its stored transcripts, or joins
+      meetings via an over-shared bot link, to harvest candid, high-value discussion that
+      would otherwise never be written down.
+    insiderBehavior: >-
+      The employee wants accurate notes without the effort and adds the familiar bot to
+      every meeting, not registering that sensitive conversations now live in an external
+      system.
+    prevention:
+      - mode: educate
+        action: Set clear, consumable rules on when AI notetakers are allowed and which meetings must exclude them.
+      - mode: evaluate
+        action: Review meeting tooling and test whether sensitive sessions admit unsanctioned recording bots.
+      - mode: monitor
+        action: Track meeting-platform telemetry for external recording/transcription bots and flag their presence in sensitive meetings.
+      - mode: intervene
+        action: Remove unsanctioned bots from sensitive meetings and guide the host to an approved, governed notetaking option.

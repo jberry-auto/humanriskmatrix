@@ -9,7 +9,7 @@
 ## Status
 
 - **M0 — Scaffold + CI + deploy:** ✅ done (live at humanriskmatrix.org).
-- **M1 — Content pipeline + seed:** ✅ done (160 techniques across 11 categories, each with an authored description; 9 frameworks; 7 insider categories; `validate:content` is a build gate).
+- **M1 — Content pipeline + seed:** ✅ done (186 techniques across 11 categories, each with an authored description; 9 frameworks; 7 insider categories; `validate:content` is a build gate).
 - **M2 — Pages:** **Matrix ✅ built** (as an ATT&CK-style interactive grid — see below); **Theory page ⏳ remaining** (its framework/theory content is already seeded).
 
 The component design below reflects the **original plan**; the Matrix shipped with an evolved, MITRE ATT&CK–style layout (one wide grid, detail side-sheet, multi-select heatmap). The "as built" subsection records the actual components.

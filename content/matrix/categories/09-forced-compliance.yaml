@@ -327,3 +327,29 @@ techniques:
         action: Implement monitoring for unusual SIM swap requests and track patterns that suggest coordinated social engineering campaigns.
       - mode: intervene
         action: Establish enhanced verification requirements for SIM transfers and provide escalation procedures for customer service staff experiencing pressure to bypass security protocols.
+  - id: 9-physical-duress-coerced-authentication
+    label: Physical duress / coerced authentication
+    mitreId: null
+    description: A victim is threatened or physically forced to badge in, unlock a device, or approve access.
+    detailedDescription: >-
+      Under a direct threat to their safety or a family member's — at a doorway, in a parking
+      lot, during a home invasion, or at a border — a person is compelled to authenticate:
+      open a door, unlock a laptop or phone, approve an MFA prompt, or transfer funds. The
+      action is genuine and uses real credentials, so it passes every technical control while
+      the person acts against their will.
+    attackerBehavior: >-
+      The adversary applies immediate physical or psychological force to remove the victim's
+      choice, timing the demand so the compelled authentication grants access or moves money
+      before anyone can intervene.
+    insiderBehavior: >-
+      The employee complies to protect themselves or loved ones, often too frightened or
+      ashamed to signal distress or report it afterward.
+    prevention:
+      - mode: educate
+        action: Teach staff that safety comes first, that comply-then-report is acceptable, and how to use duress signals and panic options.
+      - mode: evaluate
+        action: Exercise duress and hostage scenarios for high-risk roles and test whether duress codes and rapid-revocation paths work.
+      - mode: monitor
+        action: Watch for duress-code use, out-of-pattern after-hours access or transfers, and authentication from unusual physical contexts.
+      - mode: intervene
+        action: On any duress signal, prioritize the person's safety, immediately revoke the compelled access or reverse the transaction, and involve security and law enforcement.

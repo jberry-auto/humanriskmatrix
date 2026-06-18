@@ -379,3 +379,56 @@ techniques:
         action: Monitor for unexpected loss of mobile service or authentication issues that could indicate SIM swap attempts.
       - mode: intervene
         action: Provide immediate support for suspected SIM swap victims and investigate potential coercion or pressure tactics used against carrier employees.
+  - id: 10-hostile-jurisdiction-travel-device-compromise
+    label: Hostile-jurisdiction travel device compromise
+    mitreId: null
+    description: Border search/seizure, compelled unlock, and hotel or network intrusion target staff devices during travel to high-risk regions.
+    detailedDescription: >-
+      When employees travel to hostile or high-surveillance jurisdictions, their devices and
+      accounts become targets: customs may search, copy, or seize them and compel an unlock;
+      hotel rooms and safes are entered to image or implant hardware; and local networks are
+      positioned to intercept traffic. The person's legitimate device becomes a collection
+      point, often without their knowledge.
+    attackerBehavior: >-
+      State services and their partners use legal compulsion at the border, covert hotel
+      access, and controlled networks to copy data, plant implants or monitoring, and harvest
+      credentials from travelers carrying corporate access.
+    insiderBehavior: >-
+      The employee travels with their normal laptop and phone full of corporate data and
+      logged-in accounts, unlocking on request to avoid hassle and unaware the device may be
+      cloned or tampered with.
+    prevention:
+      - mode: educate
+        action: Brief travelers to high-risk regions on border-search realities, device hygiene, and not carrying or unlocking sensitive data abroad.
+      - mode: evaluate
+        action: Review the travel program and test whether clean-loaner-device and return-wipe procedures are actually followed.
+      - mode: monitor
+        action: Watch for anomalous logins, new device pairings, and credential use during and after high-risk travel.
+      - mode: intervene
+        action: Issue clean loaner devices and scoped-down accounts for risky travel, and on return quarantine, re-image, and rotate any credentials that traveled.
+  - id: 10-rogue-wifi-evil-twin-access-point
+    label: Rogue Wi-Fi / evil-twin access point
+    mitreId: T1557
+    description: A proximity attacker stands up a look-alike Wi-Fi network so staff connect and surrender credentials or sessions.
+    detailedDescription: >-
+      An attacker near the target — a lobby, café, conference, or office perimeter —
+      broadcasts a network that mimics a trusted SSID (corporate or venue Wi-Fi). Devices and
+      users connect automatically or by habit, and the attacker intercepts traffic, serves
+      captive-portal credential prompts, or relays authentication, capturing logins and
+      session tokens in transit.
+    attackerBehavior: >-
+      The adversary clones a familiar SSID, optionally jams the real one, and positions an
+      adversary-in-the-middle to harvest credentials, MFA, and session cookies from anyone
+      who associates.
+    insiderBehavior: >-
+      The employee connects to what looks like the usual network without checking, trusting
+      the familiar name and a convincing login page, and enters credentials as normal.
+    prevention:
+      - mode: educate
+        action: Teach staff to verify networks, avoid open Wi-Fi for work, distrust unexpected captive-portal logins, and use always-on VPN.
+      - mode: evaluate
+        action: Run authorized rogue-AP and evil-twin tests at offices and events to measure who connects and submits credentials.
+      - mode: monitor
+        action: Use wireless intrusion detection to spot rogue and look-alike SSIDs near facilities and events, and watch for credential use from such sessions.
+      - mode: intervene
+        action: Disconnect affected users, rotate exposed credentials and sessions, and brief staff in the moment on verifying networks before connecting.

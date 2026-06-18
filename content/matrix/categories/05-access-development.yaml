@@ -395,3 +395,30 @@ techniques:
         action: Monitor information consumption patterns and watch for coordinated narrative campaigns targeting organizational personnel.
       - mode: intervene
         action: Provide media literacy training and establish procedures for verifying information that influences organizational decisions.
+  - id: 5-front-company-investment-jv-access
+    label: Front company / investment / JV access
+    mitreId: null
+    description: An adversary gains insider access or forced tech transfer via acquisition, investment, or a joint venture.
+    detailedDescription: >-
+      Rather than recruit an individual, a hostile actor buys their way inside — acquiring or
+      investing in the target, standing up a front company as a "partner," or entering a
+      joint venture that mandates technology sharing. The corporate structure grants
+      legitimate, sustained access to people, data, and IP, often under contracts that make
+      the transfer look routine.
+    attackerBehavior: >-
+      A state-linked or competitor entity uses opaque ownership, a board seat, or JV terms to
+      task collection, place its own people, and extract IP and know-how through channels
+      that appear to be normal business.
+    insiderBehavior: >-
+      Employees treat the investor, acquirer, or JV partner as a trusted stakeholder and
+      share designs, data, and access as the relationship seems to require, not seeing the
+      structure as an intelligence vector.
+    prevention:
+      - mode: educate
+        action: Brief staff and deal teams that investment, M&A, and JV relationships can be access vectors, and what may not be shared without review.
+      - mode: evaluate
+        action: Apply ownership/beneficial-control due diligence and test what a partner or investor can actually reach against need-to-know.
+      - mode: monitor
+        action: Track data and IP flowing to investors, acquirers, and JV partners, and watch for collection beyond the agreement's scope.
+      - mode: intervene
+        action: Tighten or segregate partner access when scope is exceeded, and escalate suspected state-directed transfer to legal and counter-intelligence.
