@@ -9,7 +9,7 @@
 ## Status
 
 - **M0 — Scaffold + CI + deploy:** ✅ done (live at humanriskmatrix.org).
-- **M1 — Content pipeline + seed:** ✅ done (186 techniques across 11 categories, each with an authored description; 9 frameworks; 7 insider categories; `validate:content` is a build gate).
+- **M1 — Content pipeline + seed:** ✅ done (186 techniques across 12 categories, each with an authored description; 9 frameworks; 7 insider categories; `validate:content` is a build gate).
 - **M2 — Pages:** **Matrix ✅ built** (as an ATT&CK-style interactive grid — see below); **Theory page ⏳ remaining** (its framework/theory content is already seeded).
 
 The component design below reflects the **original plan**; the Matrix shipped with an evolved, MITRE ATT&CK–style layout (one wide grid, detail side-sheet, multi-select heatmap). The "as built" subsection records the actual components.
@@ -45,8 +45,8 @@ The component design below reflects the **original plan**; the Matrix shipped wi
 A **server component** that loads validated content and renders the matrix. No client-side data fetching.
 
 **Layout**
-- Header: title, one-line definition, a `DegreeLegend` showing the 5 degrees of intent left→right (Unintentional → Unaware → Deceived → Coerced → Complicit) with their adversary role / awareness.
-- `MatrixGrid`: 11 categories grouped under their 5 degree bands, ordered 1→11. Each category shows its number, name, and its techniques. On wide screens, a horizontal 5-degree band over 11 categories; on mobile, degrees stack vertically with categories inside.
+- Header: title, one-line definition, a `DegreeLegend` showing the 5 degrees of intent left→right (Unintentional → Unaware → Deceived → Coerced → Intentional) with their adversary role / awareness.
+- `MatrixGrid`: 12 categories grouped under their 5 degree bands, ordered 1→12. Each category shows its number, name, and its techniques. On wide screens, a horizontal 5-degree band over 12 categories; on mobile, degrees stack vertically with categories inside.
 - Selecting a category (or each category's "detail") reveals/links a `CategoryCard` with: the full ordered technique list, each technique's MITRE ID linked to `https://attack.mitre.org/techniques/<ID>/` (sub-techniques use `Txxxx/00y`), and the category's mapped models + insider categories (cross-linked to `/theory`).
 
 **Components**
@@ -63,7 +63,7 @@ A **server component** that loads validated content and renders the matrix. No c
 
 ### As built
 
-The shipped Matrix follows the **MITRE ATT&CK viewer** model rather than per-category cards: one wide grid with all 11 categories side-by-side under their 5 degree-of-intent bands (horizontal scroll, with edge fades + chevron affordance), collapsible degrees, and an environmental heatmap built by marking techniques with a green/yellow/red highlight. The heatmap is **shareable** via a URL hash that encodes the marked techniques.
+The shipped Matrix follows the **MITRE ATT&CK viewer** model rather than per-category cards: one wide grid with all 12 categories side-by-side under their 5 degree-of-intent bands (horizontal scroll, with edge fades + chevron affordance), collapsible degrees, and an environmental heatmap built by marking techniques with a green/yellow/red highlight. The heatmap is **shareable** via a URL hash that encodes the marked techniques.
 
 - `app/matrix/page.tsx` — static Server Component; `loadContent()` → passes serializable data to `MatrixView`.
 - `src/components/matrix/MatrixView.tsx` (client) — the wide grid (`repeat(11, minmax(11rem,1fr))`), collapsible degree bands; each technique row has a **highlight dot** (click cycles none→green→yellow→red→none) and a **label button** that opens the detail drawer. Owns the active-technique state and seeds the selection from a `#h=` share hash on mount. Wrapped in the `HorizontalScroll` UI primitive.

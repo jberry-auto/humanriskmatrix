@@ -39,17 +39,19 @@
   primaryCategories:
     - 5
     - 8
+    - 12
   responseMechanism: Vendor-risk program at the human layer
   note: Vendor staff with access who are exploited or recruited.
 - slug: witting-recruited
   name: Witting recruited insider
   primaryCategories:
-    - 11
+    - 12
   responseMechanism: Counterintelligence response
   note: MICE doctrine.
 - slug: collusive
   name: Collusive insider
   primaryCategories:
     - 11
+    - 12
   responseMechanism: Counterintelligence plus investigation
   note: Two or more witting insiders coordinating; rare but consequential.

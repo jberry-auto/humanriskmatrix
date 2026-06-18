@@ -22,7 +22,7 @@ const degrees: ReadonlyArray<Degree> = [
   "unaware",
   "deceived",
   "coerced",
-  "complicit",
+  "intentional",
 ];
 
 export default function StyleGuide() {

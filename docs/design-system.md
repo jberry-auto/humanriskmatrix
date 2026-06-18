@@ -33,7 +33,7 @@ Defined in `app/globals.css` `@theme`; consumed as Tailwind utilities (`bg-bg`, 
 | `accent-contrast` | `#FFFFFF` | text on accent |
 | `accent-subtle` | `#E8F0EA` | tinted accent background |
 
-**Intent degrees** (muted/editorial, cool→warm, low→high intent): `degree-unintentional #3F6E8C` · `degree-unaware #4E5C8A` · `degree-deceived #6B5080` · `degree-coerced #9A5B57` · `degree-complicit #8C3B36`. All meet WCAG AA against paper; always paired with a label.
+**Intent degrees** (muted/editorial, cool→warm, low→high intent): `degree-unintentional #3F6E8C` · `degree-unaware #4E5C8A` · `degree-deceived #6B5080` · `degree-coerced #9A5B57` · `degree-intentional #8C3B36`. All meet WCAG AA against paper; always paired with a label.
 
 **Heatmap highlights** (generic, no fixed semantic — usable for risk, coverage, etc.): `hl-green #2F8F5B` · `hl-yellow #B07D12` · `hl-red #B5403A`. Used to mark techniques on the Matrix heatmap; like the intent degrees, **always paired with a text label** (the color name), never color alone.
 

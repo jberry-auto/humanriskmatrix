@@ -58,12 +58,12 @@ Each category file lists techniques in priority order. A technique is:
 - **`label`** — concise, specific, sentence-case noun phrase describing the behavior. Match the vocabulary already used in the category. Avoid vendor product names unless the technique is named for one (e.g., "Help-desk SE (Scattered Spider)").
 - **`mitreId`** — the canonical ATT&CK technique ID (e.g., `T1566`, `T1566.004`, `T1597.002`). Verify it on attack.mitre.org. Use `null` (not `""`, not `"—"`) when no coded technique applies. **Never invent an ID.**
 - **`detailedDescription` / `attackerBehavior` / `insiderBehavior`** — neutral, practitioner-facing prose. Describe adversary technique to help defenders, never as an operational how-to. For accidental categories (1–3), `attackerBehavior` describes how an adversary *leverages* the resulting exposure.
-- **`prevention`** — mode-tagged countermeasures; **cover all four modes** (`educate`, `evaluate`, `monitor`, `intervene` — see `docs/content-model.md`). `intervene` scales to the category's intent degree (blame-free re-education at `unintentional` → investigation / law-enforcement handling at `complicit`). Treat technology (UEBA, DLP, HRM platforms, manual investigation) as an enabler of the behavioral response, not the primary control. Stay neutral — no vendor names, no marketing tone.
+- **`prevention`** — mode-tagged countermeasures; **cover all four modes** (`educate`, `evaluate`, `monitor`, `intervene` — see `docs/content-model.md`). `intervene` scales to the category's intent degree (blame-free re-education at `unintentional` → investigation / law-enforcement handling at `intentional`). Treat technology (UEBA, DLP, HRM platforms, manual investigation) as an enabler of the behavioral response, not the primary control. Stay neutral — no vendor names, no marketing tone.
 - One behavior per entry. Don't merge two techniques into one label.
 - Order reflects prominence/representativeness within the category.
 
 ### Degrees of intent (`content/matrix/intent-degrees.yaml`)
-The five degrees of intent are fixed (Unintentional, Unaware, Deceived, Coerced, Complicit) and read left→right as a spectrum of malicious intent, not a timeline. Edits here are rare and require strong justification — degree boundaries are a structural decision of the taxonomy.
+The five degrees of intent are fixed (Unintentional, Unaware, Deceived, Coerced, Intentional) and read left→right as a spectrum of malicious intent, not a timeline. Edits here are rare and require strong justification — degree boundaries are a structural decision of the taxonomy.
 
 ### Framework & theory essays (`content/frameworks/*.mdx`, `content/theory/*.mdx`)
 Required frontmatter (see `docs/content-model.md` for the exact schema):

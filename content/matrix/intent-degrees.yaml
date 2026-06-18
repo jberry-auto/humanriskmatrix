@@ -30,11 +30,12 @@
     - 10
   adversaryRole: Active pressure or physical action
   awareness: Immediate or imminent; acts under force or confusion
-- id: complicit
-  name: Complicit
+- id: intentional
+  name: Intentional
   order: 5
   categoryRange:
     - 11
-    - 11
-  adversaryRole: Active sponsor
-  awareness: Full awareness; aligned with adversary
+    - 12
+  adversaryRole: Self-directed, or an external sponsor
+  awareness: Full awareness; chooses to act against the organization — alone for
+    gain or grievance, or for an adversary

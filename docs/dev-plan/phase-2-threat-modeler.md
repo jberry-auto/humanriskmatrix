@@ -39,7 +39,7 @@ const ThreatModelResultSchema = z.object({
 ```
 
 ## Prompt design (principles)
-- Ground the model in the taxonomy: provide the 11 categories + degrees of intent + representative techniques from `content/` as context (built from the same loader, not duplicated).
+- Ground the model in the taxonomy: provide the 12 categories + degrees of intent + representative techniques from `content/` as context (built from the same loader, not duplicated).
 - Ask for a calibrated per-category score with a concise rationale tied to the target's likely exposure; force the structured schema via tool/JSON output.
 - The target string is **untrusted input** — treat it as data, never as instructions (prompt-injection containment per `docs/security.md`).
 - Keep output bounded (token cap) and label everything as model-generated.

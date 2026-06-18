@@ -10,5 +10,5 @@ export const DEGREE_STYLE: Record<IntentDegreeId, DegreeStyle> = {
   unaware: { dot: "bg-degree-unaware" },
   deceived: { dot: "bg-degree-deceived" },
   coerced: { dot: "bg-degree-coerced" },
-  complicit: { dot: "bg-degree-complicit" },
+  intentional: { dot: "bg-degree-intentional" },
 };

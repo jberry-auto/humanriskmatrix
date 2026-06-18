@@ -4,7 +4,7 @@ This is the contract between the **taxonomy** and the **site**. The **canonical,
 
 ## Terminology
 
-The matrix is **11 categories of behavior** arranged along a **spectrum of malicious intent**. The 11 categories are grouped into **5 degrees of intent**. Read **left to right**, the spectrum runs from accidental, non-malicious behavior (that can still cause a breach or data loss) to witting cooperation with an adversary. Position reflects **how much malicious intent drives the behavior — it is not a timeline or a sequence of events.** (The terms "phases" and "columns" are deprecated: "phase" wrongly implied temporal progression.)
+The matrix is **12 categories of behavior** arranged along a **spectrum of malicious intent**. The 12 categories are grouped into **5 degrees of intent**. Read **left to right**, the spectrum runs from accidental, non-malicious behavior (that can still cause a breach or data loss) to witting cooperation with an adversary. Position reflects **how much malicious intent drives the behavior — it is not a timeline or a sequence of events.** (The terms "phases" and "columns" are deprecated: "phase" wrongly implied temporal progression.)
 
 ---
 
@@ -20,9 +20,9 @@ Ordered left → right by increasing malicious intent (not by time).
 | 2 | `unaware` | Unaware | 4–6 | Passive observation / relationship-building | None to low; unaware of being targeted |
 | 3 | `deceived` | Deceived | 7–8 | Active deception | Detected on reflection or never; believes the action is correct |
 | 4 | `coerced` | Coerced | 9–10 | Active pressure or physical action | Immediate/imminent; acts under force or confusion |
-| 5 | `complicit` | Complicit | 11 | Active sponsor | Full awareness; aligned with adversary |
+| 5 | `intentional` | Intentional | 11–12 | Self-directed, or an external sponsor | Full awareness; acts against the org — alone or for an adversary |
 
-### Categories (11)
+### Categories (12)
 
 | id | name | degree |
 |---|---|---|
@@ -36,20 +36,23 @@ Ordered left → right by increasing malicious intent (not by time).
 | 8 | Impersonation | deceived |
 | 9 | Forced Compliance | coerced |
 | 10 | Physical Intrusion | coerced |
-| 11 | Coercion & Recruitment | complicit |
+| 11 | Solo Malicious Insider | intentional |
+| 12 | Recruited & Directed Insider | intentional |
 
-Each category holds an **ordered list of techniques** (see the `Technique` schema below). For example, category 1 ranges from "Misdirected email (autocomplete)" to "Confidential data pasted into public LLM"; category 7 (Deceptive Delivery) is the densest, running from "Spearphishing Attachment (T1566.001)" through BEC variants and "ClickFix / FakeCaptcha (T1204.004)"; category 11 runs "Witting recruitment (MICE)" → "Sextortion" → … → "Ransomware extortion (post-SE)".
+The two intentional categories split the witting insider: **11 (Solo Malicious Insider)** is the self-directed actor acting for personal gain, grievance, or ideology; **12 (Recruited & Directed Insider)** acts for — or in collusion with — an external adversary.
+
+Each category holds an **ordered list of techniques** (see the `Technique` schema below). For example, category 1 ranges from "Misdirected email (autocomplete)" to "Confidential data pasted into public LLM"; category 7 (Deceptive Delivery) is the densest, running from "Spearphishing Attachment (T1566.001)" through BEC variants and "ClickFix / FakeCaptcha (T1204.004)"; category 11 runs from "Insider data theft" through sabotage and persistence; category 12 runs from "Witting recruitment (MICE)" through coercion to espionage tradecraft (dead drops, covert exfiltration).
 
 ### Substrate models
 
 Two families, mapped to categories. These become `content/frameworks/*.mdx`:
 
-- **Adversarial intent (categories 4–11):** MICE (11; 5,7) · RASCLS (6; 5,7) · Cialdini+Unity (5,6,8) · Cognitive biases (4–11).
+- **Adversarial intent (categories 4–12):** MICE (12; 5,7) · RASCLS (6; 5,7) · Cialdini+Unity (5,6,8) · Cognitive biases (4–12).
 - **Error & drift (categories 1–3):** Reason/Swiss-Cheese · Hollnagel/ETTO (2,3) · Rasmussen/Drift-to-Danger (2,3) · Dekker/Just-Culture (1,2,3) · Heinrich Pyramid (1,2,3).
 
 ### Insider-threat categories
 
-A separate classification from the 11 behavior categories. Negligent (1,2,3) · Compromised-credentials (2→7,8) · Unwitting-exploited (4–9) · Departing-employee (3↔11) · Third-party/vendor (5,8) · Witting-recruited (11) · Collusive (11). Each has a response mechanism and a note.
+A separate classification from the 12 behavior categories. Negligent (1,2,3) · Compromised-credentials (2→7,8) · Unwitting-exploited (4–9) · Departing-employee (3↔11) · Third-party/vendor (5,8,12) · Witting-recruited (12) · Collusive (11,12). Each has a response mechanism and a note.
 
 ---
 
@@ -62,7 +65,7 @@ import { z } from 'zod';
 
 // --- Intent degree ---
 export const IntentDegreeIdSchema = z.enum([
-  'unintentional', 'unaware', 'deceived', 'coerced', 'complicit',
+  'unintentional', 'unaware', 'deceived', 'coerced', 'intentional',
 ]);
 export type IntentDegreeId = z.infer<typeof IntentDegreeIdSchema>;
 
@@ -140,9 +143,9 @@ export type InsiderCategory = z.infer<typeof InsiderCategorySchema>;
 
 ### Cross-reference invariants (enforced by the loader)
 Beyond per-record validation, `load.ts` checks the **whole set**:
-- Every `category.degreeId` exists in `intent-degrees.yaml`, and category ids 1–11 are all present exactly once.
+- Every `category.degreeId` exists in `intent-degrees.yaml`, and category ids 1–12 are all present exactly once.
 - Every slug in `category.mappedModels` resolves to a `content/frameworks/*` file; every slug in `insiderCategories` resolves to a defined insider category.
-- Every `framework.mappedCategories` / `insiderCategory.primaryCategories` id is in 1–11.
+- Every `framework.mappedCategories` / `insiderCategory.primaryCategories` id is in 1–12.
 - No duplicate technique `label` within a category; every technique `id` is globally unique and prefixed with its `<categoryId>-`.
 - Every technique's `prevention` covers **all four** countermeasure modes (`educate`, `evaluate`, `monitor`, `intervene`).
 A failure throws with the offending file + field, and the **build fails**.
@@ -152,7 +155,7 @@ A failure throws with the offending file + field, and the **build fails**.
 - **educate** — build awareness through short, consumable messaging/training for the specific behavior.
 - **evaluate** — test resilience via simulation (phishing/scenario) and controlled integrity probes; not purely technical.
 - **monitor** — collect behavioral signals to detect the behavior (e.g. UEBA, DLP, access/audit telemetry).
-- **intervene** — respond, **scaled to the category's intent degree**: at `unintentional`, blame-free in-the-moment re-education; escalating through containment, protective/supportive response, up to manual investigation and law-enforcement / counter-intelligence handling at `complicit`.
+- **intervene** — respond, **scaled to the category's intent degree**: at `unintentional`, blame-free in-the-moment re-education; escalating through containment, protective/supportive response, up to manual investigation and law-enforcement / counter-intelligence handling at `intentional`.
 
 ---
 

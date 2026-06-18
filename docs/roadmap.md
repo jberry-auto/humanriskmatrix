@@ -18,7 +18,7 @@ The static reference site: content only, no AI, no database.
 **Scope**
 - ✅ Next.js (App Router, TS) scaffold; standalone container; CI/CD; deployed to DigitalOcean at humanriskmatrix.org.
 - ✅ Content pipeline: `content/` schemas + loader; validation as a build gate.
-- ✅ **Page 1 — Human Risk Matrix:** interactive ATT&CK-style grid of 11 categories across the 5 degrees of intent; click a technique for a detail side-sheet (overview, how an adversary operates, how the insider acts, countermeasures, MITRE link); mark techniques with a green/yellow/red **environmental heatmap** that persists to localStorage and is shareable by URL.
+- ✅ **Page 1 — Human Risk Matrix:** interactive ATT&CK-style grid of 12 categories across the 5 degrees of intent; click a technique for a detail side-sheet (overview, how an adversary operates, how the insider acts, countermeasures, MITRE link); mark techniques with a green/yellow/red **environmental heatmap** that persists to localStorage and is shareable by URL.
 - ⏳ **Page 2 — Theory & Frameworks:** foundations prose, substrate-model and insider-category tables, framework cards. *(Next milestone; framework/theory content is already seeded.)*
 - ✅ Home/landing + nav; responsive + accessible; light/dark theme.
 
@@ -61,7 +61,7 @@ Search across the matrix · stable permalinks/anchors per category & technique �
 The taxonomy is the product; the site is its surface. This track can progress in any phase.
 
 ### C0 — Foundation (with Phase 1)  ·  ✅ done
-The committed `content/` tree: 5 degrees of intent, 11 categories with **186 techniques**, MITRE IDs where coded, 9 framework records, and 7 insider-threat categories. Each technique carries a full write-up — overview, how an adversary operates, how the insider acts, and mode-tagged countermeasures (educate / evaluate / monitor / intervene). *(Long-form framework/theory essays remain — see C2.)*
+The committed `content/` tree: 5 degrees of intent, 12 categories with **186 techniques**, MITRE IDs where coded, 9 framework records, and 7 insider-threat categories. Each technique carries a full write-up — overview, how an adversary operates, how the insider acts, and mode-tagged countermeasures (educate / evaluate / monitor / intervene). *(Long-form framework/theory essays remain — see C2.)*
 
 ### C1 — Complete coverage
 Fill gaps in technique lists; add MITRE IDs where currently `null` and a real technique exists; ensure every category's `mappedModels` and `insiderCategories` are accurate.

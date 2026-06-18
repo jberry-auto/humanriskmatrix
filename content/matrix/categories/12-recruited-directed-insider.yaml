@@ -1,0 +1,392 @@
+id: 12
+name: Recruited & Directed Insider
+degreeId: intentional
+mappedModels:
+  - mice
+  - cognitive-biases
+insiderCategories:
+  - witting-recruited
+  - collusive
+  - third-party-vendor
+techniques:
+  - id: 12-witting-recruitment-mice
+    label: Witting recruitment (MICE)
+    mitreId: null
+    description: A target is knowingly recruited to act against their employer,
+      motivated by money, ideology, coercion, or ego.
+    detailedDescription: >-
+      The classic intelligence recruitment model exploiting one of four motivators: money
+      (financial pressure), ideology (political alignment), coercion (blackmail or threats),
+      or ego (flattery, recognition, revenge against perceived slights). The target
+      understands they are betraying their employer and chooses to proceed, often through
+      gradual escalation that normalizes the betrayal.
+    attackerBehavior: >-
+      The adversary identifies vulnerabilities through profiling, establishes rapport and
+      trust, gradually tests boundaries with small requests, and escalates commitment through
+      a series of increasingly compromising acts that create mutual culpability and dependence.
+    insiderBehavior: >-
+      The employee rationalizes their actions through grievance, ideology, financial
+      necessity, or fear, often believing they are serving a higher purpose, correcting
+      an injustice, or protecting themselves from consequences while compartmentalizing
+      the harm to their organization.
+    prevention:
+      - mode: educate
+        action: Train staff on recruitment tactics and create awareness of vulnerability factors like financial stress, ideological extremism, and grievances.
+      - mode: evaluate
+        action: Conduct controlled integrity tests and scenario simulations to identify personnel susceptible to recruitment approaches.
+      - mode: monitor
+        action: Implement behavioral analytics to detect changes in access patterns, financial stress indicators, ideological radicalization signals, and unusual contact patterns.
+      - mode: intervene
+        action: Launch manual counter-intelligence investigation with access containment, case-building for prosecution, and coordination with law enforcement or internal security teams.
+  - id: 12-direct-bribery
+    label: Direct bribery
+    mitreId: null
+    description: The target is paid directly to act on the adversary's behalf.
+    detailedDescription: >-
+      Cash, cryptocurrency, valuable goods, or financial services are offered in exchange
+      for specific actions or information. The transaction creates mutual culpability and
+      an ongoing financial relationship that can be used for future leverage, often
+      starting with small payments that gradually escalate in both amount and scope of required cooperation.
+    attackerBehavior: >-
+      The adversary identifies financial vulnerabilities or motivations, makes an initial
+      offer that seems reasonable and low-risk, provides payment to establish the relationship,
+      then gradually increases both compensation and requirements while using the established
+      pattern of payment as leverage for continued cooperation.
+    insiderBehavior: >-
+      The employee rationalizes the initial payment as harmless or deserved compensation,
+      often believing they can control the scope of cooperation and stop at any time,
+      while becoming increasingly dependent on the income and aware of their vulnerability
+      to exposure.
+    prevention:
+      - mode: educate
+        action: Train staff on bribery approaches and financial reporting requirements, emphasizing that the organization will investigate fairly rather than punish reporting.
+      - mode: evaluate
+        action: Conduct integrity testing with simulated bribery attempts and assess employee knowledge of financial disclosure and reporting requirements.
+      - mode: monitor
+        action: Monitor for unexplained lifestyle changes, financial stress indicators, and unusual access patterns that may correlate with external financial incentives.
+      - mode: intervene
+        action: Investigate financial irregularities thoroughly, trace payment sources and methods, contain compromised access immediately, and coordinate with law enforcement for prosecution.
+  - id: 12-sextortion
+    label: Sextortion
+    mitreId: null
+    description: Compromising sexual material is used to coerce the victim into cooperation.
+    detailedDescription: >-
+      Explicit sexual material — whether obtained through hacking, honey traps, or voluntary
+      sharing — is leveraged to force compliance with adversary demands. The shame, legal
+      concerns, and reputational damage create overwhelming pressure to cooperate, often
+      escalating from small requests to major breaches as the victim becomes increasingly
+      trapped.
+    attackerBehavior: >-
+      The adversary obtains compromising material through seduction, theft, or social
+      engineering, then reveals possession gradually to establish psychological control
+      before making specific demands, often starting small to normalize compliance and
+      build toward larger objectives.
+    insiderBehavior: >-
+      The victim feels trapped between exposure and betrayal, often believing they can
+      satisfy the demands and end the coercion, while experiencing shame, fear, and
+      isolation that prevents them from seeking help or reporting the situation.
+    prevention:
+      - mode: educate
+        action: Provide awareness training on sextortion tactics, victim support resources, and the importance of reporting rather than complying with demands.
+      - mode: evaluate
+        action: Test employee responses to simulated compromise scenarios and their knowledge of reporting channels for coercion situations.
+      - mode: monitor
+        action: Monitor for signs of personal distress, unusual access patterns, and behavioral changes that may indicate an employee is under duress.
+      - mode: intervene
+        action: Conduct discrete investigation to verify coercion, provide victim support and protection, contain access immediately, and coordinate with law enforcement for criminal prosecution.
+  - id: 12-honey-trap-leverage-phase
+    label: Honey trap (leverage phase)
+    mitreId: null
+    description: A cultivated intimate relationship is turned into leverage to
+      compel cooperation.
+    detailedDescription: >-
+      After establishing genuine emotional intimacy or dependency, the relationship is
+      weaponized through threats of exposure, abandonment, or harm to the relationship.
+      The target's emotional investment and fear of losing the connection create powerful
+      leverage that can compel cooperation with requests that escalate over time.
+    attackerBehavior: >-
+      The adversary cultivates a seemingly authentic intimate relationship, builds emotional
+      dependency and trust, then gradually introduces leverage through threats to the
+      relationship or exposure of compromising interactions while maintaining the emotional
+      connection to maximize control.
+    insiderBehavior: >-
+      The victim experiences torn loyalty between their genuine feelings and their
+      organizational duties, often believing they are protecting the relationship or
+      that their partner's requests are reasonable given their emotional bond.
+    prevention:
+      - mode: educate
+        action: Train staff on relationship-based manipulation tactics and encourage disclosure of personal relationships that could create conflicts of interest.
+      - mode: evaluate
+        action: Conduct scenarios testing how employees handle requests from intimate partners for work-related information or access.
+      - mode: monitor
+        action: Track changes in behavior and access patterns that correlate with new personal relationships, especially those formed in professional or travel contexts.
+      - mode: intervene
+        action: Investigate suspected honey trap operations, immediately contain compromised access, provide victim support, and coordinate counter-intelligence response with law enforcement.
+  - id: 12-blackmail-w-fabricated-material
+    label: Blackmail w/ fabricated material
+    mitreId: null
+    description: Fabricated compromising material is used to blackmail the target
+      into cooperation.
+    detailedDescription: >-
+      Deepfake technology, manipulated images, fabricated documents, or staged scenarios
+      create convincing but false compromising material that can be used for blackmail.
+      The realistic nature of fabricated evidence and the difficulty of proving innocence
+      create effective leverage for forcing cooperation even when the underlying material is entirely false.
+    attackerBehavior: >-
+      The adversary creates convincing fabricated evidence using available technology
+      and information about the target, presents the material as authentic with threats
+      of exposure, and leverages the victim's inability to quickly prove fabrication
+      to establish immediate control and compliance.
+    insiderBehavior: >-
+      The victim faces the impossible task of proving a negative, often believing that
+      even if they could eventually demonstrate fabrication, the immediate damage to
+      their reputation and relationships would be irreversible, leading them to comply
+      with demands.
+    prevention:
+      - mode: educate
+        action: Provide awareness of deepfake and fabrication techniques, emphasizing that fabricated blackmail should be reported for technical analysis rather than handled privately.
+      - mode: evaluate
+        action: Test employee responses to scenarios involving potentially fabricated compromising material and their knowledge of technical verification resources.
+      - mode: monitor
+        action: Monitor for behavioral changes indicating distress and establish channels for confidential reporting of suspected blackmail attempts.
+      - mode: intervene
+        action: Provide immediate technical analysis to verify authenticity, offer victim protection and support, contain access if compromised, and pursue criminal investigation of fabrication and extortion.
+  - id: 12-family-coercion
+    label: Family coercion
+    mitreId: null
+    description: Threats against the target's family are used to force cooperation.
+    detailedDescription: >-
+      Direct or implied threats of harm to family members create overwhelming pressure to
+      comply with adversary demands. The protective instinct and fear for loved ones'
+      safety override professional obligations and ethical considerations, creating a
+      powerful coercive dynamic that can compel almost any behavior.
+    attackerBehavior: >-
+      The adversary identifies family vulnerabilities through surveillance or research,
+      makes credible threats against specific family members, demonstrates capability
+      through surveillance evidence or minor incidents, then leverages the fear to extract
+      compliance with escalating demands.
+    insiderBehavior: >-
+      The victim prioritizes family safety above all other considerations, often believing
+      they have no choice but to comply and that resistance would put loved ones at
+      greater risk, while feeling isolated and unable to seek help.
+    prevention:
+      - mode: educate
+        action: Provide awareness of family threat scenarios and emphasize that the organization will provide protection and support rather than punishment for victims.
+      - mode: evaluate
+        action: Test employee knowledge of threat reporting procedures and their understanding of available protective resources and support systems.
+      - mode: monitor
+        action: Watch for behavioral changes indicating distress, changes in family routines reported through security awareness, and unusual access or data handling patterns.
+      - mode: intervene
+        action: Immediately provide family protection resources, contain the employee's access, coordinate with law enforcement for threat assessment, and launch counter-intelligence investigation.
+  - id: 12-immigration-visa-leverage
+    label: Immigration / visa leverage
+    mitreId: null
+    description: A target's immigration or visa status is exploited as leverage for
+      cooperation.
+    detailedDescription: >-
+      Vulnerabilities in immigration status — expired visas, questionable applications,
+      family member status issues — are leveraged to compel cooperation through threats
+      of deportation or legal consequences. The fear of losing legal status, employment,
+      and established life creates powerful pressure to comply with demands.
+    attackerBehavior: >-
+      The adversary identifies immigration vulnerabilities through research or insider
+      knowledge, threatens exposure to authorities or sponsors, and leverages the target's
+      fear of deportation or family separation to extract cooperation while maintaining
+      the threat as ongoing leverage.
+    insiderBehavior: >-
+      The victim feels trapped between career destruction and potential deportation,
+      often believing cooperation is temporary and necessary to protect their established
+      life and family's future while feeling unable to risk exposure by seeking help.
+    prevention:
+      - mode: educate
+        action: Provide clear guidance on immigration-related threat scenarios and ensure employees know that seeking help will not jeopardize their legitimate status.
+      - mode: evaluate
+        action: Test employee responses to scenarios involving threats related to their immigration status and knowledge of support resources.
+      - mode: monitor
+        action: Track behavioral changes that may indicate duress, particularly among employees with known immigration sensitivities, and monitor for unusual access patterns.
+      - mode: intervene
+        action: Verify immigration threats through legal counsel, provide immigration law support, contain compromised access, and coordinate investigation with appropriate authorities.
+  - id: 12-ransomware-extortion-post-se
+    label: Ransomware extortion (post-SE)
+    mitreId: null
+    description: After social-engineered access, data is encrypted or stolen and the
+      victim is extorted.
+    detailedDescription: >-
+      Following successful social engineering that establishes initial access, adversaries
+      deploy ransomware or exfiltrate sensitive data to create leverage for ongoing
+      extortion. The victim faces ongoing pressure to provide additional access, information,
+      or payments under threat of data release or continued system disruption.
+    attackerBehavior: >-
+      The adversary uses social engineering to gain initial access, deploys ransomware
+      or exfiltrates sensitive data, then leverages the compromise to demand ongoing
+      cooperation rather than one-time payment, using the continued threat as a mechanism
+      for sustained access.
+    insiderBehavior: >-
+      The victim initially believes they made a simple mistake that led to compromise,
+      then faces escalating demands that transform them from victim to reluctant accomplice
+      as they provide additional access or information under ongoing threat.
+    prevention:
+      - mode: educate
+        action: Train staff that ransomware incidents should be reported immediately rather than handled privately, and that ongoing demands require security intervention.
+      - mode: evaluate
+        action: Test employee responses to simulated ransomware scenarios and their knowledge of proper incident reporting and escalation procedures.
+      - mode: monitor
+        action: Monitor for signs of ongoing compromise, unusual access patterns following security incidents, and behavioral changes indicating continued duress.
+      - mode: intervene
+        action: Treat ongoing extortion as active threat, immediately contain affected access, provide victim support, and coordinate with law enforcement for criminal investigation.
+  - id: 12-selling-access-or-credentials
+    label: Selling access or credentials
+    mitreId: null
+    description: An insider sells VPN, cloud, or application access or credentials to an external actor.
+    detailedDescription: >-
+      A witting insider monetizes their access by selling working credentials, VPN or cloud
+      footholds, or session tokens to brokers or ransomware affiliates. The insider becomes
+      an initial-access vendor, handing outsiders a trusted starting point inside the
+      perimeter.
+    attackerBehavior: >-
+      Initial-access brokers and ransomware crews recruit and pay insiders for working
+      access, then use or resell it to launch intrusions that look like legitimate logins.
+    insiderBehavior: >-
+      Motivated by money, the insider treats their access as a sellable asset and may be
+      solicited through forums, messaging apps, or direct approaches.
+    prevention:
+      - mode: educate
+        action: Raise awareness that insiders are actively recruited to sell access, and make reporting solicitations easy and rewarded.
+      - mode: evaluate
+        action: Run counter-intelligence-style sting and integrity tests and watch for recruitment approaches targeting staff.
+      - mode: monitor
+        action: Watch for credential sharing, anomalous logins from new locations or devices, and dark-web mentions of corporate access.
+      - mode: intervene
+        action: Contain compromised access, investigate the transaction, and coordinate with law enforcement on the insider and the buyer.
+  - id: 12-clandestine-handler-communication
+    label: Clandestine handler communication / dead drops
+    mitreId: null
+    description: A recruited asset uses covert channels and dead drops to receive tasking and pass material to a handler.
+    detailedDescription: >-
+      An insider working for an external sponsor uses tradecraft to communicate without being
+      linked to them: burner devices, anonymized or encrypted apps, prearranged signals, and
+      physical or digital dead drops where material is left for later pickup. The clandestine
+      channel separates the act of collection from the act of handoff, frustrating
+      attribution.
+    attackerBehavior: >-
+      The handler trains and equips the asset in communication security — schedules, fallback
+      signals, drop sites, and burner infrastructure — to direct collection and retrieve
+      material while keeping the relationship hidden.
+    insiderBehavior: >-
+      The insider maintains a second, secret set of devices and routines for contact, keeping
+      the handler relationship strictly separated from their normal life and work.
+    prevention:
+      - mode: educate
+        action: Build awareness of recruitment and handler tradecraft and make reporting suspicious approaches and contacts safe and expected.
+      - mode: evaluate
+        action: Use counter-intelligence-style assessments and insider-threat hunts to test whether covert contact and drops would be noticed.
+      - mode: monitor
+        action: Watch for indicators — unexplained second devices, anomalous travel or meetings, and access patterns paired with handoff opportunities.
+      - mode: intervene
+        action: Refer suspected clandestine contact to counter-intelligence, contain access discreetly, preserve evidence, and coordinate with law enforcement.
+  - id: 12-covert-exfiltration-channel
+    label: Covert exfiltration channel (steganography / tunneling)
+    mitreId: null
+    description: A witting insider hides stolen data in images, DNS, or encrypted side-channels to defeat data-loss controls.
+    detailedDescription: >-
+      Rather than copy data out in the open, a deliberate insider conceals it — embedding
+      files in images or documents (steganography), tunneling over DNS or HTTPS, encrypting
+      and renaming, or smuggling small amounts over time. The goal is to move sensitive
+      material past DLP and egress monitoring so the theft never trips a rule.
+    attackerBehavior: >-
+      A handler or buyer specifies low-and-slow, covert channels and may supply tooling, so
+      the collection blends into normal traffic and evades the controls that catch overt
+      transfers.
+    insiderBehavior: >-
+      The insider takes deliberate steps to avoid detection — staging, obfuscating, and timing
+      the exfiltration — treating evasion as part of the task rather than an afterthought.
+    prevention:
+      - mode: educate
+        action: Reinforce that deliberate evasion of data controls is a serious offense and that monitoring extends beyond obvious channels.
+      - mode: evaluate
+        action: Red-team covert exfiltration (steganography, DNS/HTTPS tunneling) to measure whether controls and analysts detect it.
+      - mode: monitor
+        action: Inspect for tunneling and anomalous egress — unusual DNS volume, encrypted blobs, off-hours transfers — and correlate with access to sensitive data.
+      - mode: intervene
+        action: Contain access and preserve forensic evidence on suspected covert exfiltration, and investigate with legal and law enforcement.
+  - id: 12-third-party-contractor-access-abuse
+    label: Trusted third-party / contractor access abuse
+    mitreId: T1199
+    description: A vendor, MSP, or contractor with legitimate access deliberately misuses it against the organization.
+    detailedDescription: >-
+      A third party granted standing access — a managed service provider, contractor,
+      integrator, or vendor — abuses that trust to steal data, plant access, or act for a
+      competitor or sponsor. Because the access is sanctioned and often broad and lightly
+      monitored, the abuse is hard to distinguish from legitimate work, and it sits outside
+      the organization's own HR and monitoring controls.
+    attackerBehavior: >-
+      An adversary targets or co-opts the trusted supplier — recruiting its staff or
+      compromising the firm — to reach the real target through the legitimate connection,
+      exploiting the trusted relationship rather than breaching the perimeter directly.
+    insiderBehavior: >-
+      The third-party individual uses access they were given for delivery to take or expose
+      data beyond the engagement, knowing oversight of suppliers is usually weaker than for
+      employees.
+    prevention:
+      - mode: educate
+        action: Set explicit access, handling, and reporting obligations for vendors and contractors, and require their staff to acknowledge them.
+      - mode: evaluate
+        action: Assess third-party access against least-privilege in contracts and audits, and red-team the supplier path into sensitive systems.
+      - mode: monitor
+        action: Scope, log, and review third-party access separately, alerting on activity beyond the engagement's need-to-know.
+      - mode: intervene
+        action: Suspend the implicated third-party access, invoke contractual and legal remedies, investigate jointly, and coordinate with law enforcement.
+  - id: 12-hack-and-leak-operations
+    label: Hack-and-leak operations
+    mitreId: null
+    description: Stolen data is selectively released to damage, pressure, or influence.
+    detailedDescription: >-
+      Data obtained through technical compromise is strategically released to maximize
+      organizational damage, influence decisions, or pressure specific individuals. The
+      timing, selection, and framing of releases are carefully orchestrated to achieve
+      maximum impact while often involving insider knowledge to identify the most damaging materials.
+    attackerBehavior: >-
+      The adversary combines technical intrusion with insider intelligence to identify
+      high-value targets, selects and contextualizes material for maximum damage, times
+      releases for strategic impact, and often uses insider perspectives to authenticate
+      or interpret the leaked material.
+    insiderBehavior: >-
+      The insider provides context, authentication, or guidance on the most damaging
+      material to release, often believing they are exposing genuine wrongdoing or
+      serving a justified cause while helping maximize the operational impact.
+    prevention:
+      - mode: educate
+        action: Train staff on how to recognize and report approaches seeking context or guidance about internal data, communications, or organizational vulnerabilities.
+      - mode: evaluate
+        action: Conduct simulations testing employee responses to requests for information that could enable more effective hack-and-leak operations.
+      - mode: monitor
+        action: Monitor for unusual data access patterns, especially searches through historical communications or sensitive documents that lack clear business justification.
+      - mode: intervene
+        action: Launch immediate forensic investigation to trace data access and potential exfiltration, contain affected systems, and coordinate counter-intelligence response with law enforcement.
+  - id: 12-strategic-leaking
+    label: Strategic leaking
+    mitreId: null
+    description: An insider leaks information deliberately to advance an adversary's aims.
+    detailedDescription: >-
+      Specific information is deliberately disclosed to media, competitors, or other
+      parties to achieve strategic objectives like market manipulation, policy influence,
+      or operational disruption. The insider acts with full knowledge of the adversary's
+      goals and times disclosures for maximum strategic impact rather than general transparency.
+    attackerBehavior: >-
+      The adversary identifies high-value intelligence targets, recruits or directs
+      an insider with appropriate access, provides specific intelligence requirements
+      and timing guidance, and coordinates the leak with broader influence operations
+      or strategic objectives.
+    insiderBehavior: >-
+      The employee deliberately selects and times disclosures to serve specific adversary
+      objectives, often believing they are advancing a legitimate cause or justified
+      agenda while fully understanding the strategic nature of their cooperation.
+    prevention:
+      - mode: educate
+        action: Provide training on the strategic use of leaks by adversaries and the difference between legitimate transparency and strategic information warfare.
+      - mode: evaluate
+        action: Test employee understanding of proper information sharing policies and their ability to recognize requests for strategically timed disclosures.
+      - mode: monitor
+        action: Monitor for patterns in information access and external communications that may indicate coordination with strategic disclosure campaigns.
+      - mode: intervene
+        action: Investigate strategic leak patterns through counter-intelligence analysis, trace communication channels and coordination, and coordinate prosecution with law enforcement.

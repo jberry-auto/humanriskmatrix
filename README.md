@@ -15,16 +15,16 @@ It unifies the vocabularies of four disciplines usually kept apart — **counter
 
 ## The matrix at a glance
 
-Eleven categories of human behavior, ordered along a **spectrum of malicious intent** — by **how much harmful intent drives the behavior** (not by any sequence of events) — grouped into five degrees of intent:
+Twelve categories of human behavior, ordered along a **spectrum of malicious intent** — by **how much harmful intent drives the behavior** (not by any sequence of events) — grouped into five degrees of intent:
 
 ```
 least malicious intent  ────────────────────────────────────────────────────▶  most malicious intent
 
-UNINTENTIONAL              UNAWARE                   DECEIVED         COERCED                 COMPLICIT
+UNINTENTIONAL              UNAWARE                   DECEIVED         COERCED                 INTENTIONAL
 (no adversary)             (observed / cultivated)   (deceived)       (pressured / forced)    (witting)
-1 Accidental Disclosure    4 Reconnaissance          7 Deceptive      9 Forced Compliance     11 Coercion &
-2 Hygiene & Config Drift   5 Access Development         Delivery       10 Physical Intrusion      Recruitment
-3 Workarounds &            6 Elicitation             8 Impersonation
+1 Accidental Disclosure    4 Reconnaissance          7 Deceptive      9 Forced Compliance     11 Solo Malicious Insider
+2 Hygiene & Config Drift   5 Access Development         Delivery       10 Physical Intrusion    12 Recruited & Directed
+3 Workarounds &            6 Elicitation             8 Impersonation                              Insider
   Self-Exposure
 ```
 
