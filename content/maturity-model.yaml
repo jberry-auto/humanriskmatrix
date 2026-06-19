@@ -1,0 +1,240 @@
+# The Human Risk Maturity Model — a threat-informed capability ladder.
+# Each level carries a shared story (posture, description, signals, modes, degrees, the
+# counter-intelligence lens, the blind spot, and the gate to advance) plus a track per business
+# segment that can reach it. Segments and their caps live in maturity-segments.yaml.
+- level: 1
+  name: Compliance-Driven Awareness
+  posture: People are a compliance checkbox; security means "training delivered."
+  description: >-
+    The baseline. Periodic, generic security-awareness training is delivered to satisfy an audit
+    or regulatory requirement. The same content goes to everyone on a calendar cadence, success is
+    measured by completion rather than behavior, and nothing links the training to the
+    organization's real human-risk surface.
+  signals: Training-completion records only — no behavioral data.
+  modes: [educate]
+  degrees: [unintentional]
+  counterIntel: >-
+    None. Insider risk is invisible; there is no concept of a witting threat or of adversary
+    recruitment.
+  limitation: >-
+    Measures attendance, not behavior or risk. Blind to whether anyone is actually safer, and
+    entirely blind to malicious intent.
+  gate: >-
+    Deliver training in context, at the moment of risk, and start measuring behavior instead of
+    completion.
+  tracks:
+    - segment: small
+      approach: >-
+        An off-the-shelf SAT platform with automated enrollment and reminders, owned part-time by
+        IT or an MSP.
+      practices:
+        - Assign recurring security-awareness training through an off-the-shelf platform.
+        - Track completion as compliance evidence.
+      assessmentCriteria:
+        - All staff are assigned recurring security-awareness training.
+        - Training completion is tracked for compliance.
+    - segment: mid-size
+      approach: >-
+        A security function owns a documented awareness program in the LMS with formal compliance
+        reporting.
+      practices:
+        - Run a managed awareness curriculum mapped to compliance frameworks.
+        - Report completion and overdue training to risk or audit committees.
+      assessmentCriteria:
+        - Security owns a documented awareness program with compliance reporting.
+        - Completion is reviewed on a schedule.
+    - segment: enterprise
+      approach: >-
+        A dedicated awareness team runs an enterprise LMS with audited completion and policy
+        attestation.
+      practices:
+        - Operate an enterprise awareness program with audited evidence.
+        - Tie training to onboarding and policy attestation.
+      assessmentCriteria:
+        - A dedicated team runs the awareness program with audited completion.
+        - Training is integrated with onboarding and policy attestation.
+- level: 2
+  name: Just-in-Time Behavioral Training
+  posture: Reach people at the moment of risk and behavior changes.
+  description: >-
+    Training moves off the calendar and to the moment of action. When someone takes a risky action
+    — sends to an external recipient, clicks a suspicious link, pastes into a public LLM, approves
+    an unexpected MFA prompt — a contextual nudge educates them in the moment, paired with a light
+    intervention.
+  signals: Real-time action triggers from email, DLP, browser, or endpoint — treated as isolated events.
+  modes: [educate, intervene]
+  degrees: [unintentional, unaware, deceived]
+  counterIntel: >-
+    Still none — every actor is assumed well-meaning, and there is no way to tell a mistake from a
+    probe.
+  limitation: >-
+    Reactive and uniform, with no memory: it cannot distinguish a repeat-risky user from a one-off,
+    or coach based on history.
+  gate: >-
+    Track behaviors over time, mapped to the Human Risk Matrix, to build per-person risk profiles.
+  tracks:
+    - segment: small
+      approach: >-
+        Built-in nudges from the tools they already run — email warnings, browser/DLP prompts, and
+        an HRM platform's in-the-moment tips.
+      practices:
+        - Turn on external-sender and risky-action warnings in email and SaaS.
+        - Enable an HRM platform's in-the-moment nudges.
+      assessmentCriteria:
+        - Risky actions trigger an in-the-moment warning or nudge for users.
+    - segment: mid-size
+      approach: Security configures just-in-time interventions across the stack with simple playbooks.
+      practices:
+        - Configure contextual DLP and email warnings tied to policy.
+        - Pair each nudge with a quick coaching message and a report option.
+      assessmentCriteria:
+        - Just-in-time interventions are configured across core channels.
+        - Nudges are paired with a report or coaching path.
+    - segment: enterprise
+      approach: The awareness team curates integrated just-in-time coaching across the security stack.
+      practices:
+        - Integrate just-in-time coaching with the awareness curriculum.
+        - Tune triggers and messaging by role and risk.
+      assessmentCriteria:
+        - Just-in-time coaching is integrated across the stack and curated by the awareness team.
+- level: 3
+  name: Threat-Informed Human Risk Management
+  posture: People are sensors and risk-bearers; manage human risk against a threat taxonomy.
+  description: >-
+    Risky behaviors are tracked over time and mapped to the Human Risk Matrix, building per-person
+    and per-team risk profiles. Just-in-time training becomes targeted to each person's
+    demonstrated risks, and the program begins to evaluate resilience with simulations and the
+    first counter-intelligence-style integrity tests. This is threat-informed defense of the human
+    layer.
+  signals: >-
+    Behavioral telemetry (UEBA, DLP, access logs, HRM signals) mapped to matrix techniques, plus
+    simulation and integrity-test results.
+  modes: [educate, evaluate, monitor]
+  degrees: [unintentional, unaware, deceived, coerced]
+  counterIntel: >-
+    Counter-intelligence techniques emerge: integrity (controlled) testing and behavioral
+    monitoring enter the toolkit, aimed at reducing negligent and exploited risk — not yet at
+    catching witting actors.
+  limitation: >-
+    Sees individual risky behaviors but not the correlated patterns that signal intent; a
+    determined malicious insider blends into ordinary risky-behavior noise.
+  gate: >-
+    Correlate signals across the matrix into patterns that distinguish a mistake from intent —
+    stand up insider-threat detection.
+  tracks:
+    - segment: small
+      approach: >-
+        An all-in-one human-risk-management platform tracks behavior, maps it to the matrix, and
+        auto-targets micro-training; a founder or IT lead reviews a monthly risk dashboard. This is
+        a small business's realistic ceiling.
+      practices:
+        - Adopt an HRM platform that scores per-person behavior against a human-risk taxonomy.
+        - Let the platform auto-assign targeted micro-training.
+        - Review a monthly human-risk dashboard and run vendor-run simulations.
+      assessmentCriteria:
+        - A platform tracks per-person risky behavior mapped to a human-risk taxonomy.
+        - Training is targeted to each person's demonstrated risks.
+        - Simulations are run and results reviewed.
+    - segment: mid-size
+      approach: >-
+        Security integrates behavioral telemetry and an HRM platform mapped to the matrix, runs
+        internal simulations, and begins controlled integrity tests.
+      practices:
+        - Integrate UEBA/DLP signals mapped to matrix categories.
+        - Run internal phishing and scenario simulations.
+        - Pilot CI-style integrity tests on high-exposure roles.
+      assessmentCriteria:
+        - Behavioral signals are tracked over time and mapped to the matrix.
+        - The program runs simulations and at least pilots integrity testing.
+    - segment: enterprise
+      approach: >-
+        A human-risk analytics team operates integrated telemetry, a continuous simulation program,
+        and a standing integrity-testing capability.
+      practices:
+        - Operate integrated human-risk analytics across telemetry sources.
+        - Run a continuous simulation program.
+        - Maintain a standing integrity-testing capability.
+      assessmentCriteria:
+        - A dedicated analytics team manages matrix-mapped behavioral risk.
+        - Simulation and integrity testing run continuously.
+- level: 4
+  name: Insider-Threat & Malicious-Pattern Detection
+  posture: Some people are, or will become, threats; the program must see witting intent, not just error.
+  description: >-
+    Individual signals are correlated into patterns that distinguish a mistake from intent —
+    recruitment and coercion indicators, exfiltration tradecraft, sabotage precursors, control
+    circumvention. The organization stands up an insider-threat capability with triage, case
+    management, and graduated response. This is where counter-intelligence detection lives.
+  signals: >-
+    Multi-source correlated analytics, HR and personnel context, and CI behavioral indicators of
+    the intentional degree (matrix categories 11–12).
+  modes: [monitor, intervene]
+  degrees: [intentional]
+  counterIntel: >-
+    Counter-intelligence detection — applying CI tradecraft to surface witting insiders inside the
+    organization before they act.
+  limitation: >-
+    Responds case-by-case; it does not yet proactively deter or disrupt adversary recruitment, and
+    detection still trails the adversary.
+  gate: >-
+    Move from detection to operational counter-intelligence — investigate, neutralize, deter, and
+    continuously adapt.
+  tracks:
+    - segment: mid-size
+      approach: >-
+        Managed detection (MDR/MSSP) plus HRM alerts feed a virtual insider-threat working group of
+        IT, HR, and legal; external IR/CI is on retainer. This is a mid-size organization's
+        realistic ceiling.
+      practices:
+        - Correlate insider signals via MDR/MSSP and the HRM platform.
+        - Convene a cross-functional insider-threat working group to triage alerts.
+        - Keep external IR/CI counsel on retainer for escalation.
+      assessmentCriteria:
+        - Signals are correlated to surface possible malicious insiders.
+        - A cross-functional group triages insider cases with an escalation path to external IR/CI.
+    - segment: enterprise
+      approach: >-
+        A dedicated insider-threat program office with in-house CI analysts, 24/7 monitoring, and
+        formal case management.
+      practices:
+        - Run an insider-threat program office with defined triage and case management.
+        - Staff in-house CI analysts correlating intent-revealing patterns.
+        - Operate graduated response up to investigation.
+      assessmentCriteria:
+        - A dedicated insider-threat program correlates intent patterns with case management.
+        - In-house analysts run graduated response up to investigation.
+- level: 5
+  name: Adaptive Counter-Intelligence
+  posture: Actively defend people against a thinking adversary; disrupt and adapt.
+  description: >-
+    Operational counter-intelligence — investigate and neutralize witting threats, disrupt
+    recruitment and coercion before they mature through protective outreach and intervention, run
+    integrity operations, coordinate with law enforcement and national CI, and feed outcomes back
+    to continuously re-prioritize the whole program. Predictive risk modeling gets ahead of
+    emerging risk.
+  signals: >-
+    The full loop — behavioral, contextual, threat-intelligence, and investigation outcomes driving
+    adaptive prioritization.
+  modes: [educate, evaluate, monitor, intervene]
+  degrees: [unintentional, unaware, deceived, coerced, intentional]
+  counterIntel: >-
+    Full operational counter-intelligence — detect, investigate, neutralize, deter, and disrupt
+    adversary attempts to turn insiders, including the process of handling or neutralizing a
+    recruited agent.
+  limitation: >-
+    A north star: resource- and authority-intensive, and out of reach for all but the largest
+    organizations.
+  gate: null
+  northStar: true
+  tracks:
+    - segment: enterprise
+      approach: >-
+        A dedicated counter-intelligence function runs investigations, integrity operations, and
+        national-CI and law-enforcement liaison, feeding continuous program adaptation.
+      practices:
+        - Operate a CI function that investigates and neutralizes witting threats.
+        - Run integrity operations and disrupt recruitment proactively.
+        - Liaise with national CI and law enforcement; feed outcomes back into prioritization.
+      assessmentCriteria:
+        - A dedicated CI function investigates, neutralizes, and disrupts witting insider threats.
+        - Investigation outcomes continuously re-prioritize the human-risk program.

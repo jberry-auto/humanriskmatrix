@@ -11,11 +11,15 @@ import {
   InsiderCategorySchema,
   IntentDegreeSchema,
   MatrixCategorySchema,
+  MaturityLevelSchema,
+  MaturitySegmentSchema,
   type ContentBundle,
   type Framework,
   type InsiderCategory,
   type IntentDegree,
   type MatrixCategory,
+  type MaturityLevel,
+  type MaturitySegment,
 } from "./schema";
 
 const DEFAULT_CONTENT_DIR = join(process.cwd(), "content");
@@ -169,6 +173,78 @@ function checkCrossReferences(bundle: ContentBundle, errors: string[]): void {
       }
     }
   }
+
+  checkMaturityReferences(bundle, degreeIds, errors);
+}
+
+function checkMaturityReferences(
+  bundle: ContentBundle,
+  degreeIds: ReadonlySet<string>,
+  errors: string[],
+): void {
+  const { maturityLevels, maturitySegments } = bundle;
+  const segmentById = new Map(maturitySegments.map((s) => [s.id, s]));
+  const validModes = new Set<string>(COUNTERMEASURE_MODES);
+  const topLevel = maturityLevels.length;
+
+  // Levels present once each, contiguous from 1.
+  const seenLevels = new Map<number, number>();
+  for (const lvl of maturityLevels) {
+    seenLevels.set(lvl.level, (seenLevels.get(lvl.level) ?? 0) + 1);
+  }
+  for (let n = 1; n <= topLevel; n += 1) {
+    const count = seenLevels.get(n) ?? 0;
+    if (count !== 1) {
+      errors.push(`maturity model: level ${n} appears ${count} time(s) (expected 1)`);
+    }
+  }
+
+  // Per segment: residualRisk required below the top; a track present at exactly levels 1..cap.
+  for (const segment of maturitySegments) {
+    if (segment.cap < topLevel && segment.residualRisk === null) {
+      errors.push(
+        `maturity segment "${segment.id}": residualRisk is required when cap (${segment.cap}) is below the top level (${topLevel})`,
+      );
+    }
+    const levelsWithTrack = new Set(
+      maturityLevels
+        .filter((lvl) => lvl.tracks.some((t) => t.segment === segment.id))
+        .map((lvl) => lvl.level),
+    );
+    for (let n = 1; n <= segment.cap; n += 1) {
+      if (!levelsWithTrack.has(n)) {
+        errors.push(
+          `maturity segment "${segment.id}": missing a track at level ${n} (cap ${segment.cap})`,
+        );
+      }
+    }
+  }
+
+  // Per level: degrees resolve; modes valid; each track's segment resolves and level <= its cap.
+  for (const lvl of maturityLevels) {
+    for (const d of lvl.degrees) {
+      if (!degreeIds.has(d)) {
+        errors.push(`maturity level ${lvl.level}: degree "${d}" not found in intent-degrees.yaml`);
+      }
+    }
+    for (const m of lvl.modes) {
+      if (!validModes.has(m)) {
+        errors.push(`maturity level ${lvl.level}: unknown countermeasure mode "${m}"`);
+      }
+    }
+    for (const track of lvl.tracks) {
+      const segment = segmentById.get(track.segment);
+      if (!segment) {
+        errors.push(
+          `maturity level ${lvl.level}: track segment "${track.segment}" not found in maturity-segments.yaml`,
+        );
+      } else if (lvl.level > segment.cap) {
+        errors.push(
+          `maturity level ${lvl.level}: segment "${track.segment}" has a track above its cap (${segment.cap})`,
+        );
+      }
+    }
+  }
 }
 
 /** Read, validate, and cross-check all content. Throws ContentValidationError on any problem. */
@@ -189,8 +265,27 @@ export function loadContent(contentDir: string = DEFAULT_CONTENT_DIR): ContentBu
     "insider-categories.yaml",
     errors,
   );
+  const maturitySegments: MaturitySegment[] = readYamlArray(
+    join(contentDir, "maturity-segments.yaml"),
+    MaturitySegmentSchema,
+    "maturity-segments.yaml",
+    errors,
+  );
+  const maturityLevels: MaturityLevel[] = readYamlArray(
+    join(contentDir, "maturity-model.yaml"),
+    MaturityLevelSchema,
+    "maturity-model.yaml",
+    errors,
+  );
 
-  const bundle: ContentBundle = { degrees, categories, frameworks, insiderCategories };
+  const bundle: ContentBundle = {
+    degrees,
+    categories,
+    frameworks,
+    insiderCategories,
+    maturitySegments,
+    maturityLevels,
+  };
   checkCrossReferences(bundle, errors);
 
   if (errors.length > 0) throw new ContentValidationError(errors);

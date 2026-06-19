@@ -54,6 +54,14 @@ Two families, mapped to categories. These become `content/frameworks/*.mdx`:
 
 A separate classification from the 12 behavior categories. Negligent (1,2,3) · Compromised-credentials (2→7,8) · Unwitting-exploited (4–9) · Departing-employee (3↔11) · Third-party/vendor (5,8,12) · Witting-recruited (12) · Collusive (11,12). Each has a response mechanism and a note.
 
+### Human Risk Maturity Model
+
+A threat-informed **capability ladder** (`content/maturity-model.yaml` + `content/maturity-segments.yaml`) for maturing a program against the matrix. Five cumulative levels, with **counter-intelligence woven through every level** and as the apex:
+
+1. **Compliance-Driven Awareness** → 2. **Just-in-Time Behavioral Training** → 3. **Threat-Informed Human Risk Management** → 4. **Insider-Threat & Malicious-Pattern Detection** (CI detection) → 5. **Adaptive Counter-Intelligence** (operational CI; `northStar`).
+
+Each level carries the full story (`posture`, `description`, `signals`, `modes`, `degrees`, `counterIntel`, `limitation`, `gate`) and tracks rightward across the intent degrees. Because not every organization can build dedicated teams, each level breaks out by **business segment** — **Small** (cap L3), **Mid-size** (cap L4), **Enterprise** (cap L5) — via a per-segment `track` (`approach`, `practices`, `assessmentCriteria`). Above its cap a segment manages residual risk (transfer/outsource/accept) per the segment's `residualRisk`.
+
 ---
 
 ## Schemas (`src/lib/content/schema.ts`)
@@ -134,11 +142,41 @@ export type Framework = z.infer<typeof FrameworkSchema>;
 export const InsiderCategorySchema = z.object({
   slug: z.string().regex(/^[a-z0-9-]+$/),
   name: z.string().min(1),
-  primaryCategories: z.array(z.number().int().min(1).max(11)).min(1),
+  primaryCategories: z.array(z.number().int().min(1).max(12)).min(1),
   responseMechanism: z.string().min(1),
   note: z.string().optional(),
 });
 export type InsiderCategory = z.infer<typeof InsiderCategorySchema>;
+
+// --- Human Risk Maturity Model ---
+export const MaturitySegmentIdSchema = z.enum(['small', 'mid-size', 'enterprise']);
+export const MaturitySegmentSchema = z.object({
+  id: MaturitySegmentIdSchema,
+  name: z.string().min(1),
+  description: z.string().min(1),
+  cap: z.number().int().min(1).max(5),          // highest level this segment can reach
+  residualRisk: z.string().min(1).nullable(),   // managing risk above the cap; null at the top
+});
+export const LevelTrackSchema = z.object({
+  segment: MaturitySegmentIdSchema,
+  approach: z.string().min(1),
+  practices: z.array(z.string().min(1)).min(1),
+  assessmentCriteria: z.array(z.string().min(1)).min(1),
+});
+export const MaturityLevelSchema = z.object({
+  level: z.number().int().min(1).max(5),
+  name: z.string().min(1),
+  posture: z.string().min(1),
+  description: z.string().min(1),
+  signals: z.string().min(1),
+  modes: z.array(CountermeasureModeSchema).min(1),
+  degrees: z.array(IntentDegreeIdSchema).min(1),
+  counterIntel: z.string().min(1),              // the CI lens at this level
+  limitation: z.string().min(1),                // the blind spot motivating the gate
+  gate: z.string().min(1).nullable(),           // null at the top
+  tracks: z.array(LevelTrackSchema).min(1),     // one per segment whose cap >= this level
+  northStar: z.boolean().optional(),
+});
 ```
 
 ### Cross-reference invariants (enforced by the loader)
@@ -148,6 +186,7 @@ Beyond per-record validation, `load.ts` checks the **whole set**:
 - Every `framework.mappedCategories` / `insiderCategory.primaryCategories` id is in 1–12.
 - No duplicate technique `label` within a category; every technique `id` is globally unique and prefixed with its `<categoryId>-`.
 - Every technique's `prevention` covers **all four** countermeasure modes (`educate`, `evaluate`, `monitor`, `intervene`).
+- Maturity levels are numbered uniquely and contiguously from 1; every level's `degrees` resolve and `modes` are valid; every `track.segment` resolves to a defined segment, and a segment has a track at **exactly** levels 1..`cap` (none above the cap, no gaps below it); `residualRisk` is present for any segment whose `cap` is below the top level.
 A failure throws with the offending file + field, and the **build fails**.
 
 ### Countermeasure modes
@@ -169,13 +208,16 @@ content/
       01-accidental-disclosure.yaml   # one MatrixCategory per file
       02-hygiene-config-drift.yaml
       …
-      11-coercion-recruitment.yaml
+      11-solo-malicious-insider.yaml
+      12-recruited-directed-insider.yaml
   frameworks/
     mice.mdx  rascls.mdx  cialdini-unity.mdx  cognitive-biases.mdx
     swiss-cheese.mdx  etto.mdx  drift-to-danger.mdx  just-culture.mdx  heinrich-pyramid.mdx
   theory/
     why-this-taxonomy.mdx  framework-structure.mdx  substrate.mdx  insider-categories.mdx
   insider-categories.yaml             # array of InsiderCategory (tabular data)
+  maturity-segments.yaml              # array of MaturitySegment (size profiles + caps)
+  maturity-model.yaml                 # array of MaturityLevel (the capability ladder)
 ```
 
 ### Example category file

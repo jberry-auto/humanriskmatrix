@@ -97,10 +97,61 @@ export const InsiderCategorySchema = z.object({
 });
 export type InsiderCategory = z.infer<typeof InsiderCategorySchema>;
 
+// --- Human Risk Maturity Model ---
+// A capability ladder for threat-informed human-risk defense. Each level activates a subset of
+// the four countermeasure modes and addresses certain intent degrees; counter-intelligence is
+// woven through and is the apex. Each level breaks out by business segment, and each segment has
+// a realistic cap on the level it can reach.
+export const MaturitySegmentIdSchema = z.enum(["small", "mid-size", "enterprise"]);
+export type MaturitySegmentId = z.infer<typeof MaturitySegmentIdSchema>;
+
+export const MaturitySegmentSchema = z.object({
+  id: MaturitySegmentIdSchema,
+  name: z.string().min(1),
+  description: z.string().min(1),
+  // Highest level this segment can realistically reach.
+  cap: z.number().int().min(1).max(5),
+  // How to manage risk above the cap; null when the cap is the top level.
+  residualRisk: z.string().min(1).nullable(),
+});
+export type MaturitySegment = z.infer<typeof MaturitySegmentSchema>;
+
+// How one business segment realizes a given maturity level.
+export const LevelTrackSchema = z.object({
+  segment: MaturitySegmentIdSchema,
+  approach: z.string().min(1),
+  practices: z.array(z.string().min(1)).min(1),
+  assessmentCriteria: z.array(z.string().min(1)).min(1),
+});
+export type LevelTrack = z.infer<typeof LevelTrackSchema>;
+
+export const MaturityLevelSchema = z.object({
+  level: z.number().int().min(1).max(5),
+  name: z.string().min(1),
+  posture: z.string().min(1),
+  description: z.string().min(1),
+  signals: z.string().min(1),
+  modes: z.array(CountermeasureModeSchema).min(1),
+  degrees: z.array(IntentDegreeIdSchema).min(1),
+  // The counter-intelligence lens at this level (absent → techniques → detection → operational).
+  counterIntel: z.string().min(1),
+  // The blind spot that motivates the gate.
+  limitation: z.string().min(1),
+  // What advancing to the next level requires; null at the top.
+  gate: z.string().min(1).nullable(),
+  // One track per segment that can reach this level (segments whose cap >= this level).
+  tracks: z.array(LevelTrackSchema).min(1),
+  // True for an aspirational apex level (e.g. Level 5). Omitted/false otherwise.
+  northStar: z.boolean().optional(),
+});
+export type MaturityLevel = z.infer<typeof MaturityLevelSchema>;
+
 // --- The validated content bundle ---
 export interface ContentBundle {
   readonly degrees: readonly IntentDegree[];
   readonly categories: readonly MatrixCategory[];
   readonly frameworks: readonly Framework[];
   readonly insiderCategories: readonly InsiderCategory[];
+  readonly maturitySegments: readonly MaturitySegment[];
+  readonly maturityLevels: readonly MaturityLevel[];
 }
