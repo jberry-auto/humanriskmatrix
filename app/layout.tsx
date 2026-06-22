@@ -59,6 +59,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                   <Link href="/matrix" variant="nav" className="text-sm">
                     Matrix
                   </Link>
+                  <Link href="/maturity-model" variant="nav" className="text-sm">
+                    Maturity Model
+                  </Link>
                 </div>
                 <div className="flex items-center gap-1">
                   <Link href={GITHUB_URL} variant="nav" className="text-sm">

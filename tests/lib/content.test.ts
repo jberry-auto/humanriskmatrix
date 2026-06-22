@@ -60,6 +60,48 @@ describe("loadContent — real content/", () => {
   });
 });
 
+describe("maturity model", () => {
+  const bundle = loadContent();
+
+  it("has contiguous, uniquely-numbered levels from 1", () => {
+    const levels = bundle.maturityLevels;
+    expect(levels.length).toBeGreaterThanOrEqual(5);
+    const nums = levels.map((l) => l.level).sort((a, b) => a - b);
+    expect(nums).toEqual(levels.map((_, i) => i + 1));
+  });
+
+  it("has three segments with caps 3 / 4 / 5", () => {
+    const caps = Object.fromEntries(bundle.maturitySegments.map((s) => [s.id, s.cap]));
+    expect(caps).toEqual({ small: 3, "mid-size": 4, enterprise: 5 });
+  });
+
+  it("gives each segment a track at exactly levels 1..cap", () => {
+    for (const segment of bundle.maturitySegments) {
+      const withTrack = bundle.maturityLevels
+        .filter((l) => l.tracks.some((t) => t.segment === segment.id))
+        .map((l) => l.level)
+        .sort((a, b) => a - b);
+      expect(withTrack, segment.id).toEqual(Array.from({ length: segment.cap }, (_, i) => i + 1));
+    }
+  });
+
+  it("resolves degrees, uses valid modes, and gates every non-top level", () => {
+    const degreeIds = new Set(bundle.degrees.map((d) => d.id));
+    const modes = new Set(["educate", "evaluate", "monitor", "intervene"]);
+    const top = Math.max(...bundle.maturityLevels.map((l) => l.level));
+    for (const level of bundle.maturityLevels) {
+      for (const d of level.degrees) expect(degreeIds.has(d), `${level.level}:${d}`).toBe(true);
+      for (const m of level.modes) expect(modes.has(m)).toBe(true);
+      if (level.level < top) expect(level.gate, `level ${level.level}`).not.toBeNull();
+    }
+  });
+
+  it("addresses the intentional degree at the insider-threat detection level", () => {
+    const level = bundle.maturityLevels.find((l) => l.level === 4);
+    expect(level?.degrees).toContain("intentional");
+  });
+});
+
 describe("loadContent — invalid content", () => {
   it("throws ContentValidationError on a malformed category", () => {
     const dir = mkdtempSync(join(tmpdir(), "hrm-content-"));
@@ -67,6 +109,8 @@ describe("loadContent — invalid content", () => {
     mkdirSync(join(dir, "frameworks"), { recursive: true });
     writeFileSync(join(dir, "matrix", "intent-degrees.yaml"), "[]");
     writeFileSync(join(dir, "insider-categories.yaml"), "[]");
+    writeFileSync(join(dir, "maturity-segments.yaml"), "[]");
+    writeFileSync(join(dir, "maturity-model.yaml"), "[]");
     // A category whose technique is missing the required description.
     writeFileSync(
       join(dir, "matrix", "categories", "01-x.yaml"),
@@ -81,6 +125,8 @@ describe("loadContent — invalid content", () => {
     mkdirSync(join(dir, "frameworks"), { recursive: true });
     writeFileSync(join(dir, "matrix", "intent-degrees.yaml"), "[]");
     writeFileSync(join(dir, "insider-categories.yaml"), "[]");
+    writeFileSync(join(dir, "maturity-segments.yaml"), "[]");
+    writeFileSync(join(dir, "maturity-model.yaml"), "[]");
     // A technique valid in every way except: prevention omits the `intervene` mode.
     const category = [
       "id: 1",
@@ -109,6 +155,45 @@ describe("loadContent — invalid content", () => {
       expect(error).toBeInstanceOf(ContentValidationError);
       const { issues } = error as ContentValidationError;
       expect(issues.some((issue) => issue.includes("missing mode(s): intervene"))).toBe(true);
+    }
+  });
+
+  it("rejects a maturity track above its segment's cap", () => {
+    const dir = mkdtempSync(join(tmpdir(), "hrm-content-"));
+    mkdirSync(join(dir, "matrix", "categories"), { recursive: true });
+    mkdirSync(join(dir, "frameworks"), { recursive: true });
+    writeFileSync(join(dir, "matrix", "intent-degrees.yaml"), "[]");
+    writeFileSync(join(dir, "insider-categories.yaml"), "[]");
+    // Segment "small" caps at level 1, but level 2 below carries a "small" track.
+    writeFileSync(
+      join(dir, "maturity-segments.yaml"),
+      "- { id: small, name: S, description: d, cap: 1, residualRisk: r }\n",
+    );
+    const level = (n: number): string =>
+      [
+        `- level: ${n}`,
+        `  name: L${n}`,
+        `  posture: p`,
+        `  description: d`,
+        `  signals: s`,
+        `  tooling: t`,
+        `  modes: [educate]`,
+        `  degrees: [unintentional]`,
+        `  counterIntel: c`,
+        `  limitation: l`,
+        `  gate: ${n === 2 ? "null" : "g"}`,
+        `  tracks:`,
+        `    - { segment: small, approach: a, practices: [p1], assessmentCriteria: [c1] }`,
+      ].join("\n");
+    writeFileSync(join(dir, "maturity-model.yaml"), `${level(1)}\n${level(2)}\n`);
+
+    try {
+      loadContent(dir);
+      expect.fail("expected loadContent to throw");
+    } catch (error) {
+      expect(error).toBeInstanceOf(ContentValidationError);
+      const { issues } = error as ContentValidationError;
+      expect(issues.some((issue) => issue.includes("has a track above its cap"))).toBe(true);
     }
   });
 });

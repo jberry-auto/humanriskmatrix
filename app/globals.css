@@ -35,6 +35,14 @@
   --color-hl-yellow: #b07d12;
   --color-hl-red: #b5403a;
 
+  /* Maturity ramp — muted orange (low) → green (high), left to right. Used for the maturity
+     phase circles. White icon/number on top. Shared across light and dark. */
+  --color-maturity-1: #b9542f;
+  --color-maturity-2: #a4761f;
+  --color-maturity-3: #6f7c33;
+  --color-maturity-4: #4a7a44;
+  --color-maturity-5: #2f6b45;
+
   /* Radii — small and formal */
   --radius-sm: 0.125rem;
   --radius-md: 0.25rem;

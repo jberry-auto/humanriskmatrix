@@ -1,0 +1,26 @@
+- id: small
+  name: Small
+  description: >-
+    A small business or startup with no security team. IT, an MSP, or the founder handles security
+    part time, and most capability comes from tools and outsourcing.
+  cap: 3
+  residualRisk: >-
+    A small business stops at Level 3. It does not build its own insider-threat or
+    counter-intelligence capability. It transfers risk with cyber insurance, keeps an
+    incident-response firm on call, and accepts the rest.
+- id: mid-size
+  name: Mid-size
+  description: >-
+    A company with a security team but no insider-threat or counter-intelligence staff. It runs
+    programs and integrates tools, and brings in partners for deeper work.
+  cap: 4
+  residualRisk: >-
+    A mid-size company reaches counter-intelligence through partners, not its own team. It keeps
+    external investigators, outside counsel, and a law-enforcement contact on call.
+- id: enterprise
+  name: Enterprise
+  description: >-
+    A large organization with its own awareness, human-risk, insider-threat, and
+    counter-intelligence teams. It can run the full ladder in house.
+  cap: 5
+  residualRisk: null

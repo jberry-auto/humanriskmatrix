@@ -7,7 +7,8 @@ try {
   console.log(
     `content OK — ${bundle.degrees.length} intent degrees, ${bundle.categories.length} categories, ` +
       `${techniques} techniques, ${bundle.frameworks.length} frameworks, ` +
-      `${bundle.insiderCategories.length} insider categories`,
+      `${bundle.insiderCategories.length} insider categories, ` +
+      `${bundle.maturitySegments.length} segments, ${bundle.maturityLevels.length} maturity levels`,
   );
 } catch (err) {
   if (err instanceof ContentValidationError) {
