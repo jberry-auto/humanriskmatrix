@@ -13,6 +13,7 @@ const levels: MaturityLevel[] = [1, 2, 3, 4, 5].map((n) => ({
   posture: "p",
   description: "d",
   signals: "s",
+  tooling: "t",
   modes: ["educate"],
   degrees: ["unintentional"],
   counterIntel: "c",

@@ -1,33 +1,26 @@
 - id: small
   name: Small
   description: >-
-    A small business or startup with no dedicated security team. Security is owned part-time by
-    IT, an MSP, or a founder, and capability comes almost entirely from all-in-one tooling and
-    outsourced services.
+    A small business or startup with no security team. IT, an MSP, or the founder handles security
+    part time, and most capability comes from tools and outsourcing.
   cap: 3
   residualRisk: >-
-    Above Level 3 a small business does not build insider-threat or counter-intelligence
-    capability of its own. It manages the residual deliberately: transfer risk with cyber
-    insurance, keep an incident-response and forensics firm on call, lean on its MSP/MDR and law
-    enforcement if a malicious insider is suspected, and consciously accept the risk it cannot
-    economically cover.
+    A small business stops at Level 3. It does not build its own insider-threat or
+    counter-intelligence capability. It transfers risk with cyber insurance, keeps an
+    incident-response firm on call, and accepts the rest.
 - id: mid-size
   name: Mid-size
   description: >-
-    An organization with a dedicated security function but no dedicated insider-threat or
-    counter-intelligence team. It can run programs and integrate tooling, but staffs deeper
-    capability through partners rather than headcount.
+    A company with a security team but no insider-threat or counter-intelligence staff. It runs
+    programs and integrates tools, and brings in partners for deeper work.
   cap: 4
   residualRisk: >-
-    Above Level 4 a mid-size organization reaches operational counter-intelligence through
-    partners, not a team of its own: external CI/IR firms and outside counsel on retainer, a
-    working relationship with a law-enforcement field office, and platform automation. The
-    maturity is knowing when and how to bring those partners in.
+    A mid-size company reaches counter-intelligence through partners, not its own team. It keeps
+    external investigators, outside counsel, and a law-enforcement contact on call.
 - id: enterprise
   name: Enterprise
   description: >-
-    A large organization with dedicated functions — security awareness, human-risk analytics, an
-    insider-threat program, and counter-intelligence — staffed in-house and able to operate the
-    full ladder.
+    A large organization with its own awareness, human-risk, insider-threat, and
+    counter-intelligence teams. It can run the full ladder in house.
   cap: 5
   residualRisk: null

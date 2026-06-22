@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 
 import { MaturityAssessment } from "@/components/maturity/MaturityAssessment";
-import { MaturityLadder } from "@/components/maturity/MaturityLadder";
+import { MaturityPhases } from "@/components/maturity/MaturityPhases";
+import { MaturityTimeline } from "@/components/maturity/MaturityTimeline";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Heading } from "@/components/ui/Heading";
 import { Link } from "@/components/ui/Link";
@@ -11,7 +12,7 @@ import { loadContent } from "@/lib/content/load";
 export const metadata: Metadata = {
   title: "Maturity Model",
   description:
-    "The Human Risk Maturity Model — five levels of threat-informed human-risk defense, from compliance-driven awareness to adaptive counter-intelligence, woven through with counter-intelligence and broken out by organization size.",
+    "The Human Risk Maturity Model — five levels for maturing a human-risk program, from compliance training to a proactive human-risk program, with a track and a realistic ceiling for each organization size.",
 };
 
 export default function MaturityModelPage() {
@@ -20,39 +21,33 @@ export default function MaturityModelPage() {
   return (
     <div className="flex flex-col gap-12">
       <Section>
-        <Eyebrow>Threat-informed defense of the human layer</Eyebrow>
+        <Eyebrow>Human risk program maturity</Eyebrow>
         <Heading level={1} size="display">
           Human Risk Maturity Model
         </Heading>
         <p className="max-w-2xl text-muted">
-          The <Link href="/matrix">Human Risk Matrix</Link> tells you which human behaviors create
-          risk. This model tells you how a program matures against them — applying{" "}
-          <strong className="font-medium text-ink">threat-informed defense</strong>: using the
-          matrix as the knowledge base to prioritize and measure your defenses, across five levels.
+          The <Link href="/matrix">Human Risk Matrix</Link> shows which behaviors create risk. This
+          model shows how a security program matures against them, in five levels. A program starts
+          with compliance training, then learns to manage behavior: it maps the threats it faces to
+          the behaviors that drive them, trains on those behaviors, measures them, and drives risky
+          behavior down over time. The last step is the hardest: finding the rare, high-fidelity
+          signals of malicious intent hidden in the noise, where insider-threat and
+          counter-intelligence work sits.
         </p>
         <p className="max-w-2xl text-muted">
-          Maturity is a shift in posture that tracks rightward across the matrix&rsquo;s spectrum of
-          intent — from compliance-driven awareness to operational counter-intelligence.
-          Counter-intelligence is woven through every level and is the destination, and the four
-          countermeasure modes (educate, evaluate, monitor, intervene) switch on as you climb.
-          Because not every organization can build a dedicated insider-threat or CI team, each level
-          breaks out by size, and each segment tops out at a realistic cap:
+          Not every organization can build the same capability. Each level lists what it looks like
+          for a small business, a mid-size company, and an enterprise. Each size has a ceiling:
+          small stops at Level 3, mid-size at Level 4, enterprise at Level 5. Above the ceiling, you
+          transfer, outsource, or accept the risk.
         </p>
-        <ul className="flex flex-col gap-1 text-sm text-muted sm:flex-row sm:flex-wrap sm:gap-x-6">
-          {maturitySegments.map((segment) => (
-            <li key={segment.id}>
-              <span className="font-medium text-ink">{segment.name}</span> — caps at Level{" "}
-              {segment.cap}
-            </li>
-          ))}
-        </ul>
+        <MaturityPhases levels={maturityLevels} />
       </Section>
 
-      <Section aria-label="The maturity ladder">
+      <Section aria-label="The five levels">
         <Heading level={2} size="h2">
-          The ladder
+          The five levels
         </Heading>
-        <MaturityLadder levels={maturityLevels} segments={maturitySegments} />
+        <MaturityTimeline levels={maturityLevels} segments={maturitySegments} />
       </Section>
 
       <MaturityAssessment segments={maturitySegments} levels={maturityLevels} />

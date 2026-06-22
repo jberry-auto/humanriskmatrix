@@ -92,13 +92,12 @@ describe("maturity model", () => {
     for (const level of bundle.maturityLevels) {
       for (const d of level.degrees) expect(degreeIds.has(d), `${level.level}:${d}`).toBe(true);
       for (const m of level.modes) expect(modes.has(m)).toBe(true);
-      expect(level.counterIntel.length).toBeGreaterThan(0);
       if (level.level < top) expect(level.gate, `level ${level.level}`).not.toBeNull();
     }
   });
 
-  it("addresses the intentional degree at the malicious-pattern level", () => {
-    const level = bundle.maturityLevels.find((l) => l.name.includes("Malicious-Pattern"));
+  it("addresses the intentional degree at the insider-threat detection level", () => {
+    const level = bundle.maturityLevels.find((l) => l.level === 4);
     expect(level?.degrees).toContain("intentional");
   });
 });
@@ -177,6 +176,7 @@ describe("loadContent — invalid content", () => {
         `  posture: p`,
         `  description: d`,
         `  signals: s`,
+        `  tooling: t`,
         `  modes: [educate]`,
         `  degrees: [unintentional]`,
         `  counterIntel: c`,

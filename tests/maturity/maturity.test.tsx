@@ -3,7 +3,8 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
 import { MaturityAssessment } from "@/components/maturity/MaturityAssessment";
-import { MaturityLadder } from "@/components/maturity/MaturityLadder";
+import { MaturityPhases } from "@/components/maturity/MaturityPhases";
+import { MaturityTimeline } from "@/components/maturity/MaturityTimeline";
 import type { MaturityLevel, MaturitySegment } from "@/lib/content/schema";
 
 const segments: MaturitySegment[] = [
@@ -24,9 +25,10 @@ const levels: MaturityLevel[] = [
     posture: "people are a checkbox",
     description: "desc one",
     signals: "completion records",
+    tooling: "fixture tool one",
     modes: ["educate"],
     degrees: ["unintentional"],
-    counterIntel: "none here",
+    counterIntel: null,
     limitation: "blind to intent",
     gate: "track behaviors over time",
     tracks: [
@@ -50,6 +52,7 @@ const levels: MaturityLevel[] = [
     posture: "some are threats",
     description: "desc two",
     signals: "correlated analytics",
+    tooling: "fixture tool two",
     modes: ["monitor"],
     degrees: ["intentional"],
     counterIntel: "CI detection",
@@ -67,26 +70,36 @@ const levels: MaturityLevel[] = [
   },
 ];
 
-describe("MaturityLadder", () => {
-  it("renders the full story, segment columns, ceiling, and gate", () => {
-    render(<MaturityLadder levels={levels} segments={segments} />);
+describe("MaturityPhases", () => {
+  it("renders an icon circle and caption per level", () => {
+    render(<MaturityPhases levels={levels} />);
+    expect(screen.getByText("Awareness")).toBeInTheDocument();
+    expect(screen.getByText("Detection")).toBeInTheDocument();
+    expect(screen.getByText("L1")).toBeInTheDocument();
+    expect(screen.getByText("L2")).toBeInTheDocument();
+  });
+});
+
+describe("MaturityTimeline", () => {
+  it("renders each phase's story, the per-size tracks, the ceiling, and the gate", () => {
+    render(<MaturityTimeline levels={levels} segments={segments} />);
 
     expect(screen.getByRole("heading", { name: "Awareness" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Detection" })).toBeInTheDocument();
     expect(screen.getByText("people are a checkbox")).toBeInTheDocument();
-    // CI throughline labelled (not conveyed by color alone)
-    expect(screen.getAllByText("Counter-intelligence").length).toBeGreaterThan(0);
-    expect(screen.getByText("none here")).toBeInTheDocument();
-    // mode + degree chips render as text
-    expect(screen.getByText("Educate")).toBeInTheDocument();
-    expect(screen.getByText("Intentional")).toBeInTheDocument();
-    // north-star + ceiling tags
-    expect(screen.getByText("North star")).toBeInTheDocument();
-    expect(screen.getByText("Ceiling")).toBeInTheDocument();
-    expect(screen.getByText(/transfer the rest/)).toBeInTheDocument();
-    // gate connector for level 1
+    // CI is a small secondary note, present only where it applies (level 2 here, not level 1)
+    expect(screen.getByText("Counter-intel:")).toBeInTheDocument();
+    expect(screen.getByText("CI detection")).toBeInTheDocument();
+    // example tooling lives in its own meta line, not the prose
+    expect(screen.getByText("fixture tool one")).toBeInTheDocument();
+    // node carries the degree as text for screen readers
+    expect(screen.getByLabelText("Level 2")).toBeInTheDocument();
+    // by-size tracks + ceiling marker (Small caps at L1)
+    expect(screen.getByText("small approach")).toBeInTheDocument();
+    expect(screen.getByText("(ceiling)")).toBeInTheDocument();
+    // gate line for level 1
     expect(screen.getByText(/track behaviors over time/)).toBeInTheDocument();
-    // Small column only at L1 (caps there); Enterprise at both levels
+    // Small appears once (L1 only); Enterprise at both levels
     expect(screen.getAllByText("Small")).toHaveLength(1);
     expect(screen.getAllByText("Enterprise")).toHaveLength(2);
   });

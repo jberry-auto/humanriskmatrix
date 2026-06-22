@@ -131,10 +131,14 @@ export const MaturityLevelSchema = z.object({
   posture: z.string().min(1),
   description: z.string().min(1),
   signals: z.string().min(1),
+  // Example tooling for this level (a short, generic list). Kept in this one field rather than
+  // scattered through the prose.
+  tooling: z.string().min(1),
   modes: z.array(CountermeasureModeSchema).min(1),
   degrees: z.array(IntentDegreeIdSchema).min(1),
-  // The counter-intelligence lens at this level (absent → techniques → detection → operational).
-  counterIntel: z.string().min(1),
+  // A short counter-intelligence note where it applies (mostly the higher levels); null when it
+  // does not. The model is mostly traditional security work; CI is the sharp end at the top.
+  counterIntel: z.string().min(1).nullable(),
   // The blind spot that motivates the gate.
   limitation: z.string().min(1),
   // What advancing to the next level requires; null at the top.

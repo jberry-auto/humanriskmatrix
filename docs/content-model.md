@@ -56,11 +56,11 @@ A separate classification from the 12 behavior categories. Negligent (1,2,3) · 
 
 ### Human Risk Maturity Model
 
-A threat-informed **capability ladder** (`content/maturity-model.yaml` + `content/maturity-segments.yaml`) for maturing a program against the matrix. Five cumulative levels, with **counter-intelligence woven through every level** and as the apex:
+A threat-informed **capability ladder** (`content/maturity-model.yaml` + `content/maturity-segments.yaml`) for maturing a security program against the matrix. Mostly ordinary security work, with counter-intelligence as the sharp end at the top. Five cumulative levels:
 
-1. **Compliance-Driven Awareness** → 2. **Just-in-Time Behavioral Training** → 3. **Threat-Informed Human Risk Management** → 4. **Insider-Threat & Malicious-Pattern Detection** (CI detection) → 5. **Adaptive Counter-Intelligence** (operational CI; `northStar`).
+1. **Compliance Awareness** → 2. **Just-in-Time Training** → 3. **Threat-Informed Risk Management** → 4. **Insider-Threat Detection** → 5. **Proactive Human Risk Program** (`northStar`).
 
-Each level carries the full story (`posture`, `description`, `signals`, `modes`, `degrees`, `counterIntel`, `limitation`, `gate`) and tracks rightward across the intent degrees. Because not every organization can build dedicated teams, each level breaks out by **business segment** — **Small** (cap L3), **Mid-size** (cap L4), **Enterprise** (cap L5) — via a per-segment `track` (`approach`, `practices`, `assessmentCriteria`). Above its cap a segment manages residual risk (transfer/outsource/accept) per the segment's `residualRisk`.
+Each level carries the full story (`posture`, `description`, `signals`, `modes`, `degrees`, an optional `counterIntel` note, `limitation`, `gate`) and tracks rightward across the intent degrees. Because not every organization can build dedicated teams, each level breaks out by **business segment** — **Small** (cap L3), **Mid-size** (cap L4), **Enterprise** (cap L5) — via a per-segment `track` (`approach`, `practices`, `assessmentCriteria`). Above its cap a segment manages residual risk (transfer/outsource/accept) per the segment's `residualRisk`.
 
 ---
 
@@ -169,9 +169,10 @@ export const MaturityLevelSchema = z.object({
   posture: z.string().min(1),
   description: z.string().min(1),
   signals: z.string().min(1),
+  tooling: z.string().min(1),                   // short, generic example tooling
   modes: z.array(CountermeasureModeSchema).min(1),
   degrees: z.array(IntentDegreeIdSchema).min(1),
-  counterIntel: z.string().min(1),              // the CI lens at this level
+  counterIntel: z.string().min(1).nullable(),   // optional CI note; mostly the higher levels
   limitation: z.string().min(1),                // the blind spot motivating the gate
   gate: z.string().min(1).nullable(),           // null at the top
   tracks: z.array(LevelTrackSchema).min(1),     // one per segment whose cap >= this level

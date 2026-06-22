@@ -20,7 +20,7 @@ The static reference site: content only, no AI, no database.
 - ✅ Content pipeline: `content/` schemas + loader; validation as a build gate.
 - ✅ **Page 1 — Human Risk Matrix:** interactive ATT&CK-style grid of 12 categories across the 5 degrees of intent; click a technique for a detail side-sheet (overview, how an adversary operates, how the insider acts, countermeasures, MITRE link); mark techniques with a green/yellow/red **environmental heatmap** that persists to localStorage and is shareable by URL.
 - ⏳ **Page 2 — Theory & Frameworks:** foundations prose, substrate-model and insider-category tables, framework cards. *(Next milestone; framework/theory content is already seeded.)*
-- ✅ **Page 3 — Human Risk Maturity Model:** a threat-informed capability ladder (5 levels, counter-intelligence woven through) with size-based caps (Small→L3, Mid-size→L4, Enterprise→L5) and an interactive self-assessment. Content-driven from `content/maturity-model.yaml` + `content/maturity-segments.yaml`.
+- ✅ **Page 3 — Human Risk Maturity Model:** a threat-informed capability ladder (5 levels, mostly traditional security with counter-intelligence at the top) with size-based caps (Small→L3, Mid-size→L4, Enterprise→L5) and an interactive self-assessment. Content-driven from `content/maturity-model.yaml` + `content/maturity-segments.yaml`.
 - ✅ Home/landing + nav; responsive + accessible; light/dark theme.
 
 **Drivers:** `docs/dev-plan/phase-1-matrix-theory.md`, `docs/content-model.md`, `docs/architecture.md`.
