@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
@@ -36,13 +36,13 @@ const levels: MaturityLevel[] = [
         segment: "small",
         approach: "small approach",
         practices: ["small practice"],
-        assessmentCriteria: ["small does awareness"],
+        question: "small awareness question",
       },
       {
         segment: "enterprise",
         approach: "ent approach",
         practices: ["ent practice"],
-        assessmentCriteria: ["ent does awareness"],
+        question: "ent awareness question",
       },
     ],
   },
@@ -64,7 +64,7 @@ const levels: MaturityLevel[] = [
         segment: "enterprise",
         approach: "ent detect",
         practices: ["ent detect practice"],
-        assessmentCriteria: ["ent does detection"],
+        question: "ent detection question",
       },
     ],
   },
@@ -106,31 +106,46 @@ describe("MaturityTimeline", () => {
 });
 
 describe("MaturityAssessment", () => {
-  it("scores against the selected segment and respects the cap", async () => {
+  it("answers a yes/no question per level and respects the cap", async () => {
     render(<MaturityAssessment segments={segments} levels={levels} />);
 
-    // Default segment is Small; nothing checked yet.
+    // Default segment is Small (one question, since it caps at L1); nothing answered yet.
     expect(screen.getByRole("heading", { name: /Not yet at Level 1/ })).toBeInTheDocument();
+    expect(screen.getByText("small awareness question")).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole("checkbox", { name: "small does awareness" }));
+    await userEvent.click(screen.getByRole("button", { name: "Yes" }));
 
-    // Small caps at L1, so meeting L1 lands at the ceiling with the residual-risk guidance.
+    // Small caps at L1, so a "yes" lands at the ceiling with the residual-risk guidance.
     expect(screen.getByRole("heading", { name: /Level 1 — Awareness/ })).toBeInTheDocument();
     expect(screen.getByText(/transfer the rest/)).toBeInTheDocument();
   });
 
-  it("switches the criteria shown when the segment changes", async () => {
+  it("keeps the headline at the consolidated footing but surfaces an out-of-order reach", async () => {
     render(<MaturityAssessment segments={segments} levels={levels} />);
-
-    expect(screen.getByRole("checkbox", { name: "small does awareness" })).toBeInTheDocument();
 
     await userEvent.click(screen.getByRole("button", { name: "Enterprise" }));
 
-    // Enterprise caps at L2 → both levels' criteria appear; the small criterion is gone.
-    expect(screen.getByRole("checkbox", { name: "ent does awareness" })).toBeInTheDocument();
-    expect(screen.getByRole("checkbox", { name: "ent does detection" })).toBeInTheDocument();
-    expect(
-      screen.queryByRole("checkbox", { name: "small does awareness" }),
-    ).not.toBeInTheDocument();
+    // No to level 1, yes to level 2: footing is still nothing, but the level-2 reach is acknowledged.
+    const q1 = screen.getByRole("group", { name: "Answer for question 1" });
+    const q2 = screen.getByRole("group", { name: "Answer for question 2" });
+    await userEvent.click(within(q1).getByRole("button", { name: "No" }));
+    await userEvent.click(within(q2).getByRole("button", { name: "Yes" }));
+
+    expect(screen.getByRole("heading", { name: /Not yet at Level 1/ })).toBeInTheDocument();
+    expect(screen.getByText(/Level 2 practices/)).toBeInTheDocument();
+    expect(screen.getByText(/close the Level 1 gap/)).toBeInTheDocument();
+  });
+
+  it("shows one question per level and switches them by segment", async () => {
+    render(<MaturityAssessment segments={segments} levels={levels} />);
+
+    expect(screen.getByText("small awareness question")).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Enterprise" }));
+
+    // Enterprise caps at L2 → both questions appear; the small one is gone.
+    expect(screen.getByText("ent awareness question")).toBeInTheDocument();
+    expect(screen.getByText("ent detection question")).toBeInTheDocument();
+    expect(screen.queryByText("small awareness question")).not.toBeInTheDocument();
   });
 });

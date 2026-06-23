@@ -183,7 +183,7 @@ describe("loadContent — invalid content", () => {
         `  limitation: l`,
         `  gate: ${n === 2 ? "null" : "g"}`,
         `  tracks:`,
-        `    - { segment: small, approach: a, practices: [p1], assessmentCriteria: [c1] }`,
+        `    - { segment: small, approach: a, practices: [p1], question: q1 }`,
       ].join("\n");
     writeFileSync(join(dir, "maturity-model.yaml"), `${level(1)}\n${level(2)}\n`);
 
