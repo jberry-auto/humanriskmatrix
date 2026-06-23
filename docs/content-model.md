@@ -60,7 +60,7 @@ A threat-informed **capability ladder** (`content/maturity-model.yaml` + `conten
 
 1. **Compliance Awareness** → 2. **Just-in-Time Training** → 3. **Threat-Informed Risk Management** → 4. **Insider-Threat Detection** → 5. **Proactive Human Risk Program** (`northStar`).
 
-Each level carries the full story (`posture`, `description`, `signals`, `modes`, `degrees`, an optional `counterIntel` note, `limitation`, `gate`) and tracks rightward across the intent degrees. Because not every organization can build dedicated teams, each level breaks out by **business segment** — **Small** (cap L3), **Mid-size** (cap L4), **Enterprise** (cap L5) — via a per-segment `track` (`approach`, `practices`, `assessmentCriteria`). Above its cap a segment manages residual risk (transfer/outsource/accept) per the segment's `residualRisk`.
+Each level carries the full story (`posture`, `description`, `signals`, `tooling`, `modes`, `degrees`, an optional `counterIntel` note, `limitation`, `gate`) and tracks rightward across the intent degrees. Because not every organization can build dedicated teams, each level breaks out by **business segment** — **Small** (cap L3), **Mid-size** (cap L4), **Enterprise** (cap L5) — via a per-segment `track` (`approach`, `practices`, and a single yes/no `question` for the self-assessment). Above its cap a segment manages residual risk (transfer/outsource/accept) per the segment's `residualRisk`.
 
 ---
 
@@ -161,7 +161,7 @@ export const LevelTrackSchema = z.object({
   segment: MaturitySegmentIdSchema,
   approach: z.string().min(1),
   practices: z.array(z.string().min(1)).min(1),
-  assessmentCriteria: z.array(z.string().min(1)).min(1),
+  question: z.string().min(1),                  // one yes/no self-assessment question
 });
 export const MaturityLevelSchema = z.object({
   level: z.number().int().min(1).max(5),

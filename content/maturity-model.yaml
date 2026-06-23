@@ -24,25 +24,19 @@
       practices:
         - Assign recurring awareness training.
         - Keep completion records for audits.
-      assessmentCriteria:
-        - Staff are assigned recurring awareness training.
-        - Completion is tracked for compliance.
+      question: Is everyone assigned recurring security training, with completion tracked for compliance?
     - segment: mid-size
       approach: A security team runs the program in an LMS and reports completion to risk or audit.
       practices:
         - Run a managed curriculum tied to compliance.
         - Report completion and overdue training.
-      assessmentCriteria:
-        - Security runs a documented program with compliance reporting.
-        - Completion is reviewed on a schedule.
+      question: Does security run a documented awareness program and report completion to risk or audit?
     - segment: enterprise
       approach: A dedicated team runs an enterprise LMS with audited completion and policy sign-off.
       practices:
         - Run the program with audited evidence.
         - Tie training to onboarding and policy sign-off.
-      assessmentCriteria:
-        - A dedicated team runs the program with audited completion.
-        - Training is tied to onboarding and policy sign-off.
+      question: Does a dedicated team run the program with audited completion and policy sign-off?
 - level: 2
   name: Just-in-Time Training
   posture: Coach people at the moment of risk.
@@ -66,23 +60,19 @@
       practices:
         - Turn on risky-action warnings in email and SaaS.
         - Enable platform nudges.
-      assessmentCriteria:
-        - Risky actions trigger an in-the-moment warning.
+      question: Do risky actions trigger an in-the-moment warning or nudge for the user?
     - segment: mid-size
       approach: Security sets up contextual prompts across email and DLP, each with a way to report.
       practices:
         - Configure contextual warnings tied to policy.
         - Add a report or coaching path to each prompt.
-      assessmentCriteria:
-        - Contextual prompts run across core channels.
-        - Each prompt has a report or coaching path.
+      question: Are contextual prompts running across your main channels, each with a way to report?
     - segment: enterprise
       approach: The awareness team ties just-in-time coaching to the wider program and tunes it by role.
       practices:
         - Integrate coaching with the curriculum.
         - Tune prompts by role and risk.
-      assessmentCriteria:
-        - Just-in-time coaching is integrated and tuned by role.
+      question: Is just-in-time coaching integrated with the wider program and tuned by role?
 - level: 3
   name: Threat-Informed Risk Management
   posture: Manage the behaviors that drive risk.
@@ -109,28 +99,21 @@
         - Use a platform that scores behavior against the matrix.
         - Let it assign targeted training.
         - Review a monthly dashboard.
-      assessmentCriteria:
-        - A platform tracks behavior mapped to a risk taxonomy.
-        - Training targets each person's risks.
-        - Simulations run and are reviewed.
+      question: Does a platform track behavior against the matrix and assign targeted training you review?
     - segment: mid-size
       approach: Security feeds UEBA, DLP, and identity logs into a matrix-mapped platform and runs simulations.
       practices:
         - Map behavioral signals to the matrix.
         - Run phishing and scenario simulations.
         - Review per-person and per-team risk profiles.
-      assessmentCriteria:
-        - Behavior is tracked over time and mapped to the matrix.
-        - Simulations run and risk profiles are reviewed.
+      question: Is behavior tracked over time and mapped to the matrix, with simulations running?
     - segment: enterprise
       approach: A human-risk team runs integrated telemetry, an ongoing simulation program, and standing controlled tests.
       practices:
         - Run integrated human-risk analytics.
         - Run an ongoing simulation program.
         - Keep a standing testing capability.
-      assessmentCriteria:
-        - A dedicated team manages matrix-mapped risk.
-        - Simulation and testing run continuously.
+      question: Does a dedicated team manage matrix-mapped risk with continuous simulation and testing?
 - level: 4
   name: Insider-Threat Detection
   posture: Watch for intent, not just error.
@@ -159,18 +142,14 @@
         - Correlate insider signals from managed detection and the platform.
         - Triage cases with a cross-functional group.
         - Keep external investigators on retainer.
-      assessmentCriteria:
-        - Signals are correlated to flag possible malicious insiders.
-        - A cross-functional group triages cases and can escalate to outside help.
+      question: Are signals correlated to flag malicious insiders, with a group that triages and can escalate?
     - segment: enterprise
       approach: A dedicated insider-threat team with its own analysts, monitoring, and case management.
       practices:
         - Run an insider-threat team with set triage and case handling.
         - Staff analysts who work intent patterns.
         - Run a measured response up to investigation.
-      assessmentCriteria:
-        - A dedicated team correlates intent patterns and manages cases.
-        - Analysts run a measured response up to investigation.
+      question: Does a dedicated insider-threat team correlate intent patterns and run a measured response?
 - level: 5
   name: Proactive Human Risk Program
   posture: A program that learns and gets ahead of risk.
@@ -196,6 +175,4 @@
         - Run continuous detection, response, and threat hunting.
         - Tune controls and training from incidents and threat intelligence.
         - Keep a counter-intelligence capability for investigations and disruption.
-      assessmentCriteria:
-        - The program continuously improves controls and training from what it learns.
-        - A counter-intelligence capability investigates and disrupts deliberate threats.
+      question: Does the program continuously improve from what it learns, with CI that investigates and disrupts threats?

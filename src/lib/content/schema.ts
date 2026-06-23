@@ -121,7 +121,8 @@ export const LevelTrackSchema = z.object({
   segment: MaturitySegmentIdSchema,
   approach: z.string().min(1),
   practices: z.array(z.string().min(1)).min(1),
-  assessmentCriteria: z.array(z.string().min(1)).min(1),
+  // A single yes/no self-assessment question for this level and segment.
+  question: z.string().min(1),
 });
 export type LevelTrack = z.infer<typeof LevelTrackSchema>;
 
